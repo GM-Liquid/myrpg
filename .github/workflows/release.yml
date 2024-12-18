@@ -52,8 +52,12 @@ jobs:
           releases=$(gh api repos/${{ github.repository }}/releases --jq '.[1:] | map(.id)')
           echo "Releases to delete: $releases"
 
-          # Удаляем старые релизы
+          # Удаляем релизы по их ID
           for release_id in $releases; do
             echo "Deleting release ID: $release_id"
-            gh api repos/${{ github.repository }}/releases/$release_id -X DELETE
+            gh api \
+              -X DELETE \
+              -H "Accept: application/vnd.github+json" \
+              repos/${REPO_OWNER}/${REPO_NAME}/releases/$release_id \
+              || echo "Failed to delete release $release_id"
           done
