@@ -61,8 +61,5 @@
     "units": "ft"
   },
   "primaryTokenAttribute": "resources.health",
-  "secondaryTokenAttribute": "resources.ArmorClass",
-  "url": "https://your/hosted/system/repo/",
-  "manifest": "https://your/hosted/system/repo/system.json",
-  "download": "https://your/packaged/download/archive.zip"
+  "secondaryTokenAttribute": "resources.ArmorClass"
 }
