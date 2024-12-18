@@ -31,22 +31,18 @@ jobs:
           draft: false
           prerelease: false
 
-      # Загружаем ZIP-файл в релиз
-      - name: Upload ZIP to Release
-        uses: actions/upload-release-asset@v1
+      - name: Update Release with Files
+        id: create_version_release
+        uses: ncipollo/release-action@v1
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './${{ env.ZIP_NAME }}'
-          asset_name: './${{ env.ZIP_NAME }}'
-          asset_content_type: 'application/zip'
-
-      # Загружаем system.json в релиз
-      - name: Upload system.json to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './system.json'
-          asset_name: 'system.json'
-          asset_content_type: 'application/json'
+          allowUpdates: true
+          name: ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+          omitDraftDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: './system.json, ./${{ env.ZIP_NAME }}'
+          tag: ${{ env.TAG_NAME }}
+          body: |
+            ${{ steps.release.outputs.body }}
