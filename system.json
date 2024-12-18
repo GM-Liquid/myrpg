@@ -29,17 +29,15 @@
   ],
   "documentTypes": {
     "Actor": {
-      "character": {
-        "label": "Character",
-        "template": "templates/actors/actor-character.json"
-      }
+      "character": {}
     },
     "Item": {
       "weapon": {},
       "armor": {},
       "consumable": {},
       "spell": {},
-      "equipment": {}
+      "equipment": {},
+      "feat":  {}
     }
   },
   "socket": false,
