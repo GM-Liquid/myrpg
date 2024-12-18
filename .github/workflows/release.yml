@@ -2,7 +2,7 @@ name: Release Automation
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # Можно указать конкретную ветку или убрать, чтобы реагировать на пуш в любую ветку
 
 permissions:
   contents: write
@@ -13,15 +13,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
+      - name: Define Tag
+        run: echo "TAG=build-${{ github.sha }}" >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: "Release ${{ github.ref }}"
+          tag_name: ${{ env.TAG }}
+          release_name: "Release for commit ${{ github.sha }}"
           draft: false
           prerelease: false
           
