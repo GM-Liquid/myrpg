@@ -2,8 +2,7 @@ name: Release Automation
 
 on:
   push:
-    tags:
-      - 'v*'  # Запускаем при пуше тега, начинающегося на 'v'
+    branches: [ main ]
 
 permissions:
   contents: write
