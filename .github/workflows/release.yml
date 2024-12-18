@@ -58,6 +58,7 @@ jobs:
             gh api \
               -X DELETE \
               -H "Accept: application/vnd.github+json" \
-              repos/${REPO_OWNER}/${REPO_NAME}/releases/$release_id \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/$release_id \
               || echo "Failed to delete release $release_id"
           done
