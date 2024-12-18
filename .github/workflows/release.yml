@@ -17,6 +17,8 @@ jobs:
       # Создаём тег на основе хэша коммита
       - name: Define Tag
         run: echo "TAG=build-${{ github.sha }}" >> $GITHUB_ENV
+      - run: zip ${{ env.ZIP_NAME }} -r lang module packs styles templates system.json
+
 
       - name: Create Release
         id: create_release
@@ -30,12 +32,18 @@ jobs:
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Release Asset(s)
-        uses: sekwah41/upload-release-assets@v1.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './system.json'
-          asset_name: 'system.json'
-          asset_content_type: 'application/json'
+   - name: Update Release with Files
+      id: create_version_release
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true # Set this to false if you want to prevent updating existing releases
+        name: ${{ env.TAG_NAME }}
+        draft: false
+        prerelease: true
+        omitDraftDuringUpdate: true
+        omitPrereleaseDuringUpdate: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: './system.json, ./${{ env.ZIP_NAME }}'
+        tag: ${{ env.TAG_NAME }}
+        body: |
+          ${{ steps.release.outputs.body }}
