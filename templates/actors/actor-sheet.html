@@ -1,35 +1,24 @@
-﻿<div class="my-rpg-sheet actor-sheet">
-    <header>
-        <h1>{{actor.name}}</h1>
+﻿<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header">
+        {{!-- Header stuff goes here --}}
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+            <div class="resources grid grid-2col">{{!-- resources here --}}</div>
+            <div class="abilities grid grid-3col">{{!-- abilities here --}}</div>
+        </div>
     </header>
 
+    {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="main" class="active">Основное</a>
-        <a class="item" data-tab="inventory">Инвентарь</a>
-        <a class="item" data-tab="background">Предыстория</a>
-        <a class="item" data-tab="spells">Заклинания</a>
+        <a class="item" data-tab="description">Description</a>
+        <a class="item" data-tab="items">Items</a>
     </nav>
 
+    {{!-- Sheet Body --}}
     <section class="sheet-body">
-        <div class="tab" data-tab="main">
-            <h2>Характеристики</h2>
-            <div class="attributes">
-                {{#each attributes}}
-                <div class="attribute">
-                    <label>{{this.label}}:</label>
-                    <input type="number" class="attribute-input" data-key="{{@key}}" value="{{this.value}}" />
-                </div>
-                {{/each}}
-            </div>
-        </div>
-        <div class="tab" data-tab="inventory">
-            <h2>Инвентарь</h2>
-        </div>
-        <div class="tab" data-tab="background">
-            <h2>Предыстория и Внешность</h2>
-        </div>
-        <div class="tab" data-tab="spells">
-            <h2>Заклинания</h2>
-        </div>
+        {{!-- Tab content goes here --}}
     </section>
-</div>
+</form>
