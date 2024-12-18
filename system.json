@@ -2,7 +2,7 @@
   "id": "myrpg",
   "title": "My RPG System",
   "description": "Система для домашней RPG",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
@@ -12,14 +12,14 @@
   "download": "https://github.com/GM-Liquid/myrpg/releases/latest/download/myrpg.zip",
   "authors": [
     {
-      "name": "Ваше Имя",
-      "url": "YOUR WEBSITE ADDRESS HERE",
-      "email": "YOUR EMAIL ADDRESS HERE",
-      "discord": "YOUR DISCORD USERNAME HERE"
+      "name": "Матвей Сушко",
+      "url": "",
+      "email": "matveisushko@gmail.com",
+      "discord": "sushko_matvei"
     }
   ],
-  "esmodules": [ "module/my-rpg.js" ],
-  "styles": [ "styles/my-rpg.css" ],
+  "esmodules": [ "module/myrpg.js" ],
+  "styles": [ "styles/myrpg.css" ],
   "packs": [
     {
       "name": "monsters",
@@ -43,7 +43,7 @@
     "Actor": {
       "character": {
         "label": "Character",
-        "template": "systems/my-rpg/templates/actor-character.json"
+        "template": "templates/actor-character.json"
       }
     },
     "Item": {
@@ -57,8 +57,8 @@
   "socket": false,
   "initiative": "1d20",
   "grid": {
-    "distance": 10,
-    "units": "ft"
+    "distance": 2,
+    "units": "м"
   },
   "primaryTokenAttribute": "resources.health",
   "secondaryTokenAttribute": "resources.ArmorClass"
