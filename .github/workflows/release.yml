@@ -26,7 +26,7 @@ jobs:
           draft: false
           prerelease: false
           
-      - run:  zip ${{ env.ZIP_NAME }} -r lang module packs styles templates system.json
+      - run:  rpg.zip -r lang module packs styles templates system.json
       
       - name: Upload Release Asset(s)
         uses: sekwah41/upload-release-assets@v1.1.0
@@ -42,5 +42,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: './${{ env.ZIP_NAME }}'  
+            asset_path: './rpg.zip}'  
 
