@@ -2,7 +2,7 @@
   "id": "myrpg",
   "title": "My RPG System",
   "description": "Система для домашней RPG",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
@@ -20,18 +20,6 @@
   ],
   "esmodules": [ "module/myrpg.js" ],
   "styles": [ "styles/myrpg.css" ],
-  "packs": [
-    {
-      "name": "monsters",
-      "label": "My Monsters",
-      "type": "Actor"
-    },
-    {
-      "name": "items",
-      "label": "My Items",
-      "type": "Item"
-    }
-  ],
   "languages": [
     {
       "lang": "ru",
@@ -43,7 +31,7 @@
     "Actor": {
       "character": {
         "label": "Character",
-        "template": "templates/actor-character.json"
+        "template": "templates/actors/actor-character.json"
       }
     },
     "Item": {
@@ -51,7 +39,7 @@
       "armor": {},
       "consumable": {},
       "spell": {},
-      "misc": {}
+      "equipment": {}
     }
   },
   "socket": false,
