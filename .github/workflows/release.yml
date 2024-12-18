@@ -2,7 +2,8 @@ name: Release Automation
 
 on:
   push:
-    branches: [ main ]  # Можно указать конкретную ветку или убрать, чтобы реагировать на пуш в любую ветку
+    tags:
+      - 'v*'  # Запускаем при пуше тега, начинающегося на 'v'
 
 permissions:
   contents: write
@@ -14,35 +15,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Создаём тег на основе хэша коммита
-      - name: Define Tag
-      - run: echo "TAG=build-${{ github.sha }}" >> $GITHUB_ENV
-      - run:  zip ${{ env.ZIP_NAME }} -r lang module packs styles templates system.json
-
-
       - name: Create Release
         id: create_release
-        uses: softprops/action-gh-release@v1
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "auto-${{ github.run_id }}"
-          name: "Release for run ${{ github.run_id }}"
+          tag_name: ${{ github.ref }}
+          release_name: "Release ${{ github.ref }}"
           draft: false
           prerelease: false
-
-      - name: Update Release with Files
-        id: create_version_release
-        uses: ncipollo/release-action@v1
+          
+      - run:  zip ${{ env.ZIP_NAME }} -r lang module packs styles templates system.json
+      
+      - name: Upload Release Asset(s)
+        uses: sekwah41/upload-release-assets@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          allowUpdates: true
-          name: ${{ env.TAG_NAME }}
-          draft: false
-          prerelease: false
-          omitDraftDuringUpdate: true
-          omitPrereleaseDuringUpdate: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './system.json, ./${{ env.ZIP_NAME }}'
-          tag: Release for run ${{ github.run_id }}
-          body: |
-            ${{ steps.release.outputs.body }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: './system.json, ./${{ env.ZIP_NAME }}'
+
