@@ -17,12 +17,6 @@ jobs:
       - name: Copy system file
         run: cp ./system.json ./release/system.json
 
-      - name: Upload release artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: release-artifact
-          path: release/
-
       - name: Create GitHub release
         id: create_release
         uses: actions/create-release@v1
@@ -34,10 +28,8 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Release Asset(s)
+        uses: sekwah41/upload-release-assets@v1.1.0
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: release/system.json
