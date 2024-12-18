@@ -2,8 +2,7 @@ name: Release Automation
 
 on:
   push:
-    tags:
-      - 'v*'  # Запускаем при пуше тега, начинающегося на 'v'
+    branches: [ main ]  # Можно указать конкретную ветку или убрать, чтобы реагировать на пуш в любую ветку
 
 permissions:
   contents: write
@@ -14,22 +13,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
+      - name: Define Tag
+        run: echo "TAG=build-${{ github.sha }}" >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: "Release ${{ github.ref }}"
+          tag_name: ${{ env.TAG }}
+          release_name: "Release for commit ${{ github.sha }}"
           draft: false
           prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-
+          
+      - run:  zip rpg.zip -r lang module packs styles templates system.json
+      
       - name: Upload Release Asset(s)
         uses: sekwah41/upload-release-assets@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: './system.json'
-          asset_name: 'system.json'
-          asset_content_type: 'application/json'
-          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Assets
+        uses: sekwah41/upload-release-assets@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }}
+            asset_path: rpg.zip  
+
