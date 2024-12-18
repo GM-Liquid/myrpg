@@ -21,12 +21,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.TAG }}
-          release_name: "Release for commit ${{ github.sha }}"
+          tag_name: "auto-${{ github.run_id }}"
+          release_name: "Release ${{ github.run_id }}"
           draft: false
           prerelease: false
           
-      - run:  zip my-rpg.zip -r lang module packs styles templates system.json
+      - run:  zip myrpg.zip -r lang module packs styles templates system.json
       
       - name: Upload Release Asset(s)
         uses: sekwah41/upload-release-assets@v1.1.0
@@ -42,5 +42,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: my-rpg.zip  
+            asset_path: myrpg.zip  
+            
+      - name: Delete Old Releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Получаем список релизов, кроме последнего
+          releases=$(gh api repos/${{ github.repository }}/releases --jq '.[1:] | map(.id)')
+          echo "Releases to delete: $releases"
 
+          # Удаляем релизы по их ID
+          for release_id in $releases; do
+            echo "Deleting release ID: $release_id"
+            gh api \
+              -X DELETE \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/$release_id \
+              || echo "Failed to delete release $release_id"
+          done
