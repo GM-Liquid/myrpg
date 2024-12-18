@@ -1,0 +1,31 @@
+{
+  "system": {
+    "attributes": {
+      "body": {
+        "value": 10,
+        "label": "Телосложение"
+      },
+      "perception": {
+        "value": 10,
+        "label": "Восприятие"
+      },
+      "intellect": {
+        "value": 10,
+        "label": "Интеллект"
+      },
+      "reflexes": {
+        "value": 10,
+        "label": "Рефлексы"
+      },
+      "conductivity": {
+        "value": 10,
+        "label": "Проводимость"
+      },
+      "willpower": {
+        "value": 10,
+        "label": "Сила воли"
+      }
+    },
+    "skills": {}
+  }
+}

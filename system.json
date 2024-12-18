@@ -1,0 +1,65 @@
+{
+  "id": "my-rpg",
+  "title": "My RPG System",
+  "description": "Система для домашней RPG",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": 12,
+    "verified": 12
+  },
+  "authors": [
+    {
+      "name": "Ваше Имя",
+      "url": "YOUR WEBSITE ADDRESS HERE",
+      "email": "YOUR EMAIL ADDRESS HERE",
+      "discord": "YOUR DISCORD USERNAME HERE"
+    }
+  ],
+  "esmodules": [ "module/my-rpg.js" ],
+  "styles": [ "styles/my-rpg.css" ],
+  "packs": [
+    {
+      "name": "monsters",
+      "label": "My Monsters",
+      "type": "Actor"
+    },
+    {
+      "name": "items",
+      "label": "My Items",
+      "type": "Item"
+    }
+  ],
+  "languages": [
+    {
+      "lang": "ru",
+      "name": "Русский",
+      "path": "lang/ru.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "label": "Character",
+        "template": "systems/my-rpg/templates/actor-character.json"
+      }
+    },
+    "Item": {
+      "weapon": {},
+      "armor": {},
+      "consumable": {},
+      "spell": {},
+      "misc": {}
+    }
+  },
+  "socket": false,
+  "initiative": "1d20",
+  "grid": {
+    "distance": 10,
+    "units": "ft"
+  },
+  "primaryTokenAttribute": "resources.health",
+  "secondaryTokenAttribute": "resources.power",
+  "url": "https://your/hosted/system/repo/",
+  "manifest": "https://your/hosted/system/repo/system.json",
+  "download": "https://your/packaged/download/archive.zip"
+}

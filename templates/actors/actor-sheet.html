@@ -1,0 +1,35 @@
+﻿<div class="my-rpg-sheet actor-sheet">
+    <header>
+        <h1>{{actor.name}}</h1>
+    </header>
+
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="main" class="active">Основное</a>
+        <a class="item" data-tab="inventory">Инвентарь</a>
+        <a class="item" data-tab="background">Предыстория</a>
+        <a class="item" data-tab="spells">Заклинания</a>
+    </nav>
+
+    <section class="sheet-body">
+        <div class="tab" data-tab="main">
+            <h2>Характеристики</h2>
+            <div class="attributes">
+                {{#each attributes}}
+                <div class="attribute">
+                    <label>{{this.label}}:</label>
+                    <input type="number" class="attribute-input" data-key="{{@key}}" value="{{this.value}}" />
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="tab" data-tab="inventory">
+            <h2>Инвентарь</h2>
+        </div>
+        <div class="tab" data-tab="background">
+            <h2>Предыстория и Внешность</h2>
+        </div>
+        <div class="tab" data-tab="spells">
+            <h2>Заклинания</h2>
+        </div>
+    </section>
+</div>
