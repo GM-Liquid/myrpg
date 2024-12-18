@@ -21,8 +21,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.TAG }}
-          release_name: "Release for commit ${{ github.sha }}"
+          tag_name: "auto-${{ github.run_id }}"
+          release_name: "Release ${{ github.run_id }}"
           draft: false
           prerelease: false
           
@@ -43,4 +43,17 @@ jobs:
         with:
             upload_url: ${{ steps.create_release.outputs.upload_url }}
             asset_path: myrpg.zip  
+            
+      - name: Delete Old Releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Получаем список релизов, кроме последнего
+          releases=$(gh api repos/${{ github.repository }}/releases --jq '.[1:] | map(.id)')
+          echo "Releases to delete: $releases"
 
+          # Удаляем старые релизы
+          for release_id in $releases; do
+            echo "Deleting release ID: $release_id"
+            gh api repos/${{ github.repository }}/releases/$release_id -X DELETE
+          done
