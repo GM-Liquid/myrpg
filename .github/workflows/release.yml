@@ -18,8 +18,6 @@ jobs:
       - name: Define Tag
       - run: echo "TAG=build-${{ github.sha }}" >> $GITHUB_ENV
       - run:  zip ${{ env.ZIP_NAME }} -r lang module packs styles templates system.json
-          TAG=${GITHUB_REF/refs\/tags\//}
-          echo "TAG_NAME=$TAG" >> $GITHUB_ENV
 
 
       - name: Create Release
@@ -45,6 +43,6 @@ jobs:
           omitPrereleaseDuringUpdate: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: './system.json, ./${{ env.ZIP_NAME }}'
-          tag: ${{ env.TAG_NAME }}
+          tag: Release for run ${{ github.run_id }}
           body: |
             ${{ steps.release.outputs.body }}
