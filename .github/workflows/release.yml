@@ -3,16 +3,18 @@ name: Release Automation
 on:
   push:
     tags:
-      - 'v*'  # Запускается при пуше тега, начинающегося на "v"
+      - 'v*'  # Запускаем при пуше тега, начинающегося на 'v'
+
+permissions:
+  contents: write
 
 jobs:
   create_and_upload:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Создаем релиз и получаем upload_url
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -21,19 +23,13 @@ jobs:
           release_name: "Release ${{ github.ref }}"
           draft: false
           prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Теперь загружаем необходимый файл в релиз
       - name: Upload Release Asset(s)
         uses: sekwah41/upload-release-assets@v1.1.0
         with:
-          # Передаем upload_url, полученный из шага create_release
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-
-          # Локальный путь к файлу, который хотите загрузить (например, system.json в корне репо)
           asset_path: './system.json'
-
-          # Имя файла, под которым он будет отображаться в релизе
           asset_name: 'system.json'
-
-          # Тип контента: для JSON файлов обычно application/json
           asset_content_type: 'application/json'
+          token: ${{ secrets.GITHUB_TOKEN }}
