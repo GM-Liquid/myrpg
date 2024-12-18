@@ -16,8 +16,10 @@ jobs:
 
       # Создаём тег на основе хэша коммита
       - name: Define Tag
-        run: echo "TAG=build-${{ github.sha }}" >> $GITHUB_ENV
-      - run: zip ${{ env.ZIP_NAME }} -r lang module packs styles templates system.json
+      - run: echo "TAG=build-${{ github.sha }}" >> $GITHUB_ENV
+      - run:  zip ${{ env.ZIP_NAME }} -r lang module packs styles templates system.json
+          TAG=${GITHUB_REF/refs\/tags\//}
+          echo "TAG_NAME=$TAG" >> $GITHUB_ENV
 
 
       - name: Create Release
