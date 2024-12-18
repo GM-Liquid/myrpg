@@ -36,8 +36,8 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './module_bundle.zip'
-          asset_name: 'module_bundle.zip'
+          asset_path: './${{ env.ZIP_NAME }}'
+          asset_name: './${{ env.ZIP_NAME }}'
           asset_content_type: 'application/zip'
 
       # Загружаем system.json в релиз
