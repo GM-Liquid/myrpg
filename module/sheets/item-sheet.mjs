@@ -26,7 +26,7 @@ export class MySheetItemSheet extends ItemSheet {
 
   /** @override */
   get template() {
-    const path = 'systems/mysheet/templates/item';
+    const path = 'systems/myrpg/templates/item';
     // Return a single sheet for all item types.
     // return `${path}/item-sheet.hbs`;
 

@@ -26,7 +26,7 @@ export class MySheetActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/mysheet/templates/actor/actor-${this.actor.type}-sheet.hbs`;
+    return `systems/myrpg/templates/actor/actor-${this.actor.type}-sheet.hbs`;
   }
 
   /* -------------------------------------------- */

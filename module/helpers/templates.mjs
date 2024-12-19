@@ -6,11 +6,11 @@
 export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
     // Actor partials.
-    'systems/mysheet/templates/actor/parts/actor-features.hbs',
-    'systems/mysheet/templates/actor/parts/actor-items.hbs',
-    'systems/mysheet/templates/actor/parts/actor-spells.hbs',
-    'systems/mysheet/templates/actor/parts/actor-effects.hbs',
+    'systems/myrpg/templates/actor/parts/actor-features.hbs',
+    'systems/myrpg/templates/actor/parts/actor-items.hbs',
+    'systems/myrpg/templates/actor/parts/actor-spells.hbs',
+    'systems/myrpg/templates/actor/parts/actor-effects.hbs',
     // Item partials
-    'systems/mysheet/templates/item/parts/item-effects.hbs',
+    'systems/myrpg/templates/item/parts/item-effects.hbs',
   ]);
 };
