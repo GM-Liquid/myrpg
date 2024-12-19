@@ -1,11 +1,15 @@
 {
   "id": "myrpg",
-  "title": "myrpg",
-  "description": "My system for FoundryVTT!",
+  "title": "My",
+  "description": "The My system for FoundryVTT!",
   "authors": [
     {
-      "name": "Matvei",
-      "discord": "Matvei"
+      "name": "Asacolips",
+      "discord": "asacolips"
+    },
+    {
+      "name": "Lee Talman",
+      "discord": ".pizzaWizard"
     }
   ],
   "url": "Replace this with a link to your public repository",

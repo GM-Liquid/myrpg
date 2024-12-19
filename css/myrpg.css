@@ -203,11 +203,11 @@
   text-align: center;
 }
 
-/* Styles limited to mysheet sheets */
-.mysheet .item-form {
+/* Styles limited to myrpg sheets */
+.myrpg .item-form {
   font-family: "Roboto", sans-serif;
 }
-.mysheet .sheet-header {
+.myrpg .sheet-header {
   flex: 0 auto;
   overflow: hidden;
   display: flex;
@@ -216,43 +216,43 @@
   justify-content: flex-start;
   margin-bottom: 10px;
 }
-.mysheet .sheet-header .profile-img {
+.myrpg .sheet-header .profile-img {
   flex: 0 0 100px;
   height: 100px;
   margin-right: 10px;
 }
-.mysheet .sheet-header .header-fields {
+.myrpg .sheet-header .header-fields {
   flex: 1;
 }
-.mysheet .sheet-header h1.charname {
+.myrpg .sheet-header h1.charname {
   height: 50px;
   padding: 0px;
   margin: 5px 0;
   border-bottom: 0;
 }
-.mysheet .sheet-header h1.charname input {
+.myrpg .sheet-header h1.charname input {
   width: 100%;
   height: 100%;
   margin: 0;
 }
-.mysheet .sheet-tabs {
+.myrpg .sheet-tabs {
   flex: 0;
 }
-.mysheet .sheet-body,
-.mysheet .sheet-body .tab,
-.mysheet .sheet-body .tab .editor {
+.myrpg .sheet-body,
+.myrpg .sheet-body .tab,
+.myrpg .sheet-body .tab .editor {
   height: 100%;
 }
-.mysheet .tox .tox-editor-container {
+.myrpg .tox .tox-editor-container {
   background: #fff;
 }
-.mysheet .tox .tox-edit-area {
+.myrpg .tox .tox-edit-area {
   padding: 0 8px;
 }
-.mysheet .resource-label {
+.myrpg .resource-label {
   font-weight: bold;
 }
-.mysheet .items-header {
+.myrpg .items-header {
   height: 28px;
   margin: 2px 0;
   padding: 0;
@@ -261,17 +261,17 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
-.mysheet .items-header > * {
+.myrpg .items-header > * {
   font-size: 14px;
   text-align: center;
 }
-.mysheet .items-header .item-name {
+.myrpg .items-header .item-name {
   font-weight: bold;
   padding-left: 5px;
   text-align: left;
   display: flex;
 }
-.mysheet .items-list {
+.myrpg .items-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -279,12 +279,12 @@
   scrollbar-width: thin;
   color: #444;
 }
-.mysheet .items-list .item-list {
+.myrpg .items-list .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.mysheet .items-list .item-name {
+.myrpg .items-list .item-name {
   flex: 2;
   margin: 0;
   overflow: hidden;
@@ -293,46 +293,46 @@
   align-items: center;
   display: flex;
 }
-.mysheet .items-list .item-name h3, .mysheet .items-list .item-name h4 {
+.myrpg .items-list .item-name h3, .myrpg .items-list .item-name h4 {
   margin: 0;
   white-space: nowrap;
   overflow-x: hidden;
 }
-.mysheet .items-list .item-controls {
+.myrpg .items-list .item-controls {
   display: flex;
   flex: 0 0 100px;
   justify-content: flex-end;
 }
-.mysheet .items-list .item-controls a {
+.myrpg .items-list .item-controls a {
   font-size: 12px;
   text-align: center;
   margin: 0 6px;
 }
-.mysheet .items-list .item {
+.myrpg .items-list .item {
   align-items: center;
   padding: 0 2px;
   border-bottom: 1px solid #c9c7b8;
 }
-.mysheet .items-list .item:last-child {
+.myrpg .items-list .item:last-child {
   border-bottom: none;
 }
-.mysheet .items-list .item .item-name {
+.myrpg .items-list .item .item-name {
   color: #191813;
 }
-.mysheet .items-list .item .item-name .item-image {
+.myrpg .items-list .item .item-name .item-image {
   flex: 0 0 30px;
   height: 30px;
   background-size: 30px;
   border: none;
   margin-right: 5px;
 }
-.mysheet .items-list .item-prop {
+.myrpg .items-list .item-prop {
   text-align: center;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
-.mysheet .items-list .items-header {
+.myrpg .items-list .items-header {
   height: 28px;
   margin: 2px 0;
   padding: 0;
@@ -341,26 +341,26 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
-.mysheet .items-list .items-header > * {
+.myrpg .items-list .items-header > * {
   font-size: 12px;
   text-align: center;
 }
-.mysheet .items-list .items-header .item-name {
+.myrpg .items-list .items-header .item-name {
   padding-left: 5px;
   text-align: left;
 }
-.mysheet .item-formula {
+.myrpg .item-formula {
   flex: 0 0 200px;
   padding: 0 8px;
 }
-.mysheet .effects .item .effect-source,
-.mysheet .effects .item .effect-duration,
-.mysheet .effects .item .effect-controls {
+.myrpg .effects .item .effect-source,
+.myrpg .effects .item .effect-duration,
+.myrpg .effects .item .effect-controls {
   text-align: center;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
-.mysheet .effects .item .effect-controls {
+.myrpg .effects .item .effect-controls {
   border: none;
 }

@@ -7,11 +7,11 @@ import {
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-export class MySheetItemSheet extends ItemSheet {
+export class myrpgItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['mysheet', 'sheet', 'item'],
+      classes: ['myrpg', 'sheet', 'item'],
       width: 520,
       height: 480,
       tabs: [

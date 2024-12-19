@@ -7,11 +7,11 @@ import {
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class MySheetActorSheet extends ActorSheet {
+export class myrpgActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['mysheet', 'sheet', 'actor'],
+      classes: ['myrpg', 'sheet', 'actor'],
       width: 600,
       height: 600,
       tabs: [
@@ -80,7 +80,7 @@ export class MySheetActorSheet extends ActorSheet {
   _prepareCharacterData(context) {
     // Handle ability scores.
     for (let [k, v] of Object.entries(context.system.abilities)) {
-      v.label = game.i18n.localize(CONFIG.MY_SHEET.abilities[k]) ?? k;
+      v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
     }
   }
 

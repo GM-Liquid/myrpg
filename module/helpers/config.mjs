@@ -1,23 +1,23 @@
-export const MY_SHEET = {};
+export const MY_RPG = {};
 
 /**
  * The set of Ability Scores used within the system.
  * @type {Object}
  */
-MY_SHEET.abilities = {
-  str: 'MY_SHEET.Ability.Str.long',
-  dex: 'MY_SHEET.Ability.Dex.long',
-  con: 'MY_SHEET.Ability.Con.long',
-  int: 'MY_SHEET.Ability.Int.long',
-  wis: 'MY_SHEET.Ability.Wis.long',
-  cha: 'MY_SHEET.Ability.Cha.long',
+MY_RPG.abilities = {
+  str: 'MY_RPG.Ability.Str.long',
+  dex: 'MY_RPG.Ability.Dex.long',
+  con: 'MY_RPG.Ability.Con.long',
+  int: 'MY_RPG.Ability.Int.long',
+  wis: 'MY_RPG.Ability.Wis.long',
+  cha: 'MY_RPG.Ability.Cha.long',
 };
 
-MY_SHEET.abilityAbbreviations = {
-  str: 'MY_SHEET.Ability.Str.abbr',
-  dex: 'MY_SHEET.Ability.Dex.abbr',
-  con: 'MY_SHEET.Ability.Con.abbr',
-  int: 'MY_SHEET.Ability.Int.abbr',
-  wis: 'MY_SHEET.Ability.Wis.abbr',
-  cha: 'MY_SHEET.Ability.Cha.abbr',
+MY_RPG.abilityAbbreviations = {
+  str: 'MY_RPG.Ability.Str.abbr',
+  dex: 'MY_RPG.Ability.Dex.abbr',
+  con: 'MY_RPG.Ability.Con.abbr',
+  int: 'MY_RPG.Ability.Int.abbr',
+  wis: 'MY_RPG.Ability.Wis.abbr',
+  cha: 'MY_RPG.Ability.Cha.abbr',
 };

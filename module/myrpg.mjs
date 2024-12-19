@@ -1,12 +1,12 @@
 // Import document classes.
-import { MySheetActor } from './documents/actor.mjs';
-import { MySheetItem } from './documents/item.mjs';
+import { myrpgActor } from './documents/actor.mjs';
+import { myrpgItem } from './documents/item.mjs';
 // Import sheet classes.
-import { MySheetActorSheet } from './sheets/actor-sheet.mjs';
-import { MySheetItemSheet } from './sheets/item-sheet.mjs';
+import { myrpgActorSheet } from './sheets/actor-sheet.mjs';
+import { myrpgItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
-import { MY_SHEET } from './helpers/config.mjs';
+import { MY_RPG } from './helpers/config.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -15,14 +15,14 @@ import { MY_SHEET } from './helpers/config.mjs';
 Hooks.once('init', function () {
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
-  game.mysheet = {
-    MySheetActor,
-    MySheetItem,
+  game.myrpg = {
+    myrpgActor,
+    myrpgItem,
     rollItemMacro,
   };
 
   // Add custom constants for configuration.
-  CONFIG.MY_SHEET = MY_SHEET;
+  CONFIG.MY_RPG = MY_RPG;
 
   /**
    * Set an initiative formula for the system
@@ -34,8 +34,8 @@ Hooks.once('init', function () {
   };
 
   // Define custom Document classes
-  CONFIG.Actor.documentClass = MySheetActor;
-  CONFIG.Item.documentClass = MySheetItem;
+  CONFIG.Actor.documentClass = myrpgActor;
+  CONFIG.Item.documentClass = myrpgItem;
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
@@ -44,14 +44,14 @@ Hooks.once('init', function () {
 
   // Register sheet application classes
   Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet('mysheet', MySheetActorSheet, {
+  Actors.registerSheet('myrpg', myrpgActorSheet, {
     makeDefault: true,
-    label: 'MY_SHEET.SheetLabels.Actor',
+    label: 'MY_RPG.SheetLabels.Actor',
   });
   Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('mysheet', MySheetItemSheet, {
+  Items.registerSheet('myrpg', myrpgItemSheet, {
     makeDefault: true,
-    label: 'MY_SHEET.SheetLabels.Item',
+    label: 'MY_RPG.SheetLabels.Item',
   });
 
   // Preload Handlebars templates.
@@ -99,7 +99,7 @@ async function createItemMacro(data, slot) {
   const item = await Item.fromDropData(data);
 
   // Create the macro command using the uuid.
-  const command = `game.mysheet.rollItemMacro("${data.uuid}");`;
+  const command = `game.myrpg.rollItemMacro("${data.uuid}");`;
   let macro = game.macros.find(
     (m) => m.name === item.name && m.command === command
   );
@@ -109,7 +109,7 @@ async function createItemMacro(data, slot) {
       type: 'script',
       img: item.img,
       command: command,
-      flags: { 'mysheet.itemMacro': true },
+      flags: { 'myrpg.itemMacro': true },
     });
   }
   game.user.assignHotbarMacro(macro, slot);

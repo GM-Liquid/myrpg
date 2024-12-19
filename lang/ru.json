@@ -1,5 +1,5 @@
 {
-  "myrpg": {
+  "MY_RPG": {
     "Ability": {
       "Str": { "long": "Strength", "abbr": "str" },
       "Con": { "long": "Constitution", "abbr": "con" },
@@ -9,8 +9,8 @@
       "Cha": { "long": "Charisma", "abbr": "cha" }
     },
     "SheetLabels": {
-      "Actor": "MySheet Actor Sheet",
-      "Item": "MySheet Item Sheet"
+      "Actor": "myrpg Actor Sheet",
+      "Item": "myrpg Item Sheet"
     },
     "Item": {
       "Spell": {
