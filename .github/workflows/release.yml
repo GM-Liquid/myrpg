@@ -26,7 +26,7 @@ jobs:
           draft: false
           prerelease: false
           
-      - run:  zip myrpg.zip -r lang module packs templates lib css assets system.json template.json
+      - run:  zip myrpg.zip -r lang module templates lib css assets system.json template.json
       
       - name: Upload Release Asset(s)
         uses: sekwah41/upload-release-assets@v1.1.0
