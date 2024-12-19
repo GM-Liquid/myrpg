@@ -2,7 +2,7 @@
   "id": "myrpg",
   "title": "My RPG System",
   "description": "Система для домашней RPG",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
