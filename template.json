@@ -24,23 +24,35 @@
         }
       },
       "abilities": {
-        "str": {
-          "value": 10
+        "Will": {
+          "value": 10,
+          "min": 1,
+          "max": 20
         },
         "dex": {
-          "value": 10
+          "value": 10,
+          "min": 1,
+          "max": 20
         },
         "con": {
-          "value": 10
+          "value": 10,
+          "min": 1,
+          "max": 20
         },
         "int": {
-          "value": 10
+          "value": 10,
+          "min": 1,
+          "max": 20
         },
         "wis": {
-          "value": 10
+          "value": 10,
+          "min": 1,
+          "max": 20
         },
-        "cha": {
-          "value": 10
+        "Cond": {
+          "value": 10,
+          "min": 1,
+          "max": 20
         }
       }
     },
