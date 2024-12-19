@@ -50,7 +50,7 @@ export class myrpgActor extends Actor {
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(systemData.abilities)) {
       // Calculate the modifier using d20 rules.
-      ability.mod = Math.floor((ability.value - 10) / 2);
+      ability.mod = ability.value;
     }
   }
 
@@ -62,7 +62,7 @@ export class myrpgActor extends Actor {
 
     // Make modifications to data here. For example:
     const systemData = actorData.system;
-    systemData.xp = systemData.cr * systemData.cr * 100;
+    systemData.xp = systemData.crcr * systemData.cr * 100;
   }
 
   /**

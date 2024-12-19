@@ -1,12 +1,12 @@
 {
   "MY_RPG": {
     "Ability": {
-      "Will": { "long": "Сила", "abbr": "Воля" },
-      "Con": { "long": "Телосложение", "abbr": "Тело" },
-      "Dex": { "long": "Рефлексы", "abbr": "Реф" },
-      "Int": { "long": "Интеллект", "abbr": "Инт" },
-      "Wis": { "long": "Восприятие", "abbr": "Восп" },
-      "Cond": { "long": "Проводимость", "abbr": "Пров" }
+      "Will": { "long": "Сила", "abbr": "will" },
+      "Con": { "long": "Телосложение", "abbr": "con" },
+      "Dex": { "long": "Рефлексы", "abbr": "dex" },
+      "Int": { "long": "Интеллект", "abbr": "int" },
+      "Wis": { "long": "Восприятие", "abbr": "wis" },
+      "Cond": { "long": "Проводимость", "abbr": "cond" }
     },
     "SheetLabels": {
       "Actor": "myrpg Actor Sheet",

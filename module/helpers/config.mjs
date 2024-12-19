@@ -5,19 +5,19 @@ export const MY_RPG = {};
  * @type {Object}
  */
 MY_RPG.abilities = {
-  str: 'MY_RPG.Ability.Str.long',
+  cond: 'MY_RPG.Ability.Cond.long',
   dex: 'MY_RPG.Ability.Dex.long',
   con: 'MY_RPG.Ability.Con.long',
   int: 'MY_RPG.Ability.Int.long',
   wis: 'MY_RPG.Ability.Wis.long',
-  cha: 'MY_RPG.Ability.Cha.long',
+  will: 'MY_RPG.Ability.Will.long',
 };
 
 MY_RPG.abilityAbbreviations = {
-  str: 'MY_RPG.Ability.Str.abbr',
+  will: 'MY_RPG.Ability.Will.abbr',
   dex: 'MY_RPG.Ability.Dex.abbr',
   con: 'MY_RPG.Ability.Con.abbr',
   int: 'MY_RPG.Ability.Int.abbr',
   wis: 'MY_RPG.Ability.Wis.abbr',
-  cha: 'MY_RPG.Ability.Cha.abbr',
+  cond: 'MY_RPG.Ability.Cond.abbr',
 };
