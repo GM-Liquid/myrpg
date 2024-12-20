@@ -36,8 +36,8 @@
   "manifest": "https://github.com/GM-Liquid/myrpg/releases/latest/download/system.json",
   "download": "https://github.com/GM-Liquid/myrpg/releases/latest/download/myrpg.zip",
   "background": "systems/myrpg/assets/anvil-impact.png",
-  "grid.Distance": 2,
-  "gridUnits": "м",
+  "grid.distance": 2,
+  "grid.units": "м",
   "primaryTokenAttribute": "ОЗ",
   "secondaryTokenAttribute": "КД"
 }
