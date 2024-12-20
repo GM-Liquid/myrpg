@@ -21,3 +21,11 @@ MY_RPG.abilityAbbreviations = {
   wis: 'MY_RPG.Ability.Wis.abbr',
   cond: 'MY_RPG.Ability.Cond.abbr',
 };
+
+MY_RPG.skills = {
+    perseption: 'MY_RPG.Skill.Pers.long',
+};
+
+MY_RPG.skillAbbreviations = {
+    perseption: 'MY_RPG.Skill.Pers.abbr',
+};

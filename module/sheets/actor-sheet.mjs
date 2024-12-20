@@ -81,7 +81,12 @@ export class myrpgActorSheet extends ActorSheet {
     // Handle ability scores.
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
-    }
+      }
+    // Handle skill scores.
+    for (let [k, v] of Object.entries(context.system.skills)) {
+      v.label = game.i18n.localize(CONFIG.MY_RPG.skills[k]) ?? k;
+      }
+
   }
 
   /**
@@ -172,7 +177,7 @@ export class myrpgActorSheet extends ActorSheet {
     });
 
     // Rollable abilities.
-    html.on('click', '.rollable', this._onRoll.bind(this));
+      html.on('click', '.rollable', this._onRoll.bind(this));
 
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -241,6 +246,16 @@ export class myrpgActorSheet extends ActorSheet {
         rollMode: game.settings.get('core', 'rollMode'),
       });
       return roll;
-    }
+      }
+      if (dataset.roll) {
+          let label = dataset.label ? `[skill] ${dataset.label}` : '';
+          let roll = new Roll(dataset.roll, this.actor.getRollData());
+          roll.toMessage({
+              speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+              flavor: label,
+              rollMode: game.settings.get('core', 'rollMode'),
+          });
+          return roll;
+      }
   }
 }

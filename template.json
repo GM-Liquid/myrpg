@@ -18,11 +18,7 @@
     },
     "character": {
       "templates": ["base"],
-      "attributes": {
-        "level": {
-          "value": 1
-        }
-      },
+      "attributes": {},
       "abilities": {
         "will": {
           "value": 10,
@@ -50,6 +46,13 @@
           "max": 20
         },
         "cond": {
+          "value": 10,
+          "min": 1,
+          "max": 20
+        }
+      },
+      "skills": {
+        "perseption": {
           "value": 10,
           "min": 1,
           "max": 20
