@@ -61,6 +61,7 @@
                 </div>
             </aside>
 
+<<<<<<< HEAD
             <section class="main grid-span-3">
                 <aside class="sidebar3">
                     <div class="skills flexcol">
@@ -70,6 +71,14 @@
                             <input type="text" name="system.skills.{{x}}.c" c="{{skill.c}}" data-dtype="Number" />
                         </div>
                         {{/each}}
+=======
+            <aside class="sidebar2">
+                <div class="skills flexcol">
+                    {{#each system.skills as |skill key|}}
+                    <div class="skill flexrow flex-group-center">
+                        <label for="system.skill.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@skills.{{key}}.mod" data-label="{{skill.label}}">{{skill.label}}</label>
+                        <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
+>>>>>>> parent of ff1707e (213)
                     </div>
                 </aside>
             </section>

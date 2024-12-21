@@ -52,10 +52,9 @@ export class myrpgActor extends Actor {
       // Calculate the modifier using d20 rules.
       ability.mod = ability.value;
       }
-
-    for (let [x, skill] of Object.entries(systemData.skills)) {
-      // Calculate the modifier using d20 rules.
-      skill.mod = skill.c;
+     for (let [key, skill] of Object.entries(systemData.skills)) {
+       // Calculate the modifier using d20 rules.
+       skill.mod = skill.value;
       }
   }
 
@@ -99,19 +98,15 @@ export class myrpgActor extends Actor {
       }
 
     if (data.skills) {
-      for (let [x, c] of Object.entries(data.skills)) {
-        data[x] = foundry.utils.deepClone(c);
+      for (let [k, v] of Object.entries(data.skills)) {
+        data[k] = foundry.utils.deepClone(v);
       }
       }
 
     // Add level for easier access, or fall back to 0.
     if (data.attributes.level) {
       data.lvl = data.attributes.level.value ?? 0;
-      }
-
-      if (data.attributes.level) {
-          data.lvl = data.attributes.level.c ?? 0;
-      }
+    }
   }
 
   /**

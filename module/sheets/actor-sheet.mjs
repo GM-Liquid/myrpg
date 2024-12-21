@@ -83,8 +83,8 @@ export class myrpgActorSheet extends ActorSheet {
       v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
       }
     // Handle skill scores.
-    for (let [x, c] of Object.entries(context.system.skills)) {
-      c.label = game.i18n.localize(CONFIG.MY_RPG.skills[x]) ?? x;
+    for (let [k, v] of Object.entries(context.system.skills)) {
+      v.label = game.i18n.localize(CONFIG.MY_RPG.skills[k]) ?? k;
       }
 
   }
