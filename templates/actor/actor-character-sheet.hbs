@@ -67,16 +67,18 @@
                 </div>
             </aside>
 
-            <aside class="sidebar3">
-                <div class="skills flexcol">
-                    {{#each system.skills as |skill x|}}
-                    <div class="skill flexrow flex-group-center">
-                        <label for="system.skill.{{x}}.c" class="resource-label rollable flexlarge align-left" data-roll="d20+@skills.{{x}}.mod" data-label="{{skill.label}}">{{skill.label}}</label>
-                        <input type="text" name="system.skills.{{x}}.c" c="{{skill.c}}" data-dtype="Number" />
+            <section class="main grid-span-3">
+                <aside class="sidebar3">
+                    <div class="skills flexcol">
+                        {{#each system.skills as |skill x|}}
+                        <div class="skill flexrow flex-group-center">
+                            <label for="system.skill.{{x}}.c" class="resource-label rollable flexlarge align-left" data-roll="d20+@skills.{{x}}.mod" data-label="{{skill.label}}">{{skill.label}}</label>
+                            <input type="text" name="system.skills.{{x}}.c" c="{{skill.c}}" data-dtype="Number" />
+                        </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
-                </div>
-            </aside>
+                </aside>
+            </section>
 
 
                 {{!-- For the main features list, span the right two columns --}}
@@ -85,8 +87,8 @@
                     {{> "systems/myrpg/templates/actor/parts/actor-features.hbs"}}
                 </section>
 
-        </section>
-    </div>
+            </section>
+</div>
 
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
