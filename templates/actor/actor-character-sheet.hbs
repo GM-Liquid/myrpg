@@ -69,10 +69,10 @@
 
             <aside class="sidebar2">
                 <div class="skills flexcol">
-                    {{#each system.skills as |skill key|}}
+                    {{#each system.skills as |skill x|}}
                     <div class="skill flexrow flex-group-center">
-                        <label for="system.skill.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@skills.{{key}}.mod" data-label="{{skill.label}}">{{skill.label}}</label>
-                        <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
+                        <label for="system.skill.{{x}}.c" class="resource-label rollable flexlarge align-left" data-roll="d20+@skills.{{x}}.mod" data-label="{{skill.label}}">{{skill.label}}</label>
+                        <input type="text" name="system.skills.{{x}}.c" c="{{skill.c}}" data-dtype="Number" />
                     </div>
                     {{/each}}
                 </div>
