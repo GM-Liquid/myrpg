@@ -51,6 +51,7 @@
     <div class="tab features" data-group="primary" data-tab="features">
         <section class="grid grid-2col">
             <aside class="sidebar">
+
                 <div class="abilities flexcol">
                     {{#each system.abilities as |ability key|}}
                     <div class="ability flexrow flex-group-center">
@@ -61,27 +62,16 @@
                 </div>
             </aside>
 
-<<<<<<< HEAD
-            <section class="main grid-span-3">
-                <aside class="sidebar3">
-                    <div class="skills flexcol">
-                        {{#each system.skills as |skill x|}}
-                        <div class="skill flexrow flex-group-center">
-                            <label for="system.skill.{{x}}.c" class="resource-label rollable flexlarge align-left" data-roll="d20+@skills.{{x}}.mod" data-label="{{skill.label}}">{{skill.label}}</label>
-                            <input type="text" name="system.skills.{{x}}.c" c="{{skill.c}}" data-dtype="Number" />
-                        </div>
-                        {{/each}}
-=======
             <aside class="sidebar2">
                 <div class="skills flexcol">
-                    {{#each system.skills as |skill key|}}
+                    {{#each system.skills as |skill x|}}
                     <div class="skill flexrow flex-group-center">
-                        <label for="system.skill.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@skills.{{key}}.mod" data-label="{{skill.label}}">{{skill.label}}</label>
-                        <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
->>>>>>> parent of ff1707e (213)
+                        <label for="system.skill.{{x}}.c" class="resource-label rollable flexlarge align-left" data-roll="d20+@skills.{{x}}.mod" data-label="{{skill.label}}">{{skill.label}}</label>
+                        <input type="text" name="system.skills.{{x}}.c" c="{{skill.c}}" data-dtype="Number" />
                     </div>
-                </aside>
-            </section>
+                    {{/each}}
+                </div>
+            </aside>
 
 
                 {{!-- For the main features list, span the right two columns --}}
@@ -90,8 +80,8 @@
                     {{> "systems/myrpg/templates/actor/parts/actor-features.hbs"}}
                 </section>
 
-            </section>
-</div>
+        </section>
+    </div>
 
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
