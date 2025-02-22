@@ -2,7 +2,7 @@
   "MY_RPG": {
     "Ability": {
       "Will": {
-        "long": "Сила",
+        "long": "Сила Воли",
         "abbr": "will"
       },
       "Con": {
@@ -27,9 +27,49 @@
       }
     },
     "Skill": {
-      "Pers": {
-        "long": "Внимание",
-        "abbr": "Pers"
+      "MY_RPG": {
+        "Skill": {
+          "Stoikost": "Стойкость (Воля)",
+          "Blef": "Блеф (Воля)",
+          "Obshchenie": "Общение (Воля)",
+          "Zapugivanie": "Запугивание (Воля)",
+          "Torgovlya": "Торговля (Воля)",
+          "Diplomatiya": "Дипломатия (Воля)",
+
+          "Akrobatika": "Акробатика (Реф)",
+          "Skrytost": "Скрытность (Реф)",
+          "VladeniyeTaktDalnim": "Владение Такт. Дальним (Реф)",
+          "UpravlenieTransportom": "Управление Транспортом (Реф)",
+          "LovkostRuk": "Ловкость Рук (Реф)",
+          "BlizhniyBoy": "Ближний Бой (Реф)",
+          "VladeniyeTyazhelymDalnim": "Владение Тяжелым Дальним (Реф)",
+
+          "Atletika": "Атлетика (Тело)",
+          "GrubayaSila": "Грубая сила (Тело)",
+          "Vynoslivost": "Выносливость (Тело)",
+
+          "ZnanieAzur": "Знание Азур (Инт)",
+          "Rassledovanie": "Расследование (Инт)",
+          "Programmirovanie": "Программирование (Инт)",
+          "BiologicheskieNauki": "Биологические Науки (Инт)",
+          "FizicheskieNauki": "Физические Науки (Инт)",
+          "Kultura": "Культура (Инт)",
+
+          "Vnimanie": "Внимание (Восп)",
+          "Vyzhivanie": "Выживание (Восп)",
+          "Meditsina": "Медицина (Восп)",
+          "Mekhanika": "Механика (Восп)",
+          "Elektronika": "Электроника (Восп)",
+          "OruzheynoeDelo": "Оружейное Дело (Восп)",
+          "Pronitsatelnost": "Проницательность (Восп)",
+
+          "RunnoyIskusstvo": "Рунной Искусство (Пров)",
+          "Nekrotika": "Некротика (Пров)",
+          "Stitiyannost": "Стихийность (Пров)",
+          "Vitamantia": "Витамантия (Пров)",
+          "Psionika": "Псионика (Пров)",
+          "Predvidenie": "Предвидение (Пров)"
+        }
       }
     },
     "Flux": {
