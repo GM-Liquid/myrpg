@@ -29,8 +29,11 @@
     "Skill": {
       "Pers": {
         "long": "Внимание",
-        "abbr":  "Pers"
+        "abbr": "Pers"
       }
+    },
+    "Flux": {
+      "Label": "Поток"
     },
     "SheetLabels": {
       "Actor": "myrpg Actor Sheet",
