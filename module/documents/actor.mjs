@@ -57,10 +57,42 @@ export class myrpgActor extends Actor {
       // Calculate the modifier using d20 rules.
       skill.mod = skill.c;
     }
-      const condValue = systemData.abilities.cond.value || 0;  // значение проводимости (cond)
-      const fluxBonus = systemData.flux.bonus || 0;            // бонус к потоку
-      // Ќапример, базова€ формула: поток = (проводимость * 2) + бонус
-      systemData.flux.value = condValue * 2 + fluxBonus;
+        // “аблица базовых значений потока дл€ значений проводимости от 1 до 20
+        const fluxTable = [
+            15,  // cond = 1
+            20,  // cond = 2
+            25,  // cond = 3
+            30,  // cond = 4
+            40,  // cond = 5
+            50,  // cond = 6
+            60,  // cond = 7
+            70,  // cond = 8
+            85,  // cond = 9
+            100, // cond = 10
+            115, // cond = 11
+            130, // cond = 12
+            150, // cond = 13
+            170, // cond = 14
+            190, // cond = 15
+            210, // cond = 16
+            235, // cond = 17
+            260, // cond = 18
+            285, // cond = 19
+            310  // cond = 20
+        ];
+
+        const condValue = systemData.abilities.cond.value || 0;  // ѕолучаем проводимость
+        const fluxBonus = systemData.flux.bonus || 0;            // ѕолучаем бонус к потоку
+
+        // ≈сли значение проводимости в допустимом диапазоне (от 1 до 20), берЄм базовый поток из таблицы
+        let baseFlux = 0;
+        if (condValue >= 1 && condValue <= 20) {
+            baseFlux = fluxTable[condValue - 1];
+        }
+
+        // –ассчитываем итоговое значение потока
+        systemData.flux.value = baseFlux + fluxBonus;
+
   }
 
   /**
