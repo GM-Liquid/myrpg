@@ -9,9 +9,7 @@
           "max": 10
         },
         "flux": {
-          "value": 5,
-          "min": 15,
-          "max": 335
+          "bonus": 0
         },
         "biography": ""
       }

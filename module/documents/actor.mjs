@@ -41,7 +41,7 @@ export class myrpgActor extends Actor {
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(actorData) {
+    _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
 
     // Make modifications to data here. For example:
@@ -56,7 +56,11 @@ export class myrpgActor extends Actor {
     for (let [x, skill] of Object.entries(systemData.skills)) {
       // Calculate the modifier using d20 rules.
       skill.mod = skill.c;
-      }
+    }
+      const condValue = systemData.abilities.cond.value || 0;  // значение проводимости (cond)
+      const fluxBonus = systemData.flux.bonus || 0;            // бонус к потоку
+      // Например, базовая формула: поток = (проводимость * 2) + бонус
+      systemData.flux.value = condValue * 2 + fluxBonus;
   }
 
   /**
