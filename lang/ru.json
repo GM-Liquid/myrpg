@@ -9,7 +9,7 @@
     },
     "Ability": {
       "Will": {
-        "long": "Сила",
+        "long": "Воля",
         "abbr": "will"
       },
       "Con": {
