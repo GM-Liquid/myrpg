@@ -237,9 +237,18 @@ export class myrpgActorSheet extends ActorSheet {
     }
 
     // Handle rolls that supply the formula directly.
+    if (dataset.roll) {
+      let label = dataset.label ? `[ability] ${dataset.label}` : '';
+      let roll = new Roll(dataset.roll, this.actor.getRollData());
+      roll.toMessage({
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        flavor: label,
+        rollMode: game.settings.get('core', 'rollMode'),
+      });
+      return roll;
+      }
       if (dataset.roll) {
-          let labelType = dataset.rollType === 'skill' ? 'skill' : 'ability';
-          let label = dataset.label ? `[${labelType}] ${dataset.label}` : '';
+          let label = dataset.label ? `[skill] ${dataset.label}` : '';
           let roll = new Roll(dataset.roll, this.actor.getRollData());
           roll.toMessage({
               speaker: ChatMessage.getSpeaker({ actor: this.actor }),

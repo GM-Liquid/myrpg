@@ -52,6 +52,11 @@ export class myrpgActor extends Actor {
       // Calculate the modifier using d20 rules.
       ability.mod = ability.value;
       }
+
+    for (let [x, skill] of Object.entries(systemData.skills)) {
+      // Calculate the modifier using d20 rules.
+      skill.mod = skill.c;
+    }
         // Для каждого навыка убеждаемся, что его значение не превышает значение связанной способности
         for (let [key, skill] of Object.entries(systemData.skills)) {
             let abilityKey = skill.ability;  // например, "will", "dex" и т.д.
