@@ -63,6 +63,8 @@
             <aside class="sidebar2">
                 <div class="skills flexcol">
                     {{#each system.skills as |skill key|}}
+                    {{log key}}
+                    {{log skill}}
                     <div class="skill flexrow flex-group-center">
                         <label for="system.skills.{{key}}.value" class="resource-label">
                             {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
