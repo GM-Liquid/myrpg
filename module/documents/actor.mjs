@@ -104,6 +104,16 @@ export class myrpgActor extends Actor {
 
         // Рассчитываем итоговое значение потока
         systemData.flux.value = baseFlux + fluxBonus;
+        // Рассчитываем максимальные очки здоровья по формуле: 10 + 5 * (телосложение + сила)
+        systemData.health.max = 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value);
+
+        // Если текущие ОЗ отсутствуют или превышают максимум, устанавливаем их равными максимуму
+        if (!systemData.health.value || systemData.health.value > systemData.health.max) {
+            systemData.health.value = systemData.health.max;
+        }
+
+        // Рассчитываем значение ранения как половину от макс. ОЗ, округлённую вниз
+        systemData.health.damage = Math.floor(systemData.health.max / 2);
 
   }
 
