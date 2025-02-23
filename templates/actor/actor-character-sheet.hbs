@@ -65,7 +65,7 @@
                     {{#each system.skills as |skill key|}}
                     <div class="skill flexrow flex-group-center">
                         <label for="system.skills.{{key}}.value" class="resource-label">
-                            {{key}}
+                            {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
                         </label>
                         <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
                     </div>

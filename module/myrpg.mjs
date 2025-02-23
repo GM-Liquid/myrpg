@@ -13,50 +13,64 @@ import { MY_RPG } from './helpers/config.mjs';
 /* -------------------------------------------- */
 
 Hooks.once('init', function () {
-  // Add utility classes to the global game object so that they're more easily
-  // accessible in global contexts.
-  game.myrpg = {
-    myrpgActor,
-    myrpgItem,
-    rollItemMacro,
-  };
+    // Add utility classes to the global game object so that they're more easily
+    // accessible in global contexts.
+    game.myrpg = {
+        myrpgActor,
+        myrpgItem,
+        rollItemMacro,
+    };
 
-  // Add custom constants for configuration.
-  CONFIG.MY_RPG = MY_RPG;
+    // Add custom constants for configuration.
+    CONFIG.MY_RPG = MY_RPG;
 
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
-  CONFIG.Combat.initiative = {
-    formula: '1d20 + @abilities.wis.mod',
-    decimals: 2,
-  };
+    /**
+     * Set an initiative formula for the system
+     * @type {String}
+     */
+    CONFIG.Combat.initiative = {
+        formula: '1d20 + @abilities.wis.mod',
+        decimals: 2,
+    };
 
-  // Define custom Document classes
-  CONFIG.Actor.documentClass = myrpgActor;
-  CONFIG.Item.documentClass = myrpgItem;
+    // Define custom Document classes
+    CONFIG.Actor.documentClass = myrpgActor;
+    CONFIG.Item.documentClass = myrpgItem;
 
-  // Active Effects are never copied to the Actor,
-  // but will still apply to the Actor from within the Item
-  // if the transfer property on the Active Effect is true.
-  CONFIG.ActiveEffect.legacyTransferral = false;
+    // Active Effects are never copied to the Actor,
+    // but will still apply to the Actor from within the Item
+    // if the transfer property on the Active Effect is true.
+    CONFIG.ActiveEffect.legacyTransferral = false;
 
-  // Register sheet application classes
-  Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet('myrpg', myrpgActorSheet, {
-    makeDefault: true,
-    label: 'MY_RPG.SheetLabels.Actor',
-  });
-  Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('myrpg', myrpgItemSheet, {
-    makeDefault: true,
-    label: 'MY_RPG.SheetLabels.Item',
-  });
+    // --- Добавляем регистрацию хелперов Handlebars ---
+    Handlebars.registerHelper('concat', (...args) => {
+        // Последний аргумент — объект опций, его удаляем
+        args.pop();
+        return args.join('');
+    });
 
-  // Preload Handlebars templates.
-  return preloadHandlebarsTemplates();
+    Handlebars.registerHelper('toPascalCase', (str) => {
+        if (typeof str !== 'string') return '';
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+    // --- Конец регистрации хелперов ---
+
+    // Register sheet application classes
+    Actors.unregisterSheet('core', ActorSheet);
+    Actors.registerSheet('myrpg', myrpgActorSheet, {
+        makeDefault: true,
+        label: 'MY_RPG.SheetLabels.Actor',
+    });
+    Items.unregisterSheet('core', ItemSheet);
+    Items.registerSheet('myrpg', myrpgItemSheet, {
+        makeDefault: true,
+        label: 'MY_RPG.SheetLabels.Item',
+    });
+
+    // Preload Handlebars templates.
+    return preloadHandlebarsTemplates();
 });
+
 
 /* -------------------------------------------- */
 /*  Handlebars Helpers                          */
