@@ -7,5 +7,10 @@ export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
     // Actor partials.
     'systems/myrpg/templates/actor/parts/actor-features.hbs',
+    'systems/myrpg/templates/actor/parts/actor-items.hbs',
+    'systems/myrpg/templates/actor/parts/actor-spells.hbs',
+    'systems/myrpg/templates/actor/parts/actor-effects.hbs',
+    // Item partials
+    'systems/myrpg/templates/item/parts/item-effects.hbs',
   ]);
 };
