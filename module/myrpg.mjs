@@ -1,9 +1,7 @@
 // Import document classes.
 import { myrpgActor } from './documents/actor.mjs';
-import { myrpgItem } from './documents/item.mjs';
 // Import sheet classes.
 import { myrpgActorSheet } from './sheets/actor-sheet.mjs';
-import { myrpgItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { MY_RPG } from './helpers/config.mjs';
