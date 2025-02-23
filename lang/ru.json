@@ -90,6 +90,14 @@
       "Inactive": "Inactive Effects"
     }
   },
+  "Health": {
+    "Label": "Очки Здоровья (ОЗ)",
+    "Current": "Текущие ОЗ",
+    "Damage": "Ранение",
+    "Max": "Макс. ОЗ",
+    "Temp": "Временные ОЗ"
+  },
+
 
   "TYPES": {
     "Actor": {
