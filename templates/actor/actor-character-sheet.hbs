@@ -64,7 +64,10 @@
                 <div class="skills flexcol">
                     {{#each system.skills as |skill key|}}
                     <div class="skill flexrow flex-group-center">
-                        <label for="system.skills.{{key}}.value" class="resource-label">
+                        <label for="system.skills.{{key}}.value"
+                               class="resource-label rollable"
+                               data-roll="d20+@{{key}}.value"
+                               data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
                             {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
                         </label>
                         <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
@@ -72,6 +75,7 @@
                     {{/each}}
                 </div>
             </aside>
+
 
 
 
