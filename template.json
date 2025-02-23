@@ -5,8 +5,11 @@
       "base": {
         "health": {
           "value": 10,
-          "min": 0,
+          "damage": 0,
           "max": 10
+        },
+        "tempHealth": {
+          "value": 0
         },
         "flux": {
           "bonus": 0
