@@ -14,19 +14,20 @@
         <div class="resource flex-group-center">
             <label for="system.health.value" class="resource-label">{{localize "MY_RPG.Health.Label"}}</label>
             <div class="resource-content flexrow flex-center">
-                <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number" placeholder="{{localize 'MY_RPG.Health.Current'}}" />
-                <span> - </span>
-                <input type="text" name="system.health.damage" value="{{system.health.damage}}" data-dtype="Number" placeholder="{{localize 'MY_RPG.Health.Damage'}}" />
+                <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number" style="width: 33%;" />
                 <span> / </span>
-                <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number" placeholder="{{localize 'MY_RPG.Health.Max'}}" />
+                <input type="text" name="system.health.damage" value="{{system.health.damage}}" data-dtype="Number" style="width: 33%;" />
+                <span> / </span>
+                <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number" style="width: 33%;" />
             </div>
         </div>
         <div class="resource flex-group-center">
             <label for="system.tempHealth.value" class="resource-label">{{localize "MY_RPG.Health.Temp"}}</label>
             <div class="resource-content flexrow flex-center">
-                <input type="text" name="system.tempHealth.value" value="{{system.tempHealth.value}}" data-dtype="Number" placeholder="{{localize 'MY_RPG.Health.Temp'}}" />
+                <input type="text" name="system.tempHealth.value" value="{{system.tempHealth.value}}" data-dtype="Number" />
             </div>
         </div>
+
 
 
 
