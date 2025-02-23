@@ -9,7 +9,7 @@
     },
     "Ability": {
       "Will": {
-        "long": "Сила",
+        "long": "Воля",
         "abbr": "will"
       },
       "Con": {
@@ -69,7 +69,7 @@
       "Oruzheynoe_delo": "Оружейное Дело (Восп)",
       "Pronitsatelnost": "Проницательность (Восп)",
 
-      "Runnoy_iskusstvo": "Рунной Искусство (Пров)",
+      "Runnoy_iskusstvo": "Артефакторика (Пров)",
       "Nekrotika": "Некротика (Пров)",
       "Stitiyannost": "Стихийность (Пров)",
       "Vitamantia": "Витамантия (Пров)",
