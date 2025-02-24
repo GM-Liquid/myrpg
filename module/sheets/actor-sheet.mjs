@@ -46,10 +46,11 @@ export class myrpgActorSheet extends ActorSheet {
     context.flags = actorData.flags;
 
     // Prepare character data and items.
-    if (actorData.type == 'character') {
-      this._prepareItems(context);
-      this._prepareCharacterData(context);
-    }
+      if (actorData.type === 'character' || actorData.type === 'npc') {
+          this._prepareItems(context);
+          this._prepareCharacterData(context);
+      }
+
 
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
