@@ -4,8 +4,5 @@
  * @return {Promise}
  */
 export const preloadHandlebarsTemplates = async function () {
-  return loadTemplates([
-    // Actor partials.
-    'systems/myrpg/templates/actor/parts/actor-features.hbs',
-  ]);
+  return loadTemplates([]);
 };
