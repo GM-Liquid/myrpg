@@ -3,27 +3,13 @@
     "types": [ "character", "npc" ],
     "templates": {
       "base": {
-        "Health": {
-          "Label": "ОЗ (текущ/рана/макс)",
-          "Temp": "Временные ОЗ",
-          "SubCurrent": "Текущ",
-          "SubDamage": "Рана",
-          "SubMax": "Макс"
+        "health": {
+          "value": 10,
+          "damage": 0,
+          "max": 10
         },
-        "Armor": {
-          "Label": "Класс Доспеха",
-          "BonusLabel": "Бонус доспеха",
-          "ResultLabel": "Итог"
-        },
-        "Tension": {
-          "Label": "Напряженность (текущ/макс)",
-          "ValueLabel": "Текущее",
-          "MaxLabel": "Макс"
-        },
-        "Steadfast": {
-          "Label": "Стойкость",
-          "BonusLabel": "Бонус доспеха",
-          "ResultLabel": "Итог"
+        "tempHealth": {
+          "value": 0
         },
         "flux": {
           "bonus": 0
@@ -34,6 +20,17 @@
     "character": {
       "templates": [ "base" ],
       "attributes": {},
+      "armor": {
+          "bonus": 0,
+          "result": 0
+        },
+        "tension": {
+          "value": 0
+        },
+        "steadfast": {
+          "bonus": 0,
+          "result": 0
+        },
       "abilities": {
         "will": {
           "value": 10,

@@ -5,20 +5,25 @@
     },
     "Health": {
       "Label": "ОЗ (текущ/рана/макс)",
-      "Temp": "Временные ОЗ"
+      "Temp": "Временные ОЗ",
+      "SubCurrent": "Текущ",
+      "SubDamage": "Рана",
+      "SubMax": "Макс"
     },
     "Armor": {
       "Label": "Класс Доспеха",
-      "Bonus": "Бонус",
-      "Result": "Итог"
+      "BonusLabel": "Бонус доспеха",
+      "ResultLabel": "Итог"
     },
     "Tension": {
-      "Label": "Напряженность (текущ/макс)"
+      "Label": "Напряженность (текущ/макс)",
+      "ValueLabel": "Текущее",
+      "MaxLabel": "Макс"
     },
     "Steadfast": {
       "Label": "Стойкость",
-      "Bonus": "Бонус",
-      "Result": "Итог"
+      "BonusLabel": "Бонус доспеха",
+      "ResultLabel": "Итог"
     },
     "Ability": {
       "Will": {
