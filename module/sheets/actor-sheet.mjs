@@ -20,9 +20,13 @@ export class myrpgActorSheet extends ActorSheet {
   }
 
   /** @override */
-  get template() {
-    return `systems/myrpg/templates/actor/actor-${this.actor.type}-sheet.hbs`;
-  }
+    get template() {
+        if (this.actor.type === "npc") {
+            // Для NPC используем шаблон листа персонажа
+            return `systems/myrpg/templates/actor/actor-character-sheet.hbs`;
+        }
+        return `systems/myrpg/templates/actor/actor-${this.actor.type}-sheet.hbs`;
+    }
 
   /* -------------------------------------------- */
 
