@@ -9,6 +9,16 @@
   text-shadow: 0 0 10px red;
   cursor: pointer;
 }
+.sub-labels {
+    margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
+}
+
+.sub-label {
+    flex: 1;
+    font-size: 0.8em;
+    color: #666;
+    text-align: center;
+}
 
 .grid,
 .grid-2col {
