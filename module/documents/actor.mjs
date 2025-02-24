@@ -69,6 +69,19 @@ export class myrpgActor extends Actor {
             }
         }
 
+        systemData.armor = systemData.armor || { bonus: 0, result: 0 };
+        systemData.steadfast = systemData.steadfast || { bonus: 0, result: 0 };
+        systemData.tension = systemData.tension || { value: 0 };
+
+        // Вычисляем итог для "Класса Доспеха": бонус + значение навыка "Выносливость" (vynoslivost)
+        systemData.armor.result = Number(systemData.armor.bonus) + Number(systemData.skills.vynoslivost.value);
+
+        // Вычисляем итог для "Стойкости": бонус + значение навыка "Стойкость" (stoikost)
+        systemData.steadfast.result = Number(systemData.steadfast.bonus) + Number(systemData.skills.stoikost.value);
+
+        // Для напряжённости максимальное значение равно значению ранения (health.damage)
+        systemData.tension.max = systemData.health.damage;
+
         // Таблица базовых значений потока для значений проводимости от 1 до 20
         const fluxTable = [
             15,  // cond = 1

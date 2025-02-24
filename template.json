@@ -20,6 +20,17 @@
     "character": {
       "templates": [ "base" ],
       "attributes": {},
+      "armor": {
+        "bonus": 0,
+        "result": 0
+      },
+      "tension": {
+        "value": 0
+      },
+      "steadfast": {
+        "bonus": 0,
+        "result": 0
+      },
       "abilities": {
         "will": {
           "value": 10,
