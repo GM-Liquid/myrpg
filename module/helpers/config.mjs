@@ -23,3 +23,5 @@ MY_RPG.abilityAbbreviations = {
 };
 
 MY_RPG.skills = {};
+
+MY_RPG.skillAbbreviations = {};
