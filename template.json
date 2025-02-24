@@ -14,23 +14,23 @@
         "flux": {
           "bonus": 0
         },
+        "armor": {
+          "bonus": 0,
+          "result": 0
+        },
+        "tension": {
+          "value": 0
+        },
+        "steadfast": {
+          "bonus": 0,
+          "result": 0
+        },
         "biography": ""
       }
     },
     "character": {
       "templates": [ "base" ],
       "attributes": {},
-      "armor": {
-        "bonus": 0,
-        "total": 0
-      },
-      "fort": {
-        "bonus": 0,
-        "total": 0
-      },
-      "napryazhen": {
-        "value": 0
-      },
       "abilities": {
         "will": {
           "value": 10,
