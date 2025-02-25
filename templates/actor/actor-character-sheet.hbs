@@ -1,144 +1,131 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-  {{!-- Sheet Header --}}
+    {{!-- Sheet Header --}}
     <header class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
         <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
-
-            <!-- ЕДИНАЯ СЕТКА НА 6 ЯЧЕЕК -->
+            <h1 class="charname">
+                <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+            </h1>
             <div class="resources grid grid-3col">
-
-                <!-- 1) ОЗ (текущ / рана / макс) -->
+                {{!-- Здесь располагаются поля ресурсов (ОЗ, временные ОЗ, поток, КД, напряжённость, стойкость и т.п.) --}}
                 <div class="resource flex-group-center">
-                    <label class="resource-label">{{localize "MY_RPG.Health.Label"}}</label>
-                    <div class="resource-content flexcol">
-                        <!-- Подписи над полями -->
-                        <div class="sub-labels flexrow flex-group-center">
-                            <div class="sub-label">{{localize "MY_RPG.Health.SubCurrent"}}</div>
-                            <div class="sub-label">{{localize "MY_RPG.Health.SubDamage"}}</div>
-                            <div class="sub-label">{{localize "MY_RPG.Health.SubMax"}}</div>
-                        </div>
-                        <!-- Сами поля -->
-                        <div class="flexrow flex-group-center">
-                            <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number" style="width: 33%;" />
-                            <input type="text" name="system.health.damage" value="{{system.health.damage}}" data-dtype="Number" style="width: 33%;" />
-                            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number" style="width: 33%;" />
-                        </div>
+                    <label for="system.health.value" class="resource-label">{{localize "MY_RPG.Health.Label"}}</label>
+                    <div class="resource-content flexrow flex-center flex-between">
+                        <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number" />
+                        <span> / </span>
+                        <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number" />
                     </div>
                 </div>
-
-                <!-- 2) Временные ОЗ -->
                 <div class="resource flex-group-center">
-                    <label class="resource-label">{{localize "MY_RPG.Health.Temp"}}</label>
+                    <label for="system.tempHealth.value" class="resource-label">{{localize "MY_RPG.Health.Temp"}}</label>
                     <div class="resource-content flexrow flex-center">
                         <input type="text" name="system.tempHealth.value" value="{{system.tempHealth.value}}" data-dtype="Number" />
                     </div>
                 </div>
-
-                <!-- 3) Поток -->
                 <div class="resource flex-group-center">
-                    <label class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
+                    <label for="system.flux.value" class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
                     <div class="resource-content flexrow flex-center flex-between">
                         <input type="text" name="system.flux.value" value="{{system.flux.value}}" data-dtype="Number" readonly />
                         <input type="text" name="system.flux.bonus" value="{{system.flux.bonus}}" data-dtype="Number" placeholder="Бонус" />
                     </div>
                 </div>
-
-                <!-- 4) Класс Доспеха (бонус / итог) -->
-                <div class="resource flex-group-center">
-                    <label class="resource-label">{{localize "MY_RPG.Armor.Label"}}</label>
-                    <div class="resource-content flexcol">
-                        <div class="sub-labels flexrow flex-group-center">
-                            <div class="sub-label">{{localize "MY_RPG.Armor.BonusLabel"}}</div>
-                            <div class="sub-label">{{localize "MY_RPG.Armor.ResultLabel"}}</div>
-                        </div>
-                        <div class="flexrow flex-group-center">
-                            <input type="text" name="system.armor.bonus" value="{{system.armor.bonus}}" data-dtype="Number" style="width: 50%;" />
-                            <input type="text" name="system.armor.result" value="{{system.armor.result}}" data-dtype="Number" style="width: 50%;" readonly />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5) Напряжённость (текущее / макс) -->
-                <div class="resource flex-group-center">
-                    <label class="resource-label">{{localize "MY_RPG.Tension.Label"}}</label>
-                    <div class="resource-content flexcol">
-                        <div class="sub-labels flexrow flex-group-center">
-                            <div class="sub-label">{{localize "MY_RPG.Tension.ValueLabel"}}</div>
-                            <div class="sub-label">{{localize "MY_RPG.Tension.MaxLabel"}}</div>
-                        </div>
-                        <div class="flexrow flex-group-center">
-                            <input type="text" name="system.tension.value" value="{{system.tension.value}}" data-dtype="Number" style="width: 50%;" />
-                            <input type="text" name="system.tension.max" value="{{system.tension.max}}" data-dtype="Number" style="width: 50%;" readonly />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6) Стойкость (бонус / итог) -->
-                <div class="resource flex-group-center">
-                    <label class="resource-label">{{localize "MY_RPG.Steadfast.Label"}}</label>
-                    <div class="resource-content flexcol">
-                        <div class="sub-labels flexrow flex-group-center">
-                            <div class="sub-label">{{localize "MY_RPG.Steadfast.BonusLabel"}}</div>
-                            <div class="sub-label">{{localize "MY_RPG.Steadfast.ResultLabel"}}</div>
-                        </div>
-                        <div class="flexrow flex-group-center">
-                            <input type="text" name="system.steadfast.bonus" value="{{system.steadfast.bonus}}" data-dtype="Number" style="width: 50%;" />
-                            <input type="text" name="system.steadfast.result" value="{{system.steadfast.result}}" data-dtype="Number" style="width: 50%;" readonly />
-                        </div>
-                    </div>
-                </div>
-
-            </div> <!-- .resources.grid-3col -->
-        </div> <!-- .header-fields -->
+                {{!-- Дополнительные поля ресурсов (например, Armor, Tension, Steadfast) можно добавить аналогичным образом --}}
+            </div>
+        </div>
     </header>
 
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="features">Features</a>
-  </nav>
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
+        <a class="item" data-tab="abilities">{{localize "MY_RPG.SheetLabels.Abilities"}}</a>
+    </nav>
 
-  {{!-- Sheet Body --}}
-  <section class="sheet-body">
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
 
-    {{!-- Owned Features Tab --}}
-    <div class="tab features" data-group="primary" data-tab="features">
-        <section class="grid grid-2col">
-            <aside class="sidebar">
-
-                <div class="abilities flexcol">
-                    {{#each system.abilities as |ability key|}}
-                    <div class="ability flexrow flex-group-center">
-                        <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</label>
-                        <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
+        {{!-- Вкладка Features (существующая вкладка с умениями) --}}
+        <div class="tab features" data-group="primary" data-tab="features">
+            <section class="grid grid-2col">
+                <aside class="sidebar">
+                    <div class="abilities flexcol">
+                        {{#each system.abilities as |ability key|}}
+                        <div class="ability flexrow flex-group-center">
+                            <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">
+                                {{ability.label}}
+                            </label>
+                            <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
+                        </div>
+                        {{/each}}
                     </div>
+                </aside>
+                <aside class="sidebar2">
+                    <div class="skills flexcol">
+                        {{#each system.skills as |skill key|}}
+                        <div class="skill flexrow flex-group-center">
+                            <label for="system.skills.{{key}}.value"
+                                   class="resource-label rollable"
+                                   data-roll="d20+@{{key}}.value"
+                                   data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
+                                {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
+                            </label>
+                            <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
+                        </div>
+                        {{/each}}
+                    </div>
+                </aside>
+            </section>
+        </div>
+
+        {{!-- Новая вкладка "Способности" --}}
+        <div class="tab abilities" data-group="primary" data-tab="abilities">
+
+            <!-- Раздел для умений и модификаций -->
+            <section class="abilities-mods-section">
+                <h2>{{localize "MY_RPG.Abilities.AbilitiesMods"}}</h2>
+                <div class="grid grid-2col">
+                    <div class="abilities">
+                        {{#each system.abilities as |ability key|}}
+                        <div class="ability flexrow flex-group-center">
+                            <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">
+                                {{ability.label}}
+                            </label>
+                            <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div class="skills">
+                        {{#each system.skills as |skill key|}}
+                        <div class="skill flexrow flex-group-center">
+                            <label for="system.skills.{{key}}.value"
+                                   class="resource-label rollable"
+                                   data-roll="d20+@{{key}}.value"
+                                   data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
+                                {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
+                            </label>
+                            <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Раздел для заклинаний -->
+            <section class="spells-section">
+                <h2>{{localize "MY_RPG.Abilities.Spells"}}</h2>
+                <div class="spells-list">
+                    {{!-- Перебор предметов, где тип равен "spell" --}}
+                    {{#each items}}
+                    {{#if (eq type "spell")}}
+                    <div class="spell">
+                        <h3>{{name}}</h3>
+                        <p>{{system.description}}</p>
+                    </div>
+                    {{/if}}
                     {{/each}}
                 </div>
-            </aside>
+            </section>
+        </div>
 
-            <aside class="sidebar2">
-                <div class="skills flexcol">
-                    {{#each system.skills as |skill key|}}
-                    <div class="skill flexrow flex-group-center">
-                        <label for="system.skills.{{key}}.value"
-                               class="resource-label rollable"
-                               data-roll="d20+@{{key}}.value"
-                               data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
-                            {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
-                        </label>
-                        <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
-                    </div>
-                    {{/each}}
-                </div>
-            </aside>
-
-        </section>
-    </div>
-
-  </section>
+    </section>
 </form>
-
-{{log system}}
-

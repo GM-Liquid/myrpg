@@ -94,36 +94,32 @@
       "Psionika": "Псионика (Пров)",
       "Predvidenie": "Предвидение (Пров)"
     },
-
     "SheetLabels": {
-      "Actor": "myrpg Actor Sheet",
-      "Item": "myrpg Item Sheet"
+      "Actor": "Лист персонажа",
+      "Item": "Лист предметов",
+      "Abilities": "Способности"
     },
-
+    "Abilities": {
+      "Title": "Способности",
+      "AbilitiesMods": "Умения и модификации",
+      "Spells": "Заклинания"
+    },
     "Item": {
       "Spell": {
-        "SpellLVL": "Level {level} Spells",
-        "AddLVL": "Add LVL {level}"
+        "SpellLVL": "Заклинания {level} уровня",
+        "AddLVL": "Добавить заклинания {level} уровня"
       }
-    },
-
-    "Effect": {
-      "Source": "Source",
-      "Toggle": "Toggle Effect",
-      "Temporary": "Temporary Effects",
-      "Passive": "Passive Effects",
-      "Inactive": "Inactive Effects"
     }
   },
   "TYPES": {
     "Actor": {
-      "character": "Character",
+      "character": "Персонаж",
       "npc": "NPC"
     },
     "Item": {
-      "item": "Item",
-      "feature": "Feature",
-      "spell": "Spell"
+      "item": "Предмет",
+      "feature": "Особенность",
+      "spell": "Заклинание"
     }
   }
 }
