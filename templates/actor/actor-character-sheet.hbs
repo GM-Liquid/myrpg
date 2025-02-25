@@ -236,14 +236,15 @@
                                step="1"
                                inputmode="numeric"
                                readonly tabindex="-1" />
-                        <!-- Поле для синхронизации, только для отображения -->
+                        <!-- Изменяем поле бонуса: убираем name и добавляем readonly -->
                         <input type="number"
                                value="{{system.flux.bonus}}"
                                step="1"
                                inputmode="numeric"
                                pattern="\d+"
                                placeholder="Бонус"
-                               class="flux-bonus-sync" />
+                               class="flux-bonus-sync"
+                               readonly />
                     </div>
                 </div>
             </section>
