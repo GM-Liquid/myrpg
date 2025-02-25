@@ -38,13 +38,9 @@ export class myrpgActor extends Actor {
     this._prepareNpcData(actorData);
   }
 
-  /**
-   * Prepare Character type specific data
-   */
-    _prepareCharacterData(actorData) {
-    if (actorData.type !== 'character') return;
 
-    // Make modifications to data here. For example:
+    _prepareCharacterData(actorData) {
+
     const systemData = actorData.system;
 
     // Loop through ability scores, and add their modifiers to our sheet output.
