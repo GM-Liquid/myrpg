@@ -112,6 +112,14 @@ export class myrpgActor extends Actor {
         }
 
         // Рассчитываем итоговое значение потока
+        const condValue = parseInt(systemData.abilities.cond.value) || 0;
+        const fluxBonus = parseInt(systemData.flux.bonus) || 0;
+
+        let baseFlux = 0;
+        if (condValue >= 1 && condValue <= 20) {
+            baseFlux = fluxTable[condValue - 1];
+        }
+
         systemData.flux.value = baseFlux + fluxBonus;
         // Рассчитываем максимальные очки здоровья по формуле: 10 + 5 * (телосложение + сила)
         systemData.health.max = 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value);
