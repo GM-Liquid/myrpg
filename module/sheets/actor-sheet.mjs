@@ -3,7 +3,20 @@
  * @extends {ActorSheet}
  */
 export class myrpgActorSheet extends ActorSheet {
-  /** @override */
+    /** @override */
+
+    _activateListeners(html) {
+        // Вызываем родительский метод, чтобы сохранить базовую функциональность
+        super._activateListeners(html);
+
+        // Обработчик для синхронизации полей бонуса потока
+        const fluxBonusInputs = html.find('input.flux-bonus-sync');
+        fluxBonusInputs.on('change keyup', event => {
+            const newValue = event.currentTarget.value;
+            // Обновляем значение во всех полях с классом "flux-bonus-sync"
+            fluxBonusInputs.val(newValue);
+        });
+    }
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['myrpg', 'sheet', 'actor'],
