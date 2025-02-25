@@ -38,27 +38,25 @@ export class myrpgActor extends Actor {
     this._prepareNpcData(actorData);
   }
 
-
     _prepareCharacterData(actorData) {
+        const systemData = actorData.system;
 
-    const systemData = actorData.system;
+        // Пример: «модификаторы» способностей (если вам нужно)
+        for (let [key, ability] of Object.entries(systemData.abilities)) {
+            ability.mod = ability.value;
+        }
 
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    for (let [key, ability] of Object.entries(systemData.abilities)) {
-      // Calculate the modifier using d20 rules.
-      ability.mod = ability.value;
-      }
+        // Пример: «модификаторы» навыков (если вам нужно)
+        for (let [x, skill] of Object.entries(systemData.skills)) {
+            // skill.mod = skill.value; // или skill.c, если у вас действительно есть skill.c
+            skill.mod = skill.c;
+        }
 
-    for (let [x, skill] of Object.entries(systemData.skills)) {
-      // Calculate the modifier using d20 rules.
-      skill.mod = skill.c;
-    }
-        // Для каждого навыка убеждаемся, что его значение не превышает значение связанной способности
+        // Убедимся, что навыки не превышают связанную способность
         for (let [key, skill] of Object.entries(systemData.skills)) {
-            let abilityKey = skill.ability;  // например, "will", "dex" и т.д.
+            const abilityKey = skill.ability;
             if (systemData.abilities[abilityKey]) {
-                let abilityValue = systemData.abilities[abilityKey].value;
-                // Если значение навыка превышает значение способности, устанавливаем его равным значению способности
+                const abilityValue = systemData.abilities[abilityKey].value;
                 if (skill.value > abilityValue) {
                     skill.value = abilityValue;
                 }
@@ -69,49 +67,22 @@ export class myrpgActor extends Actor {
         systemData.steadfast = systemData.steadfast || { bonus: 0, result: 0 };
         systemData.tension = systemData.tension || { value: 0 };
 
-        // Вычисляем итог для "Класса Доспеха": бонус + значение навыка "Выносливость" (vynoslivost)
+        // Класс Доспеха: armor.result = бонус + навык "vynoslivost"
         systemData.armor.result = Number(systemData.armor.bonus) + Number(systemData.skills.vynoslivost.value);
 
-        // Вычисляем итог для "Стойкости": бонус + значение навыка "Стойкость" (stoikost)
+        // Стойкость: steadfast.result = бонус + навык "stoikost"
         systemData.steadfast.result = Number(systemData.steadfast.bonus) + Number(systemData.skills.stoikost.value);
 
-        // Для напряжённости максимальное значение равно значению ранения (health.damage)
+        // Напряжённость: tension.max = половина здоровья (health.damage)
         systemData.tension.max = systemData.health.damage;
 
-        // Таблица базовых значений потока для значений проводимости от 1 до 20
+        // Таблица базовых значений потока (cond от 1 до 20)
         const fluxTable = [
-            15,  // cond = 1
-            20,  // cond = 2
-            25,  // cond = 3
-            30,  // cond = 4
-            40,  // cond = 5
-            50,  // cond = 6
-            60,  // cond = 7
-            70,  // cond = 8
-            85,  // cond = 9
-            100, // cond = 10
-            115, // cond = 11
-            130, // cond = 12
-            150, // cond = 13
-            170, // cond = 14
-            190, // cond = 15
-            210, // cond = 16
-            235, // cond = 17
-            260, // cond = 18
-            285, // cond = 19
-            310  // cond = 20
+            15, 20, 25, 30, 40, 50, 60, 70, 85, 100,
+            115, 130, 150, 170, 190, 210, 235, 260, 285, 310
         ];
 
-        const condValue = systemData.abilities.cond.value || 0;  // Получаем проводимость
-        const fluxBonus = systemData.flux.bonus || 0;            // Получаем бонус к потоку
-
-        // Если значение проводимости в допустимом диапазоне (от 1 до 20), берём базовый поток из таблицы
-        let baseFlux = 0;
-        if (condValue >= 1 && condValue <= 20) {
-            baseFlux = fluxTable[condValue - 1];
-        }
-
-        // Рассчитываем итоговое значение потока
+        // Считываем cond и бонус потока как числа
         const condValue = parseInt(systemData.abilities.cond.value) || 0;
         const fluxBonus = parseInt(systemData.flux.bonus) || 0;
 
@@ -120,19 +91,20 @@ export class myrpgActor extends Actor {
             baseFlux = fluxTable[condValue - 1];
         }
 
+        // Итоговое значение потока
         systemData.flux.value = baseFlux + fluxBonus;
-        // Рассчитываем максимальные очки здоровья по формуле: 10 + 5 * (телосложение + сила)
+
+        // Макс. ОЗ = 10 + 5 * (con + will)
         systemData.health.max = 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value);
 
-        // Если текущие ОЗ отсутствуют или превышают максимум, устанавливаем их равными максимуму
+        // Если текущие ОЗ не заданы или > max, приравниваем к max
         if (!systemData.health.value || systemData.health.value > systemData.health.max) {
             systemData.health.value = systemData.health.max;
         }
 
-        // Рассчитываем значение ранения как половину от макс. ОЗ, округлённую вниз
+        // Ранение = floor(health.max / 2)
         systemData.health.damage = Math.floor(systemData.health.max / 2);
-
-  }
+    }
 
   /**
    * Prepare NPC type specific data.
