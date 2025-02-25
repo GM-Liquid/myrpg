@@ -63,45 +63,31 @@ export class myrpgActor extends Actor {
             }
         }
 
-        systemData.armor = systemData.armor || { bonus: 0, result: 0 };
-        systemData.steadfast = systemData.steadfast || { bonus: 0, result: 0 };
-        systemData.tension = systemData.tension || { value: 0 };
+        systemData.health.max = 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value) + (Number(systemData.temphealth) || 0);
+        if (!systemData.health.value || systemData.health.value > systemData.health.max) {
+            systemData.health.value = systemData.health.max;
+        }
+        systemData.health.damage = Math.floor(systemData.health.max / 2);
 
-        // Класс Доспеха: armor.result = бонус + навык "vynoslivost"
-        systemData.armor.result = Number(systemData.armor.bonus) + Number(systemData.skills.vynoslivost.value);
-
-        // Стойкость: steadfast.result = бонус + навык "stoikost"
-        systemData.steadfast.result = Number(systemData.steadfast.bonus) + Number(systemData.skills.stoikost.value);
-
-        // Напряжённость: tension.max = половина здоровья (health.damage)
-        systemData.tension.max = systemData.health.damage;
-
-        // Таблица базовых значений потока (cond от 1 до 20)
-        const fluxTable = [
-            15, 20, 25, 30, 40, 50, 60, 70, 85, 100,
-            115, 130, 150, 170, 190, 210, 235, 260, 285, 310
-        ];
-
+        // Поток (Flux)
+        // Базовый поток вычисляется по таблице в зависимости от значения способности cond
+        const fluxTable = [15, 20, 25, 30, 40, 50, 60, 70, 85, 100,
+            115, 130, 150, 170, 190, 210, 235, 260, 285, 310];
         const condValue = parseInt(systemData.abilities.cond.value) || 0;
-        const fluxBonus = parseInt(systemData.flux.bonus) || 0;
-
         let baseFlux = 0;
         if (condValue >= 1 && condValue <= 20) {
             baseFlux = fluxTable[condValue - 1];
         }
+        systemData.flux.value = baseFlux + (Number(systemData.tempflux) || 0);
 
-        // Итоговое значение потока
-        systemData.flux.value = baseFlux + fluxBonus;
-        // Макс. ОЗ = 10 + 5 * (con + will)
-        systemData.health.max = 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value);
+        // КД (Armor)
+        systemData.armor.result = Number(systemData.skills.vynoslivost.value) + (Number(systemData.temparmor) || 0);
 
-        // Если текущие ОЗ не заданы или > max, приравниваем к max
-        if (!systemData.health.value || systemData.health.value > systemData.health.max) {
-            systemData.health.value = systemData.health.max;
-        }
+        // Стойкость (Steadfast)
+        systemData.steadfast.result = Number(systemData.skills.stoikost.value) + (Number(systemData.tempsteadfast) || 0);
 
-        // Ранение = floor(health.max / 2)
-        systemData.health.damage = Math.floor(systemData.health.max / 2);
+        // Скорость передвижения
+        systemData.speed.value = 10 + (Number(systemData.tempspeed) || 0);
     }
 
   /**

@@ -8,23 +8,26 @@
           "damage": 0,
           "max": 10
         },
-        "tempHealth": {
+        "flux": {
           "value": 0
         },
-        "flux": {
-          "bonus": 0
-        },
         "armor": {
-          "bonus": 0,
           "result": 0
         },
         "tension": {
           "value": 0
         },
         "steadfast": {
-          "bonus": 0,
           "result": 0
         },
+        "speed": {
+          "value": 10
+        },
+        "temphealth": 0,
+        "tempflux": 0,
+        "temparmor": 0,
+        "tempsteadfast": 0,
+        "tempspeed": 0,
         "biography": ""
       }
     },

@@ -4,7 +4,7 @@
       "Label": "Поток"
     },
     "Health": {
-      "Label": "ОЗ (текущ/рана/макс)",
+      "Label": "Очки Здоровья (ОЗ)",
       "Temp": "Временные ОЗ",
       "SubCurrent": "Текущ",
       "SubDamage": "Рана",
@@ -24,6 +24,27 @@
       "Label": "Стойкость",
       "BonusLabel": "Бонус доспеха",
       "ResultLabel": "Итог"
+    },
+    "Speed": {
+      "Label": "Скорость передвижения"
+    },
+    "TempBonus": {
+      "Label": "Временные бонусы"
+    },
+    "TempHealth": {
+      "Label": "Временное ОЗ"
+    },
+    "TempFlux": {
+      "Label": "Временный поток"
+    },
+    "TempArmor": {
+      "Label": "Временный бонус КД"
+    },
+    "TempSteadfast": {
+      "Label": "Временная стойкость"
+    },
+    "TempSpeed": {
+      "Label": "Временная скорость"
     },
     "Ability": {
       "Will": {
@@ -99,7 +120,7 @@
       "Item": "Лист предметов",
       "Abilities": "Способности",
       "Features": "основной лист",
-      "Spells":  "Магия"
+      "Spells": "Магия"
     },
     "Abilities": {
       "Title": "Способности",
