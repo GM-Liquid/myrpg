@@ -32,12 +32,30 @@
                                     <div class="sub-label">{{localize "MY_RPG.Health.SubMax"}}</div>
                                 </div>
                                 <div class="flexrow flex-group-center">
-                                    {{!-- Значение текущего ОЗ – редактируемое, только целые числа --}}
-                                    <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number" style="width: 33%;" pattern="\d+" inputmode="numeric" />
-                                    {{!-- Значение раны – вычисляемое --}}
-                                    <input type="text" name="system.health.damage" value="{{system.health.damage}}" data-dtype="Number" style="width: 33%;" readonly tabindex="-1" />
-                                    {{!-- Максимальное ОЗ – вычисляемое --}}
-                                    <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number" style="width: 33%;" readonly tabindex="-1" />
+                                    <!-- Редактируемое поле: текущее ОЗ -->
+                                    <input type="number"
+                                           name="system.health.value"
+                                           value="{{system.health.value}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           pattern="\d+"
+                                           style="width: 33%;" />
+                                    <!-- Вычисляемое поле: рана -->
+                                    <input type="number"
+                                           name="system.health.damage"
+                                           value="{{system.health.damage}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 33%;" />
+                                    <!-- Вычисляемое поле: макс. ОЗ -->
+                                    <input type="number"
+                                           name="system.health.max"
+                                           value="{{system.health.max}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 33%;" />
                                 </div>
                             </div>
                         </div>
@@ -46,7 +64,12 @@
                         <div class="resource flex-group-center">
                             <label class="resource-label">{{localize "MY_RPG.Health.Temp"}}</label>
                             <div class="resource-content flexrow flex-center">
-                                <input type="text" name="system.tempHealth.value" value="{{system.tempHealth.value}}" data-dtype="Number" pattern="\d+" inputmode="numeric" />
+                                <input type="number"
+                                       name="system.tempHealth.value"
+                                       value="{{system.tempHealth.value}}"
+                                       step="1"
+                                       inputmode="numeric"
+                                       pattern="\d+" />
                             </div>
                         </div>
 
@@ -54,10 +77,21 @@
                         <div class="resource flex-group-center">
                             <label class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
                             <div class="resource-content flexrow flex-center flex-between">
-                                {{!-- Поток – вычисляемое --}}
-                                <input type="text" name="system.flux.value" value="{{system.flux.value}}" data-dtype="Number" readonly tabindex="-1" />
-                                {{!-- Бонус к потоку – редактируемое --}}
-                                <input type="text" name="system.flux.bonus" value="{{system.flux.bonus}}" data-dtype="Number" placeholder="Бонус" pattern="\d+" inputmode="numeric" />
+                                <!-- Вычисляемое поле: Поток -->
+                                <input type="number"
+                                       name="system.flux.value"
+                                       value="{{system.flux.value}}"
+                                       step="1"
+                                       inputmode="numeric"
+                                       readonly tabindex="-1" />
+                                <!-- Редактируемое поле: Бонус потока -->
+                                <input type="number"
+                                       name="system.flux.bonus"
+                                       value="{{system.flux.bonus}}"
+                                       step="1"
+                                       inputmode="numeric"
+                                       pattern="\d+"
+                                       placeholder="Бонус" />
                             </div>
                         </div>
 
@@ -70,10 +104,22 @@
                                     <div class="sub-label">{{localize "MY_RPG.Armor.ResultLabel"}}</div>
                                 </div>
                                 <div class="flexrow flex-group-center">
-                                    {{!-- Бонус доспеха – редактируемое --}}
-                                    <input type="text" name="system.armor.bonus" value="{{system.armor.bonus}}" data-dtype="Number" style="width: 50%;" pattern="\d+" inputmode="numeric" />
-                                    {{!-- Итог – вычисляемое --}}
-                                    <input type="text" name="system.armor.result" value="{{system.armor.result}}" data-dtype="Number" style="width: 50%;" readonly tabindex="-1" />
+                                    <!-- Редактируемое поле: бонус доспеха -->
+                                    <input type="number"
+                                           name="system.armor.bonus"
+                                           value="{{system.armor.bonus}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           pattern="\d+"
+                                           style="width: 50%;" />
+                                    <!-- Вычисляемое поле: итог -->
+                                    <input type="number"
+                                           name="system.armor.result"
+                                           value="{{system.armor.result}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 50%;" />
                                 </div>
                             </div>
                         </div>
@@ -87,10 +133,22 @@
                                     <div class="sub-label">{{localize "MY_RPG.Tension.MaxLabel"}}</div>
                                 </div>
                                 <div class="flexrow flex-group-center">
-                                    {{!-- Текущее напряжение – редактируемое --}}
-                                    <input type="text" name="system.tension.value" value="{{system.tension.value}}" data-dtype="Number" style="width: 50%;" pattern="\d+" inputmode="numeric" />
-                                    {{!-- Максимальное напряжение – вычисляемое --}}
-                                    <input type="text" name="system.tension.max" value="{{system.tension.max}}" data-dtype="Number" style="width: 50%;" readonly tabindex="-1" />
+                                    <!-- Редактируемое поле: текущее напряжение -->
+                                    <input type="number"
+                                           name="system.tension.value"
+                                           value="{{system.tension.value}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           pattern="\d+"
+                                           style="width: 50%;" />
+                                    <!-- Вычисляемое поле: макс. напряжение -->
+                                    <input type="number"
+                                           name="system.tension.max"
+                                           value="{{system.tension.max}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 50%;" />
                                 </div>
                             </div>
                         </div>
@@ -104,10 +162,22 @@
                                     <div class="sub-label">{{localize "MY_RPG.Steadfast.ResultLabel"}}</div>
                                 </div>
                                 <div class="flexrow flex-group-center">
-                                    {{!-- Бонус стойкости – редактируемое --}}
-                                    <input type="text" name="system.steadfast.bonus" value="{{system.steadfast.bonus}}" data-dtype="Number" style="width: 50%;" pattern="\d+" inputmode="numeric" />
-                                    {{!-- Итог – вычисляемое --}}
-                                    <input type="text" name="system.steadfast.result" value="{{system.steadfast.result}}" data-dtype="Number" style="width: 50%;" readonly tabindex="-1" />
+                                    <!-- Редактируемое поле: бонус стойкости -->
+                                    <input type="number"
+                                           name="system.steadfast.bonus"
+                                           value="{{system.steadfast.bonus}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           pattern="\d+"
+                                           style="width: 50%;" />
+                                    <!-- Вычисляемое поле: итог стойкости -->
+                                    <input type="number"
+                                           name="system.steadfast.result"
+                                           value="{{system.steadfast.result}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 50%;" />
                                 </div>
                             </div>
                         </div>
@@ -116,7 +186,7 @@
                 </div> <!-- .header-fields -->
             </header>
 
-            {{!-- Основное содержимое вкладки Features – характеристики и навыки --}}
+            <!-- Основное содержимое вкладки Features – характеристики и навыки -->
             <section class="grid grid-2col">
                 <aside class="sidebar">
                     <div class="abilities flexcol">
@@ -128,8 +198,12 @@
                                    data-label="{{ability.label}}">
                                 {{ability.label}}
                             </label>
-                            {{!-- Редактируемое поле для характеристики --}}
-                            <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" pattern="\d+" inputmode="numeric" />
+                            <input type="number"
+                                   name="system.abilities.{{key}}.value"
+                                   value="{{ability.value}}"
+                                   step="1"
+                                   inputmode="numeric"
+                                   pattern="\d+" />
                         </div>
                         {{/each}}
                     </div>
@@ -144,8 +218,12 @@
                                    data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
                                 {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
                             </label>
-                            {{!-- Редактируемое поле для навыка --}}
-                            <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" pattern="\d+" inputmode="numeric" />
+                            <input type="number"
+                                   name="system.skills.{{key}}.value"
+                                   value="{{skill.value}}"
+                                   step="1"
+                                   inputmode="numeric"
+                                   pattern="\d+" />
                         </div>
                         {{/each}}
                     </div>
@@ -155,17 +233,26 @@
 
         {{!-- Вкладка "Заклинания" – отображается только поток и список заклинаний --}}
         <div class="tab spells" data-group="primary" data-tab="spells">
-            <!-- Отображение потока -->
             <section class="flux-section">
                 <div class="resource flex-group-center">
                     <label for="system.flux.value" class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
                     <div class="resource-content flexrow flex-center flex-between">
-                        <input type="text" name="system.flux.value" value="{{system.flux.value}}" data-dtype="Number" readonly tabindex="-1" />
-                        <input type="text" name="system.flux.bonus" value="{{system.flux.bonus}}" data-dtype="Number" placeholder="Бонус" pattern="\d+" inputmode="numeric" />
+                        <input type="number"
+                               name="system.flux.value"
+                               value="{{system.flux.value}}"
+                               step="1"
+                               inputmode="numeric"
+                               readonly tabindex="-1" />
+                        <input type="number"
+                               name="system.flux.bonus"
+                               value="{{system.flux.bonus}}"
+                               step="1"
+                               inputmode="numeric"
+                               pattern="\d+"
+                               placeholder="Бонус" />
                     </div>
                 </div>
             </section>
-            <!-- Список заклинаний -->
             <section class="spells-list-section">
                 <h2>{{localize "MY_RPG.Item.Spell.SpellLVL"}}</h2>
                 <div class="spells-list">
