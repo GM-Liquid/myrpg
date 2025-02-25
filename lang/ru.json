@@ -12,18 +12,16 @@
     },
     "Armor": {
       "Label": "Класс Доспеха",
-      "BonusLabel": "Бонус доспеха",
-      "ResultLabel": "Итог"
+      "BonusLabel": "Бонус доспеха"
     },
     "Tension": {
-      "Label": "Напряженность (текущ/макс)",
+      "Label": "Напряженность",
       "ValueLabel": "Текущее",
       "MaxLabel": "Макс"
     },
     "Steadfast": {
       "Label": "Стойкость",
-      "BonusLabel": "Бонус доспеха",
-      "ResultLabel": "Итог"
+      "BonusLabel": "Бонус доспеха"
     },
     "Speed": {
       "Label": "Скорость передвижения"
