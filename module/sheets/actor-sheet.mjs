@@ -6,7 +6,29 @@ export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
     _activateListeners(html) {
+        // Сначала вызываем родительский метод
         super._activateListeners(html);
+
+        // Находим основное поле, которое участвует в сохранении (во вкладке Features)
+        const mainInput = html.find('input[name="system.flux.bonus"]');
+        // Находим синхронизированное поле (во вкладке Spells)
+        const syncInput = html.find('input.flux-bonus-sync');
+
+        // При изменении основного поля обновляем значение в синхронизированном
+        mainInput.on('input change', function () {
+            const val = $(this).val();
+            syncInput.val(val);
+        });
+
+        // При изменении синхронизированного поля обновляем основное поле и данные актёра
+        syncInput.on('input change', function () {
+            const val = $(this).val();
+            mainInput.val(val);
+            // Опционально: обновляем данные актёра немедленно
+            // Используем метод update, чтобы сохранить новое значение
+            // (учтите, что частое обновление может быть не оптимально – можно обновлять по событию "blur")
+            this.actor.update({ "system.flux.bonus": Number(val) });
+        }.bind(this));
     }
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {

@@ -82,7 +82,6 @@ export class myrpgActor extends Actor {
             115, 130, 150, 170, 190, 210, 235, 260, 285, 310
         ];
 
-        // Считываем cond и бонус потока как числа
         const condValue = parseInt(systemData.abilities.cond.value) || 0;
         const fluxBonus = parseInt(systemData.flux.bonus) || 0;
 
@@ -93,7 +92,6 @@ export class myrpgActor extends Actor {
 
         // Итоговое значение потока
         systemData.flux.value = baseFlux + fluxBonus;
-
         // Макс. ОЗ = 10 + 5 * (con + will)
         systemData.health.max = 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value);
 
