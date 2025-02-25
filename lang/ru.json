@@ -97,7 +97,8 @@
     "SheetLabels": {
       "Actor": "Лист персонажа",
       "Item": "Лист предметов",
-      "Abilities": "Способности"
+      "Abilities": "Способности",
+      "Features": "основной лист"
     },
     "Abilities": {
       "Title": "Способности",

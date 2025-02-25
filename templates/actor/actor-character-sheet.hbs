@@ -97,20 +97,23 @@
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
-        <a class="item" data-tab="abilities">{{localize "MY_RPG.SheetLabels.Abilities"}}</a>
+        <a class="item" data-tab="spells">{{localize "MY_RPG.SheetLabels.Spells"}}</a>
     </nav>
 
     {{!-- Sheet Body --}}
     <section class="sheet-body">
 
-        {{!-- Вкладка Features (существующая вкладка с умениями) --}}
+        {{!-- Основная вкладка (Features) – характеристики и навыки --}}
         <div class="tab features" data-group="primary" data-tab="features">
             <section class="grid grid-2col">
                 <aside class="sidebar">
                     <div class="abilities flexcol">
                         {{#each system.abilities as |ability key|}}
                         <div class="ability flexrow flex-group-center">
-                            <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">
+                            <label for="system.abilities.{{key}}.value"
+                                   class="resource-label rollable flexlarge align-left"
+                                   data-roll="d20+@abilities.{{key}}.mod"
+                                   data-label="{{ability.label}}">
                                 {{ability.label}}
                             </label>
                             <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
@@ -136,44 +139,24 @@
             </section>
         </div>
 
-        {{!-- Новая вкладка "Способности" --}}
-        <div class="tab abilities" data-group="primary" data-tab="abilities">
+        {{!-- Вкладка "Заклинания" – отображается только поток и список заклинаний --}}
+        <div class="tab spells" data-group="primary" data-tab="spells">
 
-            <!-- Раздел для умений и модификаций -->
-            <section class="abilities-mods-section">
-                <h2>{{localize "MY_RPG.Abilities.AbilitiesMods"}}</h2>
-                <div class="grid grid-2col">
-                    <div class="abilities">
-                        {{#each system.abilities as |ability key|}}
-                        <div class="ability flexrow flex-group-center">
-                            <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">
-                                {{ability.label}}
-                            </label>
-                            <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
-                        </div>
-                        {{/each}}
-                    </div>
-                    <div class="skills">
-                        {{#each system.skills as |skill key|}}
-                        <div class="skill flexrow flex-group-center">
-                            <label for="system.skills.{{key}}.value"
-                                   class="resource-label rollable"
-                                   data-roll="d20+@{{key}}.value"
-                                   data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
-                                {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
-                            </label>
-                            <input type="text" name="system.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number" />
-                        </div>
-                        {{/each}}
+            <!-- Отображение потока -->
+            <section class="flux-section">
+                <div class="resource flex-group-center">
+                    <label for="system.flux.value" class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
+                    <div class="resource-content flexrow flex-center flex-between">
+                        <input type="text" name="system.flux.value" value="{{system.flux.value}}" data-dtype="Number" readonly />
+                        <input type="text" name="system.flux.bonus" value="{{system.flux.bonus}}" data-dtype="Number" placeholder="Бонус" />
                     </div>
                 </div>
             </section>
 
-            <!-- Раздел для заклинаний -->
-            <section class="spells-section">
-                <h2>{{localize "MY_RPG.Abilities.Spells"}}</h2>
+            <!-- Список заклинаний -->
+            <section class="spells-list-section">
+                <h2>{{localize "MY_RPG.Item.Spell.SpellLVL"}}</h2>
                 <div class="spells-list">
-                    {{!-- Перебор предметов, где тип равен "spell" --}}
                     {{#each items}}
                     {{#if (eq type "spell")}}
                     <div class="spell">
