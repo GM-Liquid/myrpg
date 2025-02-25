@@ -80,7 +80,6 @@
                                        step="1"
                                        inputmode="numeric"
                                        readonly tabindex="-1" />
-                                <!-- Редактируемое поле: Бонус потока (оставляем name для сохранения) -->
                                 <input type="number"
                                        name="system.flux.bonus"
                                        value="{{system.flux.bonus}}"
@@ -174,8 +173,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- .resources.grid-3col -->
-                </div> <!-- .header-fields -->
+                    </div> 
+                </div> 
             </header>
 
             <!-- Основное содержимое вкладки Features – характеристики и навыки -->
@@ -226,7 +225,6 @@
         {{!-- Вкладка "Заклинания" – отображается только поток и список заклинаний --}}
         <div class="tab spells" data-group="primary" data-tab="spells">
             <section class="flux-section">
-                <!-- Вкладка Spells: Поток -->
                 <div class="resource flex-group-center">
                     <label for="system.flux.value" class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
                     <div class="resource-content flexrow flex-center flex-between">
@@ -236,11 +234,7 @@
                                step="1"
                                inputmode="numeric"
                                readonly tabindex="-1" />
-<<<<<<< HEAD
-                        <!-- Изменяем поле бонуса: убираем name и добавляем readonly -->
-=======
                         <!-- Изменённое поле бонуса: убрали name, добавили класс для синхронизации -->
->>>>>>> parent of 09ffe57 (1)
                         <input type="number"
                                value="{{system.flux.bonus}}"
                                step="1"
