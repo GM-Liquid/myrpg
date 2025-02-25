@@ -5,40 +5,21 @@
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
-    _activateListeners(html)
-    {
-        // Вызываем родительский обработчик
+    _activateListeners(html) {
+        // Вызов родительского метода
         super._activateListeners(html);
 
         // Находим оба поля бонуса потока
         const fluxBonusInputs = html.find('input[name="system.flux.bonus"], input.flux-bonus-sync');
 
-        // Обработчик, который обновляет данные актора при изменении любого из полей
-        fluxBonusInputs.on('change input', (e) =>
-        {
+        // Обработчик событий, который срабатывает при изменении любого из полей
+        fluxBonusInputs.on('input change', (e) => {
             const val = $(e.currentTarget).val();
-            // Обновляем актора. Обратите внимание: обновление асинхронное.
+            // Обновляем данные актёра
             this.actor.update({ "system.flux.bonus": Number(val) });
+            // Обновляем значение во всех полях бонуса
+            fluxBonusInputs.val(val);
         });
-
-        // Сохраняем ссылку на обработчик, чтобы потом можно было его отписать
-        this._onActorUpdate = (actor, data) => {
-            // Проверяем, что обновлённый актор – тот же, что открыт в данном листе
-            if (actor.id !== this.actor.id) return;
-            // Если изменилось именно поле flux.bonus, обновляем оба поля в DOM
-            if (data.system && data.system.flux && data.system.flux.bonus !== undefined)
-            {
-                const newVal = data.system.flux.bonus;
-                fluxBonusInputs.val(newVal);
-            }
-        };
-
-        // Регистрируем hook для обновления листа при изменении актора
-        Hooks.on("updateActor", this._onActorUpdate);
-    }
-    close(options) {
-        Hooks.off("updateActor", this._onActorUpdate);
-        return super.close(options);
     }
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
