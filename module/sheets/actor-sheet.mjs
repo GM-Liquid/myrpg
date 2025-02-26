@@ -22,26 +22,34 @@ export class myrpgActorSheet extends ActorSheet {
         // Удаление
         html.find('.abilities-remove-row').click(ev => {
             ev.preventDefault();
+
+            // Считываем индекс строки
             const index = Number(ev.currentTarget.dataset.index);
 
-            // Диалог подтверждения (пример)
+            // Создаём диалог подтверждения
             new Dialog({
-                title: "Удаление способности",
-                content: "<p>Точно хотите удалить?</p>",
+                title: game.i18n.localize("MY_RPG.Dialog.ConfirmDeleteTitle"),
+                content: `<p>${game.i18n.localize("MY_RPG.Dialog.ConfirmDeleteMessage")}</p>`,
                 buttons: {
                     yes: {
                         icon: '<i class="fas fa-check"></i>',
-                        label: "Да",
+                        label: game.i18n.localize("MY_RPG.Dialog.Yes"),
                         callback: () => {
+                            // Если пользователь подтвердил удаление:
                             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-                            if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+
+                            // На случай, если массив сериализовался как объект:
+                            if (!Array.isArray(abilities)) {
+                                abilities = Object.values(abilities);
+                            }
+
                             abilities.splice(index, 1);
                             this.actor.update({ "system.abilitiesList": abilities });
                         }
                     },
                     no: {
                         icon: '<i class="fas fa-times"></i>',
-                        label: "Нет"
+                        label: game.i18n.localize("MY_RPG.Dialog.No")
                     }
                 },
                 default: "no"
