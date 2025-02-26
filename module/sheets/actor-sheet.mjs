@@ -5,35 +5,37 @@
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
-    // В actor-sheet.mjs, метод _activateListeners
     _activateListeners(html) {
+        // Вызов родительского метода
         super._activateListeners(html);
 
-        // Слушаем клики по нашим шестиугольникам
-        html.find('.hex-button').click(ev => {
-            const tabName = ev.currentTarget.dataset.tab;
-            // Активируем нужную вкладку
-            this._tabs[0].activate(tabName);
+        // Находим оба поля бонуса потока
+        const fluxBonusInputs = html.find('input[name="system.flux.bonus"], input.flux-bonus-sync');
 
-            // Дополнительно: помечаем выбранную кнопку классом .active
-            html.find('.hex-button').removeClass('active');
-            $(ev.currentTarget).addClass('active');
+        // Обработчик событий, который срабатывает при изменении любого из полей
+        fluxBonusInputs.on('input change', (e) => {
+            const val = $(e.currentTarget).val();
+            // Обновляем данные актёра
+            this.actor.update({ "system.flux.bonus": Number(val) });
+            // Обновляем значение во всех полях бонуса
+            fluxBonusInputs.val(val);
         });
     }
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ['myrpg', 'sheet', 'actor'],
-            width: 800,
-            height: 600,
-            tabs: [
-                {
-                    navSelector: '',          // Пусто или уберите вовсе,
-                    contentSelector: '.sheet-body',
-                    initial: 'features',
-                },
-            ],
-        });
-    }
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['myrpg', 'sheet', 'actor'],
+      width: 600,
+      height: 600,
+      tabs: [
+        {
+          navSelector: '.sheet-tabs',
+          contentSelector: '.sheet-body',
+          initial: 'features',
+        },
+      ],
+    });
+  }
+
   /** @override */
     get template() {
         if (this.actor.type === "npc") {

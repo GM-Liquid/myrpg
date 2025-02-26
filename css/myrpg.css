@@ -9,43 +9,54 @@
   text-shadow: 0 0 10px red;
   cursor: pointer;
 }
+
+.sheet-tabs.tabs.vertical {
+    overflow-y: auto;
+    /* max-height: 100%; */
+}
+
 .sub-labels {
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
-/* Родительский контейнер листа */
-.myrpg-sheet {
-    position: relative; /* Чтобы absolutely-positioned элементы были в пределах формы */
-    overflow: hidden; /* Иногда помогает избежать лишних полос прокрутки */
-}
-
-/* Контейнер для двух кнопок */
-.hex-switcher-container {
-    position: absolute;
-    top: 50px; /* отступ сверху, настраивайте по вкусу */
-    right: 10px; /* отступ справа */
+/* Общий контейнер, в котором слева вкладки, справа - контент */
+.sheet-container {
     display: flex;
-    flex-direction: column;
-    gap: 10px; /* расстояние между кнопками */
-    z-index: 100; /* чтобы перекрывать внутреннее содержимое */
+    flex-direction: row; /* В одну строку */
+    width: 100%;
+    height: 100%;
 }
 
-/* Стили самой «гекса»-кнопки */
-.hex-button {
-    width: 40px;
-    height: 40px;
-    background-color: #bbb;
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    cursor: pointer;
-    transition: background-color 0.2s;
+/* Сами вкладки делаем вертикальными */
+.sheet-tabs.tabs.vertical {
+    display: flex;
+    flex-direction: column; /* Ставим элементы сверху вниз */
+    flex: 0 0 100px; /* Фиксированная ширина, можно менять */
+    border-right: 1px solid #999;
+    background: #f0f0f0;
 }
 
-    .hex-button:hover {
-        background-color: #ddd;
+    /* Отдельные пункты вкладок */
+    .sheet-tabs.tabs.vertical .item {
+        padding: 8px 10px;
+        text-align: center;
+        cursor: pointer;
+        border-bottom: 1px solid #ccc;
+        margin: 0;
     }
 
-    .hex-button.active {
-        background-color: #f66; /* цвет активной вкладки */
-    }
+        /* Состояние активной вкладки (можно стилизовать по вкусу) */
+        .sheet-tabs.tabs.vertical .item.active {
+            background-color: #ddd;
+            font-weight: bold;
+        }
+
+/* Контент вкладок занимает оставшееся место */
+.sheet-body {
+    flex: 1 1 auto;
+    padding: 10px;
+    overflow-y: auto; /* Скролл при переполнении */
+}
+
 .sub-label {
     flex: 1;
     font-size: 0.8em;

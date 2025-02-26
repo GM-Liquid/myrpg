@@ -1,224 +1,247 @@
-<form class="{{cssClass}} {{actor.type}} myrpg-sheet" autocomplete="off">
-    <!-- Общий контейнер, который располагает контент (слева) и вкладки (справа) -->
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
     <div class="sheet-container flexrow">
 
-        <!-- ЛЕВАЯ ЧАСТЬ: Основное содержимое вкладок -->
+        <!-- Навигация вкладок слева -->
+        <nav class="sheet-tabs tabs vertical" data-group="primary">
+            <a class="item" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
+            <a class="item" data-tab="spells">{{localize "MY_RPG.SheetLabels.Spells"}}</a>
+            <!-- Добавьте остальные вкладки, если нужно -->
+        </nav>
+
+        <!-- Основное содержимое справа -->
         <section class="sheet-body">
-
-            <!-- Вкладка "Основной лист" -->
+            <!-- Вкладка Features -->
             <div class="tab features" data-group="primary" data-tab="features">
-                <!-- Шапка листа (портрет, имя, и т.п.) -->
-                <header class="sheet-header">
-                    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
-                    <div class="header-fields">
-                        <h1 class="charname">
-                            <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
-                        </h1>
-                        <!-- При желании можно добавить класс, уровень и прочие поля -->
-                    </div>
-                </header>
-
-                <!-- Основная сетка ресурсов -->
-                <div class="resources grid grid-3col">
-                    <!-- 1) ОЗ (текущ / рана / макс) -->
-                    <div class="resource flex-group-center">
-                        <label class="resource-label">{{localize "MY_RPG.Health.Label"}}</label>
-                        <div class="resource-content flexcol">
-                            <div class="sub-labels flexrow flex-group-center">
-                                <div class="sub-label">{{localize "MY_RPG.Health.SubCurrent"}}</div>
-                                <div class="sub-label">{{localize "MY_RPG.Health.SubDamage"}}</div>
-                                <div class="sub-label">{{localize "MY_RPG.Health.SubMax"}}</div>
-                            </div>
-                            <div class="flexrow flex-group-center">
-                                <input type="number"
-                                       name="system.health.value"
-                                       value="{{system.health.value}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       pattern="\d+"
-                                       style="width: 33%;" />
-                                <input type="number"
-                                       name="system.health.damage"
-                                       value="{{system.health.damage}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       readonly tabindex="-1"
-                                       style="width: 33%;" />
-                                <input type="number"
-                                       name="system.health.max"
-                                       value="{{system.health.max}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       readonly tabindex="-1"
-                                       style="width: 33%;" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2) Поток (итоговое значение) -->
-                    <div class="resource flex-group-center">
-                        <label class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
-                        <div class="resource-content flexrow flex-center">
-                            <input type="number"
-                                   name="system.flux.value"
-                                   value="{{system.flux.value}}"
-                                   step="1"
-                                   inputmode="numeric"
-                                   readonly tabindex="-1" />
-                        </div>
-                    </div>
-
-                    <!-- 3) Класс Доспеха (КД) - одно итоговое поле -->
-                    <div class="resource flex-group-center">
-                        <label class="resource-label">{{localize "MY_RPG.Armor.Label"}}</label>
-                        <div class="resource-content flexrow flex-center">
-                            <input type="number"
-                                   name="system.armor.result"
-                                   value="{{system.armor.result}}"
-                                   step="1"
-                                   inputmode="numeric"
-                                   readonly tabindex="-1"
-                                   style="width: 100%;" />
-                        </div>
-                    </div>
-
-                    <!-- 4) Стойкость - одно итоговое поле -->
-                    <div class="resource flex-group-center">
-                        <label class="resource-label">{{localize "MY_RPG.Steadfast.Label"}}</label>
-                        <div class="resource-content flexrow flex-center">
-                            <input type="number"
-                                   name="system.steadfast.result"
-                                   value="{{system.steadfast.result}}"
-                                   step="1"
-                                   inputmode="numeric"
-                                   readonly tabindex="-1"
-                                   style="width: 100%;" />
-                        </div>
-                    </div>
-
-                    <!-- 5) Скорость передвижения -->
-                    <div class="resource flex-group-center">
-                        <label class="resource-label">{{localize "MY_RPG.Speed.Label"}}</label>
-                        <div class="resource-content flexrow flex-center">
-                            <input type="number"
-                                   name="system.speed.value"
-                                   value="{{system.speed.value}}"
-                                   step="1"
-                                   inputmode="numeric"
-                                   readonly tabindex="-1" />
-                        </div>
-                    </div>
-
-                    <!-- 6) Напряжённость (текущее / макс) -->
-                    <div class="resource flex-group-center">
-                        <label class="resource-label">{{localize "MY_RPG.Tension.Label"}}</label>
-                        <div class="resource-content flexcol">
-                            <div class="sub-labels flexrow flex-group-center">
-                                <div class="sub-label">{{localize "MY_RPG.Tension.ValueLabel"}}</div>
-                                <div class="sub-label">{{localize "MY_RPG.Tension.MaxLabel"}}</div>
-                            </div>
-                            <div class="flexrow flex-group-center">
-                                <input type="number"
-                                       name="system.tension.value"
-                                       value="{{system.tension.value}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       pattern="\d+"
-                                       style="width: 50%;" />
-                                <input type="number"
-                                       name="system.tension.max"
-                                       value="{{system.tension.max}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       readonly tabindex="-1"
-                                       style="width: 50%;" />
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- .resources.grid-3col -->
-                <!-- Таблица временных бонусов -->
-                <section class="temp-bonus">
-                    <h2>{{localize "MY_RPG.TempBonus.Label"}}</h2>
-                    <table>
-                        <tr>
-                            <td>{{localize "MY_RPG.TempHealth.Label"}}</td>
-                            <td>
-                                <input type="number" name="system.temphealth" value="{{system.temphealth}}" step="1" inputmode="numeric" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{localize "MY_RPG.TempFlux.Label"}}</td>
-                            <td>
-                                <input type="number" name="system.tempflux" value="{{system.tempflux}}" step="1" inputmode="numeric" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{localize "MY_RPG.TempArmor.Label"}}</td>
-                            <td>
-                                <input type="number" name="system.temparmor" value="{{system.temparmor}}" step="1" inputmode="numeric" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{localize "MY_RPG.TempSteadfast.Label"}}</td>
-                            <td>
-                                <input type="number" name="system.tempsteadfast" value="{{system.tempsteadfast}}" step="1" inputmode="numeric" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{localize "MY_RPG.TempSpeed.Label"}}</td>
-                            <td>
-                                <input type="number" name="system.tempspeed" value="{{system.tempspeed}}" step="1" inputmode="numeric" />
-                            </td>
-                        </tr>
-                    </table>
-                </section>
-
-                <!-- Характеристики и навыки (пример) -->
-                <section class="grid grid-2col">
-                    <aside class="sidebar">
-                        <div class="abilities flexcol">
-                            {{#each system.abilities as |ability key|}}
-                            <div class="ability flexrow flex-group-center">
-                                <label class="resource-label rollable flexlarge align-left"
-                                       data-roll="d20+@abilities.{{key}}.mod"
-                                       data-label="{{ability.label}}">
-                                    {{ability.label}}
-                                </label>
-                                <input type="number"
-                                       name="system.abilities.{{key}}.value"
-                                       value="{{ability.value}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       pattern="\d+" />
-                            </div>
-                            {{/each}}
-                        </div>
-                    </aside>
-                    <aside class="sidebar2">
-                        <div class="skills flexcol">
-                            {{#each system.skills as |skill key|}}
-                            <div class="skill flexrow flex-group-center">
-                                <label class="resource-label rollable"
-                                       data-roll="d20+@{{key}}.value"
-                                       data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
-                                    {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
-                                </label>
-                                <input type="number"
-                                       name="system.skills.{{key}}.value"
-                                       value="{{skill.value}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       pattern="\d+" />
-                            </div>
-                            {{/each}}
-                        </div>
-                    </aside>
-                </section>
-            </div> <!-- .tab.features -->
-            <!-- Вкладка "Магия" -->
+                <!-- Ваш контент (характеристики, ресурсы и т.д.) -->
+            </div>
+            <!-- Вкладка Spells -->
             <div class="tab spells" data-group="primary" data-tab="spells">
-                <h2>Магия</h2>
-                <!-- Итоговое значение потока (только чтение) -->
+                <!-- Ваш контент (поток, заклинания и т.д.) -->
+            </div>
+        </section>
+
+    </div>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Основная вкладка (Features) – содержит header, характеристики и навыки --}}
+        <div class="tab features" data-group="primary" data-tab="features">
+            {{!-- Header теперь является частью вкладки Features --}}
+            <header class="sheet-header">
+                <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+                <div class="header-fields">
+                    <h1 class="charname">
+                        <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+                    </h1>
+                    <div class="resources grid grid-3col">
+                        <!-- ОЗ -->
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">{{localize "MY_RPG.Health.Label"}}</label>
+                            <div class="resource-content flexcol">
+                                <div class="sub-labels flexrow flex-group-center">
+                                    <div class="sub-label">{{localize "MY_RPG.Health.SubCurrent"}}</div>
+                                    <div class="sub-label">{{localize "MY_RPG.Health.SubDamage"}}</div>
+                                    <div class="sub-label">{{localize "MY_RPG.Health.SubMax"}}</div>
+                                </div>
+                                <div class="flexrow flex-group-center">
+                                    <input type="number"
+                                           name="system.health.value"
+                                           value="{{system.health.value}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           pattern="\d+"
+                                           style="width: 33%;" />
+                                    <input type="number"
+                                           name="system.health.damage"
+                                           value="{{system.health.damage}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 33%;" />
+                                    <input type="number"
+                                           name="system.health.max"
+                                           value="{{system.health.max}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 33%;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Поток -->
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
+                            <div class="resource-content flexrow flex-center">
+                                <input type="number"
+                                       name="system.flux.value"
+                                       value="{{system.flux.value}}"
+                                       step="1"
+                                       inputmode="numeric"
+                                       readonly tabindex="-1" />
+                            </div>
+                        </div>
+
+                        <!-- КД (Доспех) -->
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">{{localize "MY_RPG.Armor.Label"}}</label>
+                            <div class="resource-content flexcol">
+                                <div class="flexrow flex-group-center">
+                                    <input type="number"
+                                           name="system.armor.result"
+                                           value="{{system.armor.result}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 100%;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Стойкость -->
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">{{localize "MY_RPG.Steadfast.Label"}}</label>
+                            <div class="resource-content flexcol">
+                                <div class="flexrow flex-group-center">
+                                    <input type="number"
+                                           name="system.steadfast.result"
+                                           value="{{system.steadfast.result}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 100%;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Скорость передвижения -->
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">{{localize "MY_RPG.Speed.Label"}}</label>
+                            <div class="resource-content flexrow flex-center">
+                                <input type="number"
+                                       name="system.speed.value"
+                                       value="{{system.speed.value}}"
+                                       step="1"
+                                       inputmode="numeric"
+                                       readonly tabindex="-1" />
+                            </div>
+                        </div>
+
+                        <!-- Напряжённость (без изменений) -->
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">{{localize "MY_RPG.Tension.Label"}}</label>
+                            <div class="resource-content flexcol">
+                                <div class="sub-labels flexrow flex-group-center">
+                                    <div class="sub-label">{{localize "MY_RPG.Tension.ValueLabel"}}</div>
+                                    <div class="sub-label">{{localize "MY_RPG.Tension.MaxLabel"}}</div>
+                                </div>
+                                <div class="flexrow flex-group-center">
+                                    <input type="number"
+                                           name="system.tension.value"
+                                           value="{{system.tension.value}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           pattern="\d+"
+                                           style="width: 50%;" />
+                                    <input type="number"
+                                           name="system.tension.max"
+                                           value="{{system.tension.max}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           readonly tabindex="-1"
+                                           style="width: 50%;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="temp-bonus">
+                <h2>{{localize "MY_RPG.TempBonus.Label"}}</h2>
+                <table>
+                    <tr>
+                        <td>{{localize "MY_RPG.TempHealth.Label"}}</td>
+                        <td>
+                            <input type="number" name="system.temphealth" value="{{system.temphealth}}" step="1" inputmode="numeric" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{localize "MY_RPG.TempFlux.Label"}}</td>
+                        <td>
+                            <input type="number" name="system.tempflux" value="{{system.tempflux}}" step="1" inputmode="numeric" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{localize "MY_RPG.TempArmor.Label"}}</td>
+                        <td>
+                            <input type="number" name="system.temparmor" value="{{system.temparmor}}" step="1" inputmode="numeric" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{localize "MY_RPG.TempSteadfast.Label"}}</td>
+                        <td>
+                            <input type="number" name="system.tempsteadfast" value="{{system.tempsteadfast}}" step="1" inputmode="numeric" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{localize "MY_RPG.TempSpeed.Label"}}</td>
+                        <td>
+                            <input type="number" name="system.tempspeed" value="{{system.tempspeed}}" step="1" inputmode="numeric" />
+                        </td>
+                    </tr>
+                </table>
+            </section>
+            <!-- Основное содержимое вкладки Features – характеристики и навыки -->
+            <section class="grid grid-2col">
+                <aside class="sidebar">
+                    <div class="abilities flexcol">
+                        {{#each system.abilities as |ability key|}}
+                        <div class="ability flexrow flex-group-center">
+                            <label for="system.abilities.{{key}}.value"
+                                   class="resource-label rollable flexlarge align-left"
+                                   data-roll="d20+@abilities.{{key}}.mod"
+                                   data-label="{{ability.label}}">
+                                {{ability.label}}
+                            </label>
+                            <input type="number"
+                                   name="system.abilities.{{key}}.value"
+                                   value="{{ability.value}}"
+                                   step="1"
+                                   inputmode="numeric"
+                                   pattern="\d+" />
+                        </div>
+                        {{/each}}
+                    </div>
+                </aside>
+                <aside class="sidebar2">
+                    <div class="skills flexcol">
+                        {{#each system.skills as |skill key|}}
+                        <div class="skill flexrow flex-group-center">
+                            <label for="system.skills.{{key}}.value"
+                                   class="resource-label rollable"
+                                   data-roll="d20+@{{key}}.value"
+                                   data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
+                                {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
+                            </label>
+                            <input type="number"
+                                   name="system.skills.{{key}}.value"
+                                   value="{{skill.value}}"
+                                   step="1"
+                                   inputmode="numeric"
+                                   pattern="\d+" />
+                        </div>
+                        {{/each}}
+                    </div>
+                </aside>
+            </section>
+        </div>
+
+        {{!-- Вкладка "Заклинания" – отображается только поток и список заклинаний --}}
+        <div class="tab spells" data-group="primary" data-tab="spells">
+            <section class="flux-section">
+                <!-- Вкладка Spells: Поток -->
                 <div class="resource flex-group-center">
                     <label for="system.flux.value" class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
                     <div class="resource-content flexrow flex-center">
@@ -230,29 +253,21 @@
                                readonly tabindex="-1" />
                     </div>
                 </div>
-                <!-- Пример вывода заклинаний -->
-                <section class="spells-list-section">
-                    <h3>{{localize "MY_RPG.Item.Spell.SpellLVL"}}</h3>
-                    <div class="spells-list">
-                        {{#each items}}
-                        {{#if (eq type "spell")}}
-                        <div class="spell">
-                            <h4>{{name}}</h4>
-                            <p>{{system.description}}</p>
-                        </div>
-                        {{/if}}
-                        {{/each}}
+            </section>
+            <section class="spells-list-section">
+                <h2>{{localize "MY_RPG.Item.Spell.SpellLVL"}}</h2>
+                <div class="spells-list">
+                    {{#each items}}
+                    {{#if (eq type "spell")}}
+                    <div class="spell">
+                        <h3>{{name}}</h3>
+                        <p>{{system.description}}</p>
                     </div>
-                </section>
-            </div> <!-- .tab.spells -->
-
-        </section> <!-- .sheet-body -->
-        <div class="hex-switcher-container">
-            <!-- Кнопка для вкладки Features -->
-            <div class="hex-button" data-tab="features" data-group="primary" title="Features"></div>
-            <!-- Кнопка для вкладки Spells -->
-            <div class="hex-button" data-tab="spells" data-group="primary" title="Spells"></div>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </section>
         </div>
 
-    </div> <!-- .sheet-container -->
+    </section>
 </form>
