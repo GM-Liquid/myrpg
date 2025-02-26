@@ -31,6 +31,7 @@ export class myrpgActorSheet extends ActorSheet {
 
         // Клик по иконке "Удалить строку"
         html.find('.abilities-remove-row').click(ev => {
+            console.log(">>> CLICK ADD ROW"); // <-- Отладка
             ev.preventDefault();
             const index = Number(ev.currentTarget.dataset.index);
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
