@@ -1,16 +1,16 @@
 ﻿<form>
     <div class="form-group">
-        <label>Название</label>
+        <label>{{localize "MY_RPG.AbilityConfig.Name"}}</label>
         <input type="text" name="name" value="{{ability.name}}" />
     </div>
 
     <div class="form-group">
-        <label>Эффект</label>
+        <label>{{localize "MY_RPG.AbilityConfig.Effect"}}</label>
         <textarea name="effect" rows="4">{{ability.effect}}</textarea>
     </div>
 
     <div class="form-group">
-        <label>Стоимость</label>
+        <label>{{localize "MY_RPG.AbilityConfig.Cost"}}</label>
         <input type="number" name="cost" value="{{ability.cost}}" />
     </div>
 </form>
