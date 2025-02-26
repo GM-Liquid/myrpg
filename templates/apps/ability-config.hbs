@@ -1,24 +1,16 @@
 ﻿<form>
     <div class="form-group">
-        <label>{{localize "MY_RPG.AbilitiesTable.Name"}}</label>
+        <label>Название</label>
         <input type="text" name="name" value="{{ability.name}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "MY_RPG.AbilitiesTable.Effect"}}</label>
+        <label>Эффект</label>
         <textarea name="effect" rows="4">{{ability.effect}}</textarea>
     </div>
 
     <div class="form-group">
-        <label>{{localize "MY_RPG.AbilitiesTable.Cost"}}</label>
+        <label>Стоимость</label>
         <input type="number" name="cost" value="{{ability.cost}}" />
     </div>
-
-    <!-- При желании можно добавить любые другие поля -->
-    <!--
-    <div class="form-group">
-      <label>Доп. параметры</label>
-      <input type="text" name="somethingElse" value="{{ability.somethingElse}}" />
-    </div>
-    -->
 </form>
