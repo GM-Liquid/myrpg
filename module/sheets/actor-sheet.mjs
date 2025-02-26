@@ -8,7 +8,7 @@ export class myrpgActorSheet extends ActorSheet {
     activateListeners(html) {
         // Вызов родительского метода
         super.activateListeners(html);
-
+        console.log("myrpgActorSheet | activateListeners called");
         // Находим оба поля бонуса потока
         const fluxBonusInputs = html.find('input[name="system.flux.bonus"], input.flux-bonus-sync');
 
