@@ -35,8 +35,8 @@
 /* 3) Блок с вкладками (шестиугольные кнопки) */
 .sheet-tabs-hex-container {
     position: absolute;
-    right: -80px; /* "выпираем" за границу формы */
-    top: 50%;
+    right: -150px; /* "выпираем" за границу формы */
+    top: 20%;
     transform: translateY(-50%);
     z-index: 10;
     display: flex;
@@ -44,19 +44,21 @@
     gap: 30px;
 }
 .hex-button {
-    display: inline-block;
-    width: 80px; /* Ширина кнопки */
-    height: 40px; /* Высота кнопки */
-    background: #ccc; /* Цвет фона кнопки */
+    display: flex; /* Используем flex для удобного выравнивания текста */
+    align-items: center; /* Вертикальное выравнивание текста по центру */
+    justify-content: center; /* Горизонтальное выравнивание текста по центру */
+    width: 200px; /* Фиксированная ширина */
+    height: 40px; /* Фиксированная высота */
+    background: #ccc; /* Цвет фона */
     color: #000;
     font-weight: bold;
-    text-align: center;
-    line-height: 40px; /* Чтобы текст был по центру по вертикали */
     cursor: pointer;
     transition: background 0.3s;
-    border-radius: 6px;
+    /* Запрещаем перенос строк */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Если текст вдруг не влезет, будет троеточие */
 }
-
     /* Ховер-эффект */
     .hex-button:hover {
         background: #aaa;
