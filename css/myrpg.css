@@ -13,12 +13,12 @@
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
 
-
 .myrpg.sheet.actor form {
     position: relative;
-    width: 600px; /* реальная ширина для «прямоугольника» листа */
-    margin: 0; /* чтобы он не расползался */
-    /* overflow: visible можно, но уже не обязательно, т.к. окно не обрезает */
+    width: 100%;
+    min-width: 500px; /* или 600px, на ваше усмотрение */
+    box-sizing: border-box;
+    overflow: visible;
 }
 
 /* Контейнер для самих шестиугольных вкладок */
