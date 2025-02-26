@@ -21,21 +21,18 @@ export class myrpgActorSheet extends ActorSheet {
             fluxBonusInputs.val(val);
         });
     }
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['myrpg', 'sheet', 'actor'],
-      width: 600,
-      height: 600,
-      tabs: [
-        {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'features',
-        },
-      ],
-    });
-  }
-
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ['myrpg', 'sheet', 'actor'],
+            width: 800,
+            height: 600,
+            tabs: [{
+                navSelector: '.sheet-tabs',      // Селектор <nav>
+                contentSelector: '.sheet-body',  // Селектор контейнера с .tab
+                initial: 'features'             // Вкладка, которая открыта по умолчанию
+            }]
+        });
+    }
   /** @override */
     get template() {
         if (this.actor.type === "npc") {
