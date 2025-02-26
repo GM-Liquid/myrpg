@@ -292,21 +292,22 @@
                     <tbody>
                         {{#each system.abilitiesList as |row i|}}
                         <tr>
-                            <!-- ¬место простого <input> сделаем ссылку, по клику на которую откроем отдельное окошко -->
                             <td>
-                                <a class="ability-edit" data-index="{{i}}">{{row.name}}</a>
+                                {{!-- ¬ажно: используем <a> или <span> с классом "ability-edit" --}}
+                                <a class="ability-edit" data-index="{{i}}">
+                                    {{row.name}}
+                                </a>
                             </td>
                             <td>{{row.effect}}</td>
                             <td>{{row.cost}}</td>
                             <td>
-                                <!--  нопка удалени€ строки -->
+                                <!--  нопка удалени€ -->
                                 <a class="abilities-remove-row" data-index="{{i}}">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
                         {{/each}}
-                        <!--  нопка добавлени€ новой строки -->
                         <tr>
                             <td colspan="4">
                                 <a class="abilities-add-row">

@@ -8,91 +8,59 @@ export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
     activateListeners(html) {
-        // Вызов родительского метода
         super.activateListeners(html);
-        console.log("myrpgActorSheet | activateListeners called");
-        // Находим оба поля бонуса потока
-        const fluxBonusInputs = html.find('input[name="system.flux.bonus"], input.flux-bonus-sync');
 
-        // Обработчик событий, который срабатывает при изменении любого из полей
-        fluxBonusInputs.on('input change', (e) => {
-            const val = $(e.currentTarget).val();
-            // Обновляем данные актёра
-            this.actor.update({ "system.flux.bonus": Number(val) });
-            // Обновляем значение во всех полях бонуса
-            fluxBonusInputs.val(val);
-        });
-
-        html.find('.ability-edit').click(ev => {
-            ev.preventDefault();
-            const index = Number(ev.currentTarget.dataset.index);
-
-            // Получаем список способностей
-            let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-            if (!Array.isArray(abilities)) {
-                abilities = Object.values(abilities);
-            }
-
-            // Данные конкретной способности
-            const abilityData = abilities[index];
-
-            // Открываем наше окошко
-            new MyAbilityConfig(this.actor, index, abilityData).render(true);
-        });
-
+        // Добавление
         html.find('.abilities-add-row').click(ev => {
             ev.preventDefault();
-
-            // Шаг 1: Клонируем данные
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-
-            // Шаг 2: Если это не массив (а объект), преобразуем в массив
-            if (!Array.isArray(abilities)) {
-                abilities = Object.values(abilities);
-            }
-
-            // Шаг 3: Теперь .push() будет работать
-            abilities.push({ name: "", desc: "", effect: "", cost: 0 });
-
-            // Шаг 4: Обновляем данные актёра
+            if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+            abilities.push({ name: "", effect: "", cost: 0 });
             this.actor.update({ "system.abilitiesList": abilities });
         });
 
-        // Клик по иконке "Удалить строку"
+        // Удаление
         html.find('.abilities-remove-row').click(ev => {
             ev.preventDefault();
-
-            // Считываем индекс строки
             const index = Number(ev.currentTarget.dataset.index);
 
-            // Создаём диалог подтверждения
+            // Диалог подтверждения (пример)
             new Dialog({
-                title: game.i18n.localize("MY_RPG.Dialog.ConfirmDeleteTitle"),
-                content: `<p>${game.i18n.localize("MY_RPG.Dialog.ConfirmDeleteMessage")}</p>`,
+                title: "Удаление способности",
+                content: "<p>Точно хотите удалить?</p>",
                 buttons: {
                     yes: {
                         icon: '<i class="fas fa-check"></i>',
-                        label: game.i18n.localize("MY_RPG.Dialog.Yes"),
+                        label: "Да",
                         callback: () => {
-                            // Если пользователь подтвердил удаление:
                             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-
-                            // На случай, если массив сериализовался как объект:
-                            if (!Array.isArray(abilities)) {
-                                abilities = Object.values(abilities);
-                            }
-
+                            if (!Array.isArray(abilities)) abilities = Object.values(abilities);
                             abilities.splice(index, 1);
                             this.actor.update({ "system.abilitiesList": abilities });
                         }
                     },
                     no: {
                         icon: '<i class="fas fa-times"></i>',
-                        label: game.i18n.localize("MY_RPG.Dialog.No")
+                        label: "Нет"
                     }
                 },
                 default: "no"
             }).render(true);
+        });
+
+        // Клик по названию (открываем окно редактирования)
+        html.find('.ability-edit').click(ev => {
+            ev.preventDefault();
+            const index = Number(ev.currentTarget.dataset.index);
+
+            // Получаем данные
+            let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+            if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+
+            const abilityData = abilities[index] ?? {};
+
+            // Открываем FormApplication (пример)
+            new MyAbilityConfig(this.actor, index, abilityData).render(true);
         });
     }
     static get defaultOptions() {
