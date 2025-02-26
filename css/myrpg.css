@@ -12,26 +12,24 @@
 .sub-labels {
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
-
 .myrpg.sheet.actor form {
     position: relative;
-    width: 100%;
-    min-width: 500px; /* или 600px, на ваше усмотрение */
+    width: 600px; /* основная ширина формы */
     box-sizing: border-box;
-    overflow: visible;
+    overflow: visible; /* на случай, если нужно вложенное переполнение */
 }
 
-/* Контейнер для самих шестиугольных вкладок */
 .sheet-tabs-hex-container {
     position: absolute;
-    right: -70px; /* подберите число, чтобы иконки выступали за границу листа */
+    right: -60px; /* величина «вынесения» за край */
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 10; /* чтобы кнопки были "выше" содержимого, если нужно */
+    z-index: 10; /* чтобы кнопки были поверх */
 }
+
 
 /* Пример оформления шестиугольной кнопки */
 .hex-button {
@@ -59,12 +57,10 @@
         background: #888;
     }
 
-
-/* 1) Разрешаем окну приложения отображать содержимое за его пределами */
-.window-app.myrpg-hex-tabs {
+.window-app.myrpg-hex-tabs,
+.window-app.myrpg-hex-tabs .window-content {
     overflow: visible !important;
 }
-
     /* 2) Иногда нужно то же самое для вложенных элементов, в зависимости от версии Foundry */
     .window-app.myrpg-hex-tabs .window-content {
         overflow: visible !important;
