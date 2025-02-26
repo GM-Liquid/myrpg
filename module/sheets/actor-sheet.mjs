@@ -22,17 +22,18 @@ export class myrpgActorSheet extends ActorSheet {
         });
 
 
-        html.find('.abilities-add-row').click(ev => {
+        html.on('click', '.abilities-add-row', ev => {
             ev.preventDefault();
+            console.log("Add row clicked");
             const abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             abilities.push({ name: "", desc: "", effect: "", cost: 0 });
             this.actor.update({ "system.abilitiesList": abilities });
         });
 
         // Клик по иконке "Удалить строку"
-        html.find('.abilities-remove-row').click(ev => {
-            console.log(">>> CLICK ADD ROW"); // <-- Отладка
+        html.on('click', '.abilities-remove-row', ev => {
             ev.preventDefault();
+            console.log("Remove row clicked");
             const index = Number(ev.currentTarget.dataset.index);
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             abilities.splice(index, 1);
