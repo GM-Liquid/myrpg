@@ -12,53 +12,50 @@
 .sub-labels {
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
-/* Обеспечиваем, чтобы форма имела относительное позиционирование */
-.myrpg form {
+
+
+/* Форма, внутри которой всё размещается, пусть будет position: relative */
+.myrpg.sheet.actor form {
     position: relative;
 }
 
-/* Контейнер для шестиугольных кнопок – позиционируется справа от формы */
+/* Контейнер для самих шестиугольных вкладок */
 .sheet-tabs-hex-container {
     position: absolute;
-    right: -50px; /* подберите значение, чтобы кнопки выглядели как "выступающие" за пределы */
+    right: -70px; /* подберите число, чтобы иконки выступали за границу листа */
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     gap: 10px;
+    z-index: 10; /* чтобы кнопки были "выше" содержимого, если нужно */
 }
 
-/* Стилизация шестиугольных кнопок */
+/* Пример оформления шестиугольной кнопки */
 .hex-button {
     display: inline-block;
-    width: 60px; /* размер можно скорректировать */
-    height: 60px;
-    background: #ccc; /* цвет фона кнопки */
+    width: 50px;
+    height: 50px;
+    background: #ccc; /* цвет заливки */
     text-align: center;
-    line-height: 60px;
+    line-height: 50px; /* чтобы текст был по центру по вертикали */
     color: #000;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
-    /* Создаём шестиугольную форму через clip-path */
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    /* clip-path задаёт форму шестиугольника */
 }
 
-    /* При наведении */
     .hex-button:hover {
         background: #aaa;
     }
 
-    /* Для активной вкладки (при необходимости, добавить класс через скрипт) */
+    /* Когда вкладка активна (автоматически ставит Foundry класс .active), 
+   можно менять цвет, границу и т.д. */
     .hex-button.active {
         background: #888;
     }
-.sub-label {
-    flex: 1;
-    font-size: 0.8em;
-    color: #666;
-    text-align: center;
-}
 
 .grid,
 .grid-2col {
