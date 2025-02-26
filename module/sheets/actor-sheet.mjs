@@ -5,20 +5,19 @@
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
+    // В actor-sheet.mjs, метод _activateListeners
     _activateListeners(html) {
-        // Вызов родительского метода
         super._activateListeners(html);
 
-        // Находим оба поля бонуса потока
-        const fluxBonusInputs = html.find('input[name="system.flux.bonus"], input.flux-bonus-sync');
+        // Слушаем клики по нашим шестиугольникам
+        html.find('.hex-button').click(ev => {
+            const tabName = ev.currentTarget.dataset.tab;
+            // Активируем нужную вкладку
+            this._tabs[0].activate(tabName);
 
-        // Обработчик событий, который срабатывает при изменении любого из полей
-        fluxBonusInputs.on('input change', (e) => {
-            const val = $(e.currentTarget).val();
-            // Обновляем данные актёра
-            this.actor.update({ "system.flux.bonus": Number(val) });
-            // Обновляем значение во всех полях бонуса
-            fluxBonusInputs.val(val);
+            // Дополнительно: помечаем выбранную кнопку классом .active
+            html.find('.hex-button').removeClass('active');
+            $(ev.currentTarget).addClass('active');
         });
     }
     static get defaultOptions() {
@@ -26,11 +25,13 @@ export class myrpgActorSheet extends ActorSheet {
             classes: ['myrpg', 'sheet', 'actor'],
             width: 800,
             height: 600,
-            tabs: [{
-                navSelector: '.sheet-tabs',      // Селектор <nav>
-                contentSelector: '.sheet-body',  // Селектор контейнера с .tab
-                initial: 'features'             // Вкладка, которая открыта по умолчанию
-            }]
+            tabs: [
+                {
+                    navSelector: '',          // Пусто или уберите вовсе,
+                    contentSelector: '.sheet-body',
+                    initial: 'features',
+                },
+            ],
         });
     }
   /** @override */
