@@ -13,4 +13,16 @@
         <label>{{localize "MY_RPG.AbilityConfig.Cost"}}</label>
         <input type="number" name="cost" value="{{ability.cost}}" />
     </div>
+
+    <!-- Кнопки -->
+    <footer class="form-footer">
+        <!-- Кнопка "Сохранить" отправляет форму, вызывая _updateObject() -->
+        <button type="submit">
+            {{localize "MY_RPG.AbilityConfig.Save"}}
+        </button>
+        <!-- Кнопка "Отмена" — просто закрывает окно без сохранения -->
+        <button type="button" class="ability-cancel">
+            {{localize "MY_RPG.AbilityConfig.Cancel"}}
+        </button>
+    </footer>
 </form>

@@ -14,7 +14,7 @@ export class MyAbilityConfig extends FormApplication {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["myrpg", "sheet", "ability-config"],
-            title: "Редактирование способности",
+            title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
             template: "systems/myrpg/templates/apps/ability-config.hbs",
             width: 400,
             height: "auto"
@@ -34,19 +34,15 @@ export class MyAbilityConfig extends FormApplication {
      * (кнопка "ОК" или "Сохранить" в диалоге).
      */
     async _updateObject(event, formData) {
-        // Считываем поля формы
-        // formData = { name: "...", effect: "...", cost: "5" }
         let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
         if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
-        // Обновляем конкретный элемент массива
         abilities[this.abilityIndex] = {
             name: formData.name ?? "",
             effect: formData.effect ?? "",
             cost: Number(formData.cost ?? 0)
         };
 
-        // Сохраняем
         await this.actor.update({ "system.abilitiesList": abilities });
     }
 }

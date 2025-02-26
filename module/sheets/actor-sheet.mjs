@@ -9,7 +9,11 @@ export class myrpgActorSheet extends ActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
-
+         // Клик по "Отмена" — просто закрываем окно
+        html.find(".ability-cancel").click(ev => {
+            ev.preventDefault();
+            this.close();
+        });
         // Добавить строку
         html.find('.abilities-add-row').click(ev => {
             ev.preventDefault();
