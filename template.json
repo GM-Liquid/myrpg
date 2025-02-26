@@ -12,7 +12,10 @@
           "value": 0
         },
         "armor": {
-          "result": 0
+          "result": 0,
+          "itemDesc": "",
+          "itemAC": 0,
+          "itemSteadfast": 0
         },
         "tension": {
           "value": 0

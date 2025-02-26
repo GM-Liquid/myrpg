@@ -14,6 +14,11 @@
       "Label": "Класс Доспеха",
       "BonusLabel": "Бонус доспеха"
     },
+    "ArmorItem": {
+      "Description": "Описание доспеха",
+      "AC": "КД (бонус)",
+      "Steadfast": "Стойкость (бонус)"
+    },
     "Tension": {
       "Label": "Напряженность",
       "ValueLabel": "Текущее",

@@ -18,15 +18,7 @@ export class myrpgActor extends Actor {
     // documents or derived data.
   }
 
-  /**
-   * @override
-   * Augment the actor source data with additional dynamic data. Typically,
-   * you'll want to handle most of your calculated/derived data in this step.
-   * Data calculated in this step should generally not exist in template.json
-   * (such as ability modifiers rather than ability scores) and should be
-   * available both inside and outside of character sheets (such as if an actor
-   * is queried and has a roll executed directly from it).
-   */
+  /**@override*/
   prepareDerivedData() {
     const actorData = this;
     const systemData = actorData.system;
@@ -81,10 +73,16 @@ export class myrpgActor extends Actor {
         systemData.flux.value = baseFlux + (Number(systemData.tempflux) || 0);
 
         // КД (Armor)
-        systemData.armor.result = Number(systemData.skills.vynoslivost.value) + (Number(systemData.temparmor) || 0);
+        systemData.armor.result =
+            Number(systemData.skills.vynoslivost.value) +
+            (Number(systemData.temparmor) || 0) +
+            (Number(systemData.armor.itemAC) || 0);
 
         // Стойкость (Steadfast)
-        systemData.steadfast.result = Number(systemData.skills.stoikost.value) + (Number(systemData.tempsteadfast) || 0);
+        systemData.steadfast.result =
+            Number(systemData.skills.stoikost.value) +
+            (Number(systemData.tempsteadfast) || 0) +
+            (Number(systemData.armor.itemSteadfast) || 0);
 
         // Скорость передвижения
         systemData.speed.value = 10 + (Number(systemData.tempspeed) || 0);
