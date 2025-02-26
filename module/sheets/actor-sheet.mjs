@@ -10,23 +10,22 @@ export class myrpgActorSheet extends ActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
-        // Добавление
+        // Добавить строку
         html.find('.abilities-add-row').click(ev => {
             ev.preventDefault();
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+
             abilities.push({ name: "", effect: "", cost: 0 });
             this.actor.update({ "system.abilitiesList": abilities });
         });
 
-        // Удаление
+        // Удалить строку
         html.find('.abilities-remove-row').click(ev => {
             ev.preventDefault();
-
-            // Считываем индекс строки
             const index = Number(ev.currentTarget.dataset.index);
 
-            // Создаём диалог подтверждения
+            // Пример диалога подтверждения
             new Dialog({
                 title: game.i18n.localize("MY_RPG.Dialog.ConfirmDeleteTitle"),
                 content: `<p>${game.i18n.localize("MY_RPG.Dialog.ConfirmDeleteMessage")}</p>`,
@@ -56,18 +55,21 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // Клик по названию (открываем окно редактирования)
-        html.find('.ability-edit').click(ev => {
+        // Редактировать строку — клик по всей строке, кроме иконки удаления
+        html.find('tr.ability-row').click(ev => {
+            // Если клик был на иконке удаления — пропускаем
+            if ($(ev.target).closest('.abilities-remove-row').length) return;
+
             ev.preventDefault();
             const index = Number(ev.currentTarget.dataset.index);
 
-            // Получаем данные
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
-            const abilityData = abilities[index] ?? {};
+            // Текущие данные способности
+            const abilityData = abilities[index] || {};
 
-            // Открываем FormApplication (пример)
+            // Открываем отдельное окошко (FormApplication) для редактирования
             new MyAbilityConfig(this.actor, index, abilityData).render(true);
         });
     }

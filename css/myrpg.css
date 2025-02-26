@@ -12,6 +12,15 @@
 .sub-labels {
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
+
+.ability-row {
+    cursor: pointer;
+}
+
+    .ability-row:hover {
+        background-color: #eee;
+    }
+
 /* 1) Форма растягивается на всю доступную площадь окна */
 .myrpg.sheet.actor form {
     position: relative;
