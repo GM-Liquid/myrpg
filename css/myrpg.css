@@ -35,39 +35,37 @@
 /* 3) Блок с вкладками (шестиугольные кнопки) */
 .sheet-tabs-hex-container {
     position: absolute;
-    right: -60px; /* "выпираем" за границу формы */
+    right: -80px; /* "выпираем" за границу формы */
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
 }
-
-/* 4) Пример оформления шестиугольной кнопки */
 .hex-button {
     display: inline-block;
-    width: 50px;
-    height: 50px;
-    background: #ccc;
+    width: 80px; /* Ширина кнопки */
+    height: 40px; /* Высота кнопки */
+    background: #ccc; /* Цвет фона кнопки */
     color: #000;
     font-weight: bold;
     text-align: center;
-    line-height: 50px; /* Чтобы текст был по центру */
+    line-height: 40px; /* Чтобы текст был по центру по вертикали */
     cursor: pointer;
     transition: background 0.3s;
-    /* Шестиугольная форма */
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    border-radius: 6px;
 }
 
+    /* Ховер-эффект */
     .hex-button:hover {
         background: #aaa;
     }
 
+    /* Активная вкладка */
     .hex-button.active {
         background: #888;
     }
-
 /* Даём окну и его содержимому overflow: visible */
 .window-app.myrpg-hex-tabs,
 .window-app.myrpg-hex-tabs .window-content {
