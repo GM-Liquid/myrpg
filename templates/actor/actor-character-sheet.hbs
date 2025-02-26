@@ -1,27 +1,10 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-    <div class="sheet-container flexrow">
-
-        <!-- Навигация вкладок слева -->
-        <nav class="sheet-tabs tabs vertical" data-group="primary">
-            <a class="item" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
-            <a class="item" data-tab="spells">{{localize "MY_RPG.SheetLabels.Spells"}}</a>
-            <!-- Добавьте остальные вкладки, если нужно -->
-        </nav>
-
-        <!-- Основное содержимое справа -->
-        <section class="sheet-body">
-            <!-- Вкладка Features -->
-            <div class="tab features" data-group="primary" data-tab="features">
-                <!-- Ваш контент (характеристики, ресурсы и т.д.) -->
-            </div>
-            <!-- Вкладка Spells -->
-            <div class="tab spells" data-group="primary" data-tab="spells">
-                <!-- Ваш контент (поток, заклинания и т.д.) -->
-            </div>
-        </section>
-
-    </div>
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
+        <a class="item" data-tab="spells">{{localize "MY_RPG.SheetLabels.Spells"}}</a>
+    </nav>
 
     {{!-- Sheet Body --}}
     <section class="sheet-body">
