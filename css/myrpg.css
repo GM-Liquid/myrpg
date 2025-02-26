@@ -14,9 +14,11 @@
 }
 
 
-/* Форма, внутри которой всё размещается, пусть будет position: relative */
 .myrpg.sheet.actor form {
     position: relative;
+    width: 600px; /* реальная ширина для «прямоугольника» листа */
+    margin: 0; /* чтобы он не расползался */
+    /* overflow: visible можно, но уже не обязательно, т.к. окно не обрезает */
 }
 
 /* Контейнер для самих шестиугольных вкладок */
@@ -55,6 +57,17 @@
    можно менять цвет, границу и т.д. */
     .hex-button.active {
         background: #888;
+    }
+
+
+/* 1) Разрешаем окну приложения отображать содержимое за его пределами */
+.window-app.myrpg-hex-tabs {
+    overflow: visible !important;
+}
+
+    /* 2) Иногда нужно то же самое для вложенных элементов, в зависимости от версии Foundry */
+    .window-app.myrpg-hex-tabs .window-content {
+        overflow: visible !important;
     }
 
 .grid,
@@ -256,7 +269,7 @@
 }
 .myrpg .sheet-header {
   flex: 0 auto;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -289,125 +302,4 @@
 .myrpg .sheet-body .tab,
 .myrpg .sheet-body .tab .editor {
   height: 100%;
-}
-.myrpg .tox .tox-editor-container {
-  background: #fff;
-}
-.myrpg .tox .tox-edit-area {
-  padding: 0 8px;
-}
-.myrpg .resource-label {
-  font-weight: bold;
-}
-.myrpg .items-header {
-  height: 28px;
-  margin: 2px 0;
-  padding: 0;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.05);
-  border: 2px groove #eeede0;
-  font-weight: bold;
-}
-.myrpg .items-header > * {
-  font-size: 14px;
-  text-align: center;
-}
-.myrpg .items-header .item-name {
-  font-weight: bold;
-  padding-left: 5px;
-  text-align: left;
-  display: flex;
-}
-.myrpg .items-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  color: #444;
-}
-.myrpg .items-list .item-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.myrpg .items-list .item-name {
-  flex: 2;
-  margin: 0;
-  overflow: hidden;
-  font-size: 13px;
-  text-align: left;
-  align-items: center;
-  display: flex;
-}
-.myrpg .items-list .item-name h3, .myrpg .items-list .item-name h4 {
-  margin: 0;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-.myrpg .items-list .item-controls {
-  display: flex;
-  flex: 0 0 100px;
-  justify-content: flex-end;
-}
-.myrpg .items-list .item-controls a {
-  font-size: 12px;
-  text-align: center;
-  margin: 0 6px;
-}
-.myrpg .items-list .item {
-  align-items: center;
-  padding: 0 2px;
-  border-bottom: 1px solid #c9c7b8;
-}
-.myrpg .items-list .item:last-child {
-  border-bottom: none;
-}
-.myrpg .items-list .item .item-name {
-  color: #191813;
-}
-.myrpg .items-list .item .item-name .item-image {
-  flex: 0 0 30px;
-  height: 30px;
-  background-size: 30px;
-  border: none;
-  margin-right: 5px;
-}
-.myrpg .items-list .item-prop {
-  text-align: center;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
-}
-.myrpg .items-list .items-header {
-  height: 28px;
-  margin: 2px 0;
-  padding: 0;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.05);
-  border: 2px groove #eeede0;
-  font-weight: bold;
-}
-.myrpg .items-list .items-header > * {
-  font-size: 12px;
-  text-align: center;
-}
-.myrpg .items-list .items-header .item-name {
-  padding-left: 5px;
-  text-align: left;
-}
-.myrpg .item-formula {
-  flex: 0 0 200px;
-  padding: 0 8px;
-}
-.myrpg .effects .item .effect-source,
-.myrpg .effects .item .effect-duration,
-.myrpg .effects .item .effect-controls {
-  text-align: center;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
-}
-.myrpg .effects .item .effect-controls {
-  border: none;
 }

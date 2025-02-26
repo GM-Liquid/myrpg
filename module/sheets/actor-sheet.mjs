@@ -24,11 +24,11 @@ export class myrpgActorSheet extends ActorSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['myrpg', 'sheet', 'actor', 'myrpg-hex-tabs'],
-            width: 600,
+            width: 660,  // ширина окна
             height: 600,
             tabs: [
                 {
-                    navSelector: '.sheet-tabs-hex', // класс нового контейнера вкладок
+                    navSelector: '.sheet-tabs-hex',
                     contentSelector: '.sheet-body',
                     initial: 'features',
                 },
