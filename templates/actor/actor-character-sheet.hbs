@@ -1,5 +1,6 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
+    <!-- ќтдельный блок дл€ "выступающих" вкладок -->
     <div class="sheet-tabs-hex-container">
         <nav class="sheet-tabs-hex" data-group="primary">
             <a class="hex-button" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
@@ -8,6 +9,7 @@
     </div>
 
     {{!-- Sheet Body --}}
+<div class="sheet-scrollable">
     <section class="sheet-body">
 
         {{!-- ќсновна€ вкладка (Features) Ц содержит header, характеристики и навыки --}}
@@ -254,4 +256,6 @@
         </div>
 
     </section>
+
+</div>
 </form>

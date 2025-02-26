@@ -12,59 +12,67 @@
 .sub-labels {
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
+/* 1) Форма растягивается на всю доступную площадь окна */
 .myrpg.sheet.actor form {
     position: relative;
-    width: 600px; /* основная ширина формы */
+    width: 100%; /* окно уже 600px, поэтому достаточно 100% */
+    height: 100%;
+    margin: 0;
     box-sizing: border-box;
-    overflow: visible; /* на случай, если нужно вложенное переполнение */
 }
 
+/* 2) Прокрутка основного контента */
+.sheet-scrollable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* вертикальная прокрутка, если контент не влез */
+    box-sizing: border-box;
+}
+
+/* 3) Блок с вкладками (шестиугольные кнопки) */
 .sheet-tabs-hex-container {
     position: absolute;
-    right: -60px; /* величина «вынесения» за край */
+    right: -60px; /* "выпираем" за границу формы */
     top: 50%;
     transform: translateY(-50%);
+    z-index: 10;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 10; /* чтобы кнопки были поверх */
 }
 
-
-/* Пример оформления шестиугольной кнопки */
+/* 4) Пример оформления шестиугольной кнопки */
 .hex-button {
     display: inline-block;
     width: 50px;
     height: 50px;
-    background: #ccc; /* цвет заливки */
-    text-align: center;
-    line-height: 50px; /* чтобы текст был по центру по вертикали */
+    background: #ccc;
     color: #000;
     font-weight: bold;
+    text-align: center;
+    line-height: 50px; /* Чтобы текст был по центру */
     cursor: pointer;
     transition: background 0.3s;
+    /* Шестиугольная форма */
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    /* clip-path задаёт форму шестиугольника */
 }
 
     .hex-button:hover {
         background: #aaa;
     }
 
-    /* Когда вкладка активна (автоматически ставит Foundry класс .active), 
-   можно менять цвет, границу и т.д. */
     .hex-button.active {
         background: #888;
     }
 
+/* Даём окну и его содержимому overflow: visible */
 .window-app.myrpg-hex-tabs,
 .window-app.myrpg-hex-tabs .window-content {
     overflow: visible !important;
 }
-    /* 2) Иногда нужно то же самое для вложенных элементов, в зависимости от версии Foundry */
-    .window-app.myrpg-hex-tabs .window-content {
-        overflow: visible !important;
-    }
 
 .grid,
 .grid-2col {
