@@ -279,11 +279,11 @@
             <!-- Таблица способностей -->
             <section class="abilities-section">
                 <h3>{{localize "MY_RPG.AbilitiesTable.TableHeading"}}</h3>
+                <!-- Пример блока "Таблица способностей" -->
                 <table class="abilities-table">
                     <thead>
                         <tr>
                             <th>{{localize "MY_RPG.AbilitiesTable.Name"}}</th>
-                            <th>{{localize "MY_RPG.AbilitiesTable.Description"}}</th>
                             <th>{{localize "MY_RPG.AbilitiesTable.Effect"}}</th>
                             <th>{{localize "MY_RPG.AbilitiesTable.Cost"}}</th>
                             <th></th>
@@ -292,21 +292,15 @@
                     <tbody>
                         {{#each system.abilitiesList as |row i|}}
                         <tr>
+                            <!-- Вместо простого <input> сделаем ссылку, по клику на которую откроем отдельное окошко -->
                             <td>
-                                <input type="text" name="system.abilitiesList.{{i}}.name" value="{{row.name}}" />
+                                <a class="ability-edit" data-index="{{i}}">{{row.name}}</a>
                             </td>
-                            <td>
-                                <input type="text" name="system.abilitiesList.{{i}}.desc" value="{{row.desc}}" />
-                            </td>
-                            <td>
-                                <input type="text" name="system.abilitiesList.{{i}}.effect" value="{{row.effect}}" />
-                            </td>
-                            <td>
-                                <input type="number" name="system.abilitiesList.{{i}}.cost" value="{{row.cost}}" />
-                            </td>
+                            <td>{{row.effect}}</td>
+                            <td>{{row.cost}}</td>
                             <td>
                                 <!-- Кнопка удаления строки -->
-                                <a class="abilities-remove-row" data-index="{{@index}}">
+                                <a class="abilities-remove-row" data-index="{{i}}">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
@@ -314,7 +308,7 @@
                         {{/each}}
                         <!-- Кнопка добавления новой строки -->
                         <tr>
-                            <td colspan="5">
+                            <td colspan="4">
                                 <a class="abilities-add-row">
                                     <i class="fa-solid fa-plus"></i>
                                     {{localize "MY_RPG.AbilitiesTable.AddRow"}}

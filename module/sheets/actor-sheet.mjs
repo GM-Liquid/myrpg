@@ -2,6 +2,8 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
+
+import { MyAbilityConfig } from "../apps/ability-config.js";
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
@@ -21,6 +23,22 @@ export class myrpgActorSheet extends ActorSheet {
             fluxBonusInputs.val(val);
         });
 
+        html.find('.ability-edit').click(ev => {
+            ev.preventDefault();
+            const index = Number(ev.currentTarget.dataset.index);
+
+            // Получаем список способностей
+            let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+            if (!Array.isArray(abilities)) {
+                abilities = Object.values(abilities);
+            }
+
+            // Данные конкретной способности
+            const abilityData = abilities[index];
+
+            // Открываем наше окошко
+            new MyAbilityConfig(this.actor, index, abilityData).render(true);
+        });
 
         html.find('.abilities-add-row').click(ev => {
             ev.preventDefault();
