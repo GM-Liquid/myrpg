@@ -36,7 +36,7 @@
 .sheet-tabs-hex {
     position: absolute;
     right: -220px; /* "выпираем" за границу формы */
-    top: 20%;
+    top: 15%;
     transform: translateY(-50%);
     z-index: 10;
     display: flex;
