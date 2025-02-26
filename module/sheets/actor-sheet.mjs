@@ -22,21 +22,36 @@ export class myrpgActorSheet extends ActorSheet {
         });
 
 
-        html.on('click', '.abilities-add-row', ev => {
+        html.find('.abilities-add-row').click(ev => {
             ev.preventDefault();
-            console.log("Add row clicked");
-            const abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+
+            // Шаг 1: Клонируем данные
+            let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+
+            // Шаг 2: Если это не массив (а объект), преобразуем в массив
+            if (!Array.isArray(abilities)) {
+                abilities = Object.values(abilities);
+            }
+
+            // Шаг 3: Теперь .push() будет работать
             abilities.push({ name: "", desc: "", effect: "", cost: 0 });
+
+            // Шаг 4: Обновляем данные актёра
             this.actor.update({ "system.abilitiesList": abilities });
         });
 
         // Клик по иконке "Удалить строку"
-        html.on('click', '.abilities-remove-row', ev => {
+        html.find('.abilities-remove-row').click(ev => {
             ev.preventDefault();
-            console.log("Remove row clicked");
-            const index = Number(ev.currentTarget.dataset.index);
+
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+            if (!Array.isArray(abilities)) {
+                abilities = Object.values(abilities);
+            }
+
+            const index = Number(ev.currentTarget.dataset.index);
             abilities.splice(index, 1);
+
             this.actor.update({ "system.abilitiesList": abilities });
         });
     }
