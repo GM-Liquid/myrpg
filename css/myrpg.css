@@ -33,7 +33,7 @@
 }
 
 /* 3) Блок с вкладками (шестиугольные кнопки) */
-.sheet-tabs-hex-container {
+.sheet-tabs-hex {
     position: absolute;
     right: -220px; /* "выпираем" за границу формы */
     top: 20%;
