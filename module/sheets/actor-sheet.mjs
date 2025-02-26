@@ -44,15 +44,37 @@ export class myrpgActorSheet extends ActorSheet {
         html.find('.abilities-remove-row').click(ev => {
             ev.preventDefault();
 
-            let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-            if (!Array.isArray(abilities)) {
-                abilities = Object.values(abilities);
-            }
-
+            // Считываем индекс строки
             const index = Number(ev.currentTarget.dataset.index);
-            abilities.splice(index, 1);
 
-            this.actor.update({ "system.abilitiesList": abilities });
+            // Создаём диалог подтверждения
+            new Dialog({
+                title: game.i18n.localize("MY_RPG.Dialog.ConfirmDeleteTitle"),
+                content: `<p>${game.i18n.localize("MY_RPG.Dialog.ConfirmDeleteMessage")}</p>`,
+                buttons: {
+                    yes: {
+                        icon: '<i class="fas fa-check"></i>',
+                        label: game.i18n.localize("MY_RPG.Dialog.Yes"),
+                        callback: () => {
+                            // Если пользователь подтвердил удаление:
+                            let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+
+                            // На случай, если массив сериализовался как объект:
+                            if (!Array.isArray(abilities)) {
+                                abilities = Object.values(abilities);
+                            }
+
+                            abilities.splice(index, 1);
+                            this.actor.update({ "system.abilitiesList": abilities });
+                        }
+                    },
+                    no: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: game.i18n.localize("MY_RPG.Dialog.No")
+                    }
+                },
+                default: "no"
+            }).render(true);
         });
     }
     static get defaultOptions() {
