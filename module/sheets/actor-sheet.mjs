@@ -20,6 +20,23 @@ export class myrpgActorSheet extends ActorSheet {
             // Обновляем значение во всех полях бонуса
             fluxBonusInputs.val(val);
         });
+
+
+        html.find('.abilities-add-row').click(ev => {
+            ev.preventDefault();
+            const abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+            abilities.push({ name: "", desc: "", effect: "", cost: 0 });
+            this.actor.update({ "system.abilitiesList": abilities });
+        });
+
+        // Клик по иконке "Удалить строку"
+        html.find('.abilities-remove-row').click(ev => {
+            ev.preventDefault();
+            const index = Number(ev.currentTarget.dataset.index);
+            let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+            abilities.splice(index, 1);
+            this.actor.update({ "system.abilitiesList": abilities });
+        });
     }
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {

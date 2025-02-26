@@ -120,33 +120,23 @@
       "Predvidenie": "Предвидение (Пров)"
     },
     "SheetLabels": {
-      "Actor": "Лист персонажа",
-      "Item": "Лист предметов",
-      "Abilities": "Способности",
+      "AbilitiesAndMods": "Способности и модификации", // Для названия вкладки
       "Features": "Основной лист",
-      "Spells": "Магия"
+      "Abilities": "Способности" // Заголовок над потоком
     },
-    "Abilities": {
-      "Title": "Способности",
-      "AbilitiesMods": "Умения и модификации",
-      "Spells": "Заклинания"
-    },
-    "Item": {
-      "Spell": {
-        "SpellLVL": "Заклинания",
-        "AddLVL": "Добавить заклинания {level} уровня"
-      }
+    "AbilitiesTable": {
+      "TableHeading": "Таблица способностей",
+      "Name": "Название",
+      "Description": "Описание",
+      "Effect": "Эффект",
+      "Cost": "Стоимость",
+      "AddRow": "Добавить строку"
     }
   },
   "TYPES": {
     "Actor": {
       "character": "Персонаж",
       "npc": "NPC"
-    },
-    "Item": {
-      "item": "Предмет",
-      "feature": "Особенность",
-      "spell": "Заклинание"
     }
   }
 }

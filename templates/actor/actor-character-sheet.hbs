@@ -4,7 +4,7 @@
     <div class="sheet-tabs-hex-container">
         <nav class="sheet-tabs-hex" data-group="primary">
             <a class="hex-button" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
-            <a class="hex-button" data-tab="spells">{{localize "MY_RPG.SheetLabels.Spells"}}</a>
+            <a class="item" data-tab="abilities">{{localize "MY_RPG.SheetLabels.AbilitiesAndMods"}}</a>
         </nav>
     </div>
 
@@ -256,12 +256,15 @@
             </section>
         </div>
 
-        {{!-- Вкладка "Заклинания" – отображается только поток и список заклинаний --}}
-        <div class="tab spells" data-group="primary" data-tab="spells">
+        <!-- Вкладка "Способности и модификации" -->
+        <div class="tab abilities" data-group="primary" data-tab="abilities">
+            <!-- Заголовок "Способности" и блок потока -->
             <section class="flux-section">
-                <!-- Вкладка Spells: Поток -->
+                <h2>{{localize "MY_RPG.SheetLabels.Abilities"}}</h2>
                 <div class="resource flex-group-center">
-                    <label for="system.flux.value" class="resource-label">{{localize "MY_RPG.Flux.Label"}}</label>
+                    <label for="system.flux.value" class="resource-label">
+                        {{localize "MY_RPG.Flux.Label"}}
+                    </label>
                     <div class="resource-content flexrow flex-center">
                         <input type="number"
                                name="system.flux.value"
@@ -272,18 +275,54 @@
                     </div>
                 </div>
             </section>
-            <section class="spells-list-section">
-                <h2>{{localize "MY_RPG.Item.Spell.SpellLVL"}}</h2>
-                <div class="spells-list">
-                    {{#each items}}
-                    {{#if (eq type "spell")}}
-                    <div class="spell">
-                        <h3>{{name}}</h3>
-                        <p>{{system.description}}</p>
-                    </div>
-                    {{/if}}
-                    {{/each}}
-                </div>
+
+            <!-- Таблица способностей -->
+            <section class="abilities-section">
+                <h3>{{localize "MY_RPG.AbilitiesTable.TableHeading"}}</h3>
+                <table class="abilities-table">
+                    <thead>
+                        <tr>
+                            <th>{{localize "MY_RPG.AbilitiesTable.Name"}}</th>
+                            <th>{{localize "MY_RPG.AbilitiesTable.Description"}}</th>
+                            <th>{{localize "MY_RPG.AbilitiesTable.Effect"}}</th>
+                            <th>{{localize "MY_RPG.AbilitiesTable.Cost"}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each system.abilitiesList as |row i|}}
+                        <tr>
+                            <td>
+                                <input type="text" name="system.abilitiesList.{{i}}.name" value="{{row.name}}" />
+                            </td>
+                            <td>
+                                <input type="text" name="system.abilitiesList.{{i}}.desc" value="{{row.desc}}" />
+                            </td>
+                            <td>
+                                <input type="text" name="system.abilitiesList.{{i}}.effect" value="{{row.effect}}" />
+                            </td>
+                            <td>
+                                <input type="number" name="system.abilitiesList.{{i}}.cost" value="{{row.cost}}" />
+                            </td>
+                            <td>
+                                <!-- Кнопка удаления строки -->
+                                <a class="abilities-remove-row" data-index="{{i}}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                        <!-- Кнопка добавления новой строки -->
+                        <tr>
+                            <td colspan="5">
+                                <a class="abilities-add-row">
+                                    <i class="fa-solid fa-plus"></i>
+                                    {{localize "MY_RPG.AbilitiesTable.AddRow"}}
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
 

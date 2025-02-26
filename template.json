@@ -3,6 +3,26 @@
     "types": [ "character", "npc" ],
     "templates": {
       "base": {
+        "abilitiesList": [
+          {
+            "name": "",
+            "desc": "",
+            "effect": "",
+            "cost": 0
+          },
+          {
+            "name": "",
+            "desc": "",
+            "effect": "",
+            "cost": 0
+          },
+          {
+            "name": "",
+            "desc": "",
+            "effect": "",
+            "cost": 0
+          }
+        ],
         "health": {
           "value": 10,
           "damage": 0,
