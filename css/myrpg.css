@@ -35,13 +35,13 @@
 /* 3) Блок с вкладками (шестиугольные кнопки) */
 .sheet-tabs-hex-container {
     position: absolute;
-    right: -150px; /* "выпираем" за границу формы */
+    right: -220px; /* "выпираем" за границу формы */
     top: 20%;
     transform: translateY(-50%);
     z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 100px;
 }
 .hex-button {
     display: flex; /* Используем flex для удобного выравнивания текста */
@@ -54,6 +54,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
+    border-radius: 6px;
     /* Запрещаем перенос строк */
     white-space: nowrap;
     overflow: hidden;
