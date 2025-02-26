@@ -182,29 +182,30 @@
 
 
             <section class="armor-section">
-                <h2>Доспех</h2>
+                <!-- Заголовок блока -->
+                <h2>{{localize "MY_RPG.ArmorItem.ArmorSectionTitle"}}</h2>
 
                 <!-- Описание доспеха -->
                 <div class="armor-description">
-                    <label>Описание:</label>
-                    <textarea name="system.armor.itemDesc" rows="3">{{localize "MY_RPG.ArmorItem.Description"}}</textarea>
+                    <label>{{localize "MY_RPG.ArmorItem.DescriptionLabel"}}</label>
+                    <textarea name="system.armor.itemDesc" rows="3">{{system.armor.itemDesc}}</textarea>
                 </div>
 
                 <!-- Бонусы КД и Стойкости -->
                 <div class="armor-values flexrow">
                     <div class="flexcol">
-                        <label>КД (бонус)</label>
+                        <label>{{localize "MY_RPG.ArmorItem.ACLabel"}}</label>
                         <input type="number"
                                name="system.armor.itemAC"
-                               value="{{localize "MY_RPG.ArmorItem.AC"}}"
+                               value="{{system.armor.itemAC}}"
                                step="1"
                                inputmode="numeric" />
                     </div>
                     <div class="flexcol">
-                        <label>Стойкость (бонус)</label>
+                        <label>{{localize "MY_RPG.ArmorItem.SteadfastLabel"}}</label>
                         <input type="number"
                                name="system.armor.itemSteadfast"
-                               value="{{localize "MY_RPG.ArmorItem.Steadfast"}}"
+                               value="{{system.armor.itemSteadfast}}"
                                step="1"
                                inputmode="numeric" />
                     </div>
