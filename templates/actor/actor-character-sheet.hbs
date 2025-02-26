@@ -1,10 +1,11 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
-        <a class="item" data-tab="spells">{{localize "MY_RPG.SheetLabels.Spells"}}</a>
-    </nav>
+    <div class="sheet-tabs-hex-container">
+        <nav class="sheet-tabs-hex" data-group="primary">
+            <a class="hex-button" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
+            <a class="hex-button" data-tab="spells">{{localize "MY_RPG.SheetLabels.Spells"}}</a>
+        </nav>
+    </div>
 
     {{!-- Sheet Body --}}
     <section class="sheet-body">

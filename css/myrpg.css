@@ -12,7 +12,47 @@
 .sub-labels {
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
+/* Обеспечиваем, чтобы форма имела относительное позиционирование */
+.myrpg form {
+    position: relative;
+}
 
+/* Контейнер для шестиугольных кнопок – позиционируется справа от формы */
+.sheet-tabs-hex-container {
+    position: absolute;
+    right: -50px; /* подберите значение, чтобы кнопки выглядели как "выступающие" за пределы */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Стилизация шестиугольных кнопок */
+.hex-button {
+    display: inline-block;
+    width: 60px; /* размер можно скорректировать */
+    height: 60px;
+    background: #ccc; /* цвет фона кнопки */
+    text-align: center;
+    line-height: 60px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    /* Создаём шестиугольную форму через clip-path */
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+    /* При наведении */
+    .hex-button:hover {
+        background: #aaa;
+    }
+
+    /* Для активной вкладки (при необходимости, добавить класс через скрипт) */
+    .hex-button.active {
+        background: #888;
+    }
 .sub-label {
     flex: 1;
     font-size: 0.8em;
