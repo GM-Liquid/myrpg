@@ -9,32 +9,47 @@ import { MY_RPG } from './helpers/config.mjs';
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
+// Функция для загрузки скрипта
+function loadScript(url) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = url;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
 
-Hooks.once('init', function () {
-    // Add utility classes to the global game object so that they're more easily
-    // accessible in global contexts.
+// Функция для загрузки CSS
+function loadCSS(url) {
+    return new Promise((resolve) => {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = url;
+        link.onload = resolve;
+        document.head.appendChild(link);
+    });
+}
+
+Hooks.once('init', async function () {
+    // Загружаем Tippy.js и его зависимости
+    await loadTippy();
+
+    // Далее идет уже существующий код инициализации системы
     game.myrpg = {
         myrpgActor,
     };
 
-    // Add custom constants for configuration.
     CONFIG.MY_RPG = MY_RPG;
 
-    /**
-     * Set an initiative formula for the system
-     * @type {String}
-     */
     CONFIG.Combat.initiative = {
         formula: '1d20 + @abilities.wis.mod',
         decimals: 2,
     };
 
-    // Define custom Document classes
     CONFIG.Actor.documentClass = myrpgActor;
 
-    // --- Добавляем регистрацию хелперов Handlebars ---
     Handlebars.registerHelper('concat', (...args) => {
-        // Последний аргумент — объект опций, его удаляем
         args.pop();
         return args.join('');
     });
@@ -43,25 +58,13 @@ Hooks.once('init', function () {
         if (typeof str !== 'string') return '';
         return str.charAt(0).toUpperCase() + str.slice(1);
     });
-    // --- Конец регистрации хелперов ---
 
-    // Register sheet application classes
     Actors.unregisterSheet('core', ActorSheet);
     Actors.registerSheet('myrpg', myrpgActorSheet, {
         makeDefault: true,
         label: 'MY_RPG.SheetLabels.Actor',
     });
 
-    // Preload Handlebars templates.
     return preloadHandlebarsTemplates();
 });
 
-
-/* -------------------------------------------- */
-/*  Handlebars Helpers                          */
-/* -------------------------------------------- */
-
-// If you need to add Handlebars helpers, here is a useful example:
-Handlebars.registerHelper('toLowerCase', function (str) {
-  return str.toLowerCase();
-});
