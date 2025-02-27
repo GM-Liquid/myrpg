@@ -9,18 +9,6 @@ export class myrpgActorSheet extends ActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
-        // »нициализируем тултипы дл€ каждой строки таблицы способностей
-        html.find('tr.ability-row').each((index, row) => {
-            const ability = this.actor.system.abilitiesList[index];
-            if (ability && ability.desc) {
-                tippy(row, {
-                    content: ability.desc,
-                    placement: 'left',
-                    arrow: true,
-                    delay: [100, 50]
-                });
-            }
-        });
          //  лик по "ќтмена" Ч просто закрываем окно
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
