@@ -14,6 +14,11 @@
     margin-bottom: 3px; /* Ќебольшое рассто€ние между подзаголовками и пол€ми */
 }
 
+.abilities-table tr.ability-row:hover {
+    background-color: #fdd !important; /* светло-красный фон при наведении */
+    transition: background-color 0.2s; /* плавный переход */
+}
+
 .ability-tooltip {
     white-space: normal; /* ѕозвол€ет перенос строк */
     word-break: break-word; /* –азрешает разрывать слова */
