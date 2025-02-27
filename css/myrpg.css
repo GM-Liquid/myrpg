@@ -14,9 +14,9 @@
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
 
-.abilities-table tr.ability-row:hover {
-    background-color: #fdd !important; /* светло-красный фон при наведении */
-    transition: background-color 0.2s; /* плавный переход */
+.myrpg .abilities-table tr.ability-row:hover {
+    background-color: #fdd !important;
+    transition: background-color 0.2s;
 }
 
 .ability-tooltip {
