@@ -76,6 +76,50 @@ export class myrpgActorSheet extends ActorSheet {
             // Открываем отдельное окошко (FormApplication) для редактирования
             new MyAbilityConfig(this.actor, index, abilityData).render(true);
         });
+
+        // Захватываем ссылку на актёра (из внешнего контекста листа)
+        const actorData = this.actor;
+
+        // Добавляем обработчики для наведения на строку способности
+        html.find('tr.ability-row').hover(
+            function (ev) {
+                // Обработчик mouseenter
+                const $row = $(ev.currentTarget);
+                const index = Number($row.data('index'));
+                const ability = actorData.system.abilitiesList[index];
+                if (!ability || !ability.desc) return;
+
+                // Создаем элемент всплывающей подсказки
+                const $tooltip = $(`<div class="ability-tooltip">${ability.desc}</div>`);
+                // Пример стилей подсказки; можно оформить их в CSS
+                $tooltip.css({
+                    position: 'absolute',
+                    left: $row.offset().left - 220, // сдвиг влево – подберите нужное значение
+                    top: $row.offset().top,
+                    width: '200px',
+                    background: 'rgba(255,255,255,0.95)',
+                    border: '1px solid #ccc',
+                    padding: '5px',
+                    zIndex: 10000,
+                    boxShadow: '2px 2px 5px rgba(0,0,0,0.3)'
+                });
+
+                // Добавляем подсказку в body
+                $('body').append($tooltip);
+                // Сохраняем ссылку на подсказку в данных строки
+                $row.data('tooltip', $tooltip);
+            },
+            function (ev) {
+                // Обработчик mouseleave – удаляем подсказку
+                const $row = $(ev.currentTarget);
+                const $tooltip = $row.data('tooltip');
+                if ($tooltip) {
+                    $tooltip.remove();
+                    $row.removeData('tooltip');
+                }
+            }
+        );
+
     }
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
