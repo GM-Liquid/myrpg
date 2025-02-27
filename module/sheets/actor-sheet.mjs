@@ -4,11 +4,13 @@
  */
 
 import { MyAbilityConfig } from "../apps/ability-config.js";
+const { TooltipManager } = globalThis;
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
     activateListeners(html) {
         super.activateListeners(html);
+        TooltipManager.activateEventListeners(html, "tr.ability-row");
          //  лик по "ќтмена" Ч просто закрываем окно
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
