@@ -94,7 +94,7 @@ export class myrpgActorSheet extends ActorSheet {
                 rank: "",
                 desc: "",
                 effect: "",
-                cost: 0
+                cost: ""
             });
 
             this.actor.update({ "system.abilitiesList": abilities });

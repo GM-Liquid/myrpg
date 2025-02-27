@@ -47,7 +47,7 @@ export class MyAbilityConfig extends FormApplication {
             rank: formData.rank ?? "",
             desc: formData.desc ?? "",
             effect: formData.effect ?? "",
-            cost: Number(formData.cost ?? 0)
+            cost: Number(formData.cost ?? "")
         };
 
         // Сохраняем обновлённый массив в актёре
