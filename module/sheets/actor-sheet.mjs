@@ -19,8 +19,14 @@ export class myrpgActorSheet extends ActorSheet {
             ev.preventDefault();
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+            abilities.push({
+                name: "",
+                rank: "",
+                effect: "",
+                cost: 0,
+                desc: ""
+            });
 
-            abilities.push({ name: "", effect: "", cost: 0 });
             this.actor.update({ "system.abilitiesList": abilities });
         });
 

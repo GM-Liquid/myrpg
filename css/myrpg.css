@@ -17,10 +17,63 @@
     cursor: pointer;
 }
 
+.ability-row:hover {
+background-color: #eee;
+}
+
+/* Ширина столбцов в abilities-table */
+.abilities-table th:nth-child(1),
+.abilities-table td:nth-child(1) {
+    width: 40%;
+}
+
+.abilities-table th:nth-child(2),
+.abilities-table td:nth-child(2) {
+    width: 15%;
+}
+
+.abilities-table th:nth-child(3),
+.abilities-table td:nth-child(3) {
+    width: 25%;
+}
+
+.abilities-table th:nth-child(4),
+.abilities-table td:nth-child(4) {
+    width: 15%;
+}
+
+.abilities-table th:nth-child(5),
+.abilities-table td:nth-child(5) {
+    width: 5%;
+}
+
+/* Кликабельные строки */
+.ability-row {
+    cursor: pointer;
+    position: relative; /* чтобы tooltip позиционировался относительно строки */
+}
+
     .ability-row:hover {
-        background-color: #eee;
+        background-color: #f0f0f0;
     }
 
+/* Скрытый блок tooltip */
+.ability-tooltip {
+    display: none;
+    position: absolute;
+    left: -220px; /* сдвигаем влево от строки */
+    top: 0;
+    width: 200px;
+    background: #eee;
+    border: 1px solid #ccc;
+    padding: 5px;
+    z-index: 9999; /* чтобы было поверх всего */
+}
+
+/* Показывать tooltip при наведении на строку */
+.ability-row:hover .ability-tooltip {
+    display: block;
+}
 /* 1) Форма растягивается на всю доступную площадь окна */
 .myrpg.sheet.actor form {
     position: relative;

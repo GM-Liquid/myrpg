@@ -277,42 +277,61 @@
             </section>
 
             <!-- Таблица способностей -->
-                <section class="abilities-section">
-                    <h3>{{localize "MY_RPG.AbilitiesTable.TableHeading"}}</h3>
-                    <table class="abilities-table">
-                        <thead>
-                            <tr>
-                                <th>{{localize "MY_RPG.AbilitiesTable.Name"}}</th>
-                                <th>{{localize "MY_RPG.AbilitiesTable.Effect"}}</th>
-                                <th>{{localize "MY_RPG.AbilitiesTable.Cost"}}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each system.abilitiesList as |row i|}}
-                            <tr class="ability-row" data-index="{{i}}">
-                                <td>{{row.name}}</td>
-                                <td>{{row.effect}}</td>
-                                <td>{{row.cost}}</td>
-                                <td>
-                                    <!-- Кнопка удаления строки -->
-                                    <a class="abilities-remove-row" data-index="{{i}}">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            {{/each}}
-                            <!-- Кнопка добавления новой строки -->
-                            <tr>
-                                <td colspan="4">
-                                    <a class="abilities-add-row">
-                                        <i class="fa-solid fa-plus"></i>
-                                        {{localize "MY_RPG.AbilitiesTable.AddRow"}}
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <section class="abilities-section">
+                <h3>{{localize "MY_RPG.AbilitiesTable.TableHeading"}}</h3>
+                <table class="abilities-table">
+                    <thead>
+                        <tr>
+                            <th>{{localize "MY_RPG.AbilitiesTable.Name"}}</th>
+                            <th>{{localize "MY_RPG.AbilitiesTable.Rank"}}</th>
+                            <th>{{localize "MY_RPG.AbilitiesTable.Effect"}}</th>
+                            <th>{{localize "MY_RPG.AbilitiesTable.Cost"}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each system.abilitiesList as |row i|}}
+                        <tr class="ability-row" data-index="{{i}}">
+                            {{!-- Широкая ячейка "Название" --}}
+                            <td class="ability-name">
+                                {{row.name}}
+
+                                {{!-- Скрытый tooltip, появится при наведении --}}
+                                <div class="ability-tooltip">
+                                    <strong>{{row.name}}</strong><br />
+                                    {{#if row.rank}}
+                                    <em>{{localize "MY_RPG.AbilitiesTable.Rank"}}: {{row.rank}}</em><br />
+                                    {{/if}}
+                                    {{#if row.effect}}
+                                    <em>{{localize "MY_RPG.AbilitiesTable.Effect"}}: {{row.effect}}</em><br />
+                                    {{/if}}
+                                    {{#if row.cost}}
+                                    <em>{{localize "MY_RPG.AbilitiesTable.Cost"}}: {{row.cost}}</em><br />
+                                    {{/if}}
+                                    {{row.desc}}
+                                </div>
+                            </td>
+
+                            {{!-- Удаление --}}
+                            <td>
+                                <a class="abilities-remove-row" data-index="{{i}}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+
+                        <!-- Добавление -->
+                        <tr>
+                            <td colspan="5">
+                                <a class="abilities-add-row">
+                                    <i class="fa-solid fa-plus"></i>
+                                    {{localize "MY_RPG.AbilitiesTable.AddRow"}}
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
 
