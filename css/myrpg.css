@@ -85,12 +85,9 @@
 
 /* 2) Прокрутка основного контента */
 .sheet-scrollable {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto; /* вертикальная прокрутка, если контент не влез */
+    position: relative;
+    overflow-y: auto;
+    max-height: calc(100% - 50px); /* например, минус высота заголовка */
     box-sizing: border-box;
 }
 
