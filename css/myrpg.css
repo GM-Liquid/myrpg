@@ -80,6 +80,7 @@
 .abilities-table thead th {
     background-color: #ddd;
     border-bottom: 2px solid #444;
+    color: #000;
 }
 
 /* 1) ‘орма раст€гиваетс€ на всю доступную площадь окна */
