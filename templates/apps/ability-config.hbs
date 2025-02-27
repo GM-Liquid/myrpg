@@ -5,13 +5,8 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "MY_RPG.AbilityConfig.Rank"}}</label>
-        <input type="text" name="rank" value="{{ability.rank}}" />
-    </div>
-
-    <div class="form-group">
         <label>{{localize "MY_RPG.AbilityConfig.Effect"}}</label>
-        <input type="text" name="effect" value="{{ability.effect}}" />
+        <textarea name="effect" rows="4">{{ability.effect}}</textarea>
     </div>
 
     <div class="form-group">
@@ -19,15 +14,13 @@
         <input type="number" name="cost" value="{{ability.cost}}" />
     </div>
 
-    <div class="form-group">
-        <label>{{localize "MY_RPG.AbilityConfig.FullDesc"}}</label>
-        <textarea name="desc" rows="4">{{ability.desc}}</textarea>
-    </div>
-
+    <!-- Кнопки -->
     <footer class="form-footer">
+        <!-- Кнопка "Сохранить" отправляет форму, вызывая _updateObject() -->
         <button type="submit">
             {{localize "MY_RPG.AbilityConfig.Save"}}
         </button>
+        <!-- Кнопка "Отмена" — просто закрывает окно без сохранения -->
         <button type="button" class="ability-cancel">
             {{localize "MY_RPG.AbilityConfig.Cancel"}}
         </button>

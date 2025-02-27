@@ -4,13 +4,11 @@
  */
 
 import { MyAbilityConfig } from "../apps/ability-config.js";
-const { TooltipManager } = globalThis;
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
     activateListeners(html) {
         super.activateListeners(html);
-        ui.tooltip.activateEventListeners(html, "tr.ability-row")
          //  лик по "ќтмена" Ч просто закрываем окно
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
@@ -21,14 +19,8 @@ export class myrpgActorSheet extends ActorSheet {
             ev.preventDefault();
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
-            abilities.push({
-                name: "",
-                rank: "",
-                effect: "",
-                cost: 0,
-                desc: ""
-            });
 
+            abilities.push({ name: "", effect: "", cost: 0 });
             this.actor.update({ "system.abilitiesList": abilities });
         });
 

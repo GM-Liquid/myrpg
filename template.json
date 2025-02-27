@@ -6,10 +6,21 @@
         "abilitiesList": [
           {
             "name": "",
-            "rank": "",
+            "desc": "",
             "effect": "",
-            "cost": 0,
-            "desc": ""
+            "cost": 0
+          },
+          {
+            "name": "",
+            "desc": "",
+            "effect": "",
+            "cost": 0
+          },
+          {
+            "name": "",
+            "desc": "",
+            "effect": "",
+            "cost": 0
           }
         ],
         "health": {
