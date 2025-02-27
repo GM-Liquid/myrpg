@@ -21,6 +21,7 @@
                     <h1 class="charname">
                         <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
                     </h1>
+                    <h2>{{localize "MY_RPG.SheetLabels.Parameters"}}</h2>
                     <div class="resources grid grid-3col">
                         <!-- нг -->
                         <div class="resource flex-group-center">
@@ -215,6 +216,7 @@
             <section class="grid grid-2col">
                 <aside class="sidebar">
                     <div class="abilities flexcol">
+                        <h3>{{localize "MY_RPG.SheetLabels.Attributes"}}</h3>
                         {{#each system.abilities as |ability key|}}
                         <div class="ability flexrow flex-group-center">
                             <label for="system.abilities.{{key}}.value"
@@ -235,6 +237,7 @@
                 </aside>
                 <aside class="sidebar2">
                     <div class="skills flexcol">
+                        <h3>{{localize "MY_RPG.SheetLabels.Skills"}}</h3>
                         {{#each system.skills as |skill key|}}
                         <div class="skill flexrow flex-group-center">
                             <label for="system.skills.{{key}}.value"

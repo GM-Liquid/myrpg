@@ -137,7 +137,10 @@
     "SheetLabels": {
       "AbilitiesAndMods": "Способности и модификации",
       "Features": "Основной лист",
-      "Abilities": "Способности"
+      "Abilities": "Способности",
+      "Parameters": "Параметры",
+      "Attributes": "Характеристики",
+      "Skills": "Навыки"
     },
     "AbilitiesTable": {
       "TableHeading": "Таблица способностей",
