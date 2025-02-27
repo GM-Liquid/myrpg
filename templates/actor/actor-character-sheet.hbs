@@ -294,15 +294,10 @@
                         <tr class="ability-row"
                             data-index="{{i}}"
                             data-tooltip-direction="RIGHT"
-                            data-tooltip="{{localizeIfExists row.name}}
-{{#if row.rank}}( {{localize "MY_RPG.AbilitiesTable.Rank"}}: {{row.rank}} ){{/if}}
-{{#if row.effect}}
-{{localize "MY_RPG.AbilitiesTable.Effect"}}: {{row.effect}}
-{{/if}}
-{{#if row.cost}}
-{{localize "MY_RPG.AbilitiesTable.Cost"}}: {{row.cost}}
-{{/if}}
-
+                            data-tooltip="{{localize row.name}}
+{{#if row.rank}}( {{localize "MY_RPG.AbilitiesTable.Rank"}}: {{row.rank}} ) {{/if}}
+{{#if row.effect}}{{localize "MY_RPG.AbilitiesTable.Effect"}}: {{row.effect}} {{/if}}
+{{#if row.cost}}{{localize "MY_RPG.AbilitiesTable.Cost"}}: {{row.cost}} {{/if}}
 {{row.desc}}">
 
                             <td class="ability-name">
