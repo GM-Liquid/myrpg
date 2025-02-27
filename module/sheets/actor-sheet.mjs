@@ -9,6 +9,50 @@ export class myrpgActorSheet extends ActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
+        // Внутри метода activateListeners
+        html.find('tr.ability-row').hover(
+            function (event) {
+                // mouseenter: получить индекс строки и данные способности
+                const index = Number($(this).data('index'));
+                // Получаем массив способностей (предполагается, что они хранятся в this.actor.system.abilitiesList)
+                let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+                if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+                const abilityData = abilities[index] || {};
+
+                // Создаем tooltip элемент
+                const tooltip = $(`
+      <div class="ability-tooltip">
+        <strong>${abilityData.name || "Без названия"}</strong><br/>
+        ${abilityData.desc || "Нет описания"}<br/>
+        <em>Эффект:</em> ${abilityData.effect || "-"}<br/>
+        <em>Стоимость:</em> ${abilityData.cost || 0}
+      </div>
+    `);
+
+                // Добавляем tooltip в body и позиционируем относительно курсора
+                $('body').append(tooltip);
+                tooltip.css({
+                    position: 'absolute',
+                    top: event.pageY + 10,
+                    left: event.pageX + 10,
+                    zIndex: 1000,
+                    backgroundColor: '#fff',
+                    border: '1px solid #ccc',
+                    padding: '5px',
+                    boxShadow: '0 0 5px rgba(0,0,0,0.2)'
+                });
+
+                // Сохраняем tooltip в data элемента для последующего удаления
+                $(this).data('tooltip', tooltip);
+            }.bind(this),
+            function (event) {
+                // mouseleave: удаляем tooltip
+                const tooltip = $(this).data('tooltip');
+                if (tooltip) tooltip.remove();
+            }
+        );
+
+
          // Клик по "Отмена" — просто закрываем окно
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
