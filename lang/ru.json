@@ -13,7 +13,8 @@
       "Calling": "Призвание",
       "Gender": "Пол",
       "Age": "Возраст",
-      "CurrentRank": "Текущий ранг"
+      "CurrentRank": "Текущий ранг",
+      "Name":  "Имя"
     },
     "AbilityConfig": {
       "Title": "Редактирование способности",
