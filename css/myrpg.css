@@ -9,6 +9,7 @@
   text-shadow: 0 0 10px red;
   cursor: pointer;
 }
+
 .sub-labels {
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
@@ -17,9 +18,37 @@
     cursor: pointer;
 }
 
-    .ability-row:hover {
-        background-color: #eee;
-    }
+.ability-tooltip {
+    white-space: normal; /* Позволяет перенос строк */
+    word-break: break-word; /* Разрешает разрывать слова */
+    max-width: 300px; /* Ограничивает ширину, чтобы tooltip не был слишком широким */
+}
+
+.abilities-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+/* Пусть "Ранг" и "Стоимость" будут уже, а "Эффект" займёт больше места */
+.col-rank {
+    width: 10%; /* Условная цифра: в 2 раза меньше, чем было */
+}
+
+.col-cost {
+    width: 5%; /* Ещё уже (в 4 раза меньше), чем ранк */
+}
+
+.col-effect {
+    width: 50%; /* Основная часть достаётся "эффекту" */
+}
+
+.col-name {
+    width: 35%; /* Остальное для "названия" */
+}
+
+.ability-row:hover {
+    background-color: #eee;
+}
 
 /* 1) Форма растягивается на всю доступную площадь окна */
 .myrpg.sheet.actor form {

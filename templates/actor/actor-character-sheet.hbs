@@ -282,40 +282,20 @@
                 <table class="abilities-table">
                     <thead>
                         <tr>
-                            <th>{{localize "MY_RPG.AbilitiesTable.Name"}}</th>
-                            <th>{{localize "MY_RPG.AbilitiesTable.Rank"}}</th>
-                            <th>{{localize "MY_RPG.AbilitiesTable.Effect"}}</th>
-                            <th>{{localize "MY_RPG.AbilitiesTable.Cost"}}</th>
+                            <th class="col-name">{{localize "MY_RPG.AbilitiesTable.Name"}}</th>
+                            <th class="col-rank">{{localize "MY_RPG.AbilitiesTable.Rank"}}</th>
+                            <th class="col-effect">{{localize "MY_RPG.AbilitiesTable.Effect"}}</th>
+                            <th class="col-cost">{{localize "MY_RPG.AbilitiesTable.Cost"}}</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each system.abilitiesList as |row i|}}
                         <tr class="ability-row" data-index="{{i}}">
-                            <td>
-                                <input type="text"
-                                       name="system.abilitiesList.{{i}}.name"
-                                       value="{{row.name}}"
-                                       readonly />
-                            </td>
-                            <td>
-                                <input type="text"
-                                       name="system.abilitiesList.{{i}}.rank"
-                                       value="{{row.rank}}"
-                                       readonly />
-                            </td>
-                            <td>
-                                <input type="text"
-                                       name="system.abilitiesList.{{i}}.effect"
-                                       value="{{row.effect}}"
-                                       readonly />
-                            </td>
-                            <td>
-                                <input type="number"
-                                       name="system.abilitiesList.{{i}}.cost"
-                                       value="{{row.cost}}"
-                                       readonly />
-                            </td>
+                            <td class="col-name">{{row.name}}</td>
+                            <td class="col-rank">{{row.rank}}</td>
+                            <td class="col-effect">{{row.effect}}</td>
+                            <td class="col-cost">{{row.cost}}</td>
                             <td>
                                 <!-- Кнопка удаления строки -->
                                 <a class="abilities-remove-row" data-index="{{i}}">
