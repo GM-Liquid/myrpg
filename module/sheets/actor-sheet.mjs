@@ -10,20 +10,16 @@ export class myrpgActorSheet extends ActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
         // Наведение мыши (mouseenter)
-        html.find('tr.ability-row').on('mouseenter', event => {
-            console.log(">>> Debug: mouseenter on ability-row");
+        html.find("tr.ability-row").on("mouseenter", event => {
             const $row = $(event.currentTarget);
 
-            // Убедимся, что строка имеет position: relative,
-            // чтобы "absolute" tooltip позиционировался относительно неё.
-            $row.css("position", "relative");
+            // Получаем индекс способности
+            const index = Number($row.data("index"));
 
-            // Получаем индекс способности из data-атрибута
-            const index = Number($row.data('index'));
-
-            // Достаём массив способностей
+            // Берём массив способностей
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+
             const abilityData = abilities[index] || {};
 
             // Создаём DOM-элемент tooltip
@@ -36,35 +32,42 @@ export class myrpgActorSheet extends ActorSheet {
       </div>
     `);
 
-            // Добавляем tooltip как "дочерний" элемент строки
-            $row.append($tooltip);
+            // Добавляем tooltip в <body>
+            $("body").append($tooltip);
 
-            // Настраиваем стили, чтобы он показывался слева
+            // Стили и базовые свойства
             $tooltip.css({
                 position: "absolute",
-                top: "0",
-                right: "100%",     // Позиционируем tooltip слева от строки
-                marginRight: "10px", // Отступ, чтобы не прилипал к строке
                 zIndex: 99999,
                 backgroundColor: "#fff",
                 border: "1px solid #ccc",
                 padding: "5px",
                 boxShadow: "0 0 5px rgba(0,0,0,0.2)",
-                pointerEvents: "none" // чтобы tooltip не перехватывал события мыши
+                pointerEvents: "none"
             });
 
-            // Сохраняем ссылку на tooltip, чтобы удалить при mouseleave
+            // Координаты строки
+            // offset() возвращает { top, left } для элемента относительно документа
+            const rowOffset = $row.offset();
+            const tooltipWidth = $tooltip.outerWidth();
+
+            // Позиционируем tooltip слева от строки (на том же уровне по вертикали)
+            $tooltip.css({
+                top: rowOffset.top + "px",
+                left: (rowOffset.left - tooltipWidth - 10) + "px" // "10" - отступ
+            });
+
+            // Сохраняем ссылку, чтобы удалить при mouseleave
             $row.data("tooltip", $tooltip);
         });
 
-        // Уход мыши (mouseleave)
-        html.find('tr.ability-row').on('mouseleave', event => {
-            console.log(">>> Debug: mouseleave from ability-row");
+        // Уход курсора (mouseleave)
+        html.find("tr.ability-row").on("mouseleave", event => {
             const $row = $(event.currentTarget);
             const $tooltip = $row.data("tooltip");
             if ($tooltip) {
-                $tooltip.remove();          // удаляем элемент
-                $row.removeData("tooltip"); // чистим data
+                $tooltip.remove();
+                $row.removeData("tooltip");
             }
         });
 
