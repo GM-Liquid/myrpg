@@ -43,7 +43,6 @@
     /* Можно выделить заголовок цветом */
     .abilities-table thead th {
         background-color: #f0f0f0;
-        font-weight: bold;
     }
 
 /* Задаём ширины столбцов, чтобы они шли строго друг под другом */
