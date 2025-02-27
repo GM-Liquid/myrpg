@@ -25,7 +25,7 @@ export class myrpgActorSheet extends ActorSheet {
             // Создаём DOM-элемент tooltip
             const $tooltip = $(`
     <div class="ability-tooltip">
-      <strong>${abilityData.name || "Без названия"}</strong><br/>
+      <strong>${abilityData.name || "-"}</strong><br/>
       <em>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}:</em> ${abilityData.rank || "-"}<br/>
       <em>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}:</em> ${abilityData.effect || "-"}<br/>
       <em>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}:</em><br/>${abilityData.desc || "-"}<br/>
@@ -79,12 +79,20 @@ export class myrpgActorSheet extends ActorSheet {
             this.close();
         });
         // Добавить строку
-        html.find('.abilities-add-row').click(ev => {
+        html.find("tr.add-row").click(ev => {
             ev.preventDefault();
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
-            abilities.push({ name: "", effect: "", rank: "", cost: 0 });
+            // Добавляем новую запись
+            abilities.push({
+                name: "",
+                rank: "",
+                desc: "",
+                effect: "",
+                cost: 0
+            });
+
             this.actor.update({ "system.abilitiesList": abilities });
         });
 

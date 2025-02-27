@@ -298,20 +298,17 @@
                             <td class="col-cost">{{row.cost}}</td>
                             <td class="col-delete">
                                 <a class="abilities-remove-row" data-index="{{i}}">
-                                    <i class="fa-solid fa-trash"></i>
+                                <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
                         {{/each}}
-                        <tr>
-                            <td colspan="5">
-                                <!-- Кнопка добавления новой строки -->
-                                <a class="abilities-add-row">
-                                    <i class="fa-solid fa-plus"></i>
-                                    {{localize "MY_RPG.AbilitiesTable.AddRow"}}
-                                </a>
+                        <tr class="add-row">
+                             <td colspan="5">
+                                 <i class="fa-solid fa-plus"></i>
+                                 {{localize "MY_RPG.AbilitiesTable.AddRow"}}
                             </td>
-                        </tr>
+                    </tr>
                     </tbody>
                 </table>
             </section>
