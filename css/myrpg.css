@@ -43,7 +43,7 @@
 
 /* Задаём ширины столбцов, чтобы они шли строго друг под другом */
 .col-name {
-    width: 30%;
+    width: 25%;
 }
 
 .col-rank {
@@ -57,16 +57,29 @@
 }
 
 .col-cost {
-    width: 10%;
+    width: 15%;
 }
 
 .col-delete {
     width: 5%;
 }
 
+.abilities-table th,
+.abilities-table td {
+    border: 2px solid #444; /* более тёмный цвет + чуть толще линия */
+}
 
 .ability-row:hover {
     background-color: #eee;
+}
+
+.abilities-table tr:nth-child(even) td {
+    background-color: #eee;
+}
+
+.abilities-table thead th {
+    background-color: #ddd;
+    border-bottom: 2px solid #444;
 }
 
 /* 1) Форма растягивается на всю доступную площадь окна */
