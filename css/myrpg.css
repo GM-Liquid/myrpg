@@ -69,11 +69,6 @@
     z-index: 9999; /* чтобы было поверх всего */
 }
 
-/* ѕоказывать tooltip при наведении на €чейку с названием */
-.ability-name:hover .ability-tooltip {
-    display: block;
-}
-
 /* 1) ‘орма раст€гиваетс€ на всю доступную площадь окна */
 .myrpg.sheet.actor form {
     position: relative;
