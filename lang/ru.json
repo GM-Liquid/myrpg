@@ -9,6 +9,13 @@
       "Yes": "Да",
       "No": "Нет"
     },
+    "KeyInfo": {
+      "Name": "Имя персонажа",
+      "Calling": "Призвание",
+      "Gender": "Пол",
+      "Age": "Возраст",
+      "CurrentRank": "Текущий ранг"
+    },
     "AbilityConfig": {
       "Title": "Редактирование способности",
       "Save": "Сохранить",
@@ -140,7 +147,8 @@
       "Abilities": "Способности",
       "Parameters": "Параметры",
       "Attributes": "Характеристики",
-      "Skills": "Навыки"
+      "Skills": "Навыки",
+      "KeyInfo": "Ключевая информация"
     },
     "AbilitiesTable": {
       "TableHeading": "Таблица способностей",

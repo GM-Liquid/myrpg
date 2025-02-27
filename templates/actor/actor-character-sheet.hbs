@@ -14,6 +14,58 @@
 
         {{!-- Основная вкладка (Features) – содержит header, характеристики и навыки --}}
         <div class="tab features" data-group="primary" data-tab="features">
+
+
+            <!-- Новый блок "Ключевая информация" -->
+            <section class="key-info">
+                <!-- Заголовок блока -->
+                <h2>{{localize "MY_RPG.SheetLabels.KeyInfo"}}</h2>
+
+                <div class="flexrow">
+                    <!-- Портрет персонажа -->
+                    <div class="portrait">
+                        <img class="profile-img"
+                             src="{{actor.img}}"
+                             data-edit="img"
+                             title="{{actor.name}}"
+                             height="100"
+                             width="100" />
+                    </div>
+
+                    <!-- Поля с текстовыми вводами -->
+                    <div class="flexcol key-fields">
+                        <!-- Имя персонажа (используем actor.name, а не system.name) -->
+                        <div class="form-group">
+                            <label>{{localize "MY_RPG.KeyInfo.Name"}}</label>
+                            <input name="name" type="text" value="{{actor.name}}" placeholder="..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{localize "MY_RPG.KeyInfo.Calling"}}</label>
+                            <input name="system.calling" type="text" value="{{system.calling}}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{localize "MY_RPG.KeyInfo.Gender"}}</label>
+                            <input name="system.gender" type="text" value="{{system.gender}}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{localize "MY_RPG.KeyInfo.Age"}}</label>
+                            <input name="system.age" type="text" value="{{system.age}}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{localize "MY_RPG.KeyInfo.CurrentRank"}}</label>
+                            <input name="system.currentRank" type="text" value="{{system.currentRank}}" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
             {{!-- Header теперь является частью вкладки Features --}}
             <header class="sheet-header">
                 <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />

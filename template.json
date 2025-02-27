@@ -3,6 +3,10 @@
     "types": [ "character", "npc" ],
     "templates": {
       "base": {
+        "calling": "",
+        "gender": "",
+        "age": "",
+        "currentRank": "",
         "abilitiesList": [
           {
             "name": "",
