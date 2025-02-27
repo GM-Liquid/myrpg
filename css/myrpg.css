@@ -39,7 +39,7 @@
     .myrpg .abilities-table thead th {
         background-color: #ddd !important;
         color: #000 !important;
-        background: none !important;
+        text-shadow: none !important;
     }
 
     /* Зебра-полосы для четных строк */
