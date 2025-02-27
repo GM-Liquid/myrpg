@@ -71,8 +71,8 @@
 
 .myrpg.sheet.actor {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 600px;
+    height: 900px;
     margin: 0;
     box-sizing: border-box;
 }
