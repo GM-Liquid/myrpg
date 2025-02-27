@@ -14,35 +14,42 @@
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
 
-.myrpg .abilities-table tr.ability-row:hover {
-    background-color: #fdd !important;
-    transition: background-color 0.2s;
-}
-
 .ability-tooltip {
     white-space: normal; /* Позволяет перенос строк */
     word-break: break-word; /* Разрешает разрывать слова */
     max-width: 300px; /* Ограничивает ширину, чтобы tooltip не был слишком широким */
 }
-/* Общие настройки для таблицы */
-.abilities-table {
+.myrpg .abilities-table {
     width: 100%;
-    table-layout: fixed; /* фиксированная раскладка */
-    border-collapse: collapse; /* объединяем границы ячеек */
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
     margin-bottom: 1em;
+    background: none !important; /* Если не хотите полупрозрачного фона Foundry */
 }
 
     /* Границы и центрирование */
-    .abilities-table th,
-    .abilities-table td {
-        border: 1px solid #ccc; /* видимая граница */
+    .myrpg .abilities-table th,
+    .myrpg .abilities-table td {
+        border: 2px solid #444 !important; /* Более контрастная граница */
         padding: 5px;
-        text-align: center; /* центрируем текст */
+        text-align: center;
     }
 
-    /* Можно выделить заголовок цветом */
-    .abilities-table thead th {
-        background-color: #f0f0f0;
+    /* Цвет заголовка */
+    .myrpg .abilities-table thead th {
+        background-color: #ddd !important;
+        color: #000 !important;
+    }
+
+    /* Зебра-полосы для четных строк */
+    .myrpg .abilities-table tr:nth-child(even) {
+        background-color: #fff !important;
+    }
+
+    /* Ховер-эффект */
+    .myrpg .abilities-table tr:hover td {
+        background-color: #fdd !important; /* светло-красный фон при наведении */
+        transition: background-color 0.2s;
     }
 
 /* Задаём ширины столбцов, чтобы они шли строго друг под другом */
@@ -66,25 +73,6 @@
 
 .col-delete {
     width: 5%;
-}
-
-.abilities-table th,
-.abilities-table td {
-    border: 2px solid #444; /* более тёмный цвет + чуть толще линия */
-}
-
-.ability-row:hover {
-    background-color: #eee;
-}
-
-.abilities-table tr:nth-child(even) td {
-    background-color: #eee;
-}
-
-.abilities-table thead th {
-    background-color: #ddd;
-    border-bottom: 2px solid #444;
-    color: #000;
 }
 
 /* 1) Форма растягивается на всю доступную площадь окна */
