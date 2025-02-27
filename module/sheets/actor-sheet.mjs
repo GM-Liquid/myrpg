@@ -21,15 +21,16 @@ export class myrpgActorSheet extends ActorSheet {
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
             const abilityData = abilities[index] || {};
+            const costText = (abilityData.cost == null || abilityData.cost === "") ? "" : abilityData.cost;
 
             // Создаём DOM-элемент tooltip
             const $tooltip = $(`
     <div class="ability-tooltip">
-      <strong>${abilityData.name || "-"}</strong><br/>
-      <em>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}:</em> ${abilityData.rank || "-"}<br/>
-      <em>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}:</em> ${abilityData.effect || "-"}<br/>
-      <em>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}:</em><br/>${abilityData.desc || "-"}<br/>
-      <em>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}:</em> ${abilityData.cost || 0}
+      <strong>${abilityData.name || ""}</strong><br/>
+      <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}:</strong> ${abilityData.rank || ""}<br/>
+      <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}:</strong> ${abilityData.effect || ""}<br/>
+      <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}:</strong><br/>${abilityData.desc || ""}<br/>
+      <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}:</strong> ${costText}<br/>
     </div>
   `);
 
