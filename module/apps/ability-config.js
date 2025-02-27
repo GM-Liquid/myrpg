@@ -40,6 +40,7 @@ export class MyAbilityConfig extends FormApplication {
         abilities[this.abilityIndex] = {
             name: formData.name ?? "",
             rank: formData.rank ?? "",
+            desc: formData.desc ?? "",
             effect: formData.effect ?? "",
             cost: Number(formData.cost ?? 0)
         };

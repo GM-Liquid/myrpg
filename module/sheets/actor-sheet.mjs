@@ -24,13 +24,14 @@ export class myrpgActorSheet extends ActorSheet {
 
             // Создаём DOM-элемент tooltip
             const $tooltip = $(`
-      <div class="ability-tooltip">
-        <strong>${abilityData.name || "Без названия"}</strong><br/>
-        ${abilityData.desc || "Нет описания"}<br/>
-        <em>Эффект:</em> ${abilityData.effect || "-"}<br/>
-        <em>Стоимость:</em> ${abilityData.cost || 0}
-      </div>
-    `);
+    <div class="ability-tooltip">
+      <strong>${abilityData.name || "Без названия"}</strong><br/>
+      <em>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}:</em> ${abilityData.rank || "-"}<br/>
+      <em>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}:</em> ${abilityData.effect || "-"}<br/>
+      <em>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}:</em><br/>${abilityData.desc || "-"}<br/>
+      <em>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}:</em> ${abilityData.cost || 0}
+    </div>
+  `);
 
             // Добавляем tooltip в <body>
             $("body").append($tooltip);
