@@ -10,7 +10,7 @@ export class myrpgActorSheet extends ActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
-        TooltipManager.activateEventListeners(html, "tr.ability-row");
+        ui.tooltip.activateEventListeners(html, "tr.ability-row")
          //  лик по "ќтмена" Ч просто закрываем окно
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
