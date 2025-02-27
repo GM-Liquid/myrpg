@@ -14,49 +14,54 @@
     margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
 }
 
-.ability-row {
-    cursor: pointer;
-}
-
 .ability-tooltip {
     white-space: normal; /* Позволяет перенос строк */
     word-break: break-word; /* Разрешает разрывать слова */
     max-width: 300px; /* Ограничивает ширину, чтобы tooltip не был слишком широким */
 }
-
+/* Общие настройки для таблицы */
 .abilities-table {
-    table-layout: fixed;
     width: 100%;
+    table-layout: fixed; /* фиксированная раскладка */
+    border-collapse: collapse; /* объединяем границы ячеек */
+    margin-bottom: 1em;
 }
 
-.abilities-table {
-    table-layout: fixed; /* Включаем фиксированную раскладку */
-    width: 100%; /* Таблица занимает 100% доступного контейнера */
+    /* Границы и центрирование */
+    .abilities-table th,
+    .abilities-table td {
+        border: 1px solid #ccc; /* видимая граница */
+        padding: 5px;
+        text-align: center; /* центрируем текст */
+    }
+
+    /* Можно выделить заголовок цветом */
+    .abilities-table thead th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+/* Задаём ширины столбцов, чтобы они шли строго друг под другом */
+.col-name {
+    width: 30%;
+}
+
+.col-rank {
+    width: 10%;
 }
 
 .col-effect {
+    width: 45%;
     word-wrap: break-word;
     white-space: normal;
 }
 
-.col-name {
-    width: 30%; /* Пример: Название занимает 30% */
-}
-
-.col-rank {
-    width: 10%; /* Ранг уже в 2 раза */
-}
-
-.col-effect {
-    width: 45%; /* Большая часть под «эффект» */
-}
-
 .col-cost {
-    width: 10%; /* Стоимость ещё уже (в 4 раза) */
+    width: 10%;
 }
 
 .col-delete {
-    width: 5%; /* Оставшиеся 5% под кнопку удаления */
+    width: 5%;
 }
 
 

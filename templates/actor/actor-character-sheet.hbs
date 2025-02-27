@@ -286,7 +286,7 @@
                             <th class="col-rank">{{localize "MY_RPG.AbilitiesTable.Rank"}}</th>
                             <th class="col-effect">{{localize "MY_RPG.AbilitiesTable.Effect"}}</th>
                             <th class="col-cost">{{localize "MY_RPG.AbilitiesTable.Cost"}}</th>
-                            <th></th>
+                            <th class="col-delete"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -296,8 +296,7 @@
                             <td class="col-rank">{{row.rank}}</td>
                             <td class="col-effect">{{row.effect}}</td>
                             <td class="col-cost">{{row.cost}}</td>
-                            <td>
-                                <!-- Кнопка удаления строки -->
+                            <td class="col-delete">
                                 <a class="abilities-remove-row" data-index="{{i}}">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
