@@ -292,11 +292,8 @@
                     <tbody>
                         {{#each system.abilitiesList as |row i|}}
                         <tr class="ability-row" data-index="{{i}}">
-                            {{!-- Широкая ячейка "Название" --}}
                             <td class="ability-name">
                                 {{row.name}}
-
-                                {{!-- Скрытый tooltip, появится при наведении --}}
                                 <div class="ability-tooltip">
                                     <strong>{{row.name}}</strong><br />
                                     {{#if row.rank}}
@@ -311,9 +308,10 @@
                                     {{row.desc}}
                                 </div>
                             </td>
-
-                            {{!-- Удаление --}}
-                            <td>
+                            <td class="ability-rank">{{row.rank}}</td>
+                            <td class="ability-effect">{{row.effect}}</td>
+                            <td class="ability-cost">{{row.cost}}</td>
+                            <td class="ability-delete">
                                 <a class="abilities-remove-row" data-index="{{i}}">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
