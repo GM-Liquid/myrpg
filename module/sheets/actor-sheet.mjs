@@ -9,18 +9,21 @@ export class myrpgActorSheet extends ActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
-        // Внутри метода activateListeners
-        html.find('tr.ability-row').hover(
-            function (event) {
-                // mouseenter: получить индекс строки и данные способности
-                const index = Number($(this).data('index'));
-                // Получаем массив способностей (предполагается, что они хранятся в this.actor.system.abilitiesList)
-                let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-                if (!Array.isArray(abilities)) abilities = Object.values(abilities);
-                const abilityData = abilities[index] || {};
+        html.find('tr.ability-row').on('mouseenter', event => {
+            const $row = $(event.currentTarget);
 
-                // Создаем tooltip элемент
-                const tooltip = $(`
+            // Получаем индекс способности из data-атрибута
+            const index = Number($row.data('index'));
+
+            // Достаём массив способностей из актёра
+            let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
+            if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+
+            // Ищем нужную способность
+            const abilityData = abilities[index] || {};
+
+            // Создаём DOM-элемент tooltip
+            const $tooltip = $(`
       <div class="ability-tooltip">
         <strong>${abilityData.name || "Без названия"}</strong><br/>
         ${abilityData.desc || "Нет описания"}<br/>
@@ -29,28 +32,47 @@ export class myrpgActorSheet extends ActorSheet {
       </div>
     `);
 
-                // Добавляем tooltip в body и позиционируем относительно курсора
-                $('body').append(tooltip);
-                tooltip.css({
-                    position: 'absolute',
-                    top: event.pageY + 10,
-                    left: event.pageX + 10,
-                    zIndex: 1000,
-                    backgroundColor: '#fff',
-                    border: '1px solid #ccc',
-                    padding: '5px',
-                    boxShadow: '0 0 5px rgba(0,0,0,0.2)'
-                });
+            // Добавляем tooltip в <body>, чтобы он не был обрезан контейнерами
+            $("body").append($tooltip);
 
-                // Сохраняем tooltip в data элемента для последующего удаления
-                $(this).data('tooltip', tooltip);
-            }.bind(this),
-            function (event) {
-                // mouseleave: удаляем tooltip
-                const tooltip = $(this).data('tooltip');
-                if (tooltip) tooltip.remove();
+            // Стили и позиционирование (чтобы было видно поверх других элементов)
+            $tooltip.css({
+                position: "absolute",
+                top: event.pageY + 10,
+                left: event.pageX + 10,
+                zIndex: 99999,
+                backgroundColor: "#fff",
+                border: "1px solid #ccc",
+                padding: "5px",
+                boxShadow: "0 0 5px rgba(0,0,0,0.2)",
+                pointerEvents: "none"  // чтобы tooltip не перехватывал события мыши
+            });
+
+            // Сохраняем ссылку на tooltip, чтобы удалить его при mouseleave
+            $row.data("tooltip", $tooltip);
+        });
+
+        // При уходе курсора (mouseleave) удаляем tooltip
+        html.find('tr.ability-row').on('mouseleave', event => {
+            const $row = $(event.currentTarget);
+            const $tooltip = $row.data("tooltip");
+            if ($tooltip) {
+                $tooltip.remove();         // удаляем DOM-элемент
+                $row.removeData("tooltip"); // чистим data
             }
-        );
+        });
+
+        // (Необязательно) Если хотите, чтобы tooltip следовал за курсором, обрабатывайте mousemove:
+        html.find('tr.ability-row').on('mousemove', event => {
+            const $row = $(event.currentTarget);
+            const $tooltip = $row.data("tooltip");
+            if ($tooltip) {
+                $tooltip.css({
+                    top: event.pageY + 10,
+                    left: event.pageX + 10
+                });
+            }
+        });
 
 
          // Клик по "Отмена" — просто закрываем окно
