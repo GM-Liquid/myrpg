@@ -2,7 +2,7 @@ export class MyAbilityConfig extends FormApplication {
     /**
      * @param {Actor} actor           Текущий актёр
      * @param {number} abilityIndex   Индекс способности в массиве
-     * @param {object} abilityData    Текущие поля { name, effect, cost }
+     * @param {object} abilityData    Текущие поля { name, effect, cost, ... }
      * @param {object} options        Опции FormApplication
      */
     constructor(actor, abilityIndex, abilityData = {}, options = {}) {
@@ -22,27 +22,29 @@ export class MyAbilityConfig extends FormApplication {
     }
 
     getData(options) {
-        // super.getData() обычно возвращает {object: this.object}
         const data = super.getData(options);
-        // Переименуем для удобства
-        data.ability = this.object;
+        data.ability = this.object; // object = данные о способности
         return data;
     }
 
     /**
      * Сюда попадают данные формы при сохранении
-     * (кнопка "ОК" или "Сохранить" в диалоге).
+     * (кнопка "Сохранить" в диалоге).
      */
     async _updateObject(event, formData) {
+        // Копируем массив способностей
         let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
         if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
+        // Обновляем выбранную способность
         abilities[this.abilityIndex] = {
             name: formData.name ?? "",
+            rank: formData.rank ?? "",
             effect: formData.effect ?? "",
             cost: Number(formData.cost ?? 0)
         };
 
+        // Сохраняем обновлённый массив в актёре
         await this.actor.update({ "system.abilitiesList": abilities });
     }
 }

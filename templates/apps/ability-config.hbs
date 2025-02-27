@@ -4,6 +4,12 @@
         <input type="text" name="name" value="{{ability.name}}" />
     </div>
 
+    <!-- Новое поле "Ранг" -->
+    <div class="form-group">
+        <label>{{localize "MY_RPG.AbilityConfig.Rank"}}</label>
+        <input type="text" name="rank" value="{{ability.rank}}" />
+    </div>
+
     <div class="form-group">
         <label>{{localize "MY_RPG.AbilityConfig.Effect"}}</label>
         <textarea name="effect" rows="4">{{ability.effect}}</textarea>
@@ -16,11 +22,9 @@
 
     <!-- Кнопки -->
     <footer class="form-footer">
-        <!-- Кнопка "Сохранить" отправляет форму, вызывая _updateObject() -->
         <button type="submit">
             {{localize "MY_RPG.AbilityConfig.Save"}}
         </button>
-        <!-- Кнопка "Отмена" — просто закрывает окно без сохранения -->
         <button type="button" class="ability-cancel">
             {{localize "MY_RPG.AbilityConfig.Cancel"}}
         </button>
