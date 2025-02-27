@@ -36,6 +36,11 @@ export class MyAbilityConfig extends FormApplication {
         let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
         if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
+        let parsedCost = "";
+        if (formData.cost !== "") {
+            parsedCost = Number(formData.cost); // превращаем в число
+        }
+
         // Обновляем выбранную способность
         abilities[this.abilityIndex] = {
             name: formData.name ?? "",

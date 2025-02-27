@@ -21,7 +21,10 @@ export class myrpgActorSheet extends ActorSheet {
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
             const abilityData = abilities[index] || {};
-            const costText = (abilityData.cost == null || abilityData.cost === "") ? "" : abilityData.cost;
+            const costValue = abilityData.cost; 
+            const costText = (costValue === "" || costValue === null || costValue === undefined)
+                ? ""
+                : costValue;
 
             // Создаём DOM-элемент tooltip
             const $tooltip = $(`
