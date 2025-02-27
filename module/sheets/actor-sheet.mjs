@@ -11,6 +11,7 @@ export class myrpgActorSheet extends ActorSheet {
         super.activateListeners(html);
         // Наведение мыши (mouseenter)
         html.find('tr.ability-row').on('mouseenter', event => {
+            console.log(">>> Debug: mouseenter on ability-row");
             const $row = $(event.currentTarget);
 
             // Убедимся, что строка имеет position: relative,
@@ -58,6 +59,7 @@ export class myrpgActorSheet extends ActorSheet {
 
         // Уход мыши (mouseleave)
         html.find('tr.ability-row').on('mouseleave', event => {
+            console.log(">>> Debug: mouseleave from ability-row");
             const $row = $(event.currentTarget);
             const $tooltip = $row.data("tooltip");
             if ($tooltip) {
