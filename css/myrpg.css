@@ -69,10 +69,16 @@
     z-index: 9999; /* чтобы было поверх всего */
 }
 
-.myrpg.sheet.actor {
+/* Показывать tooltip при наведении на ячейку с названием */
+.ability-name:hover .ability-tooltip {
+    display: block;
+}
+
+/* 1) Форма растягивается на всю доступную площадь окна */
+.myrpg.sheet.actor form {
     position: relative;
-    width: 600px;
-    height: 900px;
+    width: 100%; /* окно уже 600px, поэтому достаточно 100% */
+    height: 100%;
     margin: 0;
     box-sizing: border-box;
 }
@@ -127,6 +133,12 @@
     .hex-button.active {
         background: #888;
     }
+
+/* Даём окну и его содержимому overflow: visible */
+.window-app.myrpg-hex-tabs,
+.window-app.myrpg-hex-tabs .window-content {
+    overflow: visible !important;
+}
 
 /* Сеточные стили */
 .grid,

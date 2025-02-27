@@ -82,14 +82,6 @@ export class myrpgActorSheet extends ActorSheet {
             // Открываем отдельное окошко (FormApplication) для редактирования
             new MyAbilityConfig(this.actor, index, abilityData).render(true);
         });
-        html.find('.ability-name').each((i, el) => {
-            const tooltipContent = $(el).find('.ability-tooltip').html();
-            if (tooltipContent) {
-                $(el).attr('data-tooltip', tooltipContent);
-            }
-        });
-        // Активируем обработчики подсказок от Foundry
-        TooltipManager.activateEventListeners(html);
     }
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
