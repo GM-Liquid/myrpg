@@ -11,6 +11,17 @@
     margin-bottom: 10px;
 }
 
+input[readonly],
+textarea[readonly],
+input[disabled],
+textarea[disabled] {
+    pointer-events: none; /* Запрещаем любые клики */
+    user-select: none; /* Запрещаем выделение текста */
+    cursor: default; /* Убираем «текстовый» курсор при наведении */
+    background-color: #f0f0f0; /* Можно чуть «засерить» фон, если хотите */
+    color: #666; /* И слегка осветлить текст, чтобы было видно, что поле недоступно */
+}
+
 /* .left-part и .right-part можно дополнительно настраивать */
 .left-part {
     width: 300px; /* или flex: 0 0 300px; */
