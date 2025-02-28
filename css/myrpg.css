@@ -24,15 +24,15 @@ form input[type="number"] {
 }
 
 .myrpg .biography .form-group {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .myrpg .abilities .ability {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .myrpg .skills .skill {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 /* Убираем resizable у textarea */
@@ -101,7 +101,7 @@ form textarea {
 
     /* Зебра-полосы (чётные строки) */
     .myrpg .abilities-table tr:nth-child(even) {
-        background-color: #d2d2c9 !important;
+        background-color: #a79086 !important;
     }
 
     /* Ховер-эффект (подсветка строки) */
