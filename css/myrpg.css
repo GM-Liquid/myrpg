@@ -11,6 +11,11 @@
     margin-bottom: 10px;
 }
 
+.small-input {
+    width: 100px; /* или любое нужное значение */
+    max-width: 150px;
+}
+
 input[readonly],
 textarea[readonly],
 input[disabled],
@@ -32,6 +37,13 @@ textarea[disabled] {
 /* Общий класс для строки с отступом снизу */
 .custom-flexrow {
     display: flex;
+    margin-bottom: 10px;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between; /* или flex-start, как удобнее */
+    align-items: flex-start;
     margin-bottom: 10px;
 }
 
@@ -68,6 +80,14 @@ textarea[disabled] {
     content: "";
     display: block;
     clear: both;
+}
+
+.attributes-col {
+    flex: 1; /* Остальное пространство под таблицу атрибутов */
+}
+
+.key-fields-row {
+    margin-bottom: 10px;
 }
 
 .attributes-table th,
