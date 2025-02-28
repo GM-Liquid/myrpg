@@ -195,6 +195,8 @@ export class myrpgActorSheet extends ActorSheet {
     `,
                 buttons: {
                     save: {
+                        icon: '<i class="fas fa-check"></i>',
+                        label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
                         callback: (htmlDialog) => {
                             // Находим <form> внутри диалога
                             const formEl = htmlDialog.find("form")[0];
@@ -229,24 +231,27 @@ export class myrpgActorSheet extends ActorSheet {
             }, {
                 width: 400,
                 height: "auto",
-                modal: true,
                 jQuery: true,
-                // Переопределим метод onRender, чтобы добавить оверлей
-                render: (dlg) => {
-                    // Создаём блок
+                modal: true,
+                render: (dlgHtml) => {
+                    // 1) Создаём блок-оверлей
                     const $overlay = $('<div class="my-modal-overlay"></div>').css({
                         position: "fixed",
                         top: 0, left: 0,
-                        width: "100vw",
-                        height: "100vh",
-                        backgroundColor: "rgba(0,0,0,0)", // или слегка затенённый
+                        width: "100vw", height: "100vh",
+                        backgroundColor: "rgba(0,0,0,0)", // можно чуть затенить
                         zIndex: 9998
                     });
                     $("body").append($overlay);
 
-                    // Диалог сам обычно имеет z-index 9999
-                    // Когда диалог закрывается, удалим оверлей
-                    Hooks.once("closeDialog", () => $overlay.remove());
+                    // 2) Диалог сам (обычно) имеет z-index 9999
+                    // Если нужно, можно задать:
+                    dlgHtml.css("z-index", 9999);
+
+                    // 3) При закрытии диалога убираем оверлей
+                    Hooks.once("closeDialog", () => {
+                        $overlay.remove();
+                    });
                 }
             }).render(true);
         });

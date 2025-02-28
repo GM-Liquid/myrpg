@@ -141,10 +141,6 @@
     /* остальное (flex, align-items, и т.д.) оставляем */
 }
 
-    .hex-button:hover {
-        background: var(--color-dark); /* #00457E */
-    }
-
     .hex-button.active {
         background: var(--color-text-light); /* #fff */
     }
