@@ -26,6 +26,18 @@ form input[type="number"] {
     box-sizing: border-box;
 }
 
+.myrpg .biography .form-group {
+    margin-bottom: 10px;
+}
+
+.myrpg .abilities .ability {
+    margin-bottom: 10px;
+}
+
+.myrpg .skills .skill {
+    margin-bottom: 10px;
+}
+
 /* Убираем resizable у textarea */
 form textarea {
     resize: none;

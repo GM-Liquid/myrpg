@@ -64,6 +64,14 @@
     },
     "character": {
       "templates": [ "base" ],
+      "biography": {
+        "weight": "",
+        "height": "",
+        "eyeColor": "",
+        "hairColor": "",
+        "appearance": "",
+        "notes": ""
+      },
       "attributes": {},
       "abilities": {
         "will": {

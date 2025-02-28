@@ -14,7 +14,7 @@
       "Gender": "Пол",
       "Age": "Возраст",
       "CurrentRank": "Текущий ранг",
-      "Name":  "Имя"
+      "Name": "Имя"
     },
     "AbilityConfig": {
       "Title": "Редактирование способности",
@@ -152,6 +152,14 @@
       "KeyInfo": "Ключевая информация",
       "Biography": "Биография и заметки"
     },
+    "Biography": {
+      "Weight": "Вес",
+      "Height": "Рост",
+      "EyeColor": "Цвет глаз",
+      "HairColor": "Цвет волос",
+      "Appearance": "Внешность",
+      "Notes": "Заметки"
+    },
     "AbilitiesTable": {
       "TableHeading": "Таблица способностей",
       "Name": "Название",
@@ -159,7 +167,7 @@
       "Effect": "Эффект",
       "Cost": "Стоимость",
       "AddRow": "Добавить строку",
-      "Rank":  "Ранг"
+      "Rank": "Ранг"
     }
   },
   "TYPES": {
