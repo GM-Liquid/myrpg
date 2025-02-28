@@ -16,6 +16,12 @@
     width: 300px; /* или flex: 0 0 300px; */
 }
 
+.sheet-box {
+    border: 2px solid #1b1210; /* Ваш основной цвет бордюра */
+    padding: 10px;
+    margin-bottom: 10px; /* чтобы между блоками был отступ */
+}
+
 .right-part {
     flex: 1;
 }
