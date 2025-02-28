@@ -5,13 +5,17 @@
         <nav class="sheet-tabs-hex" data-group="primary">
             <a class="hex-button" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
             <a class="hex-button" data-tab="abilities">{{localize "MY_RPG.SheetLabels.AbilitiesAndMods"}}</a>
+            <a class="hex-button" data-tab="biography">{{localize "MY_RPG.SheetLabels.Biography"}}</a>
         </nav>
     </div>
 
     {{!-- Sheet Body --}}
 <div class="sheet-scrollable">
     <section class="sheet-body">
-
+        <div class="tab biography" data-group="primary" data-tab="biography">
+            <h2>{{localize "MY_RPG.SheetLabels.Biography"}}</h2>
+            <textarea name="system.biography" rows="15">{{system.biography}}</textarea>
+        </div>
         {{!-- ќсновна€ вкладка (Features) Ц содержит header, характеристики и навыки --}}
         <div class="tab features" data-group="primary" data-tab="features">
 
@@ -347,17 +351,17 @@
                             <td class="col-cost">{{row.cost}}</td>
                             <td class="col-delete">
                                 <a class="abilities-remove-row" data-index="{{i}}">
-                                <i class="fa-solid fa-trash"></i>
+                                    <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
                         {{/each}}
                         <tr class="add-row">
-                             <td colspan="5">
-                                 <i class="fa-solid fa-plus"></i>
-                                 {{localize "MY_RPG.AbilitiesTable.AddRow"}}
+                            <td colspan="5">
+                                <i class="fa-solid fa-plus"></i>
+                                {{localize "MY_RPG.AbilitiesTable.AddRow"}}
                             </td>
-                    </tr>
+                        </tr>
                     </tbody>
                 </table>
             </section>

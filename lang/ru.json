@@ -149,7 +149,8 @@
       "Parameters": "Параметры",
       "Attributes": "Характеристики",
       "Skills": "Навыки",
-      "KeyInfo": "Ключевая информация"
+      "KeyInfo": "Ключевая информация",
+      "Biography": "Биография и заметки"
     },
     "AbilitiesTable": {
       "TableHeading": "Таблица способностей",
