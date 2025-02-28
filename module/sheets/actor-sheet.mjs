@@ -245,6 +245,34 @@ export class myrpgActorSheet extends ActorSheet {
 
             diag.render(true);
         });
+
+
+
+
+        html.find('input[name^="system.abilities."], input[name^="system.skills."]').on("change", ev => {
+            const input = ev.currentTarget;
+            let val = parseInt(input.value, 10);
+
+            // Если пользователь ввёл не число (NaN), по умолчанию ставим 1
+            if (isNaN(val)) val = 1;
+
+            // Определяем, это "Характеристика" или "Навык"
+            const isAbility = input.name.includes("system.abilities.");
+            const label = isAbility ? "Характеристика" : "Навык";
+
+            // Проверяем границы
+            if (val < 1) {
+                ui.notifications.warn(`${label} не может быть меньше 1`);
+                val = 1;
+            } else if (val > 20) {
+                ui.notifications.warn(`${label} не может быть больше 20`);
+                val = 20;
+            }
+
+            // Обновляем значение в поле и в данных актёра
+            input.value = val;
+            this.actor.update({ [input.name]: val });
+        });
     }
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {

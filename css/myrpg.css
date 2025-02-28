@@ -27,6 +27,18 @@ textarea[disabled] {
     width: 300px; /* или flex: 0 0 300px; */
 }
 
+.attributes-table th,
+.attributes-table td {
+    border: 2px solid #1b1210;
+    padding: 5px;
+    text-align: center;
+}
+
+.attributes-table {
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
 .sheet-box {
     border: 2px solid #1b1210; /* Ваш основной цвет бордюра */
     padding: 10px;

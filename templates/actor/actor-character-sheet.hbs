@@ -63,7 +63,7 @@
             <section class="flexrow" style="margin-bottom: 10px;">
 
                 <!-- ЛЕВАЯ ЧАСТЬ: Портрет + Ключевая информация -->
-                <div class="flexcol" style="width: 50%; padding-right: 10px;">
+                <div class="left-col" style="width: 50%; padding-right: 10px;">
                     <div class="sheet-box">
                         <!-- Портрет -->
                         <div class="portrait" style="margin-bottom: 10px;">
@@ -74,50 +74,62 @@
                         </div>
 
                         <!-- Ключевая информация (Name, Calling, Gender, Age, Rank) -->
-                        <div class="form-group">
-                            <label>{{localize "MY_RPG.KeyInfo.Name"}}</label>
-                            <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
-                        </div>
-                        <div class="form-group">
-                            <label>{{localize "MY_RPG.KeyInfo.Calling"}}</label>
-                            <input name="system.calling" type="text" value="{{system.calling}}" />
-                        </div>
-                        <div class="form-group">
-                            <label>{{localize "MY_RPG.KeyInfo.Gender"}}</label>
-                            <input name="system.gender" type="text" value="{{system.gender}}" />
-                        </div>
-                        <div class="form-group">
-                            <label>{{localize "MY_RPG.KeyInfo.Age"}}</label>
-                            <input name="system.age" type="text" value="{{system.age}}" />
-                        </div>
-                        <div class="form-group">
-                            <label>{{localize "MY_RPG.KeyInfo.CurrentRank"}}</label>
-                            <input name="system.currentRank" type="text" value="{{system.currentRank}}" />
+                        <div class="flexcol key-fields">
+                            <div class="form-group">
+                                <label>{{localize "MY_RPG.KeyInfo.Name"}}</label>
+                                <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+                            </div>
+                            <div class="form-group">
+                                <label>{{localize "MY_RPG.KeyInfo.Calling"}}</label>
+                                <input name="system.calling" type="text" value="{{system.calling}}" />
+                            </div>
+                            <div class="form-group">
+                                <label>{{localize "MY_RPG.KeyInfo.Gender"}}</label>
+                                <input name="system.gender" type="text" value="{{system.gender}}" />
+                            </div>
+                            <div class="form-group">
+                                <label>{{localize "MY_RPG.KeyInfo.Age"}}</label>
+                                <input name="system.age" type="text" value="{{system.age}}" />
+                            </div>
+                            <div class="form-group">
+                                <label>{{localize "MY_RPG.KeyInfo.CurrentRank"}}</label>
+                                <input name="system.currentRank" type="text" value="{{system.currentRank}}" />
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- ПРАВАЯ ЧАСТЬ: Атрибуты (abilities) -->
-                <div class="flexcol" style="width: 50%;">
-                    <div class="sheet-box">
-                        <h3>{{localize "MY_RPG.SheetLabels.Attributes"}}</h3>
-                        {{#each system.abilities as |ability key|}}
-                        <div class="ability flexrow flex-group-center" style="margin-bottom: 5px;">
-                            <label for="system.abilities.{{key}}.value"
-                                   class="resource-label rollable flexlarge align-left"
-                                   data-roll="d20+@abilities.{{key}}.mod"
-                                   data-label="{{ability.label}}">
-                                {{ability.label}}
-                            </label>
-                            <input type="number"
-                                   name="system.abilities.{{key}}.value"
-                                   value="{{ability.value}}"
-                                   step="1"
-                                   inputmode="numeric"
-                                   pattern="\d+" />
-                        </div>
-                        {{/each}}
-                    </div>
+                <div class="right-col" style="width: 50%;">
+                    <h3>{{localize "MY_RPG.SheetLabels.KeyInfo"}}</h3>
+                    <table class="attributes-table" style="width: 100%; text-align: center; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                {{!-- Первый ряд: названия характеристик --}}
+                                {{#each system.abilities as |ability key|}}
+                                <th style="padding: 5px; border: 2px solid #1b1210;">
+                                    {{ability.label}}
+                                </th>
+                                {{/each}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {{!-- Второй ряд: поля для редактирования --}}
+                                {{#each system.abilities as |ability key|}}
+                                <td style="padding: 5px; border: 2px solid #1b1210;">
+                                    <input type="number"
+                                           name="system.abilities.{{key}}.value"
+                                           value="{{ability.value}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           pattern="\d+"
+                                           style="width: 50px; text-align: center;" />
+                                </td>
+                                {{/each}}
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </section>

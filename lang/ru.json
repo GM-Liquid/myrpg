@@ -16,6 +16,16 @@
       "CurrentRank": "Текущий ранг",
       "Name": "Имя"
     },
+      "SheetLabels": {
+      "AbilitiesAndMods": "Способности и модификации",
+      "Features": "Основной лист",
+      "Abilities": "Способности",
+      "Parameters": "Параметры",
+      "Attributes": "Характеристики",
+      "Skills": "Навыки",
+      "KeyInfo": "Ключевая информация",
+      "Biography": "Биография и заметки"
+    },
     "AbilityConfig": {
       "Title": "Редактирование способности",
       "Save": "Сохранить",
@@ -141,16 +151,6 @@
       "Vitamantia": "Витамантия (Пров)",
       "Psionika": "Псионика (Пров)",
       "Predvidenie": "Предвидение (Пров)"
-    },
-    "SheetLabels": {
-      "AbilitiesAndMods": "Способности и модификации",
-      "Features": "Основной лист",
-      "Abilities": "Способности",
-      "Parameters": "Параметры",
-      "Attributes": "Характеристики",
-      "Skills": "Навыки",
-      "KeyInfo": "Ключевая информация",
-      "Biography": "Биография и заметки"
     },
     "Biography": {
       "Weight": "Вес",
