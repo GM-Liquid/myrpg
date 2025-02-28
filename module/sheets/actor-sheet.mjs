@@ -34,7 +34,7 @@ export class myrpgActorSheet extends ActorSheet {
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
             const abilityData = abilities[index] || {};
-            const costValue = abilityData.cost;
+            const costValue = abilityData.cost; 
             const costText = (costValue === "" || costValue === null || costValue === undefined)
                 ? ""
                 : costValue;
@@ -90,7 +90,7 @@ export class myrpgActorSheet extends ActorSheet {
         });
 
 
-        // Клик по "Отмена" — просто закрываем окно
+         // Клик по "Отмена" — просто закрываем окно
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
             this.close();
@@ -148,33 +148,91 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
+
         html.find('tr.ability-row').click(ev => {
-            // Если диалог уже открыт — выходим сразу
-            if (this._currentAbilityDialog) {
+            // Если уже открыт диалог — запрещаем открывать новый
+            if (this._editing) {
                 ui.notifications.warn(game.i18n.localize("MY_RPG.AbilityConfig.AlreadyEditing"));
                 return;
             }
 
-            // Если клик по иконке удаления — пропускаем
+            // Если клик по иконке удаления — ничего не делаем
             if ($(ev.target).closest('.abilities-remove-row').length) return;
 
             ev.preventDefault();
-            const index = Number(ev.currentTarget.dataset.index);
+            this._editing = true; // Ставим флаг "идёт редактирование"
 
+            const index = Number(ev.currentTarget.dataset.index);
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
-
             const abilityData = abilities[index] || {};
 
-            // Создаём и сохраняем ссылку на диалог
-            this._currentAbilityDialog = new MyAbilityConfig(this.actor, index, abilityData, {
+            // Создаём кастомный диалог (как у тебя было)
+            let diag = new Dialog({
+                title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
+                content: `
+            <form>
+              <div class="form-group">
+                <label>${game.i18n.localize("MY_RPG.AbilityConfig.Name")}</label>
+                <input type="text" name="name" value="${abilityData.name ?? ""}" />
+              </div>
+              <div class="form-group">
+                <label>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}</label>
+                <input type="text" name="rank" value="${abilityData.rank ?? ""}" />
+              </div>
+              <div class="form-group">
+                <label>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}</label>
+                <textarea name="effect" rows="4">${abilityData.effect ?? ""}</textarea>
+              </div>
+              <div class="form-group">
+                <label>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}</label>
+                <textarea name="desc" rows="6">${abilityData.desc ?? ""}</textarea>
+              </div>
+              <div class="form-group">
+                <label>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}</label>
+                <input type="number" name="cost" value="${abilityData.cost ?? ""}" />
+              </div>
+            </form>
+        `,
+                buttons: {
+                    save: {
+                        icon: '<i class="fas fa-check"></i>',
+                        label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
+                        callback: (htmlDialog) => {
+                            console.log(">>> Saved");
+
+                            const formEl = htmlDialog.find("form")[0];
+                            const fd = new FormData(formEl);
+
+                            let formData = {};
+                            for (let [k, v] of fd.entries()) {
+                                formData[k] = v;
+                            }
+
+                            abilities[index] = {
+                                name: formData.name ?? "",
+                                rank: formData.rank ?? "",
+                                effect: formData.effect ?? "",
+                                desc: formData.desc ?? "",
+                                cost: formData.cost ?? ""
+                            };
+
+                            this.actor.update({ "system.abilitiesList": abilities });
+                        }
+                    },
+                    cancel: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: game.i18n.localize("MY_RPG.AbilityConfig.Cancel")
+                    }
+                },
+                default: "save",
                 close: () => {
-                    // Когда диалог закрыт - сбрасываем ссылку
-                    this._currentAbilityDialog = null;
+                    this._editing = false; // Сбрасываем флаг после закрытия диалога
+                    console.log(">>> Dialog closed");
                 }
             });
 
-            this._currentAbilityDialog.render(true);
+            diag.render(true);
         });
     }
     static get defaultOptions() {
