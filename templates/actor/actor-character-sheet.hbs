@@ -14,23 +14,38 @@
     <section class="sheet-body">
         <div class="tab biography" data-group="primary" data-tab="biography">
             <h2>{{localize "MY_RPG.SheetLabels.Biography"}}</h2>
-            <div class="flexcol">
-                <div class="form-group">
+            <section class="resources grid grid-3col">
+                <!-- Вес -->
+                <div class="resource flex-group-center">
                     <label>{{localize "MY_RPG.Biography.Weight"}}</label>
                     <input type="text" name="system.biography.weight" value="{{system.biography.weight}}" />
                 </div>
-                <div class="form-group">
+
+                <!-- Рост -->
+                <div class="resource flex-group-center">
                     <label>{{localize "MY_RPG.Biography.Height"}}</label>
                     <input type="text" name="system.biography.height" value="{{system.biography.height}}" />
                 </div>
-                <div class="form-group">
+
+                <!-- Цвет глаз -->
+                <div class="resource flex-group-center">
                     <label>{{localize "MY_RPG.Biography.EyeColor"}}</label>
                     <input type="text" name="system.biography.eyeColor" value="{{system.biography.eyeColor}}" />
                 </div>
-                <div class="form-group">
+
+                <!-- Цвет волос -->
+                <div class="resource flex-group-center">
                     <label>{{localize "MY_RPG.Biography.HairColor"}}</label>
                     <input type="text" name="system.biography.hairColor" value="{{system.biography.hairColor}}" />
                 </div>
+
+                <!-- Пустые ячейки (чтобы 4 поля уместить в сетке 3x2) -->
+                <div class="resource flex-group-center"></div>
+                <div class="resource flex-group-center"></div>
+            </section>
+
+            <!-- Крупные поля: Внешность и Заметки -->
+            <section class="appearance">
                 <div class="form-group">
                     <label>{{localize "MY_RPG.Biography.Appearance"}}</label>
                     <textarea name="system.biography.appearance" rows="5">{{system.biography.appearance}}</textarea>
@@ -39,7 +54,7 @@
                     <label>{{localize "MY_RPG.Biography.Notes"}}</label>
                     <textarea name="system.biography.notes" rows="8">{{system.biography.notes}}</textarea>
                 </div>
-            </div>
+            </section>
         </div>
         {{!-- Основная вкладка (Features) – содержит header, характеристики и навыки --}}
         <div class="tab features" data-group="primary" data-tab="features">

@@ -1,24 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 /* Global styles */
 .window-app {
-  font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
-:root {
-    --color-darkest: #02315E; /* самый тёмный синий */
-    --color-dark: #00457E; /* тёмно-синий */
-    --color-primary: #2F70AF; /* основной средний синий */
-    --color-accent1: #B9848C; /* розовато-коричневый */
-    --color-accent2: #806491; /* фиолетовый */
-    --color-text-light: #ffffff; /* белый текст, если нужен */
+/* Устанавливаем фон и текст для всего листа */
+.myrpg.sheet.actor {
+    background-color: #d2d2c9; /* Фон всех страниц */
+    color: #1b1210; /* Основной цвет текста */
 }
 
 form textarea,
 form input[type="text"],
 form input[type="number"] {
-    border: 2px solid var(--color-dark);
-    background-color: #f8f8f8;
-    color: #000;
+    border: 2px solid #1b1210; /* Цвет рамки */
+    background-color: #f8f8f8; /* Можно оставить светлый фон внутри полей */
+    color: #1b1210; /* Цвет текста внутри полей */
     font-family: inherit;
     font-size: inherit;
     padding: 5px;
@@ -42,80 +39,79 @@ form input[type="number"] {
 form textarea {
     resize: none;
     overflow: hidden;
-    min-height: 60px; /* Стартовая высота, можно подстроить */
-    max-height: 500px; /* Чтобы совсем не улетало в бесконечность */
+    min-height: 60px;
+    max-height: 500px;
 }
 
 /* Контейнер портрета */
 .portrait {
-    /* Убедитесь, что здесь нет flex: 1; или width: 100%; 
-     иначе портрет растянется */
     width: auto;
-    /* Или зафиксируйте ширину, если хотите */
-    /* width: 150px; */
-    margin-right: 10px; /* если нужно отступ */
+    margin-right: 10px;
 }
 
-/* Сама картинка */
 .profile-img {
-    display: block; /* чтобы убрать возможные артефакты inline-элементов */
-    max-width: 150px; /* ограничиваем ширину */
-    max-height: 150px; /* и высоту */
-    width: auto !important; /* переопределяем любые width: 100% */
+    display: block;
+    max-width: 150px;
+    max-height: 150px;
+    width: auto !important;
     height: auto !important;
 }
 
-.rollable:hover, .rollable:focus {
-  color: #000;
-  text-shadow: 0 0 10px red;
-  cursor: pointer;
+.rollable:hover,
+.rollable:focus {
+    color: #000;
+    text-shadow: 0 0 10px red;
+    cursor: pointer;
 }
 
 .sub-labels {
-    margin-bottom: 3px; /* Небольшое расстояние между подзаголовками и полями */
+    margin-bottom: 3px;
 }
 
 .ability-tooltip {
-    white-space: normal; /* Позволяет перенос строк */
-    word-break: break-word; /* Разрешает разрывать слова */
-    max-width: 300px; /* Ограничивает ширину, чтобы tooltip не был слишком широким */
+    white-space: normal;
+    word-break: break-word;
+    max-width: 300px;
 }
 
+/* Таблица способностей */
 .myrpg .abilities-table {
     width: 100%;
     table-layout: fixed !important;
     border-collapse: collapse !important;
     margin-bottom: 1em;
-    background: none !important; /* Если не хотите полупрозрачного фона Foundry */
+    background: none !important;
 }
 
-    /* Границы и центрирование */
+    /* Границы и цвет текста в ячейках */
     .myrpg .abilities-table th,
     .myrpg .abilities-table td {
-        border: 2px solid #444 !important; /* Более контрастная граница */
+        border: 2px solid #1b1210 !important; /* Цвет границ таблицы */
         padding: 5px;
         text-align: center;
+        color: #1b1210; /* Цвет текста */
     }
 
-    /* Цвет заголовка */
+    /* Заголовок таблицы */
     .myrpg .abilities-table thead th {
-        background-color: var(--color-primary) !important; /* #2F70AF */
-        color: var(--color-text-light) !important; /* #fff */
+        background-color: #673e37 !important; /* Цвет шапки */
+        color: #d2d2c9 !important; /* Текст на шапке (для контраста) */
         text-shadow: none !important;
     }
 
-    /* Зебра-полосы для четных строк */
+    /* Зебра-полосы (чётные строки) */
     .myrpg .abilities-table tr:nth-child(even) {
-        background-color: #fff !important;
+        background-color: #d2d2c9 !important;
     }
 
-    /* Ховер-эффект */
+    /* Ховер-эффект (подсветка строки) */
     .myrpg .abilities-table tr:hover td {
-        background-color: #B9CEDD !important; /* светло-красный фон при наведении */
+        background-color: #673e37 !important; /* Активная строка */
+        color: #d2d2c9 !important; /* Текст при hover */
         transition: background-color 0.2s;
     }
 
-/* Задаём ширины столбцов, чтобы они шли строго друг под другом */
+/* Ширины столбцов */
 .col-name {
     width: 23%;
 }
@@ -138,30 +134,30 @@ form textarea {
     width: 5%;
 }
 
-/* 1) Форма растягивается на всю доступную площадь окна */
+/* Форма растягивается на всю доступную площадь окна */
 .myrpg.sheet.actor form {
     position: relative;
-    width: 100%; /* окно уже 600px, поэтому достаточно 100% */
+    width: 100%;
     height: 100%;
     margin: 0;
     box-sizing: border-box;
 }
 
-/* 2) Прокрутка основного контента */
+/* Прокрутка основного контента */
 .sheet-scrollable {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow-y: auto; /* вертикальная прокрутка, если контент не влез */
+    overflow-y: auto;
     box-sizing: border-box;
 }
 
-/* 3) Блок с вкладками (шестиугольные кнопки) */
+/* Блок с вкладками (шестиугольные кнопки) */
 .sheet-tabs-hex {
     position: absolute;
-    right: -220px; /* "выпираем" за границу формы */
+    right: -220px;
     top: 15%;
     transform: translateY(-50%);
     z-index: 10;
@@ -170,9 +166,11 @@ form textarea {
     gap: 20px;
 }
 
+/* Сами кнопки навигации */
 .hex-button {
-    background: var(--color-primary); /* #2F70AF */
-    color: var(--color-darkest); /* #02315E */
+    background: #d2d2c9; /* Базовый цвет кнопок */
+    color: #1b1210; /* Цвет текста */
+    border: 2px solid #1b1210; /* Цвет бордюра */
     font-weight: bold;
     cursor: pointer;
     border-radius: 6px;
@@ -183,11 +181,11 @@ form textarea {
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* остальное (flex, align-items, и т.д.) оставляем */
 }
 
     .hex-button.active {
-        background: var(--color-text-light); /* #fff */
+        background: #673e37; /* Цвет активной кнопки */
+        color: #d2d2c9; /* Текст на активной кнопке */
     }
 
 /* Даём окну и его содержимому overflow: visible */
@@ -196,236 +194,259 @@ form textarea {
     overflow: visible !important;
 }
 
+/* Grid Layout */
 .grid,
 .grid-2col {
-  display: grid;
-  grid-column: span 2/span 2;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 10px 0;
-  padding: 0;
+    display: grid;
+    grid-column: span 2/span 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+    padding: 0;
 }
 
 .grid-3col {
-  grid-column: span 3/span 3;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-column: span 3/span 3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .grid-4col {
-  grid-column: span 4/span 4;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-column: span 4/span 4;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .grid-5col {
-  grid-column: span 5/span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-column: span 5/span 5;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .grid-6col {
-  grid-column: span 6/span 6;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-column: span 6/span 6;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .grid-7col {
-  grid-column: span 7/span 7;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-column: span 7/span 7;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .grid-8col {
-  grid-column: span 8/span 8;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-column: span 8/span 8;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
 }
 
 .grid-9col {
-  grid-column: span 9/span 9;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+    grid-column: span 9/span 9;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
 }
 
 .grid-10col {
-  grid-column: span 10/span 10;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
+    grid-column: span 10/span 10;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
 }
 
 .grid-11col {
-  grid-column: span 11/span 11;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
+    grid-column: span 11/span 11;
+    grid-template-columns: repeat(11, minmax(0, 1fr));
 }
 
 .grid-12col {
-  grid-column: span 12/span 12;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-column: span 12/span 12;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
 .grid-start-2 {
-  grid-column-start: 2;
+    grid-column-start: 2;
 }
 
 .grid-start-3 {
-  grid-column-start: 3;
+    grid-column-start: 3;
 }
 
 .grid-start-4 {
-  grid-column-start: 4;
+    grid-column-start: 4;
 }
 
 .grid-start-5 {
-  grid-column-start: 5;
+    grid-column-start: 5;
 }
 
 .grid-start-6 {
-  grid-column-start: 6;
+    grid-column-start: 6;
 }
 
 .grid-start-7 {
-  grid-column-start: 7;
+    grid-column-start: 7;
 }
 
 .grid-start-8 {
-  grid-column-start: 8;
+    grid-column-start: 8;
 }
 
 .grid-start-9 {
-  grid-column-start: 9;
+    grid-column-start: 9;
 }
 
 .grid-start-10 {
-  grid-column-start: 10;
+    grid-column-start: 10;
 }
 
 .grid-start-11 {
-  grid-column-start: 11;
+    grid-column-start: 11;
 }
 
 .grid-start-12 {
-  grid-column-start: 12;
+    grid-column-start: 12;
 }
 
 .grid-span-2 {
-  grid-column-end: span 2;
+    grid-column-end: span 2;
 }
 
 .grid-span-3 {
-  grid-column-end: span 3;
+    grid-column-end: span 3;
 }
 
 .grid-span-4 {
-  grid-column-end: span 4;
+    grid-column-end: span 4;
 }
 
 .grid-span-5 {
-  grid-column-end: span 5;
+    grid-column-end: span 5;
 }
 
 .grid-span-6 {
-  grid-column-end: span 6;
+    grid-column-end: span 6;
 }
 
 .grid-span-7 {
-  grid-column-end: span 7;
+    grid-column-end: span 7;
 }
 
 .grid-span-8 {
-  grid-column-end: span 8;
+    grid-column-end: span 8;
 }
 
 .grid-span-9 {
-  grid-column-end: span 9;
+    grid-column-end: span 9;
 }
 
 .grid-span-10 {
-  grid-column-end: span 10;
+    grid-column-end: span 10;
 }
 
 .grid-span-11 {
-  grid-column-end: span 11;
+    grid-column-end: span 11;
 }
 
 .grid-span-12 {
-  grid-column-end: span 12;
+    grid-column-end: span 12;
 }
 
 .flex-group-center,
 .flex-group-left,
 .flex-group-right {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .flex-group-left {
-  justify-content: flex-start;
-  text-align: left;
+    justify-content: flex-start;
+    text-align: left;
 }
 
 .flex-group-right {
-  justify-content: flex-end;
-  text-align: right;
+    justify-content: flex-end;
+    text-align: right;
 }
 
 .flexshrink {
-  flex: 0;
+    flex: 0;
 }
 
 .flex-between {
-  justify-content: space-between;
+    justify-content: space-between;
 }
 
 .flexlarge {
-  flex: 2;
+    flex: 2;
 }
 
 .align-left {
-  justify-content: flex-start;
-  text-align: left;
+    justify-content: flex-start;
+    text-align: left;
 }
 
 .align-right {
-  justify-content: flex-end;
-  text-align: right;
+    justify-content: flex-end;
+    text-align: right;
 }
 
 .align-center {
-  justify-content: center;
-  text-align: center;
+    justify-content: center;
+    text-align: center;
 }
 
-/* Styles limited to myrpg sheets */
+/* Sheet-specific header stuff */
 .myrpg .item-form {
-  font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
+
 .myrpg .sheet-header {
-  flex: 0 auto;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-bottom: 10px;
+    flex: 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 10px;
 }
-.myrpg .sheet-header .profile-img {
-  flex: 0 0 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-.myrpg .sheet-header .header-fields {
-  flex: 1;
-}
-.myrpg .sheet-header h1.charname {
-  height: 50px;
-  padding: 0px;
-  margin: 5px 0;
-  border-bottom: 0;
-}
-.myrpg .sheet-header h1.charname input {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
+
+    .myrpg .sheet-header .profile-img {
+        flex: 0 0 100px;
+        height: 100px;
+        margin-right: 10px;
+    }
+
+    .myrpg .sheet-header .header-fields {
+        flex: 1;
+    }
+
+    .myrpg .sheet-header h1.charname {
+        height: 50px;
+        padding: 0px;
+        margin: 5px 0;
+        border-bottom: 0;
+    }
+
+        .myrpg .sheet-header h1.charname input {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
 .myrpg .sheet-tabs {
-  flex: 0;
+    flex: 0;
 }
+
 .myrpg .sheet-body,
 .myrpg .sheet-body .tab,
 .myrpg .sheet-body .tab .editor {
-  height: 100%;
+    height: 100%;
+}
+
+/* Полосы прокрутки (Chrome, Edge, Safari) */
+.myrpg.sheet.actor::-webkit-scrollbar {
+    width: 12px;
+}
+
+.myrpg.sheet.actor::-webkit-scrollbar-track {
+    background: #d2d2c9; /* Тот же фон, что и у листа */
+}
+
+.myrpg.sheet.actor::-webkit-scrollbar-thumb {
+    background-color: #6d031c; /* Цвет полосы прокрутки */
+    border: 2px solid #d2d2c9; /* Обводка, чтобы было видно скролл */
+    border-radius: 6px;
 }
