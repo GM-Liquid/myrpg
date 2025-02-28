@@ -4,9 +4,18 @@
   font-family: "Roboto", sans-serif;
 }
 
+:root {
+    --color-darkest: #02315E; /* самый тёмный синий */
+    --color-dark: #00457E; /* тёмно-синий */
+    --color-primary: #2F70AF; /* основной средний синий */
+    --color-accent1: #B9848C; /* розовато-коричневый */
+    --color-accent2: #806491; /* фиолетовый */
+    --color-text-light: #ffffff; /* белый текст, если нужен */
+}
+
 .portrait {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     overflow: hidden;
 }
 
@@ -49,8 +58,8 @@
 
     /* Цвет заголовка */
     .myrpg .abilities-table thead th {
-        background-color: #ddd !important;
-        color: #000 !important;
+        background-color: var(--color-primary) !important; /* #2F70AF */
+        color: var(--color-text-light) !important; /* #fff */
         text-shadow: none !important;
     }
 
@@ -61,7 +70,7 @@
 
     /* Ховер-эффект */
     .myrpg .abilities-table tr:hover td {
-        background-color: #fdd !important; /* светло-красный фон при наведении */
+        background-color: #B9CEDD !important; /* светло-красный фон при наведении */
         transition: background-color 0.2s;
     }
 
@@ -119,32 +128,27 @@
     flex-direction: column;
     gap: 20px;
 }
+
 .hex-button {
-    display: flex; /* Используем flex для удобного выравнивания текста */
-    align-items: center; /* Вертикальное выравнивание текста по центру */
-    justify-content: center; /* Горизонтальное выравнивание текста по центру */
-    width: 200px; /* Фиксированная ширина */
-    height: 40px; /* Фиксированная высота */
-    background: #ccc; /* Цвет фона */
-    color: #000;
+    background: var(--color-primary); /* #2F70AF */
+    color: var(--color-text-light); /* #fff */
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
     border-radius: 6px;
-    /* Запрещаем перенос строк */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Если текст вдруг не влезет, будет троеточие */
+    width: 200px;
+    height: 40px;
+    transition: background 0.3s;
+    /* остальное (flex, align-items, и т.д.) оставляем */
 }
-    /* Ховер-эффект */
+
     .hex-button:hover {
-        background: #aaa;
+        background: var(--color-dark); /* #00457E */
     }
 
-    /* Активная вкладка */
     .hex-button.active {
-        background: #888;
+        background: var(--color-darkest); /* #02315E */
     }
+
 /* Даём окну и его содержимому overflow: visible */
 .window-app.myrpg-hex-tabs,
 .window-app.myrpg-hex-tabs .window-content {

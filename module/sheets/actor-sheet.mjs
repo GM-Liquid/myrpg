@@ -3,7 +3,6 @@
  * @extends {ActorSheet}
  */
 
-import { MyAbilityConfig } from "../apps/ability-config.js";
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
@@ -14,6 +13,14 @@ export class myrpgActorSheet extends ActorSheet {
     }
 
     activateListeners(html) {
+
+        const $table = html.find(".abilities-table");
+        $table.on("mouseleave", () => {
+            // При уходе курсора с таблицы — удаляем все tooltip
+            $("body").find(".ability-tooltip").remove();
+        });
+
+
         super.activateListeners(html);
         // Наведение мыши (mouseenter)
         html.find("tr.ability-row").on("mouseenter", event => {
@@ -156,7 +163,71 @@ export class myrpgActorSheet extends ActorSheet {
             const abilityData = abilities[index] || {};
 
             // Открываем отдельное окошко (FormApplication) для редактирования
-            new MyAbilityConfig(this.actor, index, abilityData).render(true);
+            new Dialog({
+                title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
+                content: `
+      <form>
+        <div class="form-group">
+          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Name")}</label>
+          <input type="text" name="name" value="${abilityData.name ?? ""}" />
+        </div>
+
+        <div class="form-group">
+          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}</label>
+          <input type="text" name="rank" value="${abilityData.rank ?? ""}" />
+        </div>
+
+        <div class="form-group">
+          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}</label>
+          <textarea name="effect" rows="4">${abilityData.effect ?? ""}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}</label>
+          <textarea name="desc" rows="6">${abilityData.desc ?? ""}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}</label>
+          <input type="number" name="cost" value="${abilityData.cost ?? ""}" />
+        </div>
+      </form>
+    `,
+                buttons: {
+                    save: {
+                        icon: '<i class="fas fa-check"></i>',
+                        label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
+                        callback: (htmlDialog) => {
+                            // Получаем данные формы
+                            const formEl = htmlDialog[0].querySelector("form") || htmlDialog[0];
+                            const formData = new FormDataExtended(formEl).toObject();
+
+                            // Обновляем массив abilities
+                            abilities[index] = {
+                                name: formData.name ?? "",
+                                rank: formData.rank ?? "",
+                                effect: formData.effect ?? "",
+                                desc: formData.desc ?? "",
+                                cost: formData.cost ?? ""
+                            };
+
+                            // Сохраняем в актёре
+                            this.actor.update({ "system.abilitiesList": abilities });
+                        }
+                    },
+                    cancel: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: game.i18n.localize("MY_RPG.AbilityConfig.Cancel")
+                    }
+                },
+                default: "save" // Кнопка по умолчанию (Enter)
+            }, {
+                width: 400,
+                height: "auto",
+                jQuery: true,
+                // Делает окно модальным - блокирует клики за окном
+                modal: true
+            }).render(true);
         });
     }
     static get defaultOptions() {
