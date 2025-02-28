@@ -148,105 +148,34 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // Флаг: идёт ли сейчас редактирование способности
-        this._editing = false;
-
         html.find('tr.ability-row').click(ev => {
-            // Если уже идёт редактирование, не открываем повторно
-            if (this._editing) return;
+            // Если диалог уже открыт — выходим сразу
+            if (this._currentAbilityDialog) {
+                ui.notifications.warn(game.i18n.localize("MY_RPG.AbilityConfig.AlreadyEditing"));
+                return;
+            }
 
             // Если клик по иконке удаления — пропускаем
             if ($(ev.target).closest('.abilities-remove-row').length) return;
 
             ev.preventDefault();
-            this._editing = true; // Ставим флаг
-
             const index = Number(ev.currentTarget.dataset.index);
+
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+
             const abilityData = abilities[index] || {};
 
-            // Создаём диалог
-            let diag = new Dialog({
-                title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
-                content: `
-        <form>
-          <div class="form-group">
-            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Name")}</label>
-            <input type="text" name="name" value="${abilityData.name ?? ""}" />
-          </div>
-          <div class="form-group">
-            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}</label>
-            <input type="text" name="rank" value="${abilityData.rank ?? ""}" />
-          </div>
-          <div class="form-group">
-            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}</label>
-            <textarea name="effect" rows="4">${abilityData.effect ?? ""}</textarea>
-          </div>
-          <div class="form-group">
-            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}</label>
-            <textarea name="desc" rows="6">${abilityData.desc ?? ""}</textarea>
-          </div>
-          <div class="form-group">
-            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}</label>
-            <input type="number" name="cost" value="${abilityData.cost ?? ""}" />
-          </div>
-        </form>
-      `,
-                buttons: {
-                    save: {
-                        icon: '<i class="fas fa-check"></i>',
-                        label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
-                        callback: (htmlDialog) => {
-                            console.log(">>> Saved");
-                            // Считываем данные
-                            const formEl = htmlDialog.find("form")[0];
-                            const fd = new FormData(formEl);
+            // Создаём и сохраняем ссылку на диалог
+            this._currentAbilityDialog = new MyAbilityConfig(this.actor, index, abilityData, {
+                close: () => {
+                    // Когда диалог закрыт - сбрасываем ссылку
+                    this._currentAbilityDialog = null;
+                }
+            });
 
-                            let formData = {};
-                            for (let [k, v] of fd.entries()) {
-                                formData[k] = v;
-                            }
-
-                            // Обновляем массив abilities
-                            abilities[index] = {
-                                name: formData.name ?? "",
-                                rank: formData.rank ?? "",
-                                effect: formData.effect ?? "",
-                                desc: formData.desc ?? "",
-                                cost: formData.cost ?? ""
-                            };
-                            this.actor.update({ "system.abilitiesList": abilities });
-
-                            // ВАЖНО: Закрываем диалог, чтобы сработал close-колбэк
-                            console.log(">>> use diag.close()");
-                            diag.close();
-                        }
-                    },
-                    cancel: {
-                        icon: '<i class="fas fa-times"></i>',
-                        label: game.i18n.localize("MY_RPG.AbilityConfig.Cancel")
-                        // Ничего не делаем, окно закроется само
-                    }
-                },
-                default: "save"
-            },
-                {
-                    width: 400,
-                    height: "auto",
-                    jQuery: true,
-                    modal: true,
-                    close: () => {
-                        console.log(">>> Dialog closed");
-                        // При любом закрытии диалога (крестик, cancel, save->close)
-                        // сбрасываем флаг
-                        this._editing = false;
-                    }
-                });
-
-            diag.render(true);
+            this._currentAbilityDialog.render(true);
         });
-    }
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['myrpg', 'sheet', 'actor', 'myrpg-hex-tabs'],
