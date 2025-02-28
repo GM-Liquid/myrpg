@@ -167,7 +167,7 @@ export class myrpgActorSheet extends ActorSheet {
             const abilityData = abilities[index] || {};
 
             // Создаём диалог
-            const dlg = new Dialog({
+            let diag = new Dialog({
                 title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
                 content: `
         <form>
@@ -198,6 +198,7 @@ export class myrpgActorSheet extends ActorSheet {
                         icon: '<i class="fas fa-check"></i>',
                         label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
                         callback: (htmlDialog) => {
+                            // Считываем данные
                             const formEl = htmlDialog.find("form")[0];
                             const fd = new FormData(formEl);
 
@@ -206,6 +207,7 @@ export class myrpgActorSheet extends ActorSheet {
                                 formData[k] = v;
                             }
 
+                            // Обновляем массив abilities
                             abilities[index] = {
                                 name: formData.name ?? "",
                                 rank: formData.rank ?? "",
@@ -214,11 +216,15 @@ export class myrpgActorSheet extends ActorSheet {
                                 cost: formData.cost ?? ""
                             };
                             this.actor.update({ "system.abilitiesList": abilities });
+
+                            // ВАЖНО: Закрываем диалог, чтобы сработал close-колбэк
+                            diag.close();
                         }
                     },
                     cancel: {
                         icon: '<i class="fas fa-times"></i>',
                         label: game.i18n.localize("MY_RPG.AbilityConfig.Cancel")
+                        // Ничего не делаем, окно закроется само
                     }
                 },
                 default: "save"
@@ -229,12 +235,13 @@ export class myrpgActorSheet extends ActorSheet {
                     jQuery: true,
                     modal: true,
                     close: () => {
-                        // Любое закрытие (крестик, Esc, Cancel) сбрасывает флаг
+                        // При любом закрытии диалога (крестик, cancel, save->close)
+                        // сбрасываем флаг
                         this._editing = false;
                     }
                 });
 
-            dlg.render(true);
+            diag.render(true);
         });
     }
     static get defaultOptions() {
