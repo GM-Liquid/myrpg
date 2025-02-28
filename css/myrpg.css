@@ -13,6 +13,27 @@
     --color-text-light: #ffffff; /* белый текст, если нужен */
 }
 
+form textarea,
+form input[type="text"],
+form input[type="number"] {
+    border: 2px solid var(--color-dark);
+    background-color: #f8f8f8;
+    color: #000;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Убираем resizable у textarea */
+form textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 60px; /* Стартовая высота, можно подстроить */
+    max-height: 500px; /* Чтобы совсем не улетало в бесконечность */
+}
+
 /* Контейнер портрета */
 .portrait {
     /* Убедитесь, что здесь нет flex: 1; или width: 100%; 
