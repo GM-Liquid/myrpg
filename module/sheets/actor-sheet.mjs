@@ -195,14 +195,20 @@ export class myrpgActorSheet extends ActorSheet {
     `,
                 buttons: {
                     save: {
-                        icon: '<i class="fas fa-check"></i>',
-                        label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
                         callback: (htmlDialog) => {
-                            // Получаем данные формы
-                            const formEl = htmlDialog[0].querySelector("form") || htmlDialog[0];
-                            const formData = new FormDataExtended(formEl).toObject();
+                            // Находим <form> внутри диалога
+                            const formEl = htmlDialog.find("form")[0];
 
-                            // Обновляем массив abilities
+                            // Создаём FormData
+                            const fd = new FormData(formEl);
+
+                            // Собираем ключи/значения в обычный объект
+                            let formData = {};
+                            for (let [k, v] of fd.entries()) {
+                                formData[k] = v;
+                            }
+
+                            // Теперь formData.name, formData.rank, formData.effect, ...
                             abilities[index] = {
                                 name: formData.name ?? "",
                                 rank: formData.rank ?? "",
@@ -211,7 +217,6 @@ export class myrpgActorSheet extends ActorSheet {
                                 cost: formData.cost ?? ""
                             };
 
-                            // Сохраняем в актёре
                             this.actor.update({ "system.abilitiesList": abilities });
                         }
                     },
@@ -224,9 +229,25 @@ export class myrpgActorSheet extends ActorSheet {
             }, {
                 width: 400,
                 height: "auto",
+                modal: true,
                 jQuery: true,
-                // Делает окно модальным - блокирует клики за окном
-                modal: true
+                // Переопределим метод onRender, чтобы добавить оверлей
+                render: (dlg) => {
+                    // Создаём блок
+                    const $overlay = $('<div class="my-modal-overlay"></div>').css({
+                        position: "fixed",
+                        top: 0, left: 0,
+                        width: "100vw",
+                        height: "100vh",
+                        backgroundColor: "rgba(0,0,0,0)", // или слегка затенённый
+                        zIndex: 9998
+                    });
+                    $("body").append($overlay);
+
+                    // Диалог сам обычно имеет z-index 9999
+                    // Когда диалог закрывается, удалим оверлей
+                    Hooks.once("closeDialog", () => $overlay.remove());
+                }
             }).render(true);
         });
     }

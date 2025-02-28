@@ -131,7 +131,7 @@
 
 .hex-button {
     background: var(--color-primary); /* #2F70AF */
-    color: var(--color-text-light); /* #fff */
+    color: var(--color-darkest); /* #02315E */
     font-weight: bold;
     cursor: pointer;
     border-radius: 6px;
@@ -146,7 +146,7 @@
     }
 
     .hex-button.active {
-        background: var(--color-darkest); /* #02315E */
+        background: var(--color-text-light); /* #fff */
     }
 
 /* Даём окну и его содержимому overflow: visible */
