@@ -7,6 +7,12 @@ import { MyAbilityConfig } from "../apps/ability-config.js";
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
 
+    async close(options = {}) {
+        // Удаляем все оставшиеся tooltip
+        $("body").find(".ability-tooltip").remove();
+        return super.close(options);
+    }
+
     activateListeners(html) {
         super.activateListeners(html);
         // Наведение мыши (mouseenter)

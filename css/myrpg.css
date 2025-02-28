@@ -4,6 +4,18 @@
   font-family: "Roboto", sans-serif;
 }
 
+.portrait {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+}
+
+    .portrait img.profile-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
 .rollable:hover, .rollable:focus {
   color: #000;
   text-shadow: 0 0 10px red;
