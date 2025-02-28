@@ -198,6 +198,7 @@ export class myrpgActorSheet extends ActorSheet {
                         icon: '<i class="fas fa-check"></i>',
                         label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
                         callback: (htmlDialog) => {
+                            console.log(">>> Нажата кнопка Сохранить");
                             // Считываем данные
                             const formEl = htmlDialog.find("form")[0];
                             const fd = new FormData(formEl);
@@ -218,6 +219,7 @@ export class myrpgActorSheet extends ActorSheet {
                             this.actor.update({ "system.abilitiesList": abilities });
 
                             // ВАЖНО: Закрываем диалог, чтобы сработал close-колбэк
+                            console.log(">>> Вызываем diag.close()");
                             diag.close();
                         }
                     },
@@ -235,6 +237,7 @@ export class myrpgActorSheet extends ActorSheet {
                     jQuery: true,
                     modal: true,
                     close: () => {
+                        console.log(">>> Сработал close диалога");
                         // При любом закрытии диалога (крестик, cancel, save->close)
                         // сбрасываем флаг
                         this._editing = false;
