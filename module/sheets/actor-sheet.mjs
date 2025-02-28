@@ -148,30 +148,26 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // Флаг, указывающий, что уже идёт редактирование
+        // Флаг: идёт ли сейчас редактирование способности
         this._editing = false;
 
-        // Клик по строке таблицы способностей
         html.find('tr.ability-row').click(ev => {
-            // Если уже идёт редактирование, игнорируем клик
+            // Если уже идёт редактирование, не открываем повторно
             if (this._editing) return;
 
-            // Если клик был на иконке удаления — пропускаем
+            // Если клик по иконке удаления — пропускаем
             if ($(ev.target).closest('.abilities-remove-row').length) return;
 
             ev.preventDefault();
-            this._editing = true; // Ставим флаг, чтобы не открыть второй диалог
+            this._editing = true; // Ставим флаг
 
             const index = Number(ev.currentTarget.dataset.index);
-
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
-
-            // Текущие данные способности
             const abilityData = abilities[index] || {};
 
-            // Открываем диалог редактирования
-            new Dialog({
+            // Создаём диалог
+            const dlg = new Dialog({
                 title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
                 content: `
         <form>
@@ -179,22 +175,18 @@ export class myrpgActorSheet extends ActorSheet {
             <label>${game.i18n.localize("MY_RPG.AbilityConfig.Name")}</label>
             <input type="text" name="name" value="${abilityData.name ?? ""}" />
           </div>
-
           <div class="form-group">
             <label>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}</label>
             <input type="text" name="rank" value="${abilityData.rank ?? ""}" />
           </div>
-
           <div class="form-group">
             <label>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}</label>
             <textarea name="effect" rows="4">${abilityData.effect ?? ""}</textarea>
           </div>
-
           <div class="form-group">
             <label>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}</label>
             <textarea name="desc" rows="6">${abilityData.desc ?? ""}</textarea>
           </div>
-
           <div class="form-group">
             <label>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}</label>
             <input type="number" name="cost" value="${abilityData.cost ?? ""}" />
@@ -206,19 +198,14 @@ export class myrpgActorSheet extends ActorSheet {
                         icon: '<i class="fas fa-check"></i>',
                         label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
                         callback: (htmlDialog) => {
-                            // Находим <form> внутри диалога
                             const formEl = htmlDialog.find("form")[0];
-
-                            // Создаём FormData
                             const fd = new FormData(formEl);
 
-                            // Собираем ключи/значения в обычный объект
                             let formData = {};
                             for (let [k, v] of fd.entries()) {
                                 formData[k] = v;
                             }
 
-                            // Обновляем массив abilities
                             abilities[index] = {
                                 name: formData.name ?? "",
                                 rank: formData.rank ?? "",
@@ -226,8 +213,6 @@ export class myrpgActorSheet extends ActorSheet {
                                 desc: formData.desc ?? "",
                                 cost: formData.cost ?? ""
                             };
-
-                            // Сохраняем изменения в актёре
                             this.actor.update({ "system.abilitiesList": abilities });
                         }
                     },
@@ -237,16 +222,19 @@ export class myrpgActorSheet extends ActorSheet {
                     }
                 },
                 default: "save"
-            }, {
-                width: 400,
-                height: "auto",
-                jQuery: true,
-                modal: true,
-                // При закрытии диалога сбрасываем флаг _editing
-                close: () => {
-                    this._editing = false;
-                }
-            }).render(true);
+            },
+                {
+                    width: 400,
+                    height: "auto",
+                    jQuery: true,
+                    modal: true,
+                    close: () => {
+                        // Любое закрытие (крестик, Esc, Cancel) сбрасывает флаг
+                        this._editing = false;
+                    }
+                });
+
+            dlg.render(true);
         });
     }
     static get defaultOptions() {

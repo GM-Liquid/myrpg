@@ -13,17 +13,24 @@
     --color-text-light: #ffffff; /* белый текст, если нужен */
 }
 
+/* Контейнер портрета */
 .portrait {
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
+    /* Убедитесь, что здесь нет flex: 1; или width: 100%; 
+     иначе портрет растянется */
+    width: auto;
+    /* Или зафиксируйте ширину, если хотите */
+    /* width: 150px; */
+    margin-right: 10px; /* если нужно отступ */
 }
 
-    .portrait img.profile-img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
+/* Сама картинка */
+.profile-img {
+    display: block; /* чтобы убрать возможные артефакты inline-элементов */
+    max-width: 150px; /* ограничиваем ширину */
+    max-height: 150px; /* и высоту */
+    width: auto !important; /* переопределяем любые width: 100% */
+    height: auto !important;
+}
 
 .rollable:hover, .rollable:focus {
   color: #000;
@@ -40,6 +47,7 @@
     word-break: break-word; /* Разрешает разрывать слова */
     max-width: 300px; /* Ограничивает ширину, чтобы tooltip не был слишком широким */
 }
+
 .myrpg .abilities-table {
     width: 100%;
     table-layout: fixed !important;
