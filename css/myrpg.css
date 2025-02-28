@@ -22,9 +22,52 @@ textarea[disabled] {
     color: #666; /* И слегка осветлить текст, чтобы было видно, что поле недоступно */
 }
 
-/* .left-part и .right-part можно дополнительно настраивать */
-.left-part {
-    width: 300px; /* или flex: 0 0 300px; */
+/* Новые классы для управления размерами и отступами блоков в листе персонажа */
+
+/* Отступ для вкладки Features */
+.features-tab {
+    padding: 10px;
+}
+
+/* Общий класс для строки с отступом снизу */
+.custom-flexrow {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+/* Левая колонка: задаём ширину и отступ справа */
+.left-col {
+    width: 50%;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+/* Правая колонка: задаём ширину */
+.right-col {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+/* Для макета с тремя колонками */
+.col-33 {
+    width: 33.33%;
+    padding-right: 10px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.col-33-last {
+    width: 33.33%;
+    box-sizing: border-box;
+    float: left;
+    padding-right: 0;
+}
+
+/* Очищаем обтекание flexrow, если используются float */
+.flexrow::after {
+    content: "";
+    display: block;
+    clear: both;
 }
 
 .attributes-table th,
@@ -43,10 +86,6 @@ textarea[disabled] {
     border: 2px solid #1b1210; /* Ваш основной цвет бордюра */
     padding: 10px;
     margin-bottom: 10px; /* чтобы между блоками был отступ */
-}
-
-.right-part {
-    flex: 1;
 }
 
 /* Можно чуть уменьшить высоту .temp-bonus и .armor-section таблиц */
