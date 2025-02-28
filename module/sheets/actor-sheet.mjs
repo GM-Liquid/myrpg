@@ -34,7 +34,7 @@ export class myrpgActorSheet extends ActorSheet {
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
             const abilityData = abilities[index] || {};
-            const costValue = abilityData.cost; 
+            const costValue = abilityData.cost;
             const costText = (costValue === "" || costValue === null || costValue === undefined)
                 ? ""
                 : costValue;
@@ -90,7 +90,7 @@ export class myrpgActorSheet extends ActorSheet {
         });
 
 
-         //  лик по "ќтмена" Ч просто закрываем окно
+        //  лик по "ќтмена" Ч просто закрываем окно
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
             this.close();
@@ -176,6 +176,7 @@ export class myrpgActorSheet extends ActorSheet {
 
             this._currentAbilityDialog.render(true);
         });
+    }
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['myrpg', 'sheet', 'actor', 'myrpg-hex-tabs'],
