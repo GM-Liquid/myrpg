@@ -4,6 +4,33 @@
     font-family: "Roboto", sans-serif;
 }
 
+/* ѕример: чуть больше отступов между секци€ми */
+.top-features,
+.middle-features,
+.bottom-features {
+    margin-bottom: 10px;
+}
+
+/* .left-part и .right-part можно дополнительно настраивать */
+.left-part {
+    width: 300px; /* или flex: 0 0 300px; */
+}
+
+.right-part {
+    flex: 1;
+}
+
+/* ћожно чуть уменьшить высоту .temp-bonus и .armor-section таблиц */
+.temp-bonus table,
+.armor-section .armor-description {
+    margin-top: 5px;
+}
+
+/* Ќемного увеличить отступ между пол€ми в .armor-values */
+.armor-section .armor-values .flexcol {
+    margin-right: 10px;
+}
+
 /* ”станавливаем фон и текст дл€ всего листа */
 .myrpg.sheet.actor {
     background-color: #d2d2c9; /* ‘он всех страниц */
