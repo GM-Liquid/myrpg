@@ -148,12 +148,20 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // Редактировать строку — клик по всей строке, кроме иконки удаления
+        // Флаг, указывающий, что уже идёт редактирование
+        this._editing = false;
+
+        // Клик по строке таблицы способностей
         html.find('tr.ability-row').click(ev => {
+            // Если уже идёт редактирование, игнорируем клик
+            if (this._editing) return;
+
             // Если клик был на иконке удаления — пропускаем
             if ($(ev.target).closest('.abilities-remove-row').length) return;
 
             ev.preventDefault();
+            this._editing = true; // Ставим флаг, чтобы не открыть второй диалог
+
             const index = Number(ev.currentTarget.dataset.index);
 
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
@@ -162,37 +170,37 @@ export class myrpgActorSheet extends ActorSheet {
             // Текущие данные способности
             const abilityData = abilities[index] || {};
 
-            // Открываем отдельное окошко (FormApplication) для редактирования
+            // Открываем диалог редактирования
             new Dialog({
                 title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
                 content: `
-      <form>
-        <div class="form-group">
-          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Name")}</label>
-          <input type="text" name="name" value="${abilityData.name ?? ""}" />
-        </div>
+        <form>
+          <div class="form-group">
+            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Name")}</label>
+            <input type="text" name="name" value="${abilityData.name ?? ""}" />
+          </div>
 
-        <div class="form-group">
-          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}</label>
-          <input type="text" name="rank" value="${abilityData.rank ?? ""}" />
-        </div>
+          <div class="form-group">
+            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}</label>
+            <input type="text" name="rank" value="${abilityData.rank ?? ""}" />
+          </div>
 
-        <div class="form-group">
-          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}</label>
-          <textarea name="effect" rows="4">${abilityData.effect ?? ""}</textarea>
-        </div>
+          <div class="form-group">
+            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}</label>
+            <textarea name="effect" rows="4">${abilityData.effect ?? ""}</textarea>
+          </div>
 
-        <div class="form-group">
-          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}</label>
-          <textarea name="desc" rows="6">${abilityData.desc ?? ""}</textarea>
-        </div>
+          <div class="form-group">
+            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}</label>
+            <textarea name="desc" rows="6">${abilityData.desc ?? ""}</textarea>
+          </div>
 
-        <div class="form-group">
-          <label>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}</label>
-          <input type="number" name="cost" value="${abilityData.cost ?? ""}" />
-        </div>
-      </form>
-    `,
+          <div class="form-group">
+            <label>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}</label>
+            <input type="number" name="cost" value="${abilityData.cost ?? ""}" />
+          </div>
+        </form>
+      `,
                 buttons: {
                     save: {
                         icon: '<i class="fas fa-check"></i>',
@@ -210,7 +218,7 @@ export class myrpgActorSheet extends ActorSheet {
                                 formData[k] = v;
                             }
 
-                            // Теперь formData.name, formData.rank, formData.effect, ...
+                            // Обновляем массив abilities
                             abilities[index] = {
                                 name: formData.name ?? "",
                                 rank: formData.rank ?? "",
@@ -219,6 +227,7 @@ export class myrpgActorSheet extends ActorSheet {
                                 cost: formData.cost ?? ""
                             };
 
+                            // Сохраняем изменения в актёре
                             this.actor.update({ "system.abilitiesList": abilities });
                         }
                     },
@@ -227,31 +236,15 @@ export class myrpgActorSheet extends ActorSheet {
                         label: game.i18n.localize("MY_RPG.AbilityConfig.Cancel")
                     }
                 },
-                default: "save" // Кнопка по умолчанию (Enter)
+                default: "save"
             }, {
                 width: 400,
                 height: "auto",
                 jQuery: true,
                 modal: true,
-                render: (dlgHtml) => {
-                    // 1) Создаём блок-оверлей
-                    const $overlay = $('<div class="my-modal-overlay"></div>').css({
-                        position: "fixed",
-                        top: 0, left: 0,
-                        width: "100vw", height: "100vh",
-                        backgroundColor: "rgba(0,0,0,0)", // можно чуть затенить
-                        zIndex: 9998
-                    });
-                    $("body").append($overlay);
-
-                    // 2) Диалог сам (обычно) имеет z-index 9999
-                    // Если нужно, можно задать:
-                    dlgHtml.css("z-index", 9999);
-
-                    // 3) При закрытии диалога убираем оверлей
-                    Hooks.once("closeDialog", () => {
-                        $overlay.remove();
-                    });
+                // При закрытии диалога сбрасываем флаг _editing
+                close: () => {
+                    this._editing = false;
                 }
             }).render(true);
         });
