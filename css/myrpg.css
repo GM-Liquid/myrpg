@@ -105,10 +105,14 @@ textarea[disabled] {
     margin-bottom: 10px;
 }
 
+/* БЫЛО: .top-row { justify-content: space-between; } 
+   ЗАМЕНА: убираем space-between, чтобы таблица могла центрироваться 
+   и/или портрет не уезжал. Можно поставить flex-start или center по необходимости. */
 .top-row {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: center; /* центрируем по вертикали */
+    /* justify-content: flex-start;  // или center, на ваш выбор */
+    margin-bottom: 10px;
 }
 
 /* Блоки-колонки. Убираем float и переходим на flex: 0 0 XX% */
@@ -156,14 +160,14 @@ textarea[disabled] {
     padding-right: 0;
 }
 
+/* Если вы хотите, чтобы колонки не "съезжали" вниз при переполнении, 
+   добавьте что-то вроде:
+   .flexrow { flex-wrap: wrap; } или overflow. Но решайте по дизайну. */
+
+/* .attributes-col оставляем, если нужно */
 .attributes-col {
-    /* Этот блок растянется на всё оставшееся пространство */
-    flex: 1;
-    /* Включаем flex, чтобы внутри можно было центрировать таблицу */
-    display: flex;
-    justify-content: center;
-    align-items: center; /* если нужно и по вертикали центрировать */
-    /* margin-top: 5px; // оставляем, если вам нужен отступ сверху */
+    flex: 1; /* Если нужно, чтобы таблица занимала всё оставшееся пространство */
+    margin-top: 5px;
 }
 
 /* sheet-box - рамка */
@@ -216,7 +220,6 @@ form textarea {
 .portrait {
     width: auto;
     margin-right: 10px;
-    flex: 0 0 auto;
 }
 
 .profile-img {
@@ -519,6 +522,15 @@ form textarea {
     gap: 10px;
     /* justify-content: flex-start; или space-between; - на ваш вкус */
 }
+
+/* Удаляем "clearfix" псевдоэлемент, т.к. float больше не используем */
+/*
+.flexrow::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+*/
 
 /* Полосы прокрутки (Chrome, Edge, Safari) */
 .myrpg.sheet.actor::-webkit-scrollbar {
