@@ -83,6 +83,10 @@ textarea[disabled] {
     margin-bottom: 10px;
 }
 
+.sheet-box h3 {
+    text-align: center;
+}
+
 /* Левая колонка: задаём ширину и отступ справа */
 .left-col {
     width: 50%;
