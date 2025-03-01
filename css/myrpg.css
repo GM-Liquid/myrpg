@@ -637,3 +637,12 @@ form textarea {
     text-align: center;
     font-weight: 700; /* זטנםûי רנטפע */
 }
+
+.limited-height {
+    height: 300px; /* גלוסעמ 250px */
+}
+
+.armor-description textarea {
+    min-height: 120px;
+    resize: vertical;
+}
