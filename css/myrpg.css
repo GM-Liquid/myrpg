@@ -73,8 +73,8 @@ textarea[disabled] {
     /* Каждой ячейке (th и td) задаём большую ширину и высоту */
     .attributes-table th,
     .attributes-table td {
-        width: 102px; /* исходные ~80px * 1.3 = 104px */
-        height: 51px; /* было ~30px, увеличиваем до 48px */
+        width: 100px; /* исходные ~80px * 1.3 = 104px */
+        height: 50px; /* было ~30px, увеличиваем до 48px */
         border: 2px solid #1b1210;
         text-align: center;
         padding: 5px;
@@ -334,7 +334,7 @@ form textarea {
 /* Блок с вкладками (шестиугольные кнопки) */
 .sheet-tabs-hex {
     position: absolute;
-    right: -220px;
+    right: -240px;
     top: 15%;
     transform: translateY(-50%);
     z-index: 10;
@@ -574,4 +574,66 @@ form textarea {
 .sheet-box .armor-values label {
     text-align: center; /* Центрируем текст */
     /* font-weight: 600;  // Если хотите сделать их полужирными, раскомментируйте */
+}
+
+/*******************************************************
+  1) Центровка блоков ресурсов (ОЗ, Поток, Стойкость,
+     Скорость, Напряжённость) на основном листе
+ *******************************************************/
+.resource,
+.resource .resource-label,
+.resource .sub-label,
+.resource .resource-content {
+    text-align: center;
+}
+
+    /* Чтобы числа в input тоже были по центру */
+    .resource input {
+        text-align: center;
+    }
+
+/*******************************************************
+  2) Центровка «Потока» на листе Способностей
+     (Он тоже .resource, так что обычно пункт (1) уже охватывает)
+ *******************************************************/
+/* На всякий случай дублируем, если Foundry перебивает: */
+.flux-section .resource,
+.flux-section .resource-label,
+.flux-section .resource-content {
+    text-align: center;
+}
+
+/*******************************************************
+  3) Центровка маленьких надписей (label) в «Биографии»
+     и «Заметках», а также самого текста в input/textarea
+ *******************************************************/
+.tab.biography .form-group label {
+    text-align: center;
+    display: block;
+}
+
+.tab.biography .form-group input,
+.tab.biography .form-group textarea {
+    text-align: center;
+}
+
+/*******************************************************
+  4) Центровка текста в поле «Описание доспеха»
+ *******************************************************/
+.armor-description,
+.armor-description label,
+.armor-description textarea {
+    text-align: center;
+}
+
+/*******************************************************
+  5) (Повтор) Большие заголовки (h2/h3) в Биографии
+     и Способностях по центру и жирные
+ *******************************************************/
+.tab.biography h2,
+.tab.biography h3,
+.tab.abilities h2,
+.tab.abilities h3 {
+    text-align: center;
+    font-weight: 700; /* жирный шрифт */
 }
