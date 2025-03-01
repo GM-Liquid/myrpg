@@ -16,7 +16,7 @@
       "CurrentRank": "Текущий ранг",
       "Name": "Имя"
     },
-    "SheetLabels": {
+      "SheetLabels": {
       "AbilitiesAndMods": "Способности и модификации",
       "Features": "Основной лист",
       "Abilities": "Способности",
@@ -87,70 +87,70 @@
     "Ability": {
       "Will": {
         "long": "Воля",
-        "abbr": "Воля"
-      },
-      "Dex": {
-        "long": "Реф",
-        "abbr": "Реф"
+        "abbr": "will"
       },
       "Con": {
         "long": "Тело",
-        "abbr": "Тело"
+        "abbr": "con"
+      },
+      "Dex": {
+        "long": "Реф",
+        "abbr": "dex"
       },
       "Int": {
         "long": "Инт",
-        "abbr": "Инт"
+        "abbr": "int"
       },
       "Wis": {
         "long": "Восп",
-        "abbr": "Восп"
+        "abbr": "wis"
       },
       "Cond": {
         "long": "Пров",
-        "abbr": "Пров"
+        "abbr": "cond"
       }
     },
     "Skill": {
-      "Stoikost": "Стойкость",
-      "Blef": "Блеф",
-      "Obshchenie": "Общение",
-      "Zapugivanie": "Запугивание",
-      "Torgovlya": "Торговля",
-      "Diplomatiya": "Дипломатия",
+      "Stoikost": "Стойкость (Воля)",
+      "Blef": "Блеф (Воля)",
+      "Obshchenie": "Общение (Воля)",
+      "Zapugivanie": "Запугивание (Воля)",
+      "Torgovlya": "Торговля (Воля)",
+      "Diplomatiya": "Дипломатия (Воля)",
 
-      "Akrobatika": "Акробатика",
-      "Skrytost": "Скрытность",
-      "Vladeniye_takt_dalnim": "Владение Такт. Дальним",
-      "Upravlenie_transportom": "Управление Транспортом",
-      "Lovkost_ruk": "Ловкость Рук",
-      "Blizhniy_boy": "Ближний Бой",
-      "Vladeniye_tyazhelym_dalnim": "Владение Тяжелым Дальним",
+      "Akrobatika": "Акробатика (Реф)",
+      "Skrytost": "Скрытность (Реф)",
+      "Vladeniye_takt_dalnim": "Владение Такт. Дальним (Реф)",
+      "Upravlenie_transportom": "Управление Транспортом (Реф)",
+      "Lovkost_ruk": "Ловкость Рук (Реф)",
+      "Blizhniy_boy": "Ближний Бой (Реф)",
+      "Vladeniye_tyazhelym_dalnim": "Владение Тяжелым Дальним (Реф)",
 
-      "Atletika": "Атлетика",
-      "Grubaya_sila": "Грубая сила",
-      "Vynoslivost": "Выносливость",
+      "Atletika": "Атлетика (Тело)",
+      "Grubaya_sila": "Грубая сила (Тело)",
+      "Vynoslivost": "Выносливость (Тело)",
 
-      "Znanie_azur": "Знание Азур",
-      "Rassledovanie": "Расследование",
-      "Programmirovanie": "Программирование",
-      "Biologicheskie_nauki": "Биологические Науки",
-      "Fizicheskie_nauki": "Физические Науки",
-      "Kultura": "Культура",
+      "Znanie_azur": "Знание Азур (Инт)",
+      "Rassledovanie": "Расследование (Инт)",
+      "Programmirovanie": "Программирование (Инт)",
+      "Biologicheskie_nauki": "Биологические Науки (Инт)",
+      "Fizicheskie_nauki": "Физические Науки (Инт)",
+      "Kultura": "Культура (Инт)",
 
-      "Vnimanie": "Внимание",
-      "Vyzhivanie": "Выживание",
-      "Meditsina": "Медицина",
-      "Mekhanika": "Механика",
-      "Elektronika": "Электроника",
-      "Oruzheynoe_delo": "Оружейное Дело",
-      "Pronitsatelnost": "Проницательность",
+      "Vnimanie": "Внимание (Восп)",
+      "Vyzhivanie": "Выживание (Восп)",
+      "Meditsina": "Медицина (Восп)",
+      "Mekhanika": "Механика (Восп)",
+      "Elektronika": "Электроника (Восп)",
+      "Oruzheynoe_delo": "Оружейное Дело (Восп)",
+      "Pronitsatelnost": "Проницательность (Восп)",
 
-      "Runnoy_iskusstvo": "Артефакторика",
-      "Nekrotika": "Некротика",
-      "Stitiyannost": "Стихийность",
-      "Vitamantia": "Витамантия",
-      "Psionika": "Псионика",
-      "Predvidenie": "Предвидение"
+      "Runnoy_iskusstvo": "Артефакторика (Пров)",
+      "Nekrotika": "Некротика (Пров)",
+      "Stitiyannost": "Стихийность (Пров)",
+      "Vitamantia": "Витамантия (Пров)",
+      "Psionika": "Псионика (Пров)",
+      "Predvidenie": "Предвидение (Пров)"
     },
     "Biography": {
       "Weight": "Вес",

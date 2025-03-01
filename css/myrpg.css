@@ -152,36 +152,9 @@ form input[type="number"] {
     margin-bottom: 5px;
 }
 
-.skill-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px; /* Расстояние между строками навыков */
+.myrpg .skills .skill {
+    margin-bottom: 5px;
 }
-
-.skill-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Вертикальное выравнивание */
-}
-
-.skill-name {
-    flex: 2; /* Крупнее, чтобы влезал текст навыка */
-    cursor: pointer; /* показывает, что элемент кликабелен */
-}
-
-.skill-ability {
-    flex: 1;
-    text-align: center;
-}
-
-.skill-value {
-    flex: 1;
-    text-align: right;
-}
-
-    .skill-value input {
-        width: 50px; /* или сколько нужно */
-    }
 
 /* Убираем resizable у textarea */
 form textarea {
