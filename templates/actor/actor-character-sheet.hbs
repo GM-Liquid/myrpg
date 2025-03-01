@@ -245,19 +245,29 @@
                         <div class="sheet-box">
                             <h3>{{localize "MY_RPG.SheetLabels.Skills"}}</h3>
                             {{#each system.skills as |skill key|}}
-                            <div class="skill flexrow flex-group-center">
-                                <label for="system.skills.{{key}}.value"
-                                       class="resource-label rollable"
-                                       data-roll="d20+@{{key}}.value"
-                                       data-label="{{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}">
+                            <div class="skill skill-row">
+                                <!-- Краткое название характеристики -->
+                                <div class="skill-col skill-ability-abbr">
+                                    {{!-- Локализуем сокращение, например DEX, WIS, CON и т.д. --}}
+                                    {{localize (concat "MY_RPG.abilityAbbreviations." skill.ability)}}
+                                </div>
+
+                                <!-- Название навыка (кликабельно для броска) -->
+                                <div class="skill-col skill-name rollable"
+                                     data-roll="d20+@{{key}}.value"
+                                     data-label="{{localize (concat "MY_RPG.Skill." (toPascalCase key))}}">
                                     {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
-                                </label>
-                                <input type="number"
-                                       name="system.skills.{{key}}.value"
-                                       value="{{skill.value}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       pattern="\d+" />
+                                </div>
+
+                                <!-- Поле ввода значения (ранг/бонус) -->
+                                <div class="skill-col skill-value">
+                                    <input type="number"
+                                           name="system.skills.{{key}}.value"
+                                           value="{{skill.value}}"
+                                           step="1"
+                                           inputmode="numeric"
+                                           pattern="\d+" />
+                                </div>
                             </div>
                             {{/each}}
                         </div>
