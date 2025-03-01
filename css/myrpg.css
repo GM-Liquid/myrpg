@@ -73,8 +73,11 @@ textarea[disabled] {
     /* Каждой ячейке (th и td) задаём большую ширину и высоту */
     .attributes-table th,
     .attributes-table td {
-        width: 104px; /* исходные 80px * 1.3 = 104px */
+        width: 104px; /* исходные ~80px * 1.3 = 104px */
         height: 48px; /* было ~30px, увеличиваем до 48px */
+        border: 2px solid #1b1210;
+        text-align: center;
+        padding: 5px;
     }
 
 /* Заголовки h3 делаем по центру и точно жирными */
@@ -102,111 +105,76 @@ textarea[disabled] {
     margin-bottom: 10px;
 }
 
+/* БЫЛО: .top-row { justify-content: space-between; } 
+   ЗАМЕНА: убираем space-between, чтобы таблица могла центрироваться 
+   и/или портрет не уезжал. Можно поставить flex-start или center по необходимости. */
 .top-row {
     display: flex;
-    justify-content: space-between; /* или flex-start, как удобнее */
-    align-items: flex-start;
+    align-items: center; /* центрируем по вертикали */
+    /* justify-content: flex-start;  // или center, на ваш выбор */
     margin-bottom: 10px;
 }
 
-/* Левая колонка: задаём ширину и отступ справа */
-.left-col {
-    width: 50%;
-    padding-right: 10px;
+/* Блоки-колонки. Убираем float и переходим на flex: 0 0 XX% */
+.col-50,
+.col-50-last,
+.col-33,
+.col-33-last,
+.col-25,
+.col-25-last {
     box-sizing: border-box;
+    /* по умолчанию пусть займёт auto, потом переопределим */
 }
 
-/* Правая колонка: задаём ширину */
-.right-col {
-    width: 50%;
-    box-sizing: border-box;
-}
-
+/* Примеры под ваши макеты:
+   Для 50% ширины */
 .col-50 {
-    width: 50%;
+    flex: 0 0 50%;
     padding-right: 10px;
-    box-sizing: border-box;
-    float: left;
 }
 
 .col-50-last {
-    width: 50%;
-    box-sizing: border-box;
-    float: left;
+    flex: 0 0 50%;
     padding-right: 0;
 }
 
-.col-25 {
-    width: 25%;
-    padding-right: 10px;
-    box-sizing: border-box;
-    float: left;
-}
-
-.col-25-last {
-    width: 25%;
-    box-sizing: border-box;
-    float: left;
-    padding-right: 0;
-}
-
-/* Для макета с тремя колонками */
+/* Для 33.33% */
 .col-33 {
-    width: 33.33%;
+    flex: 0 0 33.33%;
     padding-right: 10px;
-    box-sizing: border-box;
-    float: left;
 }
 
 .col-33-last {
-    width: 33.33%;
-    box-sizing: border-box;
-    float: left;
+    flex: 0 0 33.33%;
     padding-right: 0;
 }
 
-/* Очищаем обтекание flexrow, если используются float */
-.flexrow::after {
-    content: "";
-    display: block;
-    clear: both;
+/* Для 25% */
+.col-25 {
+    flex: 0 0 25%;
+    padding-right: 10px;
 }
 
+.col-25-last {
+    flex: 0 0 25%;
+    padding-right: 0;
+}
+
+/* Если вы хотите, чтобы колонки не "съезжали" вниз при переполнении, 
+   добавьте что-то вроде:
+   .flexrow { flex-wrap: wrap; } или overflow. Но решайте по дизайну. */
+
+/* .attributes-col оставляем, если нужно */
 .attributes-col {
-    flex: 1; /* Остальное пространство под таблицу атрибутов */
-}
-
-.key-fields-row {
-    margin-bottom: 10px;
-}
-
-.attributes-table th,
-.attributes-table td {
-    border: 2px solid #1b1210;
-    padding: 5px;
-    text-align: center;
-}
-
-.attributes-table {
-    border-collapse: collapse;
+    flex: 1; /* Если нужно, чтобы таблица занимала всё оставшееся пространство */
     margin-top: 5px;
 }
 
+/* sheet-box - рамка */
 .sheet-box {
     border: 2px solid #1b1210; /* Ваш основной цвет бордюра */
     padding: 10px;
     margin-bottom: 10px; /* чтобы между блоками был отступ */
-}
-
-/* Можно чуть уменьшить высоту .temp-bonus и .armor-section таблиц */
-.temp-bonus table,
-.armor-section .armor-description {
-    margin-top: 5px;
-}
-
-/* Немного увеличить отступ между полями в .armor-values */
-.armor-section .armor-values .flexcol {
-    margin-right: 10px;
 }
 
 /* Устанавливаем фон и текст для всего листа */
@@ -288,7 +256,6 @@ form textarea {
     background: none !important;
 }
 
-    /* Границы и цвет текста в ячейках */
     .myrpg .abilities-table th,
     .myrpg .abilities-table td {
         border: 2px solid #1b1210 !important; /* Цвет границ таблицы */
@@ -316,7 +283,7 @@ form textarea {
         transition: background-color 0.2s;
     }
 
-/* Ширины столбцов */
+/* Ширины столбцов (для таблицы способностей) */
 .col-name {
     width: 23%;
 }
@@ -399,7 +366,7 @@ form textarea {
     overflow: visible !important;
 }
 
-/* Grid Layout */
+/* Grid Layout (остальные классы изначальной сетки, если нужны) */
 .grid,
 .grid-2col {
     display: grid;
@@ -548,98 +515,22 @@ form textarea {
     grid-column-end: span 12;
 }
 
-.flex-group-center,
-.flex-group-left,
-.flex-group-right {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.flex-group-left {
-    justify-content: flex-start;
-    text-align: left;
-}
-
-.flex-group-right {
-    justify-content: flex-end;
-    text-align: right;
-}
-
-.flexshrink {
-    flex: 0;
-}
-
-.flex-between {
-    justify-content: space-between;
-}
-
-.flexlarge {
-    flex: 2;
-}
-
-.align-left {
-    justify-content: flex-start;
-    text-align: left;
-}
-
-.align-right {
-    justify-content: flex-end;
-    text-align: right;
-}
-
-.align-center {
-    justify-content: center;
-    text-align: center;
-}
-
-/* Sheet-specific header stuff */
-.myrpg .item-form {
-    font-family: "Roboto", sans-serif;
-}
-
-.myrpg .sheet-header {
-    flex: 0 auto;
-    overflow: hidden;
+/* Изменяем поведение .flexrow, чтобы элементы не растягивались по высоте */
+.flexrow {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin-bottom: 10px;
+    align-items: flex-start; /* иначе блоки могут растягиваться */
+    gap: 10px;
+    /* justify-content: flex-start; или space-between; - на ваш вкус */
 }
 
-    .myrpg .sheet-header .profile-img {
-        flex: 0 0 100px;
-        height: 100px;
-        margin-right: 10px;
-    }
-
-    .myrpg .sheet-header .header-fields {
-        flex: 1;
-    }
-
-    .myrpg .sheet-header h1.charname {
-        height: 50px;
-        padding: 0px;
-        margin: 5px 0;
-        border-bottom: 0;
-    }
-
-        .myrpg .sheet-header h1.charname input {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-        }
-
-.myrpg .sheet-tabs {
-    flex: 0;
+/* Удаляем "clearfix" псевдоэлемент, т.к. float больше не используем */
+/*
+.flexrow::after {
+    content: "";
+    display: block;
+    clear: both;
 }
-
-.myrpg .sheet-body,
-.myrpg .sheet-body .tab,
-.myrpg .sheet-body .tab .editor {
-    height: 100%;
-}
+*/
 
 /* Полосы прокрутки (Chrome, Edge, Safari) */
 .myrpg.sheet.actor::-webkit-scrollbar {
