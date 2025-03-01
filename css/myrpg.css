@@ -156,10 +156,6 @@ textarea[disabled] {
     padding-right: 0;
 }
 
-/* Если вы хотите, чтобы колонки не "съезжали" вниз при переполнении, 
-   добавьте что-то вроде:
-   .flexrow { flex-wrap: wrap; } или overflow. Но решайте по дизайну. */
-
 .attributes-col {
     /* Этот блок растянется на всё оставшееся пространство */
     flex: 1;
@@ -524,15 +520,6 @@ form textarea {
     /* justify-content: flex-start; или space-between; - на ваш вкус */
 }
 
-/* Удаляем "clearfix" псевдоэлемент, т.к. float больше не используем */
-/*
-.flexrow::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-*/
-
 /* Полосы прокрутки (Chrome, Edge, Safari) */
 .myrpg.sheet.actor::-webkit-scrollbar {
     width: 12px;
@@ -546,4 +533,9 @@ form textarea {
     background-color: #6d031c; /* Цвет полосы прокрутки */
     border: 2px solid #d2d2c9; /* Обводка, чтобы было видно скролл */
     border-radius: 6px;
+}
+
+.top-row > .portrait-col,
+.top-row > .attributes-col {
+    flex: 0 0 auto !important;
 }
