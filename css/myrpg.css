@@ -73,8 +73,8 @@ textarea[disabled] {
     /* Каждой ячейке (th и td) задаём большую ширину и высоту */
     .attributes-table th,
     .attributes-table td {
-        width: 104px; /* исходные ~80px * 1.3 = 104px */
-        height: 48px; /* было ~30px, увеличиваем до 48px */
+        width: 102px; /* исходные ~80px * 1.3 = 104px */
+        height: 51px; /* было ~30px, увеличиваем до 48px */
         border: 2px solid #1b1210;
         text-align: center;
         padding: 5px;
@@ -351,7 +351,7 @@ form textarea {
     font-weight: bold;
     cursor: pointer;
     border-radius: 6px;
-    width: 200px;
+    width: 220px;
     height: 40px;
     transition: background 0.3s;
     display: flex;
@@ -555,4 +555,23 @@ form textarea {
 .top-row > .portrait-col,
 .top-row > .attributes-col {
     flex: 0 0 auto !important;
+}
+
+/* --- 1. Центровка и жирный шрифт для h2/h3 во вкладках Биография и Способности --- */
+.tab.biography h2,
+.tab.biography h3,
+.tab.abilities h2,
+.tab.abilities h3 {
+    text-align: center; /* Центрируем заголовок */
+    font-weight: 700; /* Делаем шрифт жирным */
+}
+
+/* --- 2. Центровка «маленьких заголовков» (label) в Ключевой информации и Доспехе --- */
+/* Предполагается, что у вас есть .sheet-box .form-group label, .resource-label и т.д. */
+.sheet-box .form-group label,
+.sheet-box .resource-label,
+.sheet-box .armor-description label,
+.sheet-box .armor-values label {
+    text-align: center; /* Центрируем текст */
+    /* font-weight: 600;  // Если хотите сделать их полужирными, раскомментируйте */
 }
