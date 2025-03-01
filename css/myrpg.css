@@ -105,14 +105,16 @@ textarea[disabled] {
     margin-bottom: 10px;
 }
 
-/* БЫЛО: .top-row { justify-content: space-between; } 
-   ЗАМЕНА: убираем space-between, чтобы таблица могла центрироваться 
-   и/или портрет не уезжал. Можно поставить flex-start или center по необходимости. */
 .top-row {
     display: flex;
-    align-items: center; /* центрируем по вертикали */
-    /* justify-content: flex-start;  // или center, на ваш выбор */
-    margin-bottom: 10px;
+    /* Чтобы элементы оставались в одной строке даже при нехватке места */
+    flex-wrap: nowrap;
+    /* Горизонтальный отступ между портретом и таблицей (при необходимости) */
+    gap: 10px;
+    /* По вертикали выравниваем по центру */
+    align-items: center;
+    /* По горизонтали обычно flex-start (слева), но можно и center, если нужно */
+    justify-content: center;
 }
 
 /* Блоки-колонки. Убираем float и переходим на flex: 0 0 XX% */
@@ -164,10 +166,13 @@ textarea[disabled] {
    добавьте что-то вроде:
    .flexrow { flex-wrap: wrap; } или overflow. Но решайте по дизайну. */
 
-/* .attributes-col оставляем, если нужно */
 .attributes-col {
-    flex: 1; /* Если нужно, чтобы таблица занимала всё оставшееся пространство */
-    margin-top: 5px;
+    flex: 0 0 auto;
+    /* т.е. занимай ровно столько места, сколько нужно таблице */
+
+    display: flex;
+    align-items: center;
+    justify-content: center; /* чтобы сама таблица была по центру этого блока */
 }
 
 /* sheet-box - рамка */
