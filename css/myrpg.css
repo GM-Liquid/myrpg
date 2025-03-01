@@ -34,6 +34,12 @@ textarea[disabled] {
     padding: 10px;
 }
 
+.attributes-table th,
+.attributes-table td {
+    width: 80px;
+    text-align: center;
+}
+
 /* Общий класс для строки с отступом снизу */
 .custom-flexrow {
     display: flex;

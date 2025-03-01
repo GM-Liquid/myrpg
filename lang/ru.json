@@ -90,23 +90,23 @@
         "abbr": "will"
       },
       "Con": {
-        "long": "Телосложение",
+        "long": "Тело",
         "abbr": "con"
       },
       "Dex": {
-        "long": "Рефлексы",
+        "long": "Реф",
         "abbr": "dex"
       },
       "Int": {
-        "long": "Интеллект",
+        "long": "Инт",
         "abbr": "int"
       },
       "Wis": {
-        "long": "Восприятие",
+        "long": "Восп",
         "abbr": "wis"
       },
       "Cond": {
-        "long": "Проводимость",
+        "long": "Пров",
         "abbr": "cond"
       }
     },
