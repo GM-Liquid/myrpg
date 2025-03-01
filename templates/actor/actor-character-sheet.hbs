@@ -60,7 +60,7 @@
             <!-- Вкладка "Features" -->
             <div class="tab features features-tab" data-group="primary" data-tab="features">
 
-                <!-- Первый ряд: портрет + характеристики рядом -->
+                <!-- Первый ряд: Портрет + таблица характеристик -->
                 <section class="flexrow top-row">
                     <!-- Портрет слева -->
                     <div class="portrait-col">
@@ -98,38 +98,38 @@
                     </div>
                 </section>
 
-                <!-- Второй ряд: Имя, Призвание, Текущий ранг (в одной строке) -->
+                <!-- Второй ряд: Имя, Призвание, Текущий ранг + Параметры -->
                 <section class="flexrow key-fields-row">
-                    <div class="grid grid-3col">
-                        <div class="form-group">
-                            <label>{{localize "MY_RPG.KeyInfo.Name"}}</label>
-                            <input type="text"
-                                   class="small-input"
-                                   name="name"
-                                   value="{{actor.name}}"
-                                   placeholder="Name" />
-                        </div>
-                        <div class="form-group">
-                            <label>{{localize "MY_RPG.KeyInfo.Calling"}}</label>
-                            <input type="text"
-                                   class="small-input"
-                                   name="system.calling"
-                                   value="{{system.calling}}" />
-                        </div>
-                        <div class="form-group">
-                            <label>{{localize "MY_RPG.KeyInfo.CurrentRank"}}</label>
-                            <input type="text"
-                                   class="small-input"
-                                   name="system.currentRank"
-                                   value="{{system.currentRank}}" />
+                    <!-- Левая половина: имя, призвание, ранг -->
+                    <div class="col-50">
+                        <div class="grid grid-3col">
+                            <div class="form-group">
+                                <label>{{localize "MY_RPG.KeyInfo.Name"}}</label>
+                                <input type="text"
+                                       class="small-input"
+                                       name="name"
+                                       value="{{actor.name}}"
+                                       placeholder="Name" />
+                            </div>
+                            <div class="form-group">
+                                <label>{{localize "MY_RPG.KeyInfo.Calling"}}</label>
+                                <input type="text"
+                                       class="small-input"
+                                       name="system.calling"
+                                       value="{{system.calling}}" />
+                            </div>
+                            <div class="form-group">
+                                <label>{{localize "MY_RPG.KeyInfo.CurrentRank"}}</label>
+                                <input type="text"
+                                       class="small-input"
+                                       name="system.currentRank"
+                                       value="{{system.currentRank}}" />
+                            </div>
                         </div>
                     </div>
-                </section>
 
-                <!-- Третий ряд: Параметры, Навыки, Временные бонусы + Доспех -->
-                <section class="flexrow">
-                    <!-- Колонка 1: Параметры -->
-                    <div class="flexcol col-33">
+                    <!-- Правая половина: Параметры (ОЗ, Поток, КД, Стойкость, Скорость, Напряженность) -->
+                    <div class="col-50">
                         <div class="sheet-box">
                             <h3>{{localize "MY_RPG.SheetLabels.Parameters"}}</h3>
                             <div class="resources grid grid-3col">
@@ -236,29 +236,29 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            </div><!-- .resources -->
+                        </div><!-- .sheet-box -->
+                    </div><!-- .col-50 -->
+                </section>
 
-                    <!-- Колонка 2: Навыки -->
-                    <div class="flexcol col-33">
+                <!-- Третий ряд: Навыки (50%) + Временные бонусы (25%) + Доспех (25%) -->
+                <section class="flexrow bottom-row">
+                    <!-- Навыки (левая половина) -->
+                    <div class="flexcol col-50">
                         <div class="sheet-box">
                             <h3>{{localize "MY_RPG.SheetLabels.Skills"}}</h3>
                             {{#each system.skills as |skill key|}}
                             <div class="skill skill-row">
                                 <!-- Краткое название характеристики -->
                                 <div class="skill-col skill-ability-abbr">
-                                    {{!-- Локализуем сокращение, например DEX, WIS, CON и т.д. --}}
                                     {{localize (concat "MY_RPG.abilityAbbreviations." skill.ability)}}
                                 </div>
-
                                 <!-- Название навыка (кликабельно для броска) -->
                                 <div class="skill-col skill-name rollable"
                                      data-roll="d20+@{{key}}.value"
                                      data-label="{{localize (concat "MY_RPG.Skill." (toPascalCase key))}}">
                                     {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
                                 </div>
-
                                 <!-- Поле ввода значения (ранг/бонус) -->
                                 <div class="skill-col skill-value">
                                     <input type="number"
@@ -273,8 +273,8 @@
                         </div>
                     </div>
 
-                    <!-- Колонка 3: Временные бонусы и Доспех -->
-                    <div class="flexcol col-33-last">
+                    <!-- Временные бонусы (четверть листа) -->
+                    <div class="flexcol col-25">
                         <div class="sheet-box">
                             <h3>{{localize "MY_RPG.TempBonus.Label"}}</h3>
                             <table>
@@ -300,6 +300,10 @@
                                 </tr>
                             </table>
                         </div>
+                    </div>
+
+                    <!-- Доспех (четверть листа) -->
+                    <div class="flexcol col-25-last">
                         <div class="sheet-box">
                             <h3>{{localize "MY_RPG.ArmorItem.ArmorSectionTitle"}}</h3>
                             <div class="armor-description">
@@ -328,7 +332,6 @@
                     </div>
                 </section>
             </div>
-
             <!-- Вкладка "Способности и модификации" -->
             <div class="tab abilities" data-group="primary" data-tab="abilities">
                 <section class="flux-section">
