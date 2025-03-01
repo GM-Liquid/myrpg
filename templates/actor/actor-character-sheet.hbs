@@ -64,18 +64,18 @@
                 <div class="sheet-box">
                     <h3>{{localize "MY_RPG.SheetLabels.KeyInfo"}}</h3>
 
-                    <!-- Первый ряд: портрет + таблица характеристик -->
+                    <!-- Первый ряд: портрет слева, таблица характеристик по центру -->
                     <section class="flexrow top-row">
-                        <!-- Портрет слева -->
+                        <!-- Портрет -->
                         <div class="portrait-col">
                             <img class="profile-img"
                                  src="{{actor.img}}"
                                  data-edit="img"
                                  title="{{actor.name}}" />
                         </div>
-                        <!-- Таблица атрибутов (справа) -->
-                        <div class="attributes-col">
-                            <!-- Убрали h3 отсюда, т.к. теперь общий заголовок "KeyInfo" -->
+
+                        <!-- Таблица характеристик (по центру) -->
+                        <div class="attributes-col center-attributes">
                             <table class="attributes-table">
                                 <thead>
                                     <tr>
@@ -131,7 +131,6 @@
                     </section>
 
                     <!-- Третий ряд: бывшие "Параметры" (ОЗ, Поток, КД, Стойкость, Скорость, Напряжённость) -->
-                    <!-- Убрали заголовок "Параметры", оставили просто таблицу -->
                     <section class="resources grid grid-3col">
                         <!-- ОЗ -->
                         <div class="resource flex-group-center">
@@ -238,10 +237,7 @@
                         </div>
                     </section>
                 </div> <!-- Конец большого sheet-box Key Info -->
-                <!-- Теперь один общий flexrow, в котором:
-             - Навыки (50%)
-             - Временные бонусы (25%)
-             - Доспех (25%) -->
+                <!-- Блоки "Навыки", "Временные бонусы", "Доспех" -->
                 <section class="flexrow">
                     <!-- Навыки: 50% -->
                     <div class="flexcol col-50">
@@ -273,9 +269,9 @@
                         </div>
                     </div>
 
-                    <!-- Временные бонусы: 25% -->
+                    <!-- Временные бонусы: ограничиваем высоту .limited-height -->
                     <div class="flexcol col-25">
-                        <div class="sheet-box">
+                        <div class="sheet-box limited-height">
                             <h3>{{localize "MY_RPG.TempBonus.Label"}}</h3>
                             <table>
                                 <tr>
@@ -302,9 +298,9 @@
                         </div>
                     </div>
 
-                    <!-- Доспех: 25% -->
+                    <!-- Доспех: тоже .limited-height, чтобы совпадал по размеру -->
                     <div class="flexcol col-25-last">
-                        <div class="sheet-box">
+                        <div class="sheet-box limited-height">
                             <h3>{{localize "MY_RPG.ArmorItem.ArmorSectionTitle"}}</h3>
                             <div class="armor-description">
                                 <label>{{localize "MY_RPG.ArmorItem.DescriptionLabel"}}</label>
@@ -332,7 +328,7 @@
                     </div>
                 </section>
 
-            </div>
+            </div> <!-- Конец вкладки Features -->
             <!-- Вкладка "Способности и модификации" -->
             <div class="tab abilities" data-group="primary" data-tab="abilities">
                 <section class="flux-section">
