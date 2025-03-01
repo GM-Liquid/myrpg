@@ -84,6 +84,14 @@
     "TempSpeed": {
       "Label": "Временная скорость"
     },
+    "abilityAbbreviations": {
+      "will": "ВОЛ",
+      "dex": "РЕФ",
+      "con": "ТЕЛ",
+      "int": "ИНТ",
+      "wis": "ВОС",
+      "cond": "ПРО"
+    },
     "Ability": {
       "Will": {
         "long": "Воля",
