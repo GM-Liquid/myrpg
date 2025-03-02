@@ -14,6 +14,8 @@ export class myrpgActorSheet extends ActorSheet {
 
     activateListeners(html) {
 
+        html.find(".rollable").click(this._onRoll.bind(this));
+
         const $table = html.find(".abilities-table");
         $table.on("mouseleave", () => {
             // При уходе курсора с таблицы — удаляем все tooltip
