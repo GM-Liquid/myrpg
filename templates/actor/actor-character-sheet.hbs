@@ -259,10 +259,11 @@
                                 <div class="skill-col skill-value">
                                     <input type="number"
                                            name="system.skills.{{key}}.value"
-                                           value="{{skill.value}}"
+                                           value="{{#if skill.value}}{{skill.value}}{{/if}}"
                                            step="1"
                                            inputmode="numeric"
-                                           pattern="\d+" />
+                                           pattern="\d+"
+                                           min="0" />
                                 </div>
                             </div>
                             {{/each}}

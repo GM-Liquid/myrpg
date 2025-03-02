@@ -253,23 +253,24 @@ export class myrpgActorSheet extends ActorSheet {
             const input = ev.currentTarget;
             let val = parseInt(input.value, 10);
 
-            // Если пользователь ввёл не число (NaN), по умолчанию ставим 1
-            if (isNaN(val)) val = 1;
-
-            // Определяем, это "Характеристика" или "Навык"
+            // Определяем, это характеристика или навык
             const isAbility = input.name.includes("system.abilities.");
             const label = isAbility ? "Характеристика" : "Навык";
+            const minVal = isAbility ? 1 : 0;
+            const maxVal = 20;
 
-            // Проверяем границы
-            if (val < 1) {
-                ui.notifications.warn(`${label} не может быть меньше 1`);
-                val = 1;
-            } else if (val > 20) {
-                ui.notifications.warn(`${label} не может быть больше 20`);
-                val = 20;
+            if (isNaN(val)) {
+                val = minVal;
             }
 
-            // Обновляем значение в поле и в данных актёра
+            if (val < minVal) {
+                ui.notifications.warn(`${label} не может быть меньше ${minVal}`);
+                val = minVal;
+            } else if (val > maxVal) {
+                ui.notifications.warn(`${label} не может быть больше ${maxVal}`);
+                val = maxVal;
+            }
+
             input.value = val;
             this.actor.update({ [input.name]: val });
         });
@@ -360,7 +361,7 @@ export class myrpgActorSheet extends ActorSheet {
 
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
+      let label = dataset.label || '';;
       let roll = new Roll(dataset.roll, this.actor.getRollData());
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
