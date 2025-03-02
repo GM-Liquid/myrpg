@@ -13,7 +13,7 @@ export class myrpgActorSheet extends ActorSheet {
     }
 
     activateListeners(html) {
-
+        super.activateListeners(html);
         html.find(".rollable").click(this._onRoll.bind(this));
 
         const $table = html.find(".abilities-table");
@@ -22,8 +22,6 @@ export class myrpgActorSheet extends ActorSheet {
             $("body").find(".ability-tooltip").remove();
         });
 
-
-        super.activateListeners(html);
         // Наведение мыши (mouseenter)
         html.find("tr.ability-row").on("mouseenter", event => {
             const $row = $(event.currentTarget);
@@ -370,16 +368,6 @@ export class myrpgActorSheet extends ActorSheet {
         rollMode: game.settings.get('core', 'rollMode'),
       });
       return roll;
-      }
-      if (dataset.roll) {
-          let label = dataset.label ? `[skill] ${dataset.label}` : '';
-          let roll = new Roll(dataset.roll, this.actor.getRollData());
-          roll.toMessage({
-              speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-              flavor: label,
-              rollMode: game.settings.get('core', 'rollMode'),
-          });
-          return roll;
       }
   }
 }
