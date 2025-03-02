@@ -127,10 +127,17 @@ export class myrpgActor extends Actor {
       }
       }
 
-    if (data.skills) {
-      for (let [x, c] of Object.entries(data.skills)) {
-        data[x] = foundry.utils.deepClone(c);
-      }
+      if (data.skills) {
+          for (let [x, c] of Object.entries(data.skills)) {
+              let skillData = foundry.utils.deepClone(c);
+              // ≈сли значение пустое, обрабатываем его как 0
+              if (skillData.value === "" || skillData.value === null || skillData.value === undefined) {
+                  skillData.value = 0;
+              } else {
+                  skillData.value = parseInt(skillData.value, 10) || 0;
+              }
+              data[x] = skillData;
+          }
       }
 
     // Add level for easier access, or fall back to 0.
