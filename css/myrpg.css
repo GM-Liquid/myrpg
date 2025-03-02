@@ -73,8 +73,8 @@ textarea[disabled] {
     /*  аждой €чейке (th и td) задаЄм большую ширину и высоту */
     .attributes-table th,
     .attributes-table td {
-        width: 100px; /* исходные ~80px * 1.3 = 104px */
-        height: 50px; /* было ~30px, увеличиваем до 48px */
+        width: 90px; /* исходные ~80px * 1.3 = 104px */
+        height: 45px; /* было ~30px, увеличиваем до 48px */
         border: 2px solid #1b1210;
         text-align: center;
         padding: 5px;
@@ -645,4 +645,11 @@ form textarea {
 .armor-description textarea {
     min-height: 120px;
     resize: vertical;
+}
+
+/* “олько внутри листа персонажа вашей системы */
+.myrpg.sheet.actor form input[type="text"],
+.myrpg.sheet.actor form input[type="number"],
+.myrpg.sheet.actor form textarea {
+    text-align: center;
 }

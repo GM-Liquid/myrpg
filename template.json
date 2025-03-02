@@ -164,10 +164,6 @@
           "value": 0,
           "ability": "con"
         },
-        "grubaya_sila": {
-          "value": 0,
-          "ability": "con"
-        },
         "vynoslivost": {
           "value": 0,
           "ability": "con"
@@ -344,10 +340,6 @@
         },
 
         "atletika": {
-          "value": 0,
-          "ability": "con"
-        },
-        "grubaya_sila": {
           "value": 0,
           "ability": "con"
         },
