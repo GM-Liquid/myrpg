@@ -80,7 +80,7 @@
                                 <thead>
                                     <tr>
                                         {{#each system.abilities as |ability key|}}
-                                        <th class="rollable" data-roll="d20+(@{{key}}.mod)+(@{{generalBonus}})" data-label="{{ability.label}}">{{ability.label}}</th>
+                                        <th class="rollable" data-roll="d20+@{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</th>
                                         {{/each}}
                                     </tr>
                                 </thead>
@@ -104,7 +104,7 @@
 
                     <!-- Второй ряд: Имя, Призвание, Текущий ранг -->
                     <section class="flexrow key-fields-row">
-                        <div class="grid grid-4col">
+                        <div class="grid grid-3col">
                             <div class="form-group">
                                 <label>{{localize "MY_RPG.KeyInfo.Name"}}</label>
                                 <input type="text"
@@ -126,14 +126,6 @@
                                        class="small-input"
                                        name="system.currentRank"
                                        value="{{system.currentRank}}" />
-                            </div>
-                            <div class="form-group">
-                                <label>{{localize "MY_RPG.KeyInfo.Initiative"}}</label>
-                                <input type="number"
-                                       class="small-input"
-                                       name="system.initiative"
-                                       value="{{system.initiative}}"
-                                       readonly />
                             </div>
                         </div>
                     </section>
@@ -259,7 +251,7 @@
                                 </div>
                                 <!-- Название навыка (кликабельно для броска) -->
                                 <div class="skill-col skill-name rollable"
-                                     data-roll="d20+(@{{key}}.value)+(@{{generalBonus}})"
+                                     data-roll="d20+@{{key}}.value"
                                      data-label="{{localize (concat "MY_RPG.Skill." (toPascalCase key))}}">
                                     {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
                                 </div>
@@ -302,10 +294,6 @@
                                 <tr>
                                     <td>{{localize "MY_RPG.TempSpeed.Label"}}</td>
                                     <td><input type="number" name="system.tempspeed" value="{{system.tempspeed}}" /></td>
-                                </tr>
-                                <tr>
-                                    <td>{{localize "MY_RPG.GlobalBonus.Label"}}</td>
-                                    <td><input type="number" name="system.generalBonus" value="{{system.generalBonus}}" /></td>
                                 </tr>
                             </table>
                         </div>

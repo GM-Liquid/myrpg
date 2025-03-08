@@ -32,7 +32,7 @@ export class myrpgActor extends Actor {
 
     _prepareCharacterData(actorData) {
         const systemData = actorData.system;
-        systemData.initiative = systemData.abilities.dex.value;
+
         // Пример: «модификаторы» способностей (если вам нужно)
         for (let [key, ability] of Object.entries(systemData.abilities)) {
             ability.mod = ability.value;
@@ -116,40 +116,39 @@ export class myrpgActor extends Actor {
   /**
    * Prepare character roll data.
    */
-    _getCharacterRollData(data) {
-        if (this.type !== 'character') return;
-        const systemData = this.system;
+  _getCharacterRollData(data) {
+    if (this.type !== 'character') return;
 
-        // Копируем способности, сохраняя вложенную структуру
-        data.abilities = foundry.utils.deepClone(systemData.abilities) || {};
+    // Copy the ability scores to the top level, so that rolls can use
+    // formulas like `@str.mod + 4`.
+    if (data.abilities) {
+      for (let [k, v] of Object.entries(data.abilities)) {
+        data[k] = foundry.utils.deepClone(v);
+      }
+      }
 
-        // Убедимся, что для каждой способности уже вычислено поле mod (в prepareDerivedData это делается)
-        // Теперь формула сможет обратиться к @abilities.wis.mod
+      if (data.skills) {
+          for (let [x, c] of Object.entries(data.skills)) {
+              let skillData = foundry.utils.deepClone(c);
+              // Если значение пустое, обрабатываем его как 0
+              if (skillData.value === "" || skillData.value === null || skillData.value === undefined) {
+                  skillData.value = 0;
+              } else {
+                  skillData.value = parseInt(skillData.value, 10) || 0;
+              }
+              data[x] = skillData;
+          }
+      }
 
-        // Копируем навыки, сохраняя их в data.skills
-        data.skills = {};
-        if (systemData.skills) {
-            for (let [skillKey, skill] of Object.entries(systemData.skills)) {
-                let skillData = foundry.utils.deepClone(skill);
-                // Приводим значение навыка к числу (если не задано – ставим 0)
-                skillData.value = (skillData.value === "" || skillData.value === null || skillData.value === undefined)
-                    ? 0
-                    : parseInt(skillData.value, 10);
-                data.skills[skillKey] = skillData;
-            }
-        }
+    // Add level for easier access, or fall back to 0.
+    if (data.attributes.level) {
+      data.lvl = data.attributes.level.value ?? 0;
+      }
 
-        // Общий бонус, если он задан
-        data.generalBonus = Number(systemData.generalBonus) || 0;
-
-        // Если в системе есть дополнительные атрибуты, копируем их
-        if (systemData.attributes) {
-            data.attributes = foundry.utils.deepClone(systemData.attributes);
-            if (data.attributes.level) {
-                data.lvl = data.attributes.level.value || data.attributes.level.c || 0;
-            }
-        }
-    }
+      if (data.attributes.level) {
+          data.lvl = data.attributes.level.c ?? 0;
+      }
+  }
 
   /**
    * Prepare NPC roll data.
