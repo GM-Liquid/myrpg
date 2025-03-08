@@ -94,11 +94,6 @@
           "min": 1,
           "max": 20
         },
-        "wis": {
-          "value": 10,
-          "min": 1,
-          "max": 20
-        },
         "cond": {
           "value": 10,
           "min": 1,
@@ -192,35 +187,6 @@
         "kultura": {
           "value": 0,
           "ability": "int"
-        },
-
-        "vnimanie": {
-          "value": 0,
-          "ability": "wis"
-        },
-        "vyzhivanie": {
-          "value": 0,
-          "ability": "wis"
-        },
-        "meditsina": {
-          "value": 0,
-          "ability": "wis"
-        },
-        "mekhanika": {
-          "value": 0,
-          "ability": "wis"
-        },
-        "elektronika": {
-          "value": 0,
-          "ability": "wis"
-        },
-        "oruzheynoe_delo": {
-          "value": 0,
-          "ability": "wis"
-        },
-        "pronitsatelnost": {
-          "value": 0,
-          "ability": "wis"
         },
 
         "runnoy_iskusstvo": {
@@ -273,11 +239,6 @@
           "min": 1,
           "max": 20
         },
-        "wis": {
-          "value": 10,
-          "min": 1,
-          "max": 20
-        },
         "cond": {
           "value": 10,
           "min": 1,
@@ -348,23 +309,15 @@
           "ability": "con"
         },
 
-        "znanie_azur": {
+        "analiz": {
           "value": 0,
           "ability": "int"
         },
-        "rassledovanie": {
+        "tekhnika": {
           "value": 0,
           "ability": "int"
         },
-        "programmirovanie": {
-          "value": 0,
-          "ability": "int"
-        },
-        "biologicheskie_nauki": {
-          "value": 0,
-          "ability": "int"
-        },
-        "fizicheskie_nauki": {
+        "priroda": {
           "value": 0,
           "ability": "int"
         },
@@ -372,41 +325,29 @@
           "value": 0,
           "ability": "int"
         },
-
         "vnimanie": {
           "value": 0,
-          "ability": "wis"
-        },
-        "vyzhivanie": {
-          "value": 0,
-          "ability": "wis"
+          "ability": "int"
         },
         "meditsina": {
           "value": 0,
-          "ability": "wis"
-        },
-        "mekhanika": {
-          "value": 0,
-          "ability": "wis"
-        },
-        "elektronika": {
-          "value": 0,
-          "ability": "wis"
+          "ability": "int"
         },
         "oruzheynoe_delo": {
           "value": 0,
-          "ability": "wis"
+          "ability": "int"
         },
-        "pronitsatelnost": {
+        "hladnokrovie": {
           "value": 0,
-          "ability": "wis"
+          "ability": "int"
         },
+
 
         "runnoy_iskusstvo": {
           "value": 0,
           "ability": "cond"
         },
-        "nekrotika": {
+        "kinetica": {
           "value": 0,
           "ability": "cond"
         },
@@ -414,7 +355,7 @@
           "value": 0,
           "ability": "cond"
         },
-        "vitamantia": {
+        "biomantia": {
           "value": 0,
           "ability": "cond"
         },

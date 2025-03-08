@@ -89,33 +89,28 @@
       "dex": "Реф",
       "con": "Тело",
       "int": "Инт",
-      "wis": "Восп",
       "cond": "Пров"
     },
     "Ability": {
       "Will": {
         "long": "Воля",
-        "abbr": "ВОЛ"
+        "abbr": "Воля"
       },
       "Con": {
         "long": "Тело",
-        "abbr": "ТЕЛ"
+        "abbr": "Тело"
       },
       "Dex": {
         "long": "Реф",
-        "abbr": "РЕФ"
+        "abbr": "Реф"
       },
       "Int": {
-        "long": "Инт",
-        "abbr": "ИНТ"
-      },
-      "Wis": {
-        "long": "Восп",
-        "abbr": "ВОС"
+        "long": "Разум",
+        "abbr": "Разум"
       },
       "Cond": {
         "long": "Пров",
-        "abbr": "ПРО"
+        "abbr": "Пров"
       }
     },
     "Skill": {
@@ -137,25 +132,19 @@
       "Atletika": "Атлетика",
       "Vynoslivost": "Выносливость",
 
-      "Znanie_azur": "Знание Азур",
-      "Rassledovanie": "Расследование",
-      "Programmirovanie": "Программирование",
-      "Biologicheskie_nauki": "Биологические Науки",
-      "Fizicheskie_nauki": "Физические Науки",
+      "Analiz": "Анализ",
+      "Tekhnika": "Техника",
+      "Priroda": "Природа",
       "Kultura": "Культура",
-
       "Vnimanie": "Внимание",
-      "Vyzhivanie": "Выживание",
       "Meditsina": "Медицина",
-      "Mekhanika": "Механика",
-      "Elektronika": "Электроника",
       "Oruzheynoe_delo": "Оружейное Дело",
-      "Pronitsatelnost": "Проницательность",
+      "Hladnokrovie": "Хладнокровие",
 
-      "Runnoy_iskusstvo": "Артефакторика",
-      "Nekrotika": "Некротика",
+      "Runnoy_iskusstvo": "Рунное искусство",
+      "Kinetica": "Кинетика",
       "Stitiyannost": "Стихийность",
-      "Vitamantia": "Витамантия",
+      "Biomantia": "Биомантия",
       "Psionika": "Псионика",
       "Predvidenie": "Предвидение"
     },
