@@ -5,7 +5,17 @@
 
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
+    async _render(force = false, options = {}) {
+        // Сохраняем текущее положение скролла
+        const scrollContainer = this.element.find(".sheet-scrollable");
+        const scrollPos = scrollContainer.scrollTop();
 
+        // Вызываем родительскую реализацию рендера
+        await super._render(force, options);
+
+        // Восстанавливаем положение скролла
+        this.element.find(".sheet-scrollable").scrollTop(scrollPos);
+    }
     async close(options = {}) {
         // Удаляем все оставшиеся tooltip
         $("body").find(".ability-tooltip").remove();
@@ -275,6 +285,7 @@ export class myrpgActorSheet extends ActorSheet {
             this.actor.update({ [input.name]: val }, { render: false });
         });
     }
+
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['myrpg', 'sheet', 'actor', 'myrpg-hex-tabs'],
