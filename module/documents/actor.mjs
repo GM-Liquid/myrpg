@@ -32,7 +32,7 @@ export class myrpgActor extends Actor {
 
     _prepareCharacterData(actorData) {
         const systemData = actorData.system;
-
+        systemData.initiative = systemData.abilities.dex.value;
         // Пример: «модификаторы» способностей (если вам нужно)
         for (let [key, ability] of Object.entries(systemData.abilities)) {
             ability.mod = ability.value;
@@ -126,7 +126,7 @@ export class myrpgActor extends Actor {
         data[k] = foundry.utils.deepClone(v);
       }
       }
-
+      data.generalBonus = Number(systemData.generalBonus) || 0;
       if (data.skills) {
           for (let [x, c] of Object.entries(data.skills)) {
               let skillData = foundry.utils.deepClone(c);

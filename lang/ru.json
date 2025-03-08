@@ -10,11 +10,15 @@
       "No": "Нет"
     },
     "KeyInfo": {
+      "Name": "Имя",
       "Calling": "Призвание",
-      "Gender": "Пол",
-      "Age": "Возраст",
       "CurrentRank": "Текущий ранг",
-      "Name": "Имя"
+      "Initiative": "Инициатива",
+      "Gender": "Пол",
+      "Age": "Возраст"
+    },
+    "GlobalBonus": {
+      "Label": "Общий бонус"
     },
     "SheetLabels": {
       "AbilitiesAndMods": "Способности и модификации",
