@@ -118,34 +118,35 @@ export class myrpgActor extends Actor {
    */
     _getCharacterRollData(data) {
         if (this.type !== 'character') return;
-        const systemData = this.system;  // Добавлено для определения systemData
+        const systemData = this.system;
 
-        // Копирование способностей на верхний уровень для использования в формулах
-        if (data.abilities) {
-            for (let [k, v] of Object.entries(data.abilities)) {
-                data[k] = foundry.utils.deepClone(v);
+        // Копирование способностей из system.abilities в корень данных для формул бросков
+        if (systemData.abilities) {
+            for (let [key, ability] of Object.entries(systemData.abilities)) {
+                data[key] = foundry.utils.deepClone(ability);
             }
         }
+
+        // Общий бонус (если он задан)
         data.generalBonus = Number(systemData.generalBonus) || 0;
 
-        if (data.skills) {
-            for (let [x, c] of Object.entries(data.skills)) {
-                let skillData = foundry.utils.deepClone(c);
+        // Копирование навыков из system.skills в корень данных для формул бросков
+        if (systemData.skills) {
+            for (let [skillKey, skill] of Object.entries(systemData.skills)) {
+                let skillData = foundry.utils.deepClone(skill);
+                // Если значение не задано, приводим к числу (0)
                 if (skillData.value === "" || skillData.value === null || skillData.value === undefined) {
                     skillData.value = 0;
                 } else {
                     skillData.value = parseInt(skillData.value, 10) || 0;
                 }
-                data[x] = skillData;
+                data[skillKey] = skillData;
             }
         }
 
-        // Добавление уровня для удобства
-        if (data.attributes.level) {
-            data.lvl = data.attributes.level.value ?? 0;
-        }
-        if (data.attributes.level) {
-            data.lvl = data.attributes.level.c ?? 0;
+        // Добавление уровня персонажа, если он определён в attributes
+        if (data.attributes && data.attributes.level) {
+            data.lvl = data.attributes.level.value ?? data.attributes.level.c ?? 0;
         }
     }
 
