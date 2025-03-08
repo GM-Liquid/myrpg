@@ -120,33 +120,34 @@ export class myrpgActor extends Actor {
         if (this.type !== 'character') return;
         const systemData = this.system;
 
-        //  опирование способностей из system.abilities в корень данных дл€ формул бросков
-        if (systemData.abilities) {
-            for (let [key, ability] of Object.entries(systemData.abilities)) {
-                data[key] = foundry.utils.deepClone(ability);
-            }
-        }
+        //  опируем способности, сохран€€ вложенную структуру
+        data.abilities = foundry.utils.deepClone(systemData.abilities) || {};
 
-        // ќбщий бонус (если он задан)
-        data.generalBonus = Number(systemData.generalBonus) || 0;
+        // ”бедимс€, что дл€ каждой способности уже вычислено поле mod (в prepareDerivedData это делаетс€)
+        // “еперь формула сможет обратитьс€ к @abilities.wis.mod
 
-        //  опирование навыков из system.skills в корень данных дл€ формул бросков
+        //  опируем навыки, сохран€€ их в data.skills
+        data.skills = {};
         if (systemData.skills) {
             for (let [skillKey, skill] of Object.entries(systemData.skills)) {
                 let skillData = foundry.utils.deepClone(skill);
-                // ≈сли значение не задано, приводим к числу (0)
-                if (skillData.value === "" || skillData.value === null || skillData.value === undefined) {
-                    skillData.value = 0;
-                } else {
-                    skillData.value = parseInt(skillData.value, 10) || 0;
-                }
-                data[skillKey] = skillData;
+                // ѕриводим значение навыка к числу (если не задано Ц ставим 0)
+                skillData.value = (skillData.value === "" || skillData.value === null || skillData.value === undefined)
+                    ? 0
+                    : parseInt(skillData.value, 10);
+                data.skills[skillKey] = skillData;
             }
         }
 
-        // ƒобавление уровн€ персонажа, если он определЄн в attributes
-        if (data.attributes && data.attributes.level) {
-            data.lvl = data.attributes.level.value ?? data.attributes.level.c ?? 0;
+        // ќбщий бонус, если он задан
+        data.generalBonus = Number(systemData.generalBonus) || 0;
+
+        // ≈сли в системе есть дополнительные атрибуты, копируем их
+        if (systemData.attributes) {
+            data.attributes = foundry.utils.deepClone(systemData.attributes);
+            if (data.attributes.level) {
+                data.lvl = data.attributes.level.value || data.attributes.level.c || 0;
+            }
         }
     }
 
