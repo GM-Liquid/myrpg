@@ -116,39 +116,38 @@ export class myrpgActor extends Actor {
   /**
    * Prepare character roll data.
    */
-  _getCharacterRollData(data) {
-    if (this.type !== 'character') return;
+    _getCharacterRollData(data) {
+        if (this.type !== 'character') return;
+        const systemData = this.system;  // Добавлено для определения systemData
 
-    // Copy the ability scores to the top level, so that rolls can use
-    // formulas like `@str.mod + 4`.
-    if (data.abilities) {
-      for (let [k, v] of Object.entries(data.abilities)) {
-        data[k] = foundry.utils.deepClone(v);
-      }
-      }
-      data.generalBonus = Number(systemData.generalBonus) || 0;
-      if (data.skills) {
-          for (let [x, c] of Object.entries(data.skills)) {
-              let skillData = foundry.utils.deepClone(c);
-              // Если значение пустое, обрабатываем его как 0
-              if (skillData.value === "" || skillData.value === null || skillData.value === undefined) {
-                  skillData.value = 0;
-              } else {
-                  skillData.value = parseInt(skillData.value, 10) || 0;
-              }
-              data[x] = skillData;
-          }
-      }
+        // Копирование способностей на верхний уровень для использования в формулах
+        if (data.abilities) {
+            for (let [k, v] of Object.entries(data.abilities)) {
+                data[k] = foundry.utils.deepClone(v);
+            }
+        }
+        data.generalBonus = Number(systemData.generalBonus) || 0;
 
-    // Add level for easier access, or fall back to 0.
-    if (data.attributes.level) {
-      data.lvl = data.attributes.level.value ?? 0;
-      }
+        if (data.skills) {
+            for (let [x, c] of Object.entries(data.skills)) {
+                let skillData = foundry.utils.deepClone(c);
+                if (skillData.value === "" || skillData.value === null || skillData.value === undefined) {
+                    skillData.value = 0;
+                } else {
+                    skillData.value = parseInt(skillData.value, 10) || 0;
+                }
+                data[x] = skillData;
+            }
+        }
 
-      if (data.attributes.level) {
-          data.lvl = data.attributes.level.c ?? 0;
-      }
-  }
+        // Добавление уровня для удобства
+        if (data.attributes.level) {
+            data.lvl = data.attributes.level.value ?? 0;
+        }
+        if (data.attributes.level) {
+            data.lvl = data.attributes.level.c ?? 0;
+        }
+    }
 
   /**
    * Prepare NPC roll data.
