@@ -272,7 +272,7 @@ export class myrpgActorSheet extends ActorSheet {
             }
 
             input.value = val;
-            this.actor.update({ [input.name]: val });
+            this.actor.update({ [input.name]: val }, { render: false });
         });
     }
     static get defaultOptions() {
