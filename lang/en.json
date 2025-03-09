@@ -1,0 +1,185 @@
+{
+  "MY_RPG": {
+    "Flux": {
+      "Label": "Flux"
+    },
+    "Dialog": {
+      "ConfirmDeleteTitle": "Delete Ability",
+      "ConfirmDeleteMessage": "Are you sure you want to delete this ability? This action cannot be undone.",
+      "Yes": "Yes",
+      "No": "No"
+    },
+    "KeyInfo": {
+      "Calling": "Calling",
+      "Gender": "Gender",
+      "Age": "Age",
+      "CurrentRank": "Current Rank",
+      "Name": "Name"
+    },
+    "SheetLabels": {
+      "AbilitiesAndMods": "Abilities and Modifications",
+      "Features": "Main Sheet",
+      "Abilities": "Abilities",
+      "Parameters": "Parameters",
+      "Attributes": "Attributes",
+      "Skills": "Skills",
+      "KeyInfo": "Key Information",
+      "Biography": "Biography & Notes"
+    },
+    "AbilityConfig": {
+      "Title": "Edit Ability",
+      "Save": "Save",
+      "Cancel": "Cancel",
+      "Name": "Name",
+      "Rank": "Rank",
+      "Effect": "Effect",
+      "Cost": "Cost",
+      "Desc": "Full Description",
+      "AlreadyEditing": "Editing dialog is already open. Close it first."
+    },
+    "Health": {
+      "Label": "Health Points (HP)",
+      "Temp": "Temporary HP",
+      "SubCurrent": "Current",
+      "SubDamage": "Damage",
+      "SubMax": "Max"
+    },
+    "Armor": {
+      "Label": "Armor Class",
+      "BonusLabel": "Armor Bonus"
+    },
+    "ArmorItem": {
+      "ArmorSectionTitle": "Armor",
+      "DescriptionLabel": "Description",
+      "ACLabel": "AC Bonus",
+      "SteadfastLabel": "Steadfast Bonus"
+    },
+    "Tension": {
+      "Label": "Tension",
+      "ValueLabel": "Current",
+      "MaxLabel": "Max"
+    },
+    "Steadfast": {
+      "Label": "Steadfast",
+      "BonusLabel": "Armor Bonus"
+    },
+    "Speed": {
+      "Label": "Movement Speed"
+    },
+    "TempBonus": {
+      "Label": "Temporary Bonuses"
+    },
+    "TempHealth": {
+      "Label": "Temporary HP"
+    },
+    "TempFlux": {
+      "Label": "Temporary Flux"
+    },
+    "TempArmor": {
+      "Label": "Temporary AC Bonus"
+    },
+    "TempSteadfast": {
+      "Label": "Temporary Steadfast"
+    },
+    "TempSpeed": {
+      "Label": "Temporary Speed"
+    },
+    "abilityAbbreviations": {
+      "will": "WILL",
+      "dex": "DEX",
+      "con": "CON",
+      "int": "INT",
+      "wis": "WIS",
+      "cond": "CONJ"
+    },
+    "Ability": {
+      "Will": {
+        "long": "Will",
+        "abbr": "WIL"
+      },
+      "Con": {
+        "long": "Constitution",
+        "abbr": "CON"
+      },
+      "Dex": {
+        "long": "Dexterity",
+        "abbr": "DEX"
+      },
+      "Int": {
+        "long": "Intelligence",
+        "abbr": "INT"
+      },
+      "Wis": {
+        "long": "Wisdom",
+        "abbr": "WIS"
+      },
+      "Cond": {
+        "long": "Conduction",
+        "abbr": "CONJ"
+      }
+    },
+    "Skill": {
+      "Stoikost": "Steadfast",
+      "Blef": "Bluff",
+      "Obshchenie": "Communication",
+      "Zapugivanie": "Intimidation",
+      "Torgovlya": "Trade",
+      "Diplomatiya": "Diplomacy",
+      "Akrobatika": "Acrobatics",
+      "Skrytost": "Stealth",
+      "Vladeniye_takt_dalnim": "Tactical Ranged Weapons",
+      "Upravlenie_transportom": "Piloting",
+      "Lovkost_ruk": "Sleight of Hand",
+      "Blizhniy_boy": "Melee Combat",
+      "Vladeniye_tyazhelym_dalnim": "Heavy Ranged Weapons",
+      "Atletika": "Athletics",
+      "Vynoslivost": "Endurance",
+      "Znanie_azur": "Azure Lore",
+      "Rassledovanie": "Investigation",
+      "Programmirovanie": "Programming",
+      "Biologicheskie_nauki": "Biological Sciences",
+      "Fizicheskie_nauki": "Physical Sciences",
+      "Kultura": "Culture",
+      "Vnimanie": "Perception",
+      "Vyzhivanie": "Survival",
+      "Meditsina": "Medicine",
+      "Mekhanika": "Mechanics",
+      "Elektronika": "Electronics",
+      "Oruzheynoe_delo": "Gunsmithing",
+      "Pronitsatelnost": "Insight",
+      "Runnoy_iskusstvo": "Artificery",
+      "Nekrotika": "Necrotics",
+      "Stitiyannost": "Elementalism",
+      "Vitamantia": "Vitamancy",
+      "Psionika": "Psionics",
+      "Predvidenie": "Foresight"
+    },
+    "Biography": {
+      "Weight": "Weight",
+      "Height": "Height",
+      "EyeColor": "Eye Color",
+      "HairColor": "Hair Color",
+      "Appearance": "Appearance",
+      "Notes": "Notes"
+    },
+    "AbilitiesTable": {
+      "TableHeading": "Abilities Table",
+      "Name": "Name",
+      "Desc": "Full Description",
+      "Effect": "Effect",
+      "Cost": "Cost",
+      "AddRow": "Add Row",
+      "Rank": "Rank"
+    }
+  },
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Item",
+      "feature": "Feature"
+    }
+  }
+}

@@ -16,7 +16,7 @@
       "thumbnail": "systems/myrpg/assets/anvil-impact.png"
     }
   ],
-  "version": "2.124",
+  "version": "2.125",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
@@ -28,7 +28,13 @@
       "lang": "ru",
       "name": "Русский",
       "path": "lang/ru.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
     }
+
   ],
   "packs": [],
   "packFolders": [],
