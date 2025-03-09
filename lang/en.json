@@ -17,7 +17,7 @@
       "Name": "Name"
     },
     "SheetLabels": {
-      "AbilitiesAndMods": "Abilities and Modifications",
+      "AbilitiesAndMods": "Abilities and Mods",
       "Features": "Main Sheet",
       "Abilities": "Abilities",
       "Parameters": "Parameters",
@@ -35,11 +35,11 @@
       "Effect": "Effect",
       "Cost": "Cost",
       "Desc": "Full Description",
-      "AlreadyEditing": "Editing dialog is already open. Close it first."
+      "AlreadyEditing": "An edit dialog is already open. Please close it before opening another."
     },
     "Health": {
       "Label": "Health Points (HP)",
-      "Temp": "Temporary HP",
+      "Temp": "Temp HP",
       "SubCurrent": "Current",
       "SubDamage": "Damage",
       "SubMax": "Max"
@@ -70,52 +70,47 @@
       "Label": "Temporary Bonuses"
     },
     "TempHealth": {
-      "Label": "Temporary HP"
+      "Label": "Temp HP"
     },
     "TempFlux": {
-      "Label": "Temporary Flux"
+      "Label": "Temp Flux"
     },
     "TempArmor": {
-      "Label": "Temporary AC Bonus"
+      "Label": "Temp AC Bonus"
     },
     "TempSteadfast": {
-      "Label": "Temporary Steadfast"
+      "Label": "Temp Steadfast"
     },
     "TempSpeed": {
-      "Label": "Temporary Speed"
+      "Label": "Temp Speed"
     },
     "abilityAbbreviations": {
-      "will": "WILL",
-      "dex": "DEX",
-      "con": "CON",
-      "int": "INT",
-      "wis": "WIS",
-      "cond": "CONJ"
+      "will": "Will",
+      "dex": "Ref",
+      "con": "Body",
+      "int": "Mind",
+      "cond": "Agility"
     },
     "Ability": {
       "Will": {
         "long": "Will",
-        "abbr": "WIL"
+        "abbr": "Will"
       },
       "Con": {
-        "long": "Constitution",
-        "abbr": "CON"
+        "long": "Body",
+        "abbr": "Body"
       },
       "Dex": {
-        "long": "Dexterity",
-        "abbr": "DEX"
+        "long": "Reflex",
+        "abbr": "Ref"
       },
       "Int": {
-        "long": "Intelligence",
-        "abbr": "INT"
-      },
-      "Wis": {
-        "long": "Wisdom",
-        "abbr": "WIS"
+        "long": "Mind",
+        "abbr": "Mind"
       },
       "Cond": {
-        "long": "Conduction",
-        "abbr": "CONJ"
+        "long": "Agility",
+        "abbr": "Agi"
       }
     },
     "Skill": {
@@ -123,34 +118,29 @@
       "Blef": "Bluff",
       "Obshchenie": "Communication",
       "Zapugivanie": "Intimidation",
-      "Torgovlya": "Trade",
+      "Torgovlya": "Trading",
       "Diplomatiya": "Diplomacy",
       "Akrobatika": "Acrobatics",
       "Skrytost": "Stealth",
-      "Vladeniye_takt_dalnim": "Tactical Ranged Weapons",
+      "Vladeniye_takt_dalnim": "Long-Range Weapons",
       "Upravlenie_transportom": "Piloting",
       "Lovkost_ruk": "Sleight of Hand",
       "Blizhniy_boy": "Melee Combat",
       "Vladeniye_tyazhelym_dalnim": "Heavy Ranged Weapons",
       "Atletika": "Athletics",
       "Vynoslivost": "Endurance",
-      "Znanie_azur": "Azure Lore",
-      "Rassledovanie": "Investigation",
-      "Programmirovanie": "Programming",
-      "Biologicheskie_nauki": "Biological Sciences",
-      "Fizicheskie_nauki": "Physical Sciences",
+      "Analiz": "Analysis",
+      "Tekhnika": "Technology",
+      "Priroda": "Nature",
       "Kultura": "Culture",
       "Vnimanie": "Perception",
-      "Vyzhivanie": "Survival",
       "Meditsina": "Medicine",
-      "Mekhanika": "Mechanics",
-      "Elektronika": "Electronics",
-      "Oruzheynoe_delo": "Gunsmithing",
-      "Pronitsatelnost": "Insight",
-      "Runnoy_iskusstvo": "Artificery",
-      "Nekrotika": "Necrotics",
-      "Stitiyannost": "Elementalism",
-      "Vitamantia": "Vitamancy",
+      "Oruzheynoe_delo": "Weaponry",
+      "Hladnokrovie": "Composure",
+      "Runnoy_iskusstvo": "Runic Art",
+      "Kinetica": "Kinesis",
+      "Stitiyannost": "Elemental",
+      "Biomantia": "Biomancy",
       "Psionika": "Psionics",
       "Predvidenie": "Foresight"
     },
