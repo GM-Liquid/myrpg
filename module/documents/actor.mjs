@@ -60,6 +60,7 @@ export class myrpgActor extends Actor {
             systemData.health.value = systemData.health.max;
         }
         systemData.health.damage = Math.floor(systemData.health.max / 2);
+        systemData.tension.max = Math.floor(systemData.health.max / 2);
 
         // ѕоток (Flux)
         // Ѕазовый поток вычисл€етс€ по таблице в зависимости от значени€ способности cond

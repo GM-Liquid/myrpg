@@ -10,12 +10,18 @@ import { MY_RPG } from './helpers/config.mjs';
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-Hooks.once('init', function () {
+Hooks.once('init', function ()
+    {
     // Add utility classes to the global game object so that they're more easily
     // accessible in global contexts.
     game.myrpg = {
         myrpgActor,
     };
+
+    
+    if (game.world && game.world.name === "Stellar") {
+            game.i18n.translations.MY_RPG.Skill.Runnoy_iskusstvo = "Артефакторика";
+        };
 
     // Add custom constants for configuration.
     CONFIG.MY_RPG = MY_RPG;
