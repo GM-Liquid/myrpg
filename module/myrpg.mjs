@@ -19,12 +19,6 @@ Hooks.once('init', function ()
     };
 
     
-    if (game.world && game.world.title === "Stellar") {
-        game.i18n.translations.MY_RPG.Skill.Runnoy_iskusstvo = "Артефакторика";
-        console.log("Локализация Runnoy_iskusstvo изменена на 'Артефакторика'");
-    } else {
-        console.log("Название кампании не совпадает с 'Stellar'");
-    }
 
     // Add custom constants for configuration.
     CONFIG.MY_RPG = MY_RPG;
