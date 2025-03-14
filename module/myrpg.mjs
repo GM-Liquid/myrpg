@@ -19,11 +19,11 @@ Hooks.once('init', function ()
     };
 
     
-    if (game.world && game.world.id.toLowerCase() === "stellar") {
+    if (game.world && game.world.title === "Stellar") {
         game.i18n.translations.MY_RPG.Skill.Runnoy_iskusstvo = "Артефакторика";
         console.log("Локализация Runnoy_iskusstvo изменена на 'Артефакторика'");
     } else {
-        console.log("ID кампании не совпадает с 'stellar'");
+        console.log("Название кампании не совпадает с 'Stellar'");
     }
 
     // Add custom constants for configuration.
@@ -33,10 +33,6 @@ Hooks.once('init', function ()
      * Set an initiative formula for the system
      * @type {String}
      */
-    CONFIG.Combat.initiative = {
-        formula: '1d20 + @abilities.wis.mod',
-        decimals: 2,
-    };
 
     // Define custom Document classes
     CONFIG.Actor.documentClass = myrpgActor;
