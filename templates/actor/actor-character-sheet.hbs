@@ -5,6 +5,7 @@
         <nav class="sheet-tabs-hex" data-group="primary">
             <a class="hex-button" data-tab="features">{{localize "MY_RPG.SheetLabels.Features"}}</a>
             <a class="hex-button" data-tab="abilities">{{localize "MY_RPG.SheetLabels.AbilitiesAndMods"}}</a>
+            <a class="hex-button" data-tab="inventory">{{localize "MY_RPG.SheetLabels.Inventory"}}</a>
             <a class="hex-button" data-tab="biography">{{localize "MY_RPG.SheetLabels.Biography"}}</a>
         </nav>
     </div>
@@ -300,33 +301,7 @@
                     </div>
 
                     <!-- Доспех: тоже .limited-height, чтобы совпадал по размеру -->
-                    <div class="flexcol col-25-last">
-                        <div class="sheet-box limited-height">
-                            <h3>{{localize "MY_RPG.ArmorItem.ArmorSectionTitle"}}</h3>
-                            <div class="armor-description">
-                                <label>{{localize "MY_RPG.ArmorItem.DescriptionLabel"}}</label>
-                                <textarea name="system.armor.itemDesc" rows="3">{{system.armor.itemDesc}}</textarea>
-                            </div>
-                            <div class="armor-values flexrow">
-                                <div class="flexcol">
-                                    <label>{{localize "MY_RPG.ArmorItem.ACLabel"}}</label>
-                                    <input type="number"
-                                           name="system.armor.itemAC"
-                                           value="{{system.armor.itemAC}}"
-                                           step="1"
-                                           inputmode="numeric" />
-                                </div>
-                                <div class="flexcol">
-                                    <label>{{localize "MY_RPG.ArmorItem.SteadfastLabel"}}</label>
-                                    <input type="number"
-                                           name="system.armor.itemSteadfast"
-                                           value="{{system.armor.itemSteadfast}}"
-                                           step="1"
-                                           inputmode="numeric" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </section>
 
             </div> <!-- Конец вкладки Features -->
@@ -383,6 +358,35 @@
                         </tbody>
                     </table>
                 </section>
+            </div>
+
+            <!-- Вкладка "Инвентарь" -->
+            <div class="tab inventory" data-group="primary" data-tab="inventory">
+                <div class="sheet-box limited-height">
+                    <h3>{{localize "MY_RPG.ArmorItem.ArmorSectionTitle"}}</h3>
+                    <div class="armor-description">
+                        <label>{{localize "MY_RPG.ArmorItem.DescriptionLabel"}}</label>
+                        <textarea name="system.armor.itemDesc" rows="3">{{system.armor.itemDesc}}</textarea>
+                    </div>
+                    <div class="armor-values flexrow">
+                        <div class="flexcol">
+                            <label>{{localize "MY_RPG.ArmorItem.ACLabel"}}</label>
+                            <input type="number"
+                                   name="system.armor.itemAC"
+                                   value="{{system.armor.itemAC}}"
+                                   step="1"
+                                   inputmode="numeric" />
+                        </div>
+                        <div class="flexcol">
+                            <label>{{localize "MY_RPG.ArmorItem.SteadfastLabel"}}</label>
+                            <input type="number"
+                                   name="system.armor.itemSteadfast"
+                                   value="{{system.armor.itemSteadfast}}"
+                                   step="1"
+                                   inputmode="numeric" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </section>

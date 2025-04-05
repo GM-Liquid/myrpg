@@ -24,7 +24,8 @@
       "Attributes": "Attributes",
       "Skills": "Skills",
       "KeyInfo": "Key Information",
-      "Biography": "Biography & Notes"
+      "Biography": "Biography & Notes",
+      "Inventory": "Inventory"
     },
     "AbilityConfig": {
       "Title": "Edit Ability",
