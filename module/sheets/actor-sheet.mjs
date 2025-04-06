@@ -229,7 +229,7 @@ export class myrpgActorSheet extends ActorSheet {
                                 plugins: "link lists contextmenu",
                                 toolbar: false,
                                 contextmenu: "bold italic underline strikethrough link bullist numlist",
-                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
+                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; } p { margin: 0; }",
                                 setup: function (editor) {
                                     // Ќе задаЄм дополнительные стили, чтобы редактор наследовал стиль обычных полей
                                     editor.on("init", function () {

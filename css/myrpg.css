@@ -739,3 +739,14 @@ form textarea {
     }
 
 /* --- Конец блока --- */
+
+
+.window-app.dialog .tox-tinymce {
+    border: 2px solid #1b1210 !important;
+    background-color: #f8f8f8 !important;
+    border-radius: 4px !important;
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
