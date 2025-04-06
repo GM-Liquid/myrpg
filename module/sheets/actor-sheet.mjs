@@ -229,11 +229,11 @@ export class myrpgActorSheet extends ActorSheet {
                                 plugins: "link lists contextmenu",
                                 toolbar: false,
                                 contextmenu: "bold italic underline strikethrough link bullist numlist",
+                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
                                 setup: function (editor) {
-                                    // Можно оставить пустым или настроить что-то ещё,
-                                    // но без стилизации container.style...
+                                    // Не задаём дополнительные стили, чтобы редактор наследовал стиль обычных полей
                                     editor.on("init", function () {
-                                        // Пусто или какие-то дополнительные настройки
+                                        // Можно оставить пустым
                                     });
                                 }
                             });
@@ -333,14 +333,10 @@ export class myrpgActorSheet extends ActorSheet {
                                 plugins: "link lists contextmenu",
                                 toolbar: false,
                                 contextmenu: "bold italic underline strikethrough link bullist numlist",
+                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        const container = this.getContainer();
-                                        container.style.height = "120px";
-                                        container.style.width = "100%";
-                                        container.style.border = "1px solid #888";
-                                        container.style.borderRadius = "4px";
-                                        container.style.backgroundColor = "#f8f8f8";
+                                        // Дополнительные настройки не требуются
                                     });
                                 }
                             });
@@ -381,8 +377,6 @@ export class myrpgActorSheet extends ActorSheet {
         // ----------------------------------------------------------------------
         // ПРОЧИЕ ОБРАБОТЧИКИ
         // ----------------------------------------------------------------------
-
-        // При изменении числовых значений способностей/навыков
         html.find('input[name^="system.abilities."], input[name^="system.skills."]').on("change", ev => {
             const input = ev.currentTarget;
             let val = parseInt(input.value, 10);
@@ -449,11 +443,9 @@ export class myrpgActorSheet extends ActorSheet {
     }
 
     _prepareCharacterData(context) {
-        // Локализация названий характеристик
         for (let [k, v] of Object.entries(context.system.abilities)) {
             v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
         }
-        // Локализация названий навыков
         for (let [x, c] of Object.entries(context.system.skills)) {
             c.label = game.i18n.localize(CONFIG.MY_RPG.skills[x]) ?? x;
         }
