@@ -338,9 +338,9 @@
                         <tbody>
                             {{#each system.abilitiesList as |row i|}}
                             <tr class="ability-row" data-index="{{i}}">
-                                <td class="col-name">{{row.name}}</td>
+                                <td class="col-name">{{{row.name}}}</td>
                                 <td class="col-rank">{{row.rank}}</td>
-                                <td class="col-effect">{{row.effect}}</td>
+                                <td class="col-effect">{{{row.effect}}}</td>
                                 <td class="col-cost">{{row.cost}}</td>
                                 <td class="col-delete">
                                     <a class="abilities-remove-row" data-index="{{i}}">
@@ -401,8 +401,8 @@
                         <tbody>
                             {{#each system.inventoryList as |item i|}}
                             <tr class="inventory-row" data-index="{{i}}">
-                                <td class="col-name">{{item.name}}</td>
-                                <td class="col-effect">{{item.desc}}</td>
+                                <td class="col-name">{{{item.name}}}</td>
+                                <td class="col-effect">{{{item.desc}}}</td>
                                 <td class="col-cost">{{item.quantity}}</td>
                                 <td class="col-delete">
                                     <a class="inventory-remove-row" data-index="{{i}}">
