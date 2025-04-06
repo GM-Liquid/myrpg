@@ -705,31 +705,37 @@ form textarea {
             text-shadow: none !important; /* убираем тень, если она была */
             opacity: 1 !important;
         }
+/* --- Начало блока для современных версий TinyMCE (Foundry V10+), где используются классы .tox-... --- */
 
-/* Стили для контейнера TinyMCE, чтобы выглядел как обычное поле ввода */
-.myrpg .mce-tinymce.mce-container {
-    border: 2px solid #1b1210 !important;
-    background-color: #f8f8f8 !important;
+/* Внешний контейнер редактора */
+.myrpg .tox-tinymce {
+    border: 2px solid #1b1210 !important; /* Цвет и толщина рамки */
+    background-color: #f8f8f8 !important; /* Фон, как у обычных полей */
     border-radius: 4px !important;
     box-sizing: border-box;
-    width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    width: 100% !important; /* Растягиваем на всю ширину */
 }
 
-    /* Внутренняя область, где вводится текст */
-    .myrpg .mce-tinymce.mce-container .mce-content-body {
+    /* Внутренняя часть, где находится само поле ввода */
+    .myrpg .tox-tinymce .tox-editor-container {
         background-color: #f8f8f8 !important;
-        padding: 5px !important;
-        color: #1b1210 !important;
-        font-family: inherit !important;
-        font-size: inherit !important;
-        line-height: 1.2 !important; /* При необходимости */
+        border: none !important; /* Убираем лишнюю внутреннюю рамку */
+        min-height: 60px !important; /* Минимальная высота, как у textarea */
+        box-sizing: border-box;
     }
 
-    /* Применяем общие шрифты/цвета ко всем элементам внутри редактора */
-    .myrpg .mce-tinymce.mce-container * {
+    /* Сам iframe, если нужно задать ему цвет фона */
+    .myrpg .tox-tinymce .tox-edit-area__iframe {
+        background-color: #f8f8f8 !important;
+    }
+
+    /* Наследуем шрифт, размер и цвет из .myrpg (как у обычных <input> и <textarea>) */
+    .myrpg .tox-tinymce * {
         font-family: inherit !important;
         font-size: inherit !important;
         color: #1b1210 !important;
     }
+
+/* --- Конец блока --- */
