@@ -128,6 +128,23 @@ textarea[disabled] {
     /* по умолчанию пусть займёт auto, потом переопределим */
 }
 
+/* Настройка столбцов для таблицы инвентаря */
+.myrpg .abilities-table th.col-name {
+    width: 30%;
+}
+
+.myrpg .abilities-table th.col-effect {
+    width: 55%;
+}
+
+.myrpg .abilities-table th.col-cost {
+    width: 10%;
+}
+
+.myrpg .abilities-table th.col-delete {
+    width: 5%;
+}
+
 /* Примеры под ваши макеты:
    Для 50% ширины */
 .col-50 {

@@ -389,12 +389,12 @@
                 </div>
                 <div class="sheet-box">
                     <h3>{{localize "MY_RPG.Inventory.TableHeading"}}</h3>
-                    <table class="inventory-table">
+                    <table class="abilities-table">
                         <thead>
                             <tr>
                                 <th class="col-name">{{localize "MY_RPG.Inventory.Name"}}</th>
-                                <th class="col-desc">{{localize "MY_RPG.Inventory.Description"}}</th>
-                                <th class="col-quantity">{{localize "MY_RPG.Inventory.Quantity"}}</th>
+                                <th class="col-effect">{{localize "MY_RPG.Inventory.Description"}}</th>
+                                <th class="col-cost">{{localize "MY_RPG.Inventory.Quantity"}}</th>
                                 <th class="col-delete"></th>
                             </tr>
                         </thead>
@@ -402,8 +402,8 @@
                             {{#each system.inventoryList as |item i|}}
                             <tr class="inventory-row" data-index="{{i}}">
                                 <td class="col-name">{{item.name}}</td>
-                                <td class="col-desc">{{item.desc}}</td>
-                                <td class="col-quantity">{{item.quantity}}</td>
+                                <td class="col-effect">{{item.desc}}</td>
+                                <td class="col-cost">{{item.quantity}}</td>
                                 <td class="col-delete">
                                     <a class="inventory-remove-row" data-index="{{i}}">
                                         <i class="fa-solid fa-trash"></i>
