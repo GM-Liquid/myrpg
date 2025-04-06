@@ -224,20 +224,16 @@ export class myrpgActorSheet extends ActorSheet {
                                 target: this,
                                 inline: false,
                                 menubar: false,
-                                branding: false,       // Убираем лого Tiny
-                                statusbar: false,      // Убираем нижнюю панель (с 'p' и др.)
+                                branding: false,
+                                statusbar: false,
                                 plugins: "link lists contextmenu",
                                 toolbar: false,
                                 contextmenu: "bold italic underline strikethrough link bullist numlist",
                                 setup: function (editor) {
+                                    // Можно оставить пустым или настроить что-то ещё,
+                                    // но без стилизации container.style...
                                     editor.on("init", function () {
-                                        const container = this.getContainer();
-                                        // Задаём стили, чтобы напоминало обычное поле ввода
-                                        container.style.height = "120px";
-                                        container.style.width = "100%";
-                                        container.style.border = "1px solid #888";
-                                        container.style.borderRadius = "4px";
-                                        container.style.backgroundColor = "#f8f8f8";
+                                        // Пусто или какие-то дополнительные настройки
                                     });
                                 }
                             });

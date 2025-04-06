@@ -681,3 +681,55 @@ form textarea {
     .window-app.myrpg .window-header .window-title {
         color: #ffffff !important; /* Замените на любой цвет */
     }
+
+
+/* 1) Общий фон диалога (если нужно убрать прозрачность фона самого окна) */
+.window-app.myrpg.dialog {
+    background: #d2d2c9 !important; /* ваш фон, можно оставить как есть */
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+    /* 2) Верхняя панель (шапка) диалога */
+    .window-app.myrpg.dialog .window-header {
+        background-color: #6d031c !important; /* ваш основной цвет */
+        background-image: none !important; /* убираем градиенты Foundry */
+        opacity: 1 !important; /* убираем прозрачность */
+        filter: none !important;
+    }
+
+        /* 3) Заголовок (текст) и кнопка "Close" */
+        .window-app.myrpg.dialog .window-header .window-title,
+        .window-app.myrpg.dialog .window-header .close {
+            color: #ffffff !important; /* цвет текста */
+            text-shadow: none !important; /* убираем тень, если она была */
+            opacity: 1 !important;
+        }
+
+/* Стили для контейнера TinyMCE, чтобы выглядел как обычное поле ввода */
+.myrpg .mce-tinymce.mce-container {
+    border: 2px solid #1b1210 !important;
+    background-color: #f8f8f8 !important;
+    border-radius: 4px !important;
+    box-sizing: border-box;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+    /* Внутренняя область, где вводится текст */
+    .myrpg .mce-tinymce.mce-container .mce-content-body {
+        background-color: #f8f8f8 !important;
+        padding: 5px !important;
+        color: #1b1210 !important;
+        font-family: inherit !important;
+        font-size: inherit !important;
+        line-height: 1.2 !important; /* При необходимости */
+    }
+
+    /* Применяем общие шрифты/цвета ко всем элементам внутри редактора */
+    .myrpg .mce-tinymce.mce-container * {
+        font-family: inherit !important;
+        font-size: inherit !important;
+        color: #1b1210 !important;
+    }
