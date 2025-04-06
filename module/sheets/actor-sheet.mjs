@@ -16,6 +16,7 @@ export class myrpgActorSheet extends ActorSheet {
         // Восстанавливаем положение скролла
         this.element.find(".sheet-scrollable").scrollTop(scrollPos);
     }
+
     async close(options = {}) {
         // Удаляем все оставшиеся tooltip
         $("body").find(".ability-tooltip").remove();
@@ -24,28 +25,30 @@ export class myrpgActorSheet extends ActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
+
+        // Пример: клик по элементам с классом .rollable
         html.find(".rollable").click(this._onRoll.bind(this));
 
+        // ----------------------------------------------------------------------
+        // ОБРАБОТКА ТАБЛИЦЫ СПОСОБНОСТЕЙ
+        // ----------------------------------------------------------------------
         const $table = html.find(".abilities-table");
+
+        // При уходе курсора с таблицы способностей убираем tooltip
         $table.on("mouseleave", () => {
-            // При уходе курсора с таблицы — удаляем все tooltip
             $("body").find(".ability-tooltip").remove();
         });
 
-        // Наведение мыши (mouseenter) для строк способностей
+        // Показываем tooltip при наведении на строку способности
         html.find("tr.ability-row").on("mouseenter", event => {
             const $row = $(event.currentTarget);
-            // Получаем индекс способности
             const index = Number($row.data("index"));
-            // Берём массив способностей
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
             const abilityData = abilities[index] || {};
             const costValue = abilityData.cost;
-            const costText = (costValue === "" || costValue === null || costValue === undefined)
-                ? ""
-                : costValue;
-            // Создаём DOM-элемент tooltip
+            const costText = costValue ?? "";
+
             const $tooltip = $(`
         <div class="ability-tooltip">
           <strong>${abilityData.name || ""}</strong><br/>
@@ -55,6 +58,7 @@ export class myrpgActorSheet extends ActorSheet {
           <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}:</strong> ${costText}<br/>
         </div>
       `);
+
             $("body").append($tooltip);
             $tooltip.css({
                 position: "absolute",
@@ -65,16 +69,18 @@ export class myrpgActorSheet extends ActorSheet {
                 boxShadow: "0 0 5px rgba(0,0,0,0.2)",
                 pointerEvents: "none"
             });
+
             const rowOffset = $row.offset();
             const tooltipWidth = $tooltip.outerWidth();
             $tooltip.css({
                 top: rowOffset.top + "px",
                 left: (rowOffset.left - tooltipWidth - 10) + "px"
             });
+
             $row.data("tooltip", $tooltip);
         });
 
-        // Уход курсора (mouseleave) для строк способностей
+        // Убираем tooltip, когда курсор уходит со строки
         html.find("tr.ability-row").on("mouseleave", event => {
             const $row = $(event.currentTarget);
             const $tooltip = $row.data("tooltip");
@@ -84,16 +90,18 @@ export class myrpgActorSheet extends ActorSheet {
             }
         });
 
-        // Клик по "Отмена" — просто закрываем окно
+        // Кнопка "Отмена" (если где-то используется)
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
             this.close();
         });
-        // Добавить новую способность
+
+        // Добавить новую способность (строку)
         html.find("tr.add-row").click(ev => {
             ev.preventDefault();
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+
             abilities.push({
                 name: "",
                 rank: "",
@@ -101,10 +109,11 @@ export class myrpgActorSheet extends ActorSheet {
                 effect: "",
                 cost: ""
             });
+
             this.actor.update({ "system.abilitiesList": abilities });
         });
 
-        // Удаление строки из таблицы способностей
+        // Удалить способность
         html.find(".abilities-remove-row").click(ev => {
             ev.preventDefault();
             const index = Number(ev.currentTarget.dataset.index);
@@ -133,8 +142,9 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // Редактирование строки таблицы способностей с поддержкой форматированного текста
+        // Редактирование способности (с TinyMCE, но без плавающей панели)
         html.find("tr.ability-row").click(ev => {
+            // Если клик пришёлся на иконку удаления, игнорируем
             if ($(ev.target).closest(".abilities-remove-row").length) return;
             if (this._editing) {
                 ui.notifications.warn(game.i18n.localize("MY_RPG.AbilityConfig.AlreadyEditing"));
@@ -142,10 +152,13 @@ export class myrpgActorSheet extends ActorSheet {
             }
             ev.preventDefault();
             this._editing = true;
+
             const index = Number(ev.currentTarget.dataset.index);
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
+
             const abilityData = abilities[index] || {};
+
             let diag = new Dialog({
                 title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
                 content: `
@@ -177,6 +190,7 @@ export class myrpgActorSheet extends ActorSheet {
                         icon: '<i class="fas fa-check"></i>',
                         label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
                         callback: (htmlDialog) => {
+                            // Сохраняем данные из всех редакторов TinyMCE
                             tinymce.triggerSave();
                             const formEl = htmlDialog.find("form")[0];
                             const fd = new FormData(formEl);
@@ -204,17 +218,22 @@ export class myrpgActorSheet extends ActorSheet {
                     this._editing = false;
                 },
                 render: (html) => {
+                    // Инициализируем TinyMCE для каждого textarea.rich-editor
                     html.find("textarea.rich-editor").each(function () {
                         if (!this._tinyMCEInitialized) {
                             tinymce.init({
                                 target: this,
                                 inline: false,
                                 menubar: false,
-                                plugins: "link lists",
-                                toolbar: "bold italic underline strikethrough | bullist numlist | link",
+                                // Включаем контекстное меню и отключаем toolbar
+                                plugins: "link lists contextmenu",
+                                toolbar: false,
+                                // Команды, доступные при ПКМ
+                                contextmenu: "bold italic underline strikethrough link bullist numlist",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        this.getContainer().style.height = "100px";
+                                        // При желании можно задать фикс. высоту поля
+                                        this.getContainer().style.height = "120px";
                                     });
                                 }
                             });
@@ -226,12 +245,16 @@ export class myrpgActorSheet extends ActorSheet {
             diag.render(true);
         });
 
-        // --- Инвентарь ---
-        // Добавление новой строки в таблицу инвентаря
+        // ----------------------------------------------------------------------
+        // ОБРАБОТКА ТАБЛИЦЫ ИНВЕНТАРЯ
+        // ----------------------------------------------------------------------
+
+        // Добавить новую строку в инвентарь
         html.find(".inventory .add-row").click(ev => {
             ev.preventDefault();
             let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
             if (!Array.isArray(inventory)) inventory = Object.values(inventory);
+
             inventory.push({
                 name: "",
                 desc: "",
@@ -240,7 +263,7 @@ export class myrpgActorSheet extends ActorSheet {
             this.actor.update({ "system.inventoryList": inventory });
         });
 
-        // Редактирование строки таблицы инвентаря с поддержкой форматированного текста
+        // Редактирование строки инвентаря
         html.find("tr.inventory-row").click(ev => {
             if ($(ev.target).closest(".inventory-remove-row").length) return;
             if (this._editing) {
@@ -249,10 +272,13 @@ export class myrpgActorSheet extends ActorSheet {
             }
             ev.preventDefault();
             this._editing = true;
+
             const index = Number(ev.currentTarget.dataset.index);
             let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
             if (!Array.isArray(inventory)) inventory = Object.values(inventory);
+
             const itemData = inventory[index] || {};
+
             let diag = new Dialog({
                 title: game.i18n.localize("MY_RPG.Inventory.EditTitle"),
                 content: `
@@ -307,11 +333,12 @@ export class myrpgActorSheet extends ActorSheet {
                                 target: this,
                                 inline: false,
                                 menubar: false,
-                                plugins: "link lists",
-                                toolbar: "bold italic underline strikethrough | bullist numlist | link",
+                                plugins: "link lists contextmenu",
+                                toolbar: false,
+                                contextmenu: "bold italic underline strikethrough link bullist numlist",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        this.getContainer().style.height = "100px";
+                                        this.getContainer().style.height = "120px";
                                     });
                                 }
                             });
@@ -323,10 +350,11 @@ export class myrpgActorSheet extends ActorSheet {
             diag.render(true);
         });
 
-        // Удаление строки из таблицы инвентаря
+        // Удаление предмета из инвентаря
         html.find(".inventory-remove-row").click(ev => {
             ev.preventDefault();
             const index = Number(ev.currentTarget.dataset.index);
+
             new Dialog({
                 title: game.i18n.localize("MY_RPG.Inventory.ConfirmDeleteTitle"),
                 content: `<p>${game.i18n.localize("MY_RPG.Inventory.ConfirmDeleteMessage")}</p>`,
@@ -350,14 +378,20 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // Обработчики изменения input для способностей и навыков остаются без изменений
+        // ----------------------------------------------------------------------
+        // ПРОЧИЕ ОБРАБОТЧИКИ
+        // ----------------------------------------------------------------------
+
+        // При изменении числовых значений способностей/навыков (min=1 для характеристик, min=0 для навыков)
         html.find('input[name^="system.abilities."], input[name^="system.skills."]').on("change", ev => {
             const input = ev.currentTarget;
             let val = parseInt(input.value, 10);
+
             const isAbility = input.name.includes("system.abilities.");
             const label = isAbility ? "Характеристика" : "Навык";
             const minVal = isAbility ? 1 : 0;
             const maxVal = 20;
+
             if (isNaN(val)) {
                 val = minVal;
             }
@@ -368,6 +402,7 @@ export class myrpgActorSheet extends ActorSheet {
                 ui.notifications.warn(`${label} не может быть больше ${maxVal}`);
                 val = maxVal;
             }
+
             input.value = val;
             this.actor.update({ [input.name]: val }, { render: false });
         });
@@ -389,39 +424,50 @@ export class myrpgActorSheet extends ActorSheet {
             ]
         });
     }
+
     /** @override */
     get template() {
+        // Для NPC используем тот же шаблон, что и для персонажей (как в предыдущем коде)
         if (this.actor.type === "npc") {
             return `systems/myrpg/templates/actor/actor-character-sheet.hbs`;
         }
         return `systems/myrpg/templates/actor/actor-${this.actor.type}-sheet.hbs`;
     }
 
+    /** @override */
     getData() {
         const context = super.getData();
         const actorData = context.data;
         context.system = actorData.system;
         context.flags = actorData.flags;
+
         if (actorData.type === 'character' || actorData.type === 'npc') {
             this._prepareCharacterData(context);
         }
+
         context.rollData = context.actor.getRollData();
         return context;
     }
 
     _prepareCharacterData(context) {
+        // Локализация названий характеристик
         for (let [k, v] of Object.entries(context.system.abilities)) {
             v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
         }
+        // Локализация названий навыков
         for (let [x, c] of Object.entries(context.system.skills)) {
             c.label = game.i18n.localize(CONFIG.MY_RPG.skills[x]) ?? x;
         }
     }
 
+    /**
+     * Обработка клика по rollable-элементам
+     */
     _onRoll(event) {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
+
         if (dataset.roll) {
             let label = dataset.label || "";
             let roll = new Roll(dataset.roll, this.actor.getRollData());
