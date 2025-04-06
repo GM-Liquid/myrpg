@@ -26,11 +26,13 @@ export class myrpgActorSheet extends ActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
-        // Пример: клик по элементам с классом .rollable
+        // ----------------------------------------------------------------------
+        // Rollable элементы (пример)
+        // ----------------------------------------------------------------------
         html.find(".rollable").click(this._onRoll.bind(this));
 
         // ----------------------------------------------------------------------
-        // ОБРАБОТКА ТАБЛИЦЫ СПОСОБНОСТЕЙ
+        // ТАБЛИЦА СПОСОБНОСТЕЙ
         // ----------------------------------------------------------------------
         const $table = html.find(".abilities-table");
 
@@ -46,6 +48,7 @@ export class myrpgActorSheet extends ActorSheet {
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
             const abilityData = abilities[index] || {};
+
             const costValue = abilityData.cost;
             const costText = costValue ?? "";
 
@@ -142,9 +145,8 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // Редактирование способности (с TinyMCE, но без плавающей панели)
+        // Редактирование способности (TinyMCE с контекстным меню)
         html.find("tr.ability-row").click(ev => {
-            // Если клик пришёлся на иконку удаления, игнорируем
             if ($(ev.target).closest(".abilities-remove-row").length) return;
             if (this._editing) {
                 ui.notifications.warn(game.i18n.localize("MY_RPG.AbilityConfig.AlreadyEditing"));
@@ -156,7 +158,6 @@ export class myrpgActorSheet extends ActorSheet {
             const index = Number(ev.currentTarget.dataset.index);
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
-
             const abilityData = abilities[index] || {};
 
             let diag = new Dialog({
@@ -190,7 +191,6 @@ export class myrpgActorSheet extends ActorSheet {
                         icon: '<i class="fas fa-check"></i>',
                         label: game.i18n.localize("MY_RPG.AbilityConfig.Save"),
                         callback: (htmlDialog) => {
-                            // Сохраняем данные из всех редакторов TinyMCE
                             tinymce.triggerSave();
                             const formEl = htmlDialog.find("form")[0];
                             const fd = new FormData(formEl);
@@ -218,22 +218,26 @@ export class myrpgActorSheet extends ActorSheet {
                     this._editing = false;
                 },
                 render: (html) => {
-                    // Инициализируем TinyMCE для каждого textarea.rich-editor
                     html.find("textarea.rich-editor").each(function () {
                         if (!this._tinyMCEInitialized) {
                             tinymce.init({
                                 target: this,
                                 inline: false,
                                 menubar: false,
-                                // Включаем контекстное меню и отключаем toolbar
+                                branding: false,       // Убираем лого Tiny
+                                statusbar: false,      // Убираем нижнюю панель (с 'p' и др.)
                                 plugins: "link lists contextmenu",
                                 toolbar: false,
-                                // Команды, доступные при ПКМ
                                 contextmenu: "bold italic underline strikethrough link bullist numlist",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        // При желании можно задать фикс. высоту поля
-                                        this.getContainer().style.height = "120px";
+                                        const container = this.getContainer();
+                                        // Задаём стили, чтобы напоминало обычное поле ввода
+                                        container.style.height = "120px";
+                                        container.style.width = "100%";
+                                        container.style.border = "1px solid #888";
+                                        container.style.borderRadius = "4px";
+                                        container.style.backgroundColor = "#f8f8f8";
                                     });
                                 }
                             });
@@ -246,15 +250,12 @@ export class myrpgActorSheet extends ActorSheet {
         });
 
         // ----------------------------------------------------------------------
-        // ОБРАБОТКА ТАБЛИЦЫ ИНВЕНТАРЯ
+        // ТАБЛИЦА ИНВЕНТАРЯ
         // ----------------------------------------------------------------------
-
-        // Добавить новую строку в инвентарь
         html.find(".inventory .add-row").click(ev => {
             ev.preventDefault();
             let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
             if (!Array.isArray(inventory)) inventory = Object.values(inventory);
-
             inventory.push({
                 name: "",
                 desc: "",
@@ -263,7 +264,6 @@ export class myrpgActorSheet extends ActorSheet {
             this.actor.update({ "system.inventoryList": inventory });
         });
 
-        // Редактирование строки инвентаря
         html.find("tr.inventory-row").click(ev => {
             if ($(ev.target).closest(".inventory-remove-row").length) return;
             if (this._editing) {
@@ -276,7 +276,6 @@ export class myrpgActorSheet extends ActorSheet {
             const index = Number(ev.currentTarget.dataset.index);
             let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
             if (!Array.isArray(inventory)) inventory = Object.values(inventory);
-
             const itemData = inventory[index] || {};
 
             let diag = new Dialog({
@@ -333,12 +332,19 @@ export class myrpgActorSheet extends ActorSheet {
                                 target: this,
                                 inline: false,
                                 menubar: false,
+                                branding: false,
+                                statusbar: false,
                                 plugins: "link lists contextmenu",
                                 toolbar: false,
                                 contextmenu: "bold italic underline strikethrough link bullist numlist",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        this.getContainer().style.height = "120px";
+                                        const container = this.getContainer();
+                                        container.style.height = "120px";
+                                        container.style.width = "100%";
+                                        container.style.border = "1px solid #888";
+                                        container.style.borderRadius = "4px";
+                                        container.style.backgroundColor = "#f8f8f8";
                                     });
                                 }
                             });
@@ -350,11 +356,9 @@ export class myrpgActorSheet extends ActorSheet {
             diag.render(true);
         });
 
-        // Удаление предмета из инвентаря
         html.find(".inventory-remove-row").click(ev => {
             ev.preventDefault();
             const index = Number(ev.currentTarget.dataset.index);
-
             new Dialog({
                 title: game.i18n.localize("MY_RPG.Inventory.ConfirmDeleteTitle"),
                 content: `<p>${game.i18n.localize("MY_RPG.Inventory.ConfirmDeleteMessage")}</p>`,
@@ -382,7 +386,7 @@ export class myrpgActorSheet extends ActorSheet {
         // ПРОЧИЕ ОБРАБОТЧИКИ
         // ----------------------------------------------------------------------
 
-        // При изменении числовых значений способностей/навыков (min=1 для характеристик, min=0 для навыков)
+        // При изменении числовых значений способностей/навыков
         html.find('input[name^="system.abilities."], input[name^="system.skills."]').on("change", ev => {
             const input = ev.currentTarget;
             let val = parseInt(input.value, 10);
@@ -427,7 +431,6 @@ export class myrpgActorSheet extends ActorSheet {
 
     /** @override */
     get template() {
-        // Для NPC используем тот же шаблон, что и для персонажей (как в предыдущем коде)
         if (this.actor.type === "npc") {
             return `systems/myrpg/templates/actor/actor-character-sheet.hbs`;
         }

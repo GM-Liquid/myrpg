@@ -670,3 +670,14 @@ form textarea {
 .myrpg.sheet.actor form textarea {
     text-align: center;
 }
+
+/* Делаем заголовок диалога (header) полностью непрозрачным */
+.window-app.myrpg .window-header {
+    background-color: #6d031c !important; /* Замените на любой цвет */
+    opacity: 1 !important;
+}
+
+    /* При желании меняем цвет текста в заголовке */
+    .window-app.myrpg .window-header .window-title {
+        color: #ffffff !important; /* Замените на любой цвет */
+    }
