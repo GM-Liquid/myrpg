@@ -284,6 +284,110 @@ export class myrpgActorSheet extends ActorSheet {
             input.value = val;
             this.actor.update({ [input.name]: val }, { render: false });
         });
+        // Обработчик для добавления новой строки в таблицу инвентаря
+        html.find(".inventory .add-row").click(ev => {
+            ev.preventDefault();
+            let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
+            if (!Array.isArray(inventory)) inventory = Object.values(inventory);
+            inventory.push({
+                name: "",
+                desc: "",
+                quantity: ""
+            });
+            this.actor.update({ "system.inventoryList": inventory });
+        });
+
+        // Обработчик для редактирования строки в таблице инвентаря
+        html.find("tr.inventory-row").click(ev => {
+            // Если клик по иконке удаления – ничего не делаем
+            if ($(ev.target).closest('.inventory-remove-row').length) return;
+            if (this._editing) {
+                ui.notifications.warn(game.i18n.localize("MY_RPG.Inventory.AlreadyEditing"));
+                return;
+            }
+            ev.preventDefault();
+            this._editing = true;
+            const index = Number(ev.currentTarget.dataset.index);
+            let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
+            if (!Array.isArray(inventory)) inventory = Object.values(inventory);
+            const itemData = inventory[index] || {};
+            let diag = new Dialog({
+                title: game.i18n.localize("MY_RPG.Inventory.EditTitle"),
+                content: `
+        <form>
+          <div class="form-group">
+            <label>${game.i18n.localize("MY_RPG.Inventory.Name")}</label>
+            <input type="text" name="name" value="${itemData.name ?? ""}" />
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize("MY_RPG.Inventory.Description")}</label>
+            <textarea name="desc">${itemData.desc ?? ""}</textarea>
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize("MY_RPG.Inventory.Quantity")}</label>
+            <input type="number" name="quantity" value="${itemData.quantity ?? ""}" />
+          </div>
+        </form>
+      `,
+                buttons: {
+                    save: {
+                        icon: '<i class="fas fa-check"></i>',
+                        label: game.i18n.localize("MY_RPG.Inventory.Save"),
+                        callback: (htmlDialog) => {
+                            const formEl = htmlDialog.find("form")[0];
+                            const fd = new FormData(formEl);
+                            let formData = {};
+                            for (let [k, v] of fd.entries()) {
+                                formData[k] = v;
+                            }
+                            inventory[index] = {
+                                name: formData.name ?? "",
+                                desc: formData.desc ?? "",
+                                quantity: formData.quantity ?? ""
+                            };
+                            this.actor.update({ "system.inventoryList": inventory });
+                        }
+                    },
+                    cancel: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: game.i18n.localize("MY_RPG.Inventory.Cancel")
+                    }
+                },
+                default: "save",
+                close: () => {
+                    this._editing = false;
+                }
+            });
+            diag.render(true);
+        });
+
+        // Обработчик для удаления строки из таблицы инвентаря
+        html.find(".inventory-remove-row").click(ev => {
+            ev.preventDefault();
+            const index = Number(ev.currentTarget.dataset.index);
+            new Dialog({
+                title: game.i18n.localize("MY_RPG.Inventory.ConfirmDeleteTitle"),
+                content: `<p>${game.i18n.localize("MY_RPG.Inventory.ConfirmDeleteMessage")}</p>`,
+                buttons: {
+                    yes: {
+                        icon: '<i class="fas fa-check"></i>',
+                        label: game.i18n.localize("MY_RPG.Inventory.Yes"),
+                        callback: () => {
+                            let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
+                            if (!Array.isArray(inventory)) inventory = Object.values(inventory);
+                            inventory.splice(index, 1);
+                            this.actor.update({ "system.inventoryList": inventory });
+                        }
+                    },
+                    no: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: game.i18n.localize("MY_RPG.Inventory.No")
+                    }
+                },
+                default: "no"
+            }).render(true);
+        });
+
     }
 
     static get defaultOptions() {

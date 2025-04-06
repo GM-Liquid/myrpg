@@ -58,6 +58,7 @@
             "cost": ""
           }
         ],
+        "inventoryList": [],
         "health": {
           "value": 10,
           "damage": 0,

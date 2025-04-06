@@ -16,6 +16,21 @@
       "CurrentRank": "Current Rank",
       "Name": "Name"
     },
+    "Inventory": {
+      "TableHeading": "Inventory",
+      "Name": "Name",
+      "Description": "Description",
+      "Quantity": "Quantity",
+      "AddRow": "Add Item",
+      "EditTitle": "Edit Inventory Item",
+      "Save": "Save",
+      "Cancel": "Cancel",
+      "ConfirmDeleteTitle": "Delete Inventory Item",
+      "ConfirmDeleteMessage": "Are you sure you want to delete this item? This action cannot be undone.",
+      "Yes": "Yes",
+      "No": "No",
+      "AlreadyEditing": "An edit dialog is already open. Please close it before opening another."
+    },
     "SheetLabels": {
       "AbilitiesAndMods": "Abilities and Mods",
       "Features": "Main Sheet",
