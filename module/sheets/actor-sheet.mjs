@@ -163,29 +163,29 @@ export class myrpgActorSheet extends ActorSheet {
             let diag = new Dialog({
                 title: game.i18n.localize("MY_RPG.AbilityConfig.Title"),
                 content: `
-  <form>
-    <div class="form-group">
-      <label>${game.i18n.localize("MY_RPG.AbilityConfig.Name")}</label>
-      <input type="text" name="name" value="${abilityData.name ?? ""}" />
-    </div>
-    <div class="form-group">
-      <label>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}</label>
-      <input type="text" name="rank" value="${abilityData.rank ?? ""}" />
-    </div>
-    <div class="form-group">
-      <label>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}</label>
-      <textarea name="effect" class="rich-editor">${abilityData.effect ?? ""}</textarea>
-    </div>
-    <div class="form-group">
-      <label>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}</label>
-      <textarea name="desc" class="rich-editor">${abilityData.desc ?? ""}</textarea>
-    </div>
-    <div class="form-group">
-      <label>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}</label>
-      <input type="number" name="cost" value="${abilityData.cost ?? ""}" />
-    </div>
-  </form>
-`,
+          <form>
+            <div class="form-group">
+              <label>${game.i18n.localize("MY_RPG.AbilityConfig.Name")}</label>
+              <input type="text" name="name" value="${abilityData.name ?? ""}" />
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}</label>
+              <input type="text" name="rank" value="${abilityData.rank ?? ""}" />
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}</label>
+              <textarea name="effect" class="rich-editor">${abilityData.effect ?? ""}</textarea>
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}</label>
+              <textarea name="desc" class="rich-editor">${abilityData.desc ?? ""}</textarea>
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}</label>
+              <input type="number" name="cost" value="${abilityData.cost ?? ""}" />
+            </div>
+          </form>
+        `,
                 buttons: {
                     save: {
                         icon: '<i class="fas fa-check"></i>',
@@ -279,21 +279,21 @@ export class myrpgActorSheet extends ActorSheet {
             let diag = new Dialog({
                 title: game.i18n.localize("MY_RPG.Inventory.EditTitle"),
                 content: `
-  <form>
-    <div class="form-group">
-      <label>${game.i18n.localize("MY_RPG.Inventory.Name")}</label>
-      <input type="text" name="name" value="${itemData.name ?? ""}" />
-    </div>
-    <div class="form-group">
-      <label>${game.i18n.localize("MY_RPG.Inventory.Description")}</label>
-      <textarea name="desc" class="rich-editor">${itemData.desc ?? ""}</textarea>
-    </div>
-    <div class="form-group">
-      <label>${game.i18n.localize("MY_RPG.Inventory.Quantity")}</label>
-      <input type="number" name="quantity" value="${itemData.quantity ?? ""}" />
-    </div>
-  </form>
-`,
+          <form>
+            <div class="form-group">
+              <label>${game.i18n.localize("MY_RPG.Inventory.Name")}</label>
+              <input type="text" name="name" value="${itemData.name ?? ""}" />
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize("MY_RPG.Inventory.Description")}</label>
+              <textarea name="desc" class="rich-editor">${itemData.desc ?? ""}</textarea>
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize("MY_RPG.Inventory.Quantity")}</label>
+              <input type="number" name="quantity" value="${itemData.quantity ?? ""}" />
+            </div>
+          </form>
+        `,
                 buttons: {
                     save: {
                         icon: '<i class="fas fa-check"></i>',
@@ -335,7 +335,7 @@ export class myrpgActorSheet extends ActorSheet {
                                 plugins: "autoresize link lists",  // contextmenu убран
                                 toolbar: false,                   // можно убрать или изменить
                                 // Если вам всё-таки нужно какое-либо контекстное меню, ознакомьтесь с документацией TinyMCE 6
-                                content_style: "body, p { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
+                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
                                 autoresize_min_height: 40,
                                 autoresize_bottom_margin: 0,
                                 width: "100%",

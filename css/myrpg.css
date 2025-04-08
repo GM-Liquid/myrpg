@@ -321,7 +321,7 @@ form textarea {
 }
 
 .col-cost {
-    width: 20%;
+    width: 15%;
 }
 
 .col-delete {
@@ -545,6 +545,15 @@ form textarea {
     /* justify-content: flex-start; или space-between; - на ваш вкус */
 }
 
+/* Удаляем "clearfix" псевдоэлемент, т.к. float больше не используем */
+/*
+.flexrow::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+*/
+
 /* Полосы прокрутки (Chrome, Edge, Safari) */
 .myrpg.sheet.actor::-webkit-scrollbar {
     width: 12px;
@@ -662,6 +671,18 @@ form textarea {
     text-align: center;
 }
 
+/* Делаем заголовок диалога (header) полностью непрозрачным */
+.window-app.myrpg .window-header {
+    background-color: #6d031c !important; /* Замените на любой цвет */
+    opacity: 1 !important;
+}
+
+    /* При желании меняем цвет текста в заголовке */
+    .window-app.myrpg .window-header .window-title {
+        color: #ffffff !important; /* Замените на любой цвет */
+    }
+
+
 /* 1) Общий фон диалога (если нужно убрать прозрачность фона самого окна) */
 .window-app.myrpg.dialog {
     background: #d2d2c9 !important; /* ваш фон, можно оставить как есть */
@@ -730,7 +751,6 @@ form textarea {
     width: 100% !important;
 }
 
-/* === Новый блок для стилизации форм в диалоговых окнах === */
 .window-app.dialog .form-group {
     display: flex;
     align-items: center;
