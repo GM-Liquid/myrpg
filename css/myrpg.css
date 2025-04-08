@@ -1,123 +1,125 @@
+/* Импорт шрифта */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-/* Global styles */
+
+/* Глобальные стили */
 .window-app {
     font-family: "Roboto", sans-serif;
 }
 
-/* Пример: чуть больше отступов между секциями */
+/* Отступы между секциями */
 .top-features,
 .middle-features,
 .bottom-features {
     margin-bottom: 10px;
 }
 
-.small-input {
-    width: 100px; /* или любое нужное значение */
-    max-width: 150px;
+/* Общие поля ввода и textarea */
+form input[type="text"],
+form input[type="number"],
+form textarea {
+    border: 2px solid #1b1210;
+    background-color: #f8f8f8;
+    color: #1b1210;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Контейнер для одной строки навыка */
-.skill-row {
-    display: flex; /* чтобы колонки шли в одну строку */
-    align-items: center; /* вертикальное выравнивание по центру */
-    margin-bottom: 4px; /* отступ между строками */
-}
-
-/* Общий класс для любой из трёх колонок */
-.skill-col {
-    /* Немного правого отступа, если нужно */
-    margin-right: 8px;
-}
-
-/* Первая колонка: краткое имя характеристики */
-.skill-ability-abbr {
-    width: 40px; /* фиксируем ширину под короткий текст (DEX, WIS и т.п.) */
-    text-align: center;
-}
-
-/* Вторая колонка: название навыка, делаем её "растяжимой" */
-.skill-name {
-    flex: 1; /* занимает всё оставшееся место */
-    cursor: pointer; /* чтобы показывать, что по навыку можно кликать (roll) */
-}
-
-/* Третья колонка: поле ввода */
-.skill-value {
-    width: 60px; /* фиксируем ширину под число */
-}
-
+/* Запрещаем клики для недоступных полей */
 input[readonly],
 textarea[readonly],
 input[disabled],
 textarea[disabled] {
-    pointer-events: none; /* Запрещаем любые клики */
-    user-select: none; /* Запрещаем выделение текста */
-    cursor: default; /* Убираем «текстовый» курсор при наведении */
-    background-color: #f0f0f0; /* Можно чуть «засерить» фон, если хотите */
-    color: #666; /* И слегка осветлить текст, чтобы было видно, что поле недоступно */
+    pointer-events: none;
+    user-select: none;
+    cursor: default;
+    background-color: #f0f0f0;
+    color: #666;
 }
 
-/* Новые классы для управления размерами и отступами блоков в листе персонажа */
-
-/* Отступ для вкладки Features */
-.features-tab {
-    padding: 10px;
+/* Определение размеров для поля "small-input" (если нужно) */
+.small-input {
+    width: 100px;
+    max-width: 150px;
 }
 
-/* Увеличиваем таблицу характеристик примерно на 30% и центрируем её */
+/* Стили для строк навыков */
+.skill-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.skill-col {
+    margin-right: 8px;
+}
+
+.skill-ability-abbr {
+    width: 40px;
+    text-align: center;
+}
+
+.skill-name {
+    flex: 1;
+    cursor: pointer;
+}
+
+.skill-value {
+    width: 60px;
+}
+
+/* Стили для таблицы характеристик */
 .attributes-table {
-    margin: 0 auto; /* горизонтальное центрирование */
-    border-collapse: collapse; /* на всякий случай */
+    margin: 0 auto;
+    border-collapse: collapse;
 }
 
-    /* Каждой ячейке (th и td) задаём большую ширину и высоту */
     .attributes-table th,
     .attributes-table td {
-        width: 90px; /* исходные ~80px * 1.3 = 104px */
-        height: 45px; /* было ~30px, увеличиваем до 48px */
+        width: 90px;
+        height: 45px;
         border: 2px solid #1b1210;
         text-align: center;
         padding: 5px;
     }
 
-/* Заголовки h3 делаем по центру и точно жирными */
+/* Заголовки внутри блоков (например, sheet-box) */
 .sheet-box h3 {
     text-align: center;
-    font-weight: 700; /* h3 обычно и так bold, но на всякий случай укажем явно */
+    font-weight: 700;
 }
 
-/* Класс, чтобы центрировать сам блок таблицы в контейнере */
+/* Центрирование таблицы характеристик */
 .center-attributes {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Ограничиваем высоту блоков, чтобы «Временные бонусы» и «Доспех» были одинакового размера */
+/* Блок для временных бонусов и доспеха – единое ограничение по высоте */
 .limited-height {
-    height: 250px; /* на ваше усмотрение - 200-300px */
-    overflow-y: auto; /* если влезет больше контента, появится скролл */
+    height: 300px;
+    overflow-y: auto;
 }
 
-/* Общий класс для строки с отступом снизу */
+/* Класс для строки с отступом снизу */
 .custom-flexrow {
     display: flex;
     margin-bottom: 10px;
 }
 
+/* Верхняя строка листа (портрет и таблица характеристик) */
 .top-row {
     display: flex;
-    /* Чтобы элементы оставались в одной строке даже при нехватке места */
     flex-wrap: nowrap;
-    /* Горизонтальный отступ между портретом и таблицей (при необходимости) */
     gap: 10px;
-    /* По вертикали выравниваем по центру */
     align-items: center;
-    /* По горизонтали обычно flex-start (слева), но можно и center, если нужно */
     justify-content: center;
 }
 
-/* Блоки-колонки. Убираем float и переходим на flex: 0 0 XX% */
+/* Стили для колонок. Сетка, если используется, оставляем все классы */
 .col-50,
 .col-50-last,
 .col-33,
@@ -125,28 +127,8 @@ textarea[disabled] {
 .col-25,
 .col-25-last {
     box-sizing: border-box;
-    /* по умолчанию пусть займёт auto, потом переопределим */
 }
 
-/* Настройка столбцов для таблицы инвентаря */
-.myrpg .abilities-table th.col-name {
-    width: 30%;
-}
-
-.myrpg .abilities-table th.col-effect {
-    width: 55%;
-}
-
-.myrpg .abilities-table th.col-cost {
-    width: 10%;
-}
-
-.myrpg .abilities-table th.col-delete {
-    width: 5%;
-}
-
-/* Примеры под ваши макеты:
-   Для 50% ширины */
 .col-50 {
     flex: 0 0 calc(50% - 10px);
     padding-right: 10px;
@@ -157,7 +139,6 @@ textarea[disabled] {
     padding-right: 0;
 }
 
-/* Для 33.33% */
 .col-33 {
     flex: 0 0 33.33%;
     padding-right: 10px;
@@ -168,10 +149,9 @@ textarea[disabled] {
     padding-right: 0;
 }
 
-/* Для 25% */
 .col-25 {
-    padding-right: 10px;
     flex: 0 0 calc(25% - 5px);
+    padding-right: 10px;
 }
 
 .col-25-last {
@@ -179,97 +159,7 @@ textarea[disabled] {
     padding-right: 0;
 }
 
-/* Если вы хотите, чтобы колонки не "съезжали" вниз при переполнении, 
-   добавьте что-то вроде:
-   .flexrow { flex-wrap: wrap; } или overflow. Но решайте по дизайну. */
-
-.attributes-col {
-    flex: 0 0 auto;
-    /* т.е. занимай ровно столько места, сколько нужно таблице */
-
-    display: flex;
-    align-items: center;
-    justify-content: center; /* чтобы сама таблица была по центру этого блока */
-}
-
-/* sheet-box - рамка */
-.sheet-box {
-    border: 2px solid #1b1210; /* Ваш основной цвет бордюра */
-    padding: 10px;
-    margin-bottom: 10px; /* чтобы между блоками был отступ */
-}
-
-/* Устанавливаем фон и текст для всего листа */
-.myrpg.sheet.actor {
-    background-color: #d2d2c9; /* Фон всех страниц */
-    color: #1b1210; /* Основной цвет текста */
-}
-
-form textarea,
-form input[type="text"],
-form input[type="number"] {
-    border: 2px solid #1b1210; /* Цвет рамки */
-    background-color: #f8f8f8; /* Можно оставить светлый фон внутри полей */
-    color: #1b1210; /* Цвет текста внутри полей */
-    font-family: inherit;
-    font-size: inherit;
-    padding: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.myrpg .biography .form-group {
-    margin-bottom: 5px;
-}
-
-.myrpg .abilities .ability {
-    margin-bottom: 5px;
-}
-
-.myrpg .skills .skill {
-    margin-bottom: 5px;
-}
-
-/* Убираем resizable у textarea */
-form textarea {
-    resize: none;
-    overflow: hidden;
-    min-height: 60px;
-    max-height: 500px;
-}
-
-/* Контейнер портрета */
-.portrait {
-    width: auto;
-    margin-right: 10px;
-}
-
-.profile-img {
-    display: block;
-    max-width: 150px;
-    max-height: 150px;
-    width: auto !important;
-    height: auto !important;
-}
-
-.rollable:hover,
-.rollable:focus {
-    color: #000;
-    text-shadow: 0 0 10px red;
-    cursor: pointer;
-}
-
-.sub-labels {
-    margin-bottom: 3px;
-}
-
-.ability-tooltip {
-    white-space: normal;
-    word-break: break-word;
-    max-width: 300px;
-}
-
-/* Таблица способностей */
+/* Стили для таблицы способностей (внутри листа) */
 .myrpg .abilities-table {
     width: 100%;
     table-layout: fixed !important;
@@ -280,32 +170,28 @@ form textarea {
 
     .myrpg .abilities-table th,
     .myrpg .abilities-table td {
-        border: 2px solid #1b1210 !important; /* Цвет границ таблицы */
+        border: 2px solid #1b1210 !important;
         padding: 5px;
         text-align: center;
-        color: #1b1210; /* Цвет текста */
+        color: #1b1210;
     }
 
-    /* Заголовок таблицы */
     .myrpg .abilities-table thead th {
-        background-color: #673e37 !important; /* Цвет шапки */
-        color: #d2d2c9 !important; /* Текст на шапке (для контраста) */
+        background-color: #673e37 !important;
+        color: #d2d2c9 !important;
         text-shadow: none !important;
     }
 
-    /* Зебра-полосы (чётные строки) */
     .myrpg .abilities-table tr:nth-child(even) {
         background-color: #a79086 !important;
     }
 
-    /* Ховер-эффект (подсветка строки) */
     .myrpg .abilities-table tr:hover td {
-        background-color: #673e37 !important; /* Активная строка */
-        color: #d2d2c9 !important; /* Текст при hover */
+        background-color: #673e37 !important;
+        color: #d2d2c9 !important;
         transition: background-color 0.2s;
     }
-
-/* Ширины столбцов (для таблицы способностей) */
+/* Ширины столбцов в таблице способностей */
 .col-name {
     width: 23%;
 }
@@ -328,7 +214,7 @@ form textarea {
     width: 5%;
 }
 
-/* Форма растягивается на всю доступную площадь окна */
+/* Форма листа персонажа занимает всю площадь окна */
 .myrpg.sheet.actor form {
     position: relative;
     width: 100%;
@@ -336,7 +222,6 @@ form textarea {
     margin: 0;
     box-sizing: border-box;
 }
-
 /* Прокрутка основного контента */
 .sheet-scrollable {
     position: absolute;
@@ -348,7 +233,7 @@ form textarea {
     box-sizing: border-box;
 }
 
-/* Блок с вкладками (шестиугольные кнопки) */
+/* Шестиугольные кнопки (навигация по вкладкам) */
 .sheet-tabs-hex {
     position: absolute;
     right: -240px;
@@ -360,11 +245,10 @@ form textarea {
     gap: 20px;
 }
 
-/* Сами кнопки навигации */
 .hex-button {
-    background: #d2d2c9; /* Базовый цвет кнопок */
-    color: #1b1210; /* Цвет текста */
-    border: 2px solid #1b1210; /* Цвет бордюра */
+    background: #d2d2c9;
+    color: #1b1210;
+    border: 2px solid #1b1210;
     font-weight: bold;
     cursor: pointer;
     border-radius: 6px;
@@ -378,21 +262,21 @@ form textarea {
 }
 
     .hex-button.active {
-        background: #673e37; /* Цвет активной кнопки */
-        color: #d2d2c9; /* Текст на активной кнопке */
+        background: #673e37;
+        color: #d2d2c9;
     }
 
-/* Даём окну и его содержимому overflow: visible */
+/* Окно с hex-вкладками должно иметь overflow: visible */
 .window-app.myrpg-hex-tabs,
 .window-app.myrpg-hex-tabs .window-content {
     overflow: visible !important;
 }
 
-/* Grid Layout (остальные классы изначальной сетки, если нужны) */
+/* Grid Layout. Сохраняем базовые классы для сетки, если они вам нужны */
 .grid,
 .grid-2col {
     display: grid;
-    grid-column: span 2/span 2;
+    grid-column: span 2 / span 2;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     margin: 10px 0;
@@ -400,52 +284,52 @@ form textarea {
 }
 
 .grid-3col {
-    grid-column: span 3/span 3;
+    grid-column: span 3 / span 3;
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .grid-4col {
-    grid-column: span 4/span 4;
+    grid-column: span 4 / span 4;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .grid-5col {
-    grid-column: span 5/span 5;
+    grid-column: span 5 / span 5;
     grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .grid-6col {
-    grid-column: span 6/span 6;
+    grid-column: span 6 / span 6;
     grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .grid-7col {
-    grid-column: span 7/span 7;
+    grid-column: span 7 / span 7;
     grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .grid-8col {
-    grid-column: span 8/span 8;
+    grid-column: span 8 / span 8;
     grid-template-columns: repeat(8, minmax(0, 1fr));
 }
 
 .grid-9col {
-    grid-column: span 9/span 9;
+    grid-column: span 9 / span 9;
     grid-template-columns: repeat(9, minmax(0, 1fr));
 }
 
 .grid-10col {
-    grid-column: span 10/span 10;
+    grid-column: span 10 / span 10;
     grid-template-columns: repeat(10, minmax(0, 1fr));
 }
 
 .grid-11col {
-    grid-column: span 11/span 11;
+    grid-column: span 11 / span 11;
     grid-template-columns: repeat(11, minmax(0, 1fr));
 }
 
 .grid-12col {
-    grid-column: span 12/span 12;
+    grid-column: span 12 / span 12;
     grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
@@ -537,66 +421,45 @@ form textarea {
     grid-column-end: span 12;
 }
 
-/* Изменяем поведение .flexrow, чтобы элементы не растягивались по высоте */
+/* Поведение flex-контейнеров */
 .flexrow {
     display: flex;
-    align-items: flex-start; /* иначе блоки могут растягиваться */
+    align-items: flex-start;
     gap: 10px;
-    /* justify-content: flex-start; или space-between; - на ваш вкус */
 }
 
-/* Удаляем "clearfix" псевдоэлемент, т.к. float больше не используем */
-/*
-.flexrow::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-*/
-
-/* Полосы прокрутки (Chrome, Edge, Safari) */
+/* Стили для полос прокрутки */
 .myrpg.sheet.actor::-webkit-scrollbar {
     width: 12px;
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-track {
-    background: #d2d2c9; /* Тот же фон, что и у листа */
+    background: #d2d2c9;
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-thumb {
-    background-color: #6d031c; /* Цвет полосы прокрутки */
-    border: 2px solid #d2d2c9; /* Обводка, чтобы было видно скролл */
+    background-color: #6d031c;
+    border: 2px solid #d2d2c9;
     border-radius: 6px;
 }
 
-.top-row > .portrait-col,
-.top-row > .attributes-col {
-    flex: 0 0 auto !important;
-}
-
-/* --- 1. Центровка и жирный шрифт для h2/h3 во вкладках Биография и Способности --- */
+/* Заголовки и метки в листе персонажа */
 .tab.biography h2,
 .tab.biography h3,
 .tab.abilities h2,
 .tab.abilities h3 {
-    text-align: center; /* Центрируем заголовок */
-    font-weight: 700; /* Делаем шрифт жирным */
+    text-align: center;
+    font-weight: 700;
 }
 
-/* --- 2. Центровка «маленьких заголовков» (label) в Ключевой информации и Доспехе --- */
-/* Предполагается, что у вас есть .sheet-box .form-group label, .resource-label и т.д. */
 .sheet-box .form-group label,
 .sheet-box .resource-label,
 .sheet-box .armor-description label,
 .sheet-box .armor-values label {
-    text-align: center; /* Центрируем текст */
-    /* font-weight: 600;  // Если хотите сделать их полужирными, раскомментируйте */
+    text-align: center;
 }
 
-/*******************************************************
-  1) Центровка блоков ресурсов (ОЗ, Поток, Стойкость,
-     Скорость, Напряжённость) на основном листе
- *******************************************************/
+/* Центрирование ресурсов */
 .resource,
 .resource .resource-label,
 .resource .sub-label,
@@ -604,26 +467,10 @@ form textarea {
     text-align: center;
 }
 
-    /* Чтобы числа в input тоже были по центру */
     .resource input {
         text-align: center;
     }
-
-/*******************************************************
-  2) Центровка «Потока» на листе Способностей
-     (Он тоже .resource, так что обычно пункт (1) уже охватывает)
- *******************************************************/
-/* На всякий случай дублируем, если Foundry перебивает: */
-.flux-section .resource,
-.flux-section .resource-label,
-.flux-section .resource-content {
-    text-align: center;
-}
-
-/*******************************************************
-  3) Центровка маленьких надписей (label) в «Биографии»
-     и «Заметках», а также самого текста в input/textarea
- *******************************************************/
+/* Дополнительное центрирование для вкладки Биография */
 .tab.biography .form-group label {
     text-align: center;
     display: block;
@@ -633,81 +480,83 @@ form textarea {
 .tab.biography .form-group textarea {
     text-align: center;
 }
-
-/*******************************************************
-  4) Центровка текста в поле «Описание доспеха»
- *******************************************************/
+/* Центрирование для описания доспеха */
 .armor-description,
 .armor-description label,
 .armor-description textarea {
     text-align: center;
 }
 
-/*******************************************************
-  5) (Повтор) Большие заголовки (h2/h3) в Биографии
-     и Способностях по центру и жирные
- *******************************************************/
-.tab.biography h2,
-.tab.biography h3,
-.tab.abilities h2,
-.tab.abilities h3 {
-    text-align: center;
-    font-weight: 700; /* жирный шрифт */
-}
-
-.limited-height {
-    height: 300px; /* вместо 250px */
-}
-
-.armor-description textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-/* Только внутри листа персонажа вашей системы */
+/* Специфичные стили для листа персонажа */
 .myrpg.sheet.actor form input[type="text"],
 .myrpg.sheet.actor form input[type="number"],
 .myrpg.sheet.actor form textarea {
     text-align: center;
 }
 
-/* Делаем заголовок диалога (header) полностью непрозрачным */
+/* Стили для портрета */
+.portrait {
+    width: auto;
+    margin-right: 10px;
+}
+
+.profile-img {
+    display: block;
+    max-width: 150px;
+    max-height: 150px;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Hover-эффект для rollable-элементов */
+.rollable:hover,
+.rollable:focus {
+    color: #000;
+    text-shadow: 0 0 10px red;
+    cursor: pointer;
+}
+
+.sub-labels {
+    margin-bottom: 3px;
+}
+
+.ability-tooltip {
+    white-space: normal;
+    word-break: break-word;
+    max-width: 300px;
+}
+
+/* Диалоговые окна (заголовок и фон) */
 .window-app.myrpg .window-header {
-    background-color: #6d031c !important; /* Замените на любой цвет */
+    background-color: #6d031c !important;
     opacity: 1 !important;
 }
 
-    /* При желании меняем цвет текста в заголовке */
     .window-app.myrpg .window-header .window-title {
-        color: #ffffff !important; /* Замените на любой цвет */
+        color: #ffffff !important;
     }
 
-
-/* 1) Общий фон диалога (если нужно убрать прозрачность фона самого окна) */
 .window-app.myrpg.dialog {
-    background: #d2d2c9 !important; /* ваш фон, можно оставить как есть */
+    background: #d2d2c9 !important;
     opacity: 1 !important;
     filter: none !important;
 }
 
-    /* 2) Верхняя панель (шапка) диалога */
     .window-app.myrpg.dialog .window-header {
-        background-color: #6d031c !important; /* ваш основной цвет */
-        background-image: none !important; /* убираем градиенты Foundry */
-        opacity: 1 !important; /* убираем прозрачность */
+        background-color: #6d031c !important;
+        background-image: none !important;
+        opacity: 1 !important;
         filter: none !important;
     }
 
-        /* 3) Заголовок (текст) и кнопка "Close" */
         .window-app.myrpg.dialog .window-header .window-title,
         .window-app.myrpg.dialog .window-header .close {
-            color: #ffffff !important; /* цвет текста */
-            text-shadow: none !important; /* убираем тень, если она была */
+            color: #ffffff !important;
+            text-shadow: none !important;
             opacity: 1 !important;
         }
-/* --- Начало блока для современных версий TinyMCE (Foundry V10+), где используются классы .tox-... --- */
 
-/* Внешний контейнер редактора */
+/* Стили для редактора TinyMCE (Modern TinyMCE для Foundry V10+) */
 .myrpg .tox-tinymce {
     border: 2px solid #1b1210 !important;
     background-color: #f8f8f8 !important;
@@ -715,32 +564,27 @@ form textarea {
     box-sizing: border-box;
     margin: 0 !important;
     padding: 0 !important;
-    width: 100% !important; /* гарантирует, что редактор занимает всю ширину */
+    width: 100% !important;
 }
 
-    /* Внутренняя часть, где находится само поле ввода */
     .myrpg .tox-tinymce .tox-editor-container {
         background-color: #f8f8f8 !important;
         border: none !important;
-        min-height: 40px !important; /* уменьшили базовую высоту до 40px */
+        min-height: 40px !important; /* Базовая высота редактора */
         box-sizing: border-box;
     }
 
-    /* Сам iframe, если нужно задать ему цвет фона */
     .myrpg .tox-tinymce .tox-edit-area__iframe {
         background-color: #f8f8f8 !important;
     }
 
-    /* Наследуем шрифт, размер и цвет из .myrpg (как у обычных <input> и <textarea>) */
     .myrpg .tox-tinymce * {
         font-family: inherit !important;
         font-size: inherit !important;
         color: #1b1210 !important;
     }
 
-/* --- Конец блока --- */
-
-
+/* Для диалоговых окон с редактором TinyMCE */
 .window-app.dialog .tox-tinymce {
     border: 2px solid #1b1210 !important;
     background-color: #f8f8f8 !important;
