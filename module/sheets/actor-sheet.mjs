@@ -226,19 +226,16 @@ export class myrpgActorSheet extends ActorSheet {
                                 menubar: false,
                                 branding: false,
                                 statusbar: false,
-                                // ƒобавл€ем autoresize дл€ динамического изменени€ высоты
-                                plugins: "autoresize link lists contextmenu",
-                                toolbar: false,
-                                contextmenu: "bold italic underline strikethrough link bullist numlist",
-                                // Ќаследуем стили, чтобы редактор выгл€дел как стандартное поле
+                                plugins: "autoresize link lists",  // contextmenu убран
+                                toolbar: false,                   // можно убрать или изменить
+                                // ≈сли вам всЄ-таки нужно какое-либо контекстное меню, ознакомьтесь с документацией TinyMCE 6
                                 content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
-                                // «адаЄм минимальную высоту (начальное значение), при этом при наборе текста высота будет расти
                                 autoresize_min_height: 40,
-                                // ќбеспечиваем, что редактор будет использовать всю доступную ширину контейнера
+                                autoresize_bottom_margin: 0,
                                 width: "100%",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        // ƒополнительную настройку можно добавить здесь, если потребуетс€
+                                        // ƒополнительные настройки, если нужны
                                     });
                                 }
                             });
@@ -335,19 +332,16 @@ export class myrpgActorSheet extends ActorSheet {
                                 menubar: false,
                                 branding: false,
                                 statusbar: false,
-                                // ƒобавл€ем autoresize дл€ динамического изменени€ высоты
-                                plugins: "autoresize link lists contextmenu",
-                                toolbar: false,
-                                contextmenu: "bold italic underline strikethrough link bullist numlist",
-                                // Ќаследуем стили, чтобы редактор выгл€дел как стандартное поле
+                                plugins: "autoresize link lists",  // contextmenu убран
+                                toolbar: false,                   // можно убрать или изменить
+                                // ≈сли вам всЄ-таки нужно какое-либо контекстное меню, ознакомьтесь с документацией TinyMCE 6
                                 content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
-                                // «адаЄм минимальную высоту (начальное значение), при этом при наборе текста высота будет расти
                                 autoresize_min_height: 40,
-                                // ќбеспечиваем, что редактор будет использовать всю доступную ширину контейнера
+                                autoresize_bottom_margin: 0,
                                 width: "100%",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        // ƒополнительную настройку можно добавить здесь, если потребуетс€
+                                        // ƒополнительные настройки, если нужны
                                     });
                                 }
                             });
