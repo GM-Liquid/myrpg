@@ -226,18 +226,10 @@ export class myrpgActorSheet extends ActorSheet {
                                 menubar: false,
                                 branding: false,
                                 statusbar: false,
-                                plugins: "autoresize link lists",
-                                toolbar: false,
-                                forced_root_block: false, // Отключаем автоматическую обертку в <p>
-                                content_style: `
-        body {
-          margin: 0 !important;
-          padding: 0 !important;
-          font-family: inherit;
-          font-size: inherit;
-          color: #1b1210;
-        }
-      `,
+                                plugins: "autoresize link lists",  // contextmenu убран
+                                toolbar: false,                   // можно убрать или изменить
+                                // Если вам всё-таки нужно какое-либо контекстное меню, ознакомьтесь с документацией TinyMCE 6
+                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
                                 autoresize_min_height: 40,
                                 autoresize_bottom_margin: 0,
                                 width: "100%",
@@ -340,18 +332,10 @@ export class myrpgActorSheet extends ActorSheet {
                                 menubar: false,
                                 branding: false,
                                 statusbar: false,
-                                plugins: "autoresize link lists",
-                                toolbar: false,
-                                forced_root_block: false, // Отключаем автоматическую обертку в <p>
-                                content_style: `
-        body {
-          margin: 0 !important;
-          padding: 0 !important;
-          font-family: inherit;
-          font-size: inherit;
-          color: #1b1210;
-        }
-      `,
+                                plugins: "autoresize link lists",  // contextmenu убран
+                                toolbar: false,                   // можно убрать или изменить
+                                // Если вам всё-таки нужно какое-либо контекстное меню, ознакомьтесь с документацией TinyMCE 6
+                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
                                 autoresize_min_height: 40,
                                 autoresize_bottom_margin: 0,
                                 width: "100%",
