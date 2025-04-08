@@ -51,21 +51,17 @@ textarea[disabled] {
     align-items: center;
     margin-bottom: 4px;
 }
-
 .skill-col {
     margin-right: 8px;
 }
-
 .skill-ability-abbr {
     width: 40px;
     text-align: center;
 }
-
 .skill-name {
     flex: 1;
     cursor: pointer;
 }
-
 .skill-value {
     width: 60px;
 }
@@ -75,15 +71,14 @@ textarea[disabled] {
     margin: 0 auto;
     border-collapse: collapse;
 }
-
-    .attributes-table th,
-    .attributes-table td {
-        width: 90px;
-        height: 45px;
-        border: 2px solid #1b1210;
-        text-align: center;
-        padding: 5px;
-    }
+.attributes-table th,
+.attributes-table td {
+    width: 90px;
+    height: 45px;
+    border: 2px solid #1b1210;
+    text-align: center;
+    padding: 5px;
+}
 
 /* Заголовки внутри блоков (например, sheet-box) */
 .sheet-box h3 {
@@ -128,32 +123,26 @@ textarea[disabled] {
 .col-25-last {
     box-sizing: border-box;
 }
-
 .col-50 {
     flex: 0 0 calc(50% - 10px);
     padding-right: 10px;
 }
-
 .col-50-last {
     flex: 0 0 50%;
     padding-right: 0;
 }
-
 .col-33 {
     flex: 0 0 33.33%;
     padding-right: 10px;
 }
-
 .col-33-last {
     flex: 0 0 33.33%;
     padding-right: 0;
 }
-
 .col-25 {
     flex: 0 0 calc(25% - 5px);
     padding-right: 10px;
 }
-
 .col-25-last {
     flex: 0 0 calc(25% - 5px);
     padding-right: 0;
@@ -167,49 +156,41 @@ textarea[disabled] {
     margin-bottom: 1em;
     background: none !important;
 }
-
-    .myrpg .abilities-table th,
-    .myrpg .abilities-table td {
-        border: 2px solid #1b1210 !important;
-        padding: 5px;
-        text-align: center;
-        color: #1b1210;
-    }
-
-    .myrpg .abilities-table thead th {
-        background-color: #673e37 !important;
-        color: #d2d2c9 !important;
-        text-shadow: none !important;
-    }
-
-    .myrpg .abilities-table tr:nth-child(even) {
-        background-color: #a79086 !important;
-    }
-
-    .myrpg .abilities-table tr:hover td {
-        background-color: #673e37 !important;
-        color: #d2d2c9 !important;
-        transition: background-color 0.2s;
-    }
+.myrpg .abilities-table th,
+.myrpg .abilities-table td {
+    border: 2px solid #1b1210 !important;
+    padding: 5px;
+    text-align: center;
+    color: #1b1210;
+}
+.myrpg .abilities-table thead th {
+    background-color: #673e37 !important;
+    color: #d2d2c9 !important;
+    text-shadow: none !important;
+}
+.myrpg .abilities-table tr:nth-child(even) {
+    background-color: #a79086 !important;
+}
+.myrpg .abilities-table tr:hover td {
+    background-color: #673e37 !important;
+    color: #d2d2c9 !important;
+    transition: background-color 0.2s;
+}
 /* Ширины столбцов в таблице способностей */
 .col-name {
     width: 23%;
 }
-
 .col-rank {
     width: 12%;
 }
-
 .col-effect {
     width: 45%;
     word-wrap: break-word;
     white-space: normal;
 }
-
 .col-cost {
     width: 15%;
 }
-
 .col-delete {
     width: 5%;
 }
@@ -244,7 +225,6 @@ textarea[disabled] {
     flex-direction: column;
     gap: 20px;
 }
-
 .hex-button {
     background: #d2d2c9;
     color: #1b1210;
@@ -260,11 +240,10 @@ textarea[disabled] {
     align-items: center;
     text-align: center;
 }
-
-    .hex-button.active {
-        background: #673e37;
-        color: #d2d2c9;
-    }
+.hex-button.active {
+    background: #673e37;
+    color: #d2d2c9;
+}
 
 /* Окно с hex-вкладками должно иметь overflow: visible */
 .window-app.myrpg-hex-tabs,
@@ -282,144 +261,68 @@ textarea[disabled] {
     margin: 10px 0;
     padding: 0;
 }
-
 .grid-3col {
     grid-column: span 3 / span 3;
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-
 .grid-4col {
     grid-column: span 4 / span 4;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-
 .grid-5col {
     grid-column: span 5 / span 5;
     grid-template-columns: repeat(5, minmax(0, 1fr));
 }
-
 .grid-6col {
     grid-column: span 6 / span 6;
     grid-template-columns: repeat(6, minmax(0, 1fr));
 }
-
 .grid-7col {
     grid-column: span 7 / span 7;
     grid-template-columns: repeat(7, minmax(0, 1fr));
 }
-
 .grid-8col {
     grid-column: span 8 / span 8;
     grid-template-columns: repeat(8, minmax(0, 1fr));
 }
-
 .grid-9col {
     grid-column: span 9 / span 9;
     grid-template-columns: repeat(9, minmax(0, 1fr));
 }
-
 .grid-10col {
     grid-column: span 10 / span 10;
     grid-template-columns: repeat(10, minmax(0, 1fr));
 }
-
 .grid-11col {
     grid-column: span 11 / span 11;
     grid-template-columns: repeat(11, minmax(0, 1fr));
 }
-
 .grid-12col {
     grid-column: span 12 / span 12;
     grid-template-columns: repeat(12, minmax(0, 1fr));
 }
-
-.grid-start-2 {
-    grid-column-start: 2;
-}
-
-.grid-start-3 {
-    grid-column-start: 3;
-}
-
-.grid-start-4 {
-    grid-column-start: 4;
-}
-
-.grid-start-5 {
-    grid-column-start: 5;
-}
-
-.grid-start-6 {
-    grid-column-start: 6;
-}
-
-.grid-start-7 {
-    grid-column-start: 7;
-}
-
-.grid-start-8 {
-    grid-column-start: 8;
-}
-
-.grid-start-9 {
-    grid-column-start: 9;
-}
-
-.grid-start-10 {
-    grid-column-start: 10;
-}
-
-.grid-start-11 {
-    grid-column-start: 11;
-}
-
-.grid-start-12 {
-    grid-column-start: 12;
-}
-
-.grid-span-2 {
-    grid-column-end: span 2;
-}
-
-.grid-span-3 {
-    grid-column-end: span 3;
-}
-
-.grid-span-4 {
-    grid-column-end: span 4;
-}
-
-.grid-span-5 {
-    grid-column-end: span 5;
-}
-
-.grid-span-6 {
-    grid-column-end: span 6;
-}
-
-.grid-span-7 {
-    grid-column-end: span 7;
-}
-
-.grid-span-8 {
-    grid-column-end: span 8;
-}
-
-.grid-span-9 {
-    grid-column-end: span 9;
-}
-
-.grid-span-10 {
-    grid-column-end: span 10;
-}
-
-.grid-span-11 {
-    grid-column-end: span 11;
-}
-
-.grid-span-12 {
-    grid-column-end: span 12;
-}
+.grid-start-2 { grid-column-start: 2; }
+.grid-start-3 { grid-column-start: 3; }
+.grid-start-4 { grid-column-start: 4; }
+.grid-start-5 { grid-column-start: 5; }
+.grid-start-6 { grid-column-start: 6; }
+.grid-start-7 { grid-column-start: 7; }
+.grid-start-8 { grid-column-start: 8; }
+.grid-start-9 { grid-column-start: 9; }
+.grid-start-10 { grid-column-start: 10; }
+.grid-start-11 { grid-column-start: 11; }
+.grid-start-12 { grid-column-start: 12; }
+.grid-span-2 { grid-column-end: span 2; }
+.grid-span-3 { grid-column-end: span 3; }
+.grid-span-4 { grid-column-end: span 4; }
+.grid-span-5 { grid-column-end: span 5; }
+.grid-span-6 { grid-column-end: span 6; }
+.grid-span-7 { grid-column-end: span 7; }
+.grid-span-8 { grid-column-end: span 8; }
+.grid-span-9 { grid-column-end: span 9; }
+.grid-span-10 { grid-column-end: span 10; }
+.grid-span-11 { grid-column-end: span 11; }
+.grid-span-12 { grid-column-end: span 12; }
 
 /* Поведение flex-контейнеров */
 .flexrow {
@@ -432,11 +335,9 @@ textarea[disabled] {
 .myrpg.sheet.actor::-webkit-scrollbar {
     width: 12px;
 }
-
 .myrpg.sheet.actor::-webkit-scrollbar-track {
     background: #d2d2c9;
 }
-
 .myrpg.sheet.actor::-webkit-scrollbar-thumb {
     background-color: #6d031c;
     border: 2px solid #d2d2c9;
@@ -451,7 +352,6 @@ textarea[disabled] {
     text-align: center;
     font-weight: 700;
 }
-
 .sheet-box .form-group label,
 .sheet-box .resource-label,
 .sheet-box .armor-description label,
@@ -466,16 +366,14 @@ textarea[disabled] {
 .resource .resource-content {
     text-align: center;
 }
-
-    .resource input {
-        text-align: center;
-    }
+.resource input {
+    text-align: center;
+}
 /* Дополнительное центрирование для вкладки Биография */
 .tab.biography .form-group label {
     text-align: center;
     display: block;
 }
-
 .tab.biography .form-group input,
 .tab.biography .form-group textarea {
     text-align: center;
@@ -499,7 +397,6 @@ textarea[disabled] {
     width: auto;
     margin-right: 10px;
 }
-
 .profile-img {
     display: block;
     max-width: 150px;
@@ -531,30 +428,26 @@ textarea[disabled] {
     background-color: #6d031c !important;
     opacity: 1 !important;
 }
-
-    .window-app.myrpg .window-header .window-title {
-        color: #ffffff !important;
-    }
-
+.window-app.myrpg .window-header .window-title {
+    color: #ffffff !important;
+}
 .window-app.myrpg.dialog {
     background: #d2d2c9 !important;
     opacity: 1 !important;
     filter: none !important;
 }
-
-    .window-app.myrpg.dialog .window-header {
-        background-color: #6d031c !important;
-        background-image: none !important;
-        opacity: 1 !important;
-        filter: none !important;
-    }
-
-        .window-app.myrpg.dialog .window-header .window-title,
-        .window-app.myrpg.dialog .window-header .close {
-            color: #ffffff !important;
-            text-shadow: none !important;
-            opacity: 1 !important;
-        }
+.window-app.myrpg.dialog .window-header {
+    background-color: #6d031c !important;
+    background-image: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+}
+.window-app.myrpg.dialog .window-header .window-title,
+.window-app.myrpg.dialog .window-header .close {
+    color: #ffffff !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+}
 
 /* Стили для редактора TinyMCE (Modern TinyMCE для Foundry V10+) */
 .myrpg .tox-tinymce {
@@ -566,23 +459,20 @@ textarea[disabled] {
     padding: 0 !important;
     width: 100% !important;
 }
-
-    .myrpg .tox-tinymce .tox-editor-container {
-        background-color: #f8f8f8 !important;
-        border: none !important;
-        min-height: 40px !important; /* Базовая высота редактора */
-        box-sizing: border-box;
-    }
-
-    .myrpg .tox-tinymce .tox-edit-area__iframe {
-        background-color: #f8f8f8 !important;
-    }
-
-    .myrpg .tox-tinymce * {
-        font-family: inherit !important;
-        font-size: inherit !important;
-        color: #1b1210 !important;
-    }
+.myrpg .tox-tinymce .tox-editor-container {
+    background-color: #f8f8f8 !important;
+    border: none !important;
+    min-height: 40px !important; /* Базовая высота редактора */
+    box-sizing: border-box;
+}
+.myrpg .tox-tinymce .tox-edit-area__iframe {
+    background-color: #f8f8f8 !important;
+}
+.myrpg .tox-tinymce * {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    color: #1b1210 !important;
+}
 
 /* Для диалоговых окон с редактором TinyMCE */
 .window-app.dialog .tox-tinymce {
