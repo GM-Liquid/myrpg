@@ -751,6 +751,7 @@ form textarea {
     width: 100% !important;
 }
 
+/* === Ќовый блок дл€ стилизации форм в диалоговых окнах === */
 .window-app.dialog .form-group {
     display: flex;
     align-items: center;
