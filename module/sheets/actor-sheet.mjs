@@ -226,14 +226,19 @@ export class myrpgActorSheet extends ActorSheet {
                                 menubar: false,
                                 branding: false,
                                 statusbar: false,
-                                plugins: "link lists contextmenu",
+                                // ƒобавл€ем autoresize дл€ динамического изменени€ высоты
+                                plugins: "autoresize link lists contextmenu",
                                 toolbar: false,
                                 contextmenu: "bold italic underline strikethrough link bullist numlist",
-                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; } p { margin: 0; }",
+                                // Ќаследуем стили, чтобы редактор выгл€дел как стандартное поле
+                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
+                                // «адаЄм минимальную высоту (начальное значение), при этом при наборе текста высота будет расти
+                                autoresize_min_height: 40,
+                                // ќбеспечиваем, что редактор будет использовать всю доступную ширину контейнера
+                                width: "100%",
                                 setup: function (editor) {
-                                    // Ќе задаЄм дополнительные стили, чтобы редактор наследовал стиль обычных полей
                                     editor.on("init", function () {
-                                        // ћожно оставить пустым
+                                        // ƒополнительную настройку можно добавить здесь, если потребуетс€
                                     });
                                 }
                             });
@@ -330,13 +335,19 @@ export class myrpgActorSheet extends ActorSheet {
                                 menubar: false,
                                 branding: false,
                                 statusbar: false,
-                                plugins: "link lists contextmenu",
+                                // ƒобавл€ем autoresize дл€ динамического изменени€ высоты
+                                plugins: "autoresize link lists contextmenu",
                                 toolbar: false,
                                 contextmenu: "bold italic underline strikethrough link bullist numlist",
+                                // Ќаследуем стили, чтобы редактор выгл€дел как стандартное поле
                                 content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
+                                // «адаЄм минимальную высоту (начальное значение), при этом при наборе текста высота будет расти
+                                autoresize_min_height: 40,
+                                // ќбеспечиваем, что редактор будет использовать всю доступную ширину контейнера
+                                width: "100%",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        // ƒополнительные настройки не требуютс€
+                                        // ƒополнительную настройку можно добавить здесь, если потребуетс€
                                     });
                                 }
                             });

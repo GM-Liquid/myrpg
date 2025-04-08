@@ -709,20 +709,20 @@ form textarea {
 
 /* Внешний контейнер редактора */
 .myrpg .tox-tinymce {
-    border: 2px solid #1b1210 !important; /* Цвет и толщина рамки */
-    background-color: #f8f8f8 !important; /* Фон, как у обычных полей */
+    border: 2px solid #1b1210 !important;
+    background-color: #f8f8f8 !important;
     border-radius: 4px !important;
     box-sizing: border-box;
     margin: 0 !important;
     padding: 0 !important;
-    width: 100% !important; /* Растягиваем на всю ширину */
+    width: 100% !important; /* гарантирует, что редактор занимает всю ширину */
 }
 
     /* Внутренняя часть, где находится само поле ввода */
     .myrpg .tox-tinymce .tox-editor-container {
         background-color: #f8f8f8 !important;
-        border: none !important; /* Убираем лишнюю внутреннюю рамку */
-        min-height: 60px !important; /* Минимальная высота, как у textarea */
+        border: none !important;
+        min-height: 40px !important; /* уменьшили базовую высоту до 40px */
         box-sizing: border-box;
     }
 
