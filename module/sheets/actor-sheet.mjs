@@ -335,7 +335,7 @@ export class myrpgActorSheet extends ActorSheet {
                                 plugins: "autoresize link lists",  // contextmenu убран
                                 toolbar: false,                   // можно убрать или изменить
                                 // Если вам всё-таки нужно какое-либо контекстное меню, ознакомьтесь с документацией TinyMCE 6
-                                content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
+                                content_style: "body, p { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
                                 autoresize_min_height: 40,
                                 autoresize_bottom_margin: 0,
                                 width: "100%",
