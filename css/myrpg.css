@@ -272,7 +272,6 @@ form textarea {
 /* Таблица способностей */
 .myrpg .abilities-table {
     width: 100%;
-    table-layout: fixed !important;
     border-collapse: collapse !important;
     margin-bottom: 1em;
     background: none !important;
@@ -305,28 +304,31 @@ form textarea {
         transition: background-color 0.2s;
     }
 
-/* Ширины столбцов (для таблицы способностей) */
-.col-name {
-    width: 23%;
+.tab.abilities table.abilities-table {
+    table-layout: fixed;
+    width: 100%;
 }
 
-.col-rank {
-    width: 10%;
-}
+    .tab.abilities table.abilities-table th.col-name {
+        width: 25% !important;
+    }
 
-.col-effect {
-    width: 42%;
-    word-wrap: break-word;
-    white-space: normal;
-}
+    .tab.abilities table.abilities-table th.col-rank {
+        width: 10% !important;
+    }
 
-.col-cost {
-    width: 20%;
-}
+    .tab.abilities table.abilities-table th.col-effect {
+        width: 40% !important;
+    }
 
-.col-delete {
-    width: 5%;
-}
+    .tab.abilities table.abilities-table th.col-cost {
+        width: 20% !important;
+    }
+
+    .tab.abilities table.abilities-table th.col-delete {
+        width: 5% !important;
+    }
+
 
 /* CSS стили для таблицы инвентаря с фиксированной шириной колонок */
 .tab.inventory table.abilities-table {
