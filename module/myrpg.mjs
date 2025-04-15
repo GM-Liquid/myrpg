@@ -5,6 +5,7 @@ import { myrpgActorSheet } from './sheets/actor-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { MY_RPG } from './helpers/config.mjs';
+import './helpers/handlebars-helpers.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -18,8 +19,6 @@ Hooks.once('init', function ()
         myrpgActor,
     };
 
-    
-
     // Add custom constants for configuration.
     CONFIG.MY_RPG = MY_RPG;
 
@@ -31,19 +30,6 @@ Hooks.once('init', function ()
     // Define custom Document classes
     CONFIG.Actor.documentClass = myrpgActor;
 
-    // --- Добавляем регистрацию хелперов Handlebars ---
-    Handlebars.registerHelper('concat', (...args) => {
-        // Последний аргумент — объект опций, его удаляем
-        args.pop();
-        return args.join('');
-    });
-
-    Handlebars.registerHelper('toPascalCase', (str) => {
-        if (typeof str !== 'string') return '';
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    });
-    // --- Конец регистрации хелперов ---
-
     // Register sheet application classes
     Actors.unregisterSheet('core', ActorSheet);
     Actors.registerSheet('myrpg', myrpgActorSheet, {
@@ -53,14 +39,4 @@ Hooks.once('init', function ()
 
     // Preload Handlebars templates.
     return preloadHandlebarsTemplates();
-});
-
-
-/* -------------------------------------------- */
-/*  Handlebars Helpers                          */
-/* -------------------------------------------- */
-
-// If you need to add Handlebars helpers, here is a useful example:
-Handlebars.registerHelper('toLowerCase', function (str) {
-  return str.toLowerCase();
 });
