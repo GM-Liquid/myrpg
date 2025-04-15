@@ -1,13 +1,12 @@
 {
   "Actor": {
-    "types": [ "character", "npc" ],
+    "types": ["character", "npc"],
     "templates": {
       "base": {
         "calling": "",
         "gender": "",
         "age": "",
         "currentRank": "",
-        "name": "",
         "abilities": {
           "will": {
             "value": 10,
@@ -113,7 +112,6 @@
             "value": 0,
             "ability": "will"
           },
-
           "akrobatika": {
             "value": 0,
             "ability": "dex"
@@ -142,7 +140,6 @@
             "value": 0,
             "ability": "dex"
           },
-
           "atletika": {
             "value": 0,
             "ability": "con"
@@ -151,7 +148,6 @@
             "value": 0,
             "ability": "con"
           },
-
           "analiz": {
             "value": 0,
             "ability": "int"
@@ -184,8 +180,6 @@
             "value": 0,
             "ability": "int"
           },
-
-
           "runnoy_iskusstvo": {
             "value": 0,
             "ability": "cond"
@@ -214,7 +208,7 @@
       }
     },
     "character": {
-      "templates": [ "base" ],
+      "templates": ["base"],
       "biography": {
         "weight": "",
         "height": "",
@@ -224,10 +218,10 @@
         "notes": ""
       },
       "attributes": {}
-      }
     },
     "npc": {
-      "templates": [ "base" ],
+      "templates": ["base"],
       "attributes": {}
     }
   }
+}
