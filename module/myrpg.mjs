@@ -30,6 +30,11 @@ Hooks.once('init', function ()
     // Define custom Document classes
     CONFIG.Actor.documentClass = myrpgActor;
 
+    CONFIG.Combat.initiative = {
+        formula: "1d20 + @abilities.dex.mod",
+        decimals: 2
+    };
+
     // Register sheet application classes
     Actors.unregisterSheet('core', ActorSheet);
     Actors.registerSheet('myrpg', myrpgActorSheet, {
