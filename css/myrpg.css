@@ -315,18 +315,40 @@ form textarea {
 }
 
 .col-effect {
-    width: 45%;
+    width: 40%;
     word-wrap: break-word;
     white-space: normal;
 }
 
 .col-cost {
-    width: 15%;
+    width: 29%;
 }
 
 .col-delete {
     width: 5%;
 }
+
+/* CSS стили для таблицы инвентаря с фиксированной шириной колонок */
+.tab.inventory table.abilities-table {
+    width: 100%;
+    table-layout: fixed; /* фиксированная раскладка для равномерного распределения */
+}
+
+    .tab.inventory table.abilities-table th.col-name {
+        width: 25%; 
+    }
+
+    .tab.inventory table.abilities-table th.col-effect {
+        width: 50%;
+    }
+
+    .tab.inventory table.abilities-table th.col-cost {
+        width: 20%; 
+    }
+
+    .tab.inventory table.abilities-table th.col-delete {
+        width: 5%; 
+    }
 
 /* Форма растягивается на всю доступную площадь окна */
 .myrpg.sheet.actor form {
