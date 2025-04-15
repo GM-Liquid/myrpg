@@ -33,37 +33,58 @@ export class myrpgActor extends Actor {
     _prepareCharacterData(actorData) {
         const systemData = actorData.system;
 
-        // Пример: «модификаторы» способностей (если вам нужно)
-        for (let [key, ability] of Object.entries(systemData.abilities)) {
-            ability.mod = ability.value;
-        }
+        // Вычисляем модификаторы способностей и навыков, а также корректируем значения навыков.
+        this._calculateAbilityMods(systemData);
+        this._calculateSkillMods(systemData);
 
-        // Пример: «модификаторы» навыков (если вам нужно)
-        for (let [x, skill] of Object.entries(systemData.skills)) {
-            // skill.mod = skill.value; // или skill.c, если у вас действительно есть skill.c
-            skill.mod = skill.c;
-        }
-
-        // Убедимся, что навыки не превышают связанную способность
-        for (let [key, skill] of Object.entries(systemData.skills)) {
-            const abilityKey = skill.ability;
-            if (systemData.abilities[abilityKey]) {
-                const abilityValue = systemData.abilities[abilityKey].value;
-                if (skill.value > abilityValue) {
-                    skill.value = abilityValue;
-                }
-            }
-        }
-
-        systemData.health.max = 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value) + (Number(systemData.temphealth) || 0);
+        // Производные характеристики
+        systemData.health.max = this._calculateHealthMax(systemData);
         if (!systemData.health.value || systemData.health.value > systemData.health.max) {
             systemData.health.value = systemData.health.max;
         }
         systemData.health.damage = Math.floor(systemData.health.max / 2);
         systemData.tension.max = Math.floor(systemData.health.max / 2);
 
-        // Поток (Flux)
-        // Базовый поток вычисляется по таблице в зависимости от значения способности cond
+        // Производные: Поток, КД, Стойкость и Скорость
+        systemData.flux.value = this._calculateFlux(systemData);
+        systemData.armor.result = this._calculateArmor(systemData);
+        systemData.steadfast.result = this._calculateSteadfast(systemData);
+        systemData.speed.value = this._calculateSpeed(systemData);
+    }
+
+    /*-------------------------------------------
+      Новые приватные методы для расчётов
+    --------------------------------------------*/
+
+    // Вычисление модификаторов способностей
+    _calculateAbilityMods(systemData) {
+        for (let [key, ability] of Object.entries(systemData.abilities)) {
+            ability.mod = ability.value;
+        }
+    }
+
+    // Вычисление модификаторов навыков и проверка их значений
+    _calculateSkillMods(systemData) {
+        for (let [x, skill] of Object.entries(systemData.skills)) {
+            // Устанавливаем модификатор, предполагая наличие свойства c
+            skill.mod = skill.c;
+            // Если навык связан с характеристикой – проверяем, чтобы его значение не превышало значение характеристики
+            if (systemData.abilities[skill.ability]) {
+                const abilityValue = systemData.abilities[skill.ability].value;
+                if (skill.value > abilityValue) {
+                    skill.value = abilityValue;
+                }
+            }
+        }
+    }
+
+    // Расчёт максимального количества ОЗ
+    _calculateHealthMax(systemData) {
+        return 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value) + (Number(systemData.temphealth) || 0);
+    }
+
+    // Расчёт Потока (Flux)
+    _calculateFlux(systemData) {
         const fluxTable = [15, 20, 25, 30, 40, 50, 60, 70, 85, 100,
             115, 130, 150, 170, 190, 210, 235, 260, 285, 310];
         const condValue = parseInt(systemData.abilities.cond.value) || 0;
@@ -71,23 +92,28 @@ export class myrpgActor extends Actor {
         if (condValue >= 1 && condValue <= 20) {
             baseFlux = fluxTable[condValue - 1];
         }
-        systemData.flux.value = baseFlux + (Number(systemData.tempflux) || 0);
+        return baseFlux + (Number(systemData.tempflux) || 0);
+    }
 
-        // КД (Armor)
-        systemData.armor.result =
-            Number(systemData.skills.vynoslivost.value) +
+    // Расчёт КД (Armor)
+    _calculateArmor(systemData) {
+        return Number(systemData.skills.vynoslivost.value) +
             (Number(systemData.temparmor) || 0) +
             (Number(systemData.armor.itemAC) || 0);
+    }
 
-        // Стойкость (Steadfast)
-        systemData.steadfast.result =
-            Number(systemData.skills.stoikost.value) +
+    // Расчёт Стойкости (Steadfast)
+    _calculateSteadfast(systemData) {
+        return Number(systemData.skills.stoikost.value) +
             (Number(systemData.tempsteadfast) || 0) +
             (Number(systemData.armor.itemSteadfast) || 0);
-
-        // Скорость передвижения
-        systemData.speed.value = 10 + (Number(systemData.tempspeed) || 0);
     }
+
+    // Расчёт Скорости
+    _calculateSpeed(systemData) {
+        return 10 + (Number(systemData.tempspeed) || 0);
+    }
+
 
   /**
    * Prepare NPC type specific data.
@@ -96,8 +122,7 @@ export class myrpgActor extends Actor {
     if (actorData.type !== 'npc') return;
 
     // Make modifications to data here. For example:
-    const systemData = actorData.system;
-    systemData.xp = systemData.crcr * systemData.cr * 100;
+      const systemData = actorData.system;
   }
 
   /**

@@ -62,7 +62,81 @@ export class myrpgActorSheet extends ActorSheet {
         return val;
     }
 
+    /**
+ * Инициализирует TinyMCE для заданного элемента, если он еще не инициализирован.
+ * @param {HTMLElement} element - DOM-элемент textarea, для которого требуется TinyMCE.
+ */
+    initializeRichEditor(element) {
+        if (!element._tinyMCEInitialized) {
+            tinymce.init({
+                target: element,
+                inline: false,
+                menubar: false,
+                branding: false,
+                statusbar: false,
+                plugins: "autoresize link lists",
+                toolbar: false,
+                content_style: "body, p { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
+                autoresize_min_height: 40,
+                autoresize_bottom_margin: 0,
+                width: "100%",
+                setup: function (editor) {
+                    editor.on("init", function () {
+                        // Дополнительные настройки, если нужны
+                    });
+                }
+            });
+            element._tinyMCEInitialized = true;
+        }
+    }
 
+    /**
+     * Показывает tooltip для строки способности.
+     * @param {jQuery} $row - jQuery объект строки, для которой показывается tooltip.
+     * @param {Object} abilityData - данные способности для отображения.
+     */
+    showAbilityTooltip($row, abilityData) {
+        const costValue = abilityData.cost;
+        const costText = costValue ?? "";
+        const $tooltip = $(`
+    <div class="ability-tooltip">
+      <strong>${abilityData.name || ""}</strong><br/>
+      <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}:</strong> ${abilityData.rank || ""}<br/>
+      <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}:</strong> ${abilityData.effect || ""}<br/>
+      <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}:</strong><br/>${abilityData.desc || ""}<br/>
+      <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}:</strong> ${costText}<br/>
+    </div>
+  `);
+        $("body").append($tooltip);
+        $tooltip.css({
+            position: "absolute",
+            zIndex: 99999,
+            backgroundColor: "#fff",
+            border: "1px solid #ccc",
+            padding: "5px",
+            boxShadow: "0 0 5px rgba(0,0,0,0.2)",
+            pointerEvents: "none"
+        });
+        const rowOffset = $row.offset();
+        const tooltipWidth = $tooltip.outerWidth();
+        $tooltip.css({
+            top: rowOffset.top + "px",
+            left: (rowOffset.left - tooltipWidth - 10) + "px"
+        });
+        $row.data("tooltip", $tooltip);
+    }
+
+    /**
+     * Удаляет tooltip, связанный с заданной строкой.
+     * @param {jQuery} $row - jQuery объект строки, для которой удаляется tooltip.
+     */
+    hideAbilityTooltip($row) {
+        const $tooltip = $row.data("tooltip");
+        if ($tooltip) {
+            $tooltip.remove();
+            $row.removeData("tooltip");
+        }
+    }
 
     activateListeners(html) {
         super.activateListeners(html);
@@ -89,49 +163,13 @@ export class myrpgActorSheet extends ActorSheet {
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
             if (!Array.isArray(abilities)) abilities = Object.values(abilities);
             const abilityData = abilities[index] || {};
-
-            const costValue = abilityData.cost;
-            const costText = costValue ?? "";
-
-            const $tooltip = $(`
-        <div class="ability-tooltip">
-          <strong>${abilityData.name || ""}</strong><br/>
-          <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Rank")}:</strong> ${abilityData.rank || ""}<br/>
-          <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Effect")}:</strong> ${abilityData.effect || ""}<br/>
-          <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Desc")}:</strong><br/>${abilityData.desc || ""}<br/>
-          <strong>${game.i18n.localize("MY_RPG.AbilityConfig.Cost")}:</strong> ${costText}<br/>
-        </div>
-      `);
-
-            $("body").append($tooltip);
-            $tooltip.css({
-                position: "absolute",
-                zIndex: 99999,
-                backgroundColor: "#fff",
-                border: "1px solid #ccc",
-                padding: "5px",
-                boxShadow: "0 0 5px rgba(0,0,0,0.2)",
-                pointerEvents: "none"
-            });
-
-            const rowOffset = $row.offset();
-            const tooltipWidth = $tooltip.outerWidth();
-            $tooltip.css({
-                top: rowOffset.top + "px",
-                left: (rowOffset.left - tooltipWidth - 10) + "px"
-            });
-
-            $row.data("tooltip", $tooltip);
+            this.showAbilityTooltip($row, abilityData);
         });
 
         // Убираем tooltip, когда курсор уходит со строки
         html.find("tr.ability-row").on("mouseleave", event => {
             const $row = $(event.currentTarget);
-            const $tooltip = $row.data("tooltip");
-            if ($tooltip) {
-                $tooltip.remove();
-                $row.removeData("tooltip");
-            }
+            this.hideAbilityTooltip($row);
         });
 
         // Кнопка "Отмена" (если где-то используется)
@@ -259,29 +297,9 @@ export class myrpgActorSheet extends ActorSheet {
                     this._editing = false;
                 },
                 render: (html) => {
-                    html.find("textarea.rich-editor").each(function () {
-                        if (!this._tinyMCEInitialized) {
-                            tinymce.init({
-                                target: this,
-                                inline: false,
-                                menubar: false,
-                                branding: false,
-                                statusbar: false,
-                                plugins: "autoresize link lists",  // contextmenu убран
-                                toolbar: false,                   // можно убрать или изменить
-                                // Если вам всё-таки нужно какое-либо контекстное меню, ознакомьтесь с документацией TinyMCE 6
-                                content_style: "body, p { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
-                                autoresize_min_height: 40,
-                                autoresize_bottom_margin: 0,
-                                width: "100%",
-                                setup: function (editor) {
-                                    editor.on("init", function () {
-                                        // Дополнительные настройки, если нужны
-                                    });
-                                }
-                            });
-                            this._tinyMCEInitialized = true;
-                        }
+                    html.find("textarea.rich-editor").each((index, element) => {
+                        // Вызываем новый метод инициализации редактора
+                        this.initializeRichEditor(element);
                     });
                 }
             });
