@@ -1,5 +1,11 @@
 {
   "MY_RPG": {
+    "NumericWarning": {
+      "Attribute": "Attribute",
+      "Skill": "Skill",
+      "Min": "{{label}} cannot be less than {{min}}",
+      "Max": "{{label}} cannot be greater than {{max}}"
+    },
     "Flux": {
       "Label": "Flux"
     },

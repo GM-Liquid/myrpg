@@ -23,6 +23,47 @@ export class myrpgActorSheet extends ActorSheet {
         return super.close(options);
     }
 
+    /**
+     * Валидирует числовой ввод в полях, связанных с характеристиками и навыками.
+     * Все сообщения выводятся с использованием системы локализации.
+     * @param {HTMLElement} input - DOM-элемент input, который содержит значение.
+     * @returns {number} - проверенное числовое значение.
+     */
+    validateNumericInput(input) {
+        let val = parseInt(input.value, 10);
+        const isAbility = input.name.includes("system.abilities.");
+        // Используем локализацию для названий типа поля:
+        // Добавьте в локализации следующие ключи: 
+        // "MY_RPG.NumericWarning.Attribute": "Характеристика" (ru) / "Attribute" (en)
+        // "MY_RPG.NumericWarning.Skill": "Навык" (ru) / "Skill" (en)
+        const labelKey = isAbility ? "MY_RPG.NumericWarning.Attribute" : "MY_RPG.NumericWarning.Skill";
+        const label = game.i18n.localize(labelKey);
+        const minVal = isAbility ? 1 : 0;
+        const maxVal = 20;
+
+        if (isNaN(val)) {
+            val = minVal;
+        }
+        // При превышении минимального значения – выводим уведомление с локализованным текстом
+        if (val < minVal) {
+            // В локализациях добавьте ключ "MY_RPG.NumericWarning.Min"
+            // Например: ru.json: "{{label}} не может быть меньше {{min}}"
+            //              en.json: "{{label}} cannot be less than {{min}}"
+            ui.notifications.warn(game.i18n.format("MY_RPG.NumericWarning.Min", { label: label, min: minVal }));
+            val = minVal;
+        } else if (val > maxVal) {
+            // Аналогично для максимального значения – ключ "MY_RPG.NumericWarning.Max"
+            // Например: ru.json: "{{label}} не может быть больше {{max}}"
+            //              en.json: "{{label}} cannot be greater than {{max}}"
+            ui.notifications.warn(game.i18n.format("MY_RPG.NumericWarning.Max", { label: label, max: maxVal }));
+            val = maxVal;
+        }
+        input.value = val;
+        return val;
+    }
+
+
+
     activateListeners(html) {
         super.activateListeners(html);
 
@@ -379,31 +420,12 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // ----------------------------------------------------------------------
-        // ПРОЧИЕ ОБРАБОТЧИКИ
-        // ----------------------------------------------------------------------
         html.find('input[name^="system.abilities."], input[name^="system.skills."]').on("change", ev => {
             const input = ev.currentTarget;
-            let val = parseInt(input.value, 10);
-
-            const isAbility = input.name.includes("system.abilities.");
-            const label = isAbility ? "Характеристика" : "Навык";
-            const minVal = isAbility ? 1 : 0;
-            const maxVal = 20;
-
-            if (isNaN(val)) {
-                val = minVal;
-            }
-            if (val < minVal) {
-                ui.notifications.warn(`${label} не может быть меньше ${minVal}`);
-                val = minVal;
-            } else if (val > maxVal) {
-                ui.notifications.warn(`${label} не может быть больше ${maxVal}`);
-                val = maxVal;
-            }
-
-            input.value = val;
-            this.actor.update({ [input.name]: val }, { render: false });
+            // Вызываем новую функцию валидации
+            const validatedValue = this.validateNumericInput(input);
+            // Обновляем данные актора без повторного рендера
+            this.actor.update({ [input.name]: validatedValue }, { render: false });
         });
     }
 
