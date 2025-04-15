@@ -311,17 +311,17 @@ form textarea {
 }
 
 .col-rank {
-    width: 12%;
+    width: 10%;
 }
 
 .col-effect {
-    width: 40%;
+    width: 42%;
     word-wrap: break-word;
     white-space: normal;
 }
 
 .col-cost {
-    width: 29%;
+    width: 20%;
 }
 
 .col-delete {
