@@ -318,11 +318,11 @@ form textarea {
     }
 
     .tab.abilities table.abilities-table th.col-effect {
-        width: 47% !important;
+        width: 40% !important;
     }
 
     .tab.abilities table.abilities-table th.col-cost {
-        width: 13% !important;
+        width: 20% !important;
     }
 
     .tab.abilities table.abilities-table th.col-delete {

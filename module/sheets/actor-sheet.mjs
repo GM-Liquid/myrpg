@@ -502,49 +502,17 @@ export class myrpgActorSheet extends ActorSheet {
     _onRoll(event) {
         event.preventDefault();
         const element = event.currentTarget;
-        const { skill, ability, label, roll } = element.dataset;
+        const dataset = element.dataset;
 
-        // Если клик по навыку
-        if (skill) {
-            const val = parseInt(this.actor.system.skills[skill]?.value) || 0;
-            return this._rollDice(val, label);
-        }
-        // Если клик по характеристике
-        if (ability) {
-            const val = parseInt(this.actor.system.abilities[ability]?.value) || 0;
-            return this._rollDice(val, label);
-        }
-        // fallback — если остался data-roll
-        if (roll) {
-            const r = new Roll(roll, this.actor.getRollData());
-            r.toMessage({
+        if (dataset.roll) {
+            let label = dataset.label || "";
+            let roll = new Roll(dataset.roll, this.actor.getRollData());
+            roll.toMessage({
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: label,
                 rollMode: game.settings.get("core", "rollMode")
             });
-            return r;
+            return roll;
         }
-    }
-    _rollDice(value, label) {
-        // число кубов
-        const count = value > 0 ? value : 1;
-        // грань куба
-        let die;
-        if (value === 0 || value <= 4) die = 4;
-        else if (value <= 8) die = 6;
-        else if (value <= 12) die = 8;
-        else if (value <= 16) die = 10;
-        else die = 12;
-        // формируем строку броска
-        let formula = `${count}d${die}`;
-        if (value === 0) formula += " - 1";
-        // выполняем бросок
-        const r = new Roll(formula, this.actor.getRollData());
-        r.toMessage({
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            flavor: label,
-            rollMode: game.settings.get("core", "rollMode")
-        });
-        return r;
     }
 }

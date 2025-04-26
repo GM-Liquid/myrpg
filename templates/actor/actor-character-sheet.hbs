@@ -81,7 +81,7 @@
                                 <thead>
                                     <tr>
                                         {{#each system.abilities as |ability key|}}
-                                        <th class="rollable" data-ability="{{key}}" data-label="{{ability.label}}">{{ability.label}}</th>
+                                        <th class="rollable" data-roll="d20+@{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</th>
                                         {{/each}}
                                     </tr>
                                 </thead>
@@ -252,7 +252,7 @@
                                 </div>
                                 <!-- Ќазвание навыка (кликабельно дл€ броска) -->
                                 <div class="skill-col skill-name rollable"
-                                     data-skill="{{key}}"
+                                     data-roll="d20+@{{key}}.value"
                                      data-label="{{localize (concat "MY_RPG.Skill." (toPascalCase key))}}">
                                     {{localize (concat "MY_RPG.Skill." (toPascalCase key))}}
                                 </div>
