@@ -12,7 +12,9 @@ import './helpers/handlebars-helpers.mjs';
 /* -------------------------------------------- */
 
 Hooks.once('init', function ()
-    {
+
+{
+    console.log("🛠 myrpg | init hook loaded");
     // Add utility classes to the global game object so that they're more easily
     // accessible in global contexts.
     game.myrpg = {
@@ -37,7 +39,9 @@ Hooks.once('init', function ()
 });
 
 
-Hooks.once('setup', () => {
+Hooks.once('setup', () =>
+{
+    console.log("🛠 myrpg | setup hook loaded");
     const initiativeLabel = game.i18n.localize("MY_RPG.Initiative");
 
     Combatant.prototype.rollInitiative = async function ({ } = {}) {
