@@ -46,8 +46,10 @@
       "Skills": "Skills",
       "KeyInfo": "Key Information",
       "Biography": "Biography & Notes",
-      "Inventory": "Inventory"
+      "Inventory": "Inventory",
+      "Initiative": "Initiative"
     },
+    "Initiative": "Initiative",
     "AbilityConfig": {
       "Title": "Edit Ability",
       "Save": "Save",

@@ -1,4 +1,4 @@
-// Import document classes.
+﻿// Import document classes.
 import { myrpgActor } from './documents/actor.mjs';
 // Import sheet classes.
 import { myrpgActorSheet } from './sheets/actor-sheet.mjs';
@@ -22,17 +22,41 @@ Hooks.once('init', function ()
     // Add custom constants for configuration.
     CONFIG.MY_RPG = MY_RPG;
 
-    /**
-     * Set an initiative formula for the system
-     * @type {String}
-     */
-
     // Define custom Document classes
     CONFIG.Actor.documentClass = myrpgActor;
 
-    CONFIG.Combat.initiative = {
-        formula: "1d20 + @abilities.dex.mod",
-        decimals: 2
+    // Локализованная метка для инициативы  
+    const initiativeLabel = game.i18n.localize("MY_RPG.Initiative");
+
+    // Переопределяем rollInitiative, чтобы она «кидалась, как рефлексы»
+    Combatant.prototype.rollInitiative = async function ({ createCombatants = false, formula = null, updateExisting = true, chatOptions = {} } = {}) {
+        const actor = this.actor;
+        const value = parseInt(actor.system.abilities.dex.value) || 0;
+
+        // 0→1d4-1, 1–4→Nd4, 5–8→Nd6, 9–12→Nd8, 13–16→Nd10, 17+→Nd12
+        const count = value > 0 ? value : 1;
+        let die;
+        if (value === 0 || value <= 4) die = 4;
+        else if (value <= 8) die = 6;
+        else if (value <= 12) die = 8;
+        else if (value <= 16) die = 10;
+        else die = 12;
+
+        let formulaStr = `${count}d${die}`;
+        if (value === 0) formulaStr += " - 1";
+
+        // Делаем бросок и обновляем поле initiative
+        const roll = await new Roll(formulaStr, actor.getRollData()).roll({ async: true });
+        await this.update({ initiative: roll.total }, { updateCombat: false });
+
+        // Пишем в чат
+        roll.toMessage({
+            speaker: ChatMessage.getSpeaker({ actor }),
+            flavor: initiativeLabel,
+            rollMode: game.settings.get("core", "rollMode")
+        });
+
+        return roll;
     };
 
     // Register sheet application classes

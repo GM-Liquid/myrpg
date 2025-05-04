@@ -792,3 +792,11 @@ form textarea {
         width: 250px;
         box-sizing: border-box;
     }
+
+/* Убираем цветную подсветку единичек и критических успех/провал */
+.dice-roll .die.highlight.critical-succeed,
+.dice-roll .die.highlight.critical-failure {
+    background-color: transparent !important;
+    color: inherit !important;
+    text-shadow: none !important;
+}
