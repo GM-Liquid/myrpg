@@ -175,30 +175,6 @@
                                        readonly tabindex="-1" />
                             </div>
                         </div>
-                        <!-- КД (Armor) -->
-                        <div class="resource flex-group-center">
-                            <label class="resource-label">{{localize "MY_RPG.Armor.Label"}}</label>
-                            <div class="resource-content flexcol">
-                                <input type="number"
-                                       name="system.armor.result"
-                                       value="{{system.armor.result}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       readonly tabindex="-1" />
-                            </div>
-                        </div>
-                        <!-- Стойкость (Steadfast) -->
-                        <div class="resource flex-group-center">
-                            <label class="resource-label">{{localize "MY_RPG.Steadfast.Label"}}</label>
-                            <div class="resource-content flexcol">
-                                <input type="number"
-                                       name="system.steadfast.result"
-                                       value="{{system.steadfast.result}}"
-                                       step="1"
-                                       inputmode="numeric"
-                                       readonly tabindex="-1" />
-                            </div>
-                        </div>
                         <!-- Скорость (Speed) -->
                         <div class="resource flex-group-center">
                             <label class="resource-label">{{localize "MY_RPG.Speed.Label"}}</label>
@@ -235,6 +211,43 @@
                                            style="width: 50%;" />
                                 </div>
                             </div>
+                        </div>
+                        <div class="resource defenses">
+                            <table class="defenses-table">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>{{localize "MY_RPG.Defenses.PhysicalLabel"}}</th>
+                                        
+                                        <th>{{localize "MY_RPG.Defenses.AzureLabel"}}</th>
+                                        
+                                        <th>{{localize "MY_RPG.Defenses.MentalLabel"}}</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="number"
+                                                   name="system.defenses.physical"
+                                                   value="{{system.defenses.physical}}"
+                                                   readonly tabindex="-1" />
+                                        </td>
+                                        <td>
+                                            <input type="number"
+                                                   name="system.defenses.azure"
+                                                   value="{{system.defenses.azure}}"
+                                                   readonly tabindex="-1" />
+                                        </td>
+                                        <td>
+                                            <input type="number"
+                                                   name="system.defenses.mental"
+                                                   value="{{system.defenses.mental}}"
+                                                   readonly tabindex="-1" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </section>
                 </div> <!-- Конец большого sheet-box Key Info -->
@@ -285,12 +298,16 @@
                                     <td><input type="number" name="system.tempflux" value="{{system.tempflux}}" /></td>
                                 </tr>
                                 <tr>
-                                    <td>{{localize "MY_RPG.TempArmor.Label"}}</td>
-                                    <td><input type="number" name="system.temparmor" value="{{system.temparmor}}" /></td>
+                                    <td>{{localize "MY_RPG.Temp.BonusPhysicalLabel"}}</td>
+                                    <td><input type="number" name="system.tempphys" value="{{system.tempphys}}" /></td>
                                 </tr>
                                 <tr>
-                                    <td>{{localize "MY_RPG.TempSteadfast.Label"}}</td>
-                                    <td><input type="number" name="system.tempsteadfast" value="{{system.tempsteadfast}}" /></td>
+                                    <td>{{localize "MY_RPG.Temp.BonusAzureLabel"}}</td>
+                                    <td><input type="number" name="system.tempazure" value="{{system.tempazure}}" /></td>
+                                </tr>
+                                <tr>
+                                    <td>{{localize "MY_RPG.Temp.BonusMentalLabel"}}</td>
+                                    <td><input type="number" name="system.tempmental" value="{{system.tempmental}}" /></td>
                                 </tr>
                                 <tr>
                                     <td>{{localize "MY_RPG.TempSpeed.Label"}}</td>
@@ -370,20 +387,16 @@
                     </div>
                     <div class="armor-values flexrow">
                         <div class="flexcol">
-                            <label>{{localize "MY_RPG.ArmorItem.ACLabel"}}</label>
-                            <input type="number"
-                                   name="system.armor.itemAC"
-                                   value="{{system.armor.itemAC}}"
-                                   step="1"
-                                   inputmode="numeric" />
+                            <label>{{localize "MY_RPG.ArmorItem.BonusPhysicalLabel"}}</label>
+                            <input type="number" name="system.armor.itemPhys" value="{{system.armor.itemPhys}}" step="1" inputmode="numeric" />
                         </div>
                         <div class="flexcol">
-                            <label>{{localize "MY_RPG.ArmorItem.SteadfastLabel"}}</label>
-                            <input type="number"
-                                   name="system.armor.itemSteadfast"
-                                   value="{{system.armor.itemSteadfast}}"
-                                   step="1"
-                                   inputmode="numeric" />
+                            <label>{{localize "MY_RPG.ArmorItem.BonusAzureLabel"}}</label>
+                            <input type="number" name="system.armor.itemAzure" value="{{system.armor.itemAzure}}" step="1" inputmode="numeric" />
+                        </div>
+                        <div class="flexcol">
+                            <label>{{localize "MY_RPG.ArmorItem.BonusMentalLabel"}}</label>
+                            <input type="number" name="system.armor.itemMental" value="{{system.armor.itemMental}}" step="1" inputmode="numeric" />
                         </div>
                     </div>
                 </div>
