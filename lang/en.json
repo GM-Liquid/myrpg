@@ -37,6 +37,11 @@
       "No": "No",
       "AlreadyEditing": "An edit dialog is already open. Please close it before opening another."
     },
+    "Defenses": {
+      "PhysicalLabel": "Physical Defense",
+      "AzureLabel": "Azure Defense",
+      "MentalLabel": "Mental Defense"
+    },
     "SheetLabels": {
       "AbilitiesAndMods": "Abilities and Mods",
       "Features": "Main Sheet",
@@ -71,6 +76,9 @@
       "BonusLabel": "Armor Bonus"
     },
     "ArmorItem": {
+      "BonusPhysicalLabel": "Bonus to Physical Defense",
+      "BonusAzureLabel": "Bonus to Azure Defense",
+      "BonusMentalLabel": "Bonus to Mental Defense",
       "ArmorSectionTitle": "Armor",
       "DescriptionLabel": "Description",
       "ACLabel": "AC Bonus",
@@ -97,12 +105,9 @@
     "TempFlux": {
       "Label": "Temp Flux"
     },
-    "TempArmor": {
-      "Label": "Temp AC Bonus"
-    },
-    "TempSteadfast": {
-      "Label": "Temp Steadfast"
-    },
+    "TempPhys": { "Label": "Temp Physical Defense" },
+    "TempAzure": { "Label": "Temp Azure Defense" },
+    "TempMental": { "Label": "Temp Mental Defense" },
     "TempSpeed": {
       "Label": "Temp Speed"
     },
