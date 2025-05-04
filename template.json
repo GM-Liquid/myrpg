@@ -90,10 +90,6 @@
         "tempspeed": 0,
         "biography": "",
         "skills": {
-          "stoikost": {
-            "value": 0,
-            "ability": "will"
-          },
           "blef": {
             "value": 0,
             "ability": "will"
@@ -146,10 +142,6 @@
             "value": 0,
             "ability": "con"
           },
-          "vynoslivost": {
-            "value": 0,
-            "ability": "con"
-          },
           "analiz": {
             "value": 0,
             "ability": "int"
@@ -178,7 +170,7 @@
             "value": 0,
             "ability": "int"
           },
-          "hladnokrovie": {
+          "znanie_azura": {
             "value": 0,
             "ability": "int"
           },
