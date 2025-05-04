@@ -6,188 +6,199 @@
       "Min": "{{label}} не может быть меньше {{min}}",
       "Max": "{{label}} не может быть больше {{max}}"
     },
-      "Flux": {
-        "Label": "Поток"
+    "Flux": {
+      "Label": "Поток"
+    },
+    "Dialog": {
+      "ConfirmDeleteTitle": "Удаление способности",
+      "ConfirmDeleteMessage": "Вы действительно хотите удалить эту способность? Это действие необратимо.",
+      "Yes": "Да",
+      "No": "Нет"
+    },
+    "Defenses": {
+      "PhysicalLabel": "Физическая защита",
+      "AzureLabel": "Азур-защита",
+      "MentalLabel": "Ментальная защита"
+    },
+    "ArmorItem": {
+      "ArmorSectionTitle": "Доспех",
+      "DescriptionLabel": "Описание",
+      "BonusPhysicalLabel": "Бонус к физической защите",
+      "BonusAzureLabel": "Бонус к азур-защите",
+      "BonusMentalLabel": "Бонус к ментальной защите"
+    },
+    "Temp": {
+      "BonusPhysicalLabel": "Временная физ. защита",
+      "BonusAzureLabel": "Временная азур-защита",
+      "BonusMentalLabel": "Временная ментальная защита"
+    },
+    "KeyInfo": {
+      "Calling": "Призвание",
+      "Gender": "Пол",
+      "Age": "Возраст",
+      "CurrentRank": "Текущий ранг",
+      "Name": "Имя"
+    },
+    "SheetLabels": {
+      "AbilitiesAndMods": "Способности и модификации",
+      "Features": "Основной лист",
+      "Abilities": "Способности",
+      "Parameters": "Параметры",
+      "Attributes": "Характеристики",
+      "Skills": "Навыки",
+      "KeyInfo": "Ключевая информация",
+      "Biography": "Биография и заметки",
+      "Inventory": "Инвентарь"
+    },
+    "Inventory": {
+      "TableHeading": "Инвентарь",
+      "Name": "Название",
+      "Description": "Описание",
+      "Quantity": "Количество",
+      "AddRow": "Добавить предмет",
+      "EditTitle": "Редактирование предмета",
+      "Save": "Сохранить",
+      "Cancel": "Отмена",
+      "ConfirmDeleteTitle": "Удаление предмета",
+      "ConfirmDeleteMessage": "Вы действительно хотите удалить этот предмет? Это действие необратимо.",
+      "Yes": "Да",
+      "No": "Нет",
+      "AlreadyEditing": "Диалог редактирования уже открыт. Сначала закройте его."
+    },
+    "AbilityConfig": {
+      "Title": "Редактирование способности",
+      "Save": "Сохранить",
+      "Cancel": "Отмена",
+      "Name": "Название",
+      "Rank": "Ранг",
+      "Effect": "Эффект",
+      "Cost": "Стоимость",
+      "Desc": "Полное описание",
+      "AlreadyEditing": "Диалог редактирования уже открыт. Сначала закройте его."
+    },
+    "Health": {
+      "Label": "Очки Здоровья (ОЗ)",
+      "Temp": "Временные ОЗ",
+      "SubCurrent": "Текущ",
+      "SubDamage": "Рана",
+      "SubMax": "Макс"
+    },
+    "Armor": {
+      "Label": "Класс Доспеха",
+      "BonusLabel": "Бонус доспеха"
+    },
+    "Tension": {
+      "Label": "Напряженность",
+      "ValueLabel": "Текущее",
+      "MaxLabel": "Макс"
+    },
+    "Steadfast": {
+      "Label": "Стойкость",
+      "BonusLabel": "Бонус доспеха"
+    },
+    "Speed": {
+      "Label": "Скорость передвижения"
+    },
+    "TempBonus": {
+      "Label": "Временные бонусы"
+    },
+    "TempHealth": {
+      "Label": "Временное ОЗ"
+    },
+    "TempFlux": {
+      "Label": "Временный поток"
+    },
+    "TempArmor": {
+      "Label": "Временный бонус КД"
+    },
+    "TempSteadfast": {
+      "Label": "Временная стойкость"
+    },
+    "TempSpeed": {
+      "Label": "Временная скорость"
+    },
+    "abilityAbbreviations": {
+      "will": "Воля",
+      "dex": "Реф",
+      "con": "Тело",
+      "int": "Разум",
+      "cond": "Пров"
+    },
+    "Ability": {
+      "Will": {
+        "long": "Воля",
+        "abbr": "Воля"
       },
-      "Dialog": {
-        "ConfirmDeleteTitle": "Удаление способности",
-        "ConfirmDeleteMessage": "Вы действительно хотите удалить эту способность? Это действие необратимо.",
-        "Yes": "Да",
-        "No": "Нет"
+      "Con": {
+        "long": "Тело",
+        "abbr": "Тело"
       },
-      "KeyInfo": {
-        "Calling": "Призвание",
-        "Gender": "Пол",
-        "Age": "Возраст",
-        "CurrentRank": "Текущий ранг",
-        "Name": "Имя"
+      "Dex": {
+        "long": "Реф",
+        "abbr": "Реф"
       },
-      "SheetLabels": {
-        "AbilitiesAndMods": "Способности и модификации",
-        "Features": "Основной лист",
-        "Abilities": "Способности",
-        "Parameters": "Параметры",
-        "Attributes": "Характеристики",
-        "Skills": "Навыки",
-        "KeyInfo": "Ключевая информация",
-        "Biography": "Биография и заметки",
-        "Inventory": "Инвентарь"
+      "Int": {
+        "long": "Разум",
+        "abbr": "Разум"
       },
-      "Inventory": {
-        "TableHeading": "Инвентарь",
-        "Name": "Название",
-        "Description": "Описание",
-        "Quantity": "Количество",
-        "AddRow": "Добавить предмет",
-        "EditTitle": "Редактирование предмета",
-        "Save": "Сохранить",
-        "Cancel": "Отмена",
-        "ConfirmDeleteTitle": "Удаление предмета",
-        "ConfirmDeleteMessage": "Вы действительно хотите удалить этот предмет? Это действие необратимо.",
-        "Yes": "Да",
-        "No": "Нет",
-        "AlreadyEditing": "Диалог редактирования уже открыт. Сначала закройте его."
-      },
-      "AbilityConfig": {
-        "Title": "Редактирование способности",
-        "Save": "Сохранить",
-        "Cancel": "Отмена",
-        "Name": "Название",
-        "Rank": "Ранг",
-        "Effect": "Эффект",
-        "Cost": "Стоимость",
-        "Desc": "Полное описание",
-        "AlreadyEditing": "Диалог редактирования уже открыт. Сначала закройте его."
-      },
-      "Health": {
-        "Label": "Очки Здоровья (ОЗ)",
-        "Temp": "Временные ОЗ",
-        "SubCurrent": "Текущ",
-        "SubDamage": "Рана",
-        "SubMax": "Макс"
-      },
-      "Armor": {
-        "Label": "Класс Доспеха",
-        "BonusLabel": "Бонус доспеха"
-      },
-      "ArmorItem": {
-        "ArmorSectionTitle": "Доспех",
-        "DescriptionLabel": "Описание",
-        "ACLabel": "Бонус к КД",
-        "SteadfastLabel": "Бонус к Стойкости"
-      },
-      "Tension": {
-        "Label": "Напряженность",
-        "ValueLabel": "Текущее",
-        "MaxLabel": "Макс"
-      },
-      "Steadfast": {
-        "Label": "Стойкость",
-        "BonusLabel": "Бонус доспеха"
-      },
-      "Speed": {
-        "Label": "Скорость передвижения"
-      },
-      "TempBonus": {
-        "Label": "Временные бонусы"
-      },
-      "TempHealth": {
-        "Label": "Временное ОЗ"
-      },
-      "TempFlux": {
-        "Label": "Временный поток"
-      },
-      "TempArmor": {
-        "Label": "Временный бонус КД"
-      },
-      "TempSteadfast": {
-        "Label": "Временная стойкость"
-      },
-      "TempSpeed": {
-        "Label": "Временная скорость"
-      },
-      "abilityAbbreviations": {
-        "will": "Воля",
-        "dex": "Реф",
-        "con": "Тело",
-        "int": "Разум",
-        "cond": "Пров"
-      },
-      "Ability": {
-        "Will": {
-          "long": "Воля",
-          "abbr": "Воля"
-        },
-        "Con": {
-          "long": "Тело",
-          "abbr": "Тело"
-        },
-        "Dex": {
-          "long": "Реф",
-          "abbr": "Реф"
-        },
-        "Int": {
-          "long": "Разум",
-          "abbr": "Разум"
-        },
-        "Cond": {
-          "long": "Пров",
-          "abbr": "Пров"
-        }
-      },
-      "Skill": {
-        "Stoikost": "Стойкость",
-        "Blef": "Блеф",
-        "Obshchenie": "Общение",
-        "Zapugivanie": "Запугивание",
-        "Torgovlya": "Торговля",
-        "Diplomatiya": "Дипломатия",
-
-        "Akrobatika": "Акробатика",
-        "Skrytost": "Скрытность",
-        "Vladeniye_takt_dalnim": "Владение Такт. Дальним",
-        "Upravlenie_transportom": "Пилотирование",
-        "Lovkost_ruk": "Ловкость Рук",
-        "Blizhniy_boy": "Ближний Бой",
-        "Vladeniye_tyazhelym_dalnim": "Владение Тяжелым Дальним",
-
-        "Atletika": "Атлетика",
-        "Vynoslivost": "Выносливость",
-
-        "Analiz": "Анализ",
-        "Tekhnika": "Техника",
-        "Priroda": "Природа",
-        "Kultura": "Культура",
-        "Vnimanie": "Внимание",
-        "Meditsina": "Медицина",
-        "Oruzheynoe_delo": "Оружейное Дело",
-        "Hladnokrovie": "Хладнокровие",
-
-        "Runnoy_iskusstvo": "Рунное искусство",
-        "Kinetica": "Кинетика",
-        "Stitiyannost": "Стихийность",
-        "Biomantia": "Биомантия",
-        "Psionika": "Псионика",
-        "Predvidenie": "Предвидение"
-      },
-      "Biography": {
-        "Weight": "Вес",
-        "Height": "Рост",
-        "EyeColor": "Цвет глаз",
-        "HairColor": "Цвет волос",
-        "Appearance": "Внешность",
-        "Notes": "Заметки"
-      },
-      "AbilitiesTable": {
-        "TableHeading": "Таблица способностей",
-        "Name": "Название",
-        "Desc": "Полное описание",
-        "Effect": "Эффект",
-        "Cost": "Стоимость",
-        "AddRow": "Добавить строку",
-        "Rank": "Ранг"
+      "Cond": {
+        "long": "Пров",
+        "abbr": "Пров"
       }
     },
+    "Skill": {
+      "Stoikost": "Стойкость",
+      "Blef": "Блеф",
+      "Obshchenie": "Общение",
+      "Zapugivanie": "Запугивание",
+      "Torgovlya": "Торговля",
+      "Diplomatiya": "Дипломатия",
+
+      "Akrobatika": "Акробатика",
+      "Skrytost": "Скрытность",
+      "Vladeniye_takt_dalnim": "Владение Такт. Дальним",
+      "Upravlenie_transportom": "Пилотирование",
+      "Lovkost_ruk": "Ловкость Рук",
+      "Blizhniy_boy": "Ближний Бой",
+      "Vladeniye_tyazhelym_dalnim": "Владение Тяжелым Дальним",
+
+      "Atletika": "Атлетика",
+      "Vynoslivost": "Выносливость",
+
+      "Analiz": "Анализ",
+      "Tekhnika": "Техника",
+      "Priroda": "Природа",
+      "Kultura": "Культура",
+      "Vnimanie": "Внимание",
+      "Meditsina": "Медицина",
+      "Oruzheynoe_delo": "Оружейное Дело",
+      "Hladnokrovie": "Хладнокровие",
+
+      "Runnoy_iskusstvo": "Рунное искусство",
+      "Kinetica": "Кинетика",
+      "Stitiyannost": "Стихийность",
+      "Biomantia": "Биомантия",
+      "Psionika": "Псионика",
+      "Predvidenie": "Предвидение"
+    },
+    "Biography": {
+      "Weight": "Вес",
+      "Height": "Рост",
+      "EyeColor": "Цвет глаз",
+      "HairColor": "Цвет волос",
+      "Appearance": "Внешность",
+      "Notes": "Заметки"
+    },
+    "AbilitiesTable": {
+      "TableHeading": "Таблица способностей",
+      "Name": "Название",
+      "Desc": "Полное описание",
+      "Effect": "Эффект",
+      "Cost": "Стоимость",
+      "AddRow": "Добавить строку",
+      "Rank": "Ранг"
+    }
+  },
     "TYPES": {
       "Actor": {
         "character": "Персонаж",

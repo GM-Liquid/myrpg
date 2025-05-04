@@ -69,8 +69,9 @@
         "armor": {
           "result": 0,
           "itemDesc": "",
-          "itemAC": 0,
-          "itemSteadfast": 0
+          "itemPhys": 0,
+          "itemAzure": 0,
+          "itemMental": 0
         },
         "tension": {
           "value": 0
@@ -83,8 +84,9 @@
         },
         "temphealth": 0,
         "tempflux": 0,
-        "temparmor": 0,
-        "tempsteadfast": 0,
+        "tempphys": 0,
+        "tempazure": 0,
+        "tempmental": 0,
         "tempspeed": 0,
         "biography": "",
         "skills": {

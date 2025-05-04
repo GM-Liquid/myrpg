@@ -50,6 +50,11 @@ export class myrpgActor extends Actor {
         systemData.armor.result = this._calculateArmor(systemData);
         systemData.steadfast.result = this._calculateSteadfast(systemData);
         systemData.speed.value = this._calculateSpeed(systemData);
+        systemData.defenses = {
+            physical: this._calculatePhysicalDefense(systemData),
+            azure: this._calculateAzureDefense(systemData),
+            mental: this._calculateMentalDefense(systemData)
+        };
     }
 
     /*-------------------------------------------
@@ -78,21 +83,44 @@ export class myrpgActor extends Actor {
         }
     }
 
-    // Расчёт максимального количества ОЗ
+    // Расчёт максимального ОЗ по новой формуле
     _calculateHealthMax(systemData) {
-        return 10 + 5 * (systemData.abilities.con.value + systemData.abilities.will.value) + (Number(systemData.temphealth) || 0);
+        return 4 + (systemData.abilities.con.value * 2);
     }
 
-    // Расчёт Потока (Flux)
+    // Расчёт Потока по новой таблице проводимости 1–20
     _calculateFlux(systemData) {
-        const fluxTable = [15, 20, 25, 30, 40, 50, 60, 70, 85, 100,
-            115, 130, 150, 170, 190, 210, 235, 260, 285, 310];
+        const fluxTable = [
+            4, 5, 6, 7, 7,
+            9, 11, 13, 14, 17,
+            20, 23, 25, 29, 33,
+            37, 40, 45, 50, 55
+        ];
         const condValue = parseInt(systemData.abilities.cond.value) || 0;
-        let baseFlux = 0;
-        if (condValue >= 1 && condValue <= 20) {
-            baseFlux = fluxTable[condValue - 1];
-        }
+        const baseFlux = (condValue >= 1 && condValue <= 20)
+            ? fluxTable[condValue - 1]
+            : 0;
         return baseFlux + (Number(systemData.tempflux) || 0);
+    }
+
+    // Новые методы защиты
+    _calculatePhysicalDefense(systemData) {
+        const base = Math.floor(systemData.abilities.con.value / 2);
+        return base
+            + (Number(systemData.armor.itemPhys) || 0)
+            + (Number(systemData.tempphys) || 0);
+    }
+    _calculateAzureDefense(systemData) {
+        const base = Math.floor(systemData.abilities.cond.value / 2);
+        return base
+            + (Number(systemData.armor.itemAzure) || 0)
+            + (Number(systemData.tempazure) || 0);
+    }
+    _calculateMentalDefense(systemData) {
+        const base = Math.floor(systemData.abilities.int.value / 2);
+        return base
+            + (Number(systemData.armor.itemMental) || 0)
+            + (Number(systemData.tempmental) || 0);
     }
 
     // Расчёт КД (Armor)
