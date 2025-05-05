@@ -792,3 +792,30 @@ form textarea {
         width: 250px;
         box-sizing: border-box;
     }
+
+/* Общий стиль блока защит без заголовка */
+.sheet-box.defenses-block {
+    /* фон, рамка, паддинги берутся из .sheet-box */
+}
+
+/* === Общий стиль для блока защит === */
+.sheet-box.defenses-block {
+    /* берёт фон, границу и паддинги из .sheet-box */
+}
+/* Таблица внутри не имеет лишних рамок и фоновых заливок */
+.defenses-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .defenses-table th,
+    .defenses-table td {
+        border: none;
+        background: none;
+        padding: 0.25rem;
+        text-align: center;
+    }
+/* Если у вас есть переменная для цвета заголовков, можно добавить */
+.sheet-box.defenses-block .sheet-box-header {
+    margin-bottom: 0.25rem;
+}
