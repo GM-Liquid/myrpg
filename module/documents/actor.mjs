@@ -103,25 +103,30 @@ export class myrpgActor extends Actor {
         return baseFlux + (Number(systemData.tempflux) || 0);
     }
 
-    // Новые методы защиты
+    /** Физическая защита = floor(con/2) + бонус от брони + tempPhys */
     _calculatePhysicalDefense(systemData) {
         const base = Math.floor(systemData.abilities.con.value / 2);
-        return base
-            + (Number(systemData.armor.itemPhys) || 0)
-            + (Number(systemData.tempphys) || 0);
+        const armor = Number(systemData.armor.itemPhys) || 0;
+        const temp = Number(systemData.tempphys) || 0;
+        return base + armor + temp;
     }
+
+    /** Азур-защита = floor(cond/2) + бонус от брони + tempAzure */
     _calculateAzureDefense(systemData) {
         const base = Math.floor(systemData.abilities.cond.value / 2);
-        return base
-            + (Number(systemData.armor.itemAzure) || 0)
-            + (Number(systemData.tempazure) || 0);
+        const armor = Number(systemData.armor.itemAzure) || 0;
+        const temp = Number(systemData.tempazure) || 0;
+        return base + armor + temp;
     }
+
+    /** Ментальная защита = floor(int/2) + бонус от брони + tempMental */
     _calculateMentalDefense(systemData) {
         const base = Math.floor(systemData.abilities.int.value / 2);
-        return base
-            + (Number(systemData.armor.itemMental) || 0)
-            + (Number(systemData.tempmental) || 0);
+        const armor = Number(systemData.armor.itemMental) || 0;
+        const temp = Number(systemData.tempmental) || 0;
+        return base + armor + temp;
     }
+
 
     // Расчёт КД (Armor)
     _calculateArmor(systemData) {
