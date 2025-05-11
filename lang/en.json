@@ -112,7 +112,7 @@
       "Label": "Temp Speed"
     },
     "abilityAbbreviations": {
-      "will": "Will",
+      "will": "Spirit",
       "dex": "Ref",
       "con": "Body",
       "int": "Mind",
@@ -120,8 +120,8 @@
     },
     "Ability": {
       "Will": {
-        "long": "Will",
-        "abbr": "Will"
+        "long": "Spirit",
+        "abbr": "Spirit"
       },
       "Con": {
         "long": "Body",

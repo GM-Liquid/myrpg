@@ -85,17 +85,13 @@ export class myrpgActor extends Actor {
 
     // Расчёт максимального ОЗ по новой формуле
     _calculateHealthMax(systemData) {
-        return 4 + (systemData.abilities.con.value * 2);
+        return 10 + (systemData.abilities.con.value * 10);
     }
 
     // Расчёт Потока по новой таблице проводимости 1–20
     _calculateFlux(systemData) {
         const fluxTable = [
-            4, 5, 6, 7, 7,
-            9, 11, 13, 14, 17,
-            20, 23, 25, 29, 33,
-            37, 40, 45, 50, 55
-        ];
+            15, 20, 25, 30, 40, 50, 60, 70, 85, 100, 115, 130, 150, 170, 190, 210, 235, 260, 285, 310        ];
         const condValue = parseInt(systemData.abilities.cond.value) || 0;
         const baseFlux = (condValue >= 1 && condValue <= 20)
             ? fluxTable[condValue - 1]
@@ -103,25 +99,22 @@ export class myrpgActor extends Actor {
         return baseFlux + (Number(systemData.tempflux) || 0);
     }
 
-    /** Физическая защита = floor(con/2) + бонус от брони + tempPhys */
     _calculatePhysicalDefense(systemData) {
-        const base = Math.floor(systemData.abilities.con.value / 2);
+        const base = systemData.abilities.con.value;
         const armor = Number(systemData.armor.itemPhys) || 0;
         const temp = Number(systemData.tempphys) || 0;
         return base + armor + temp;
     }
 
-    /** Азур-защита = floor(cond/2) + бонус от брони + tempAzure */
     _calculateAzureDefense(systemData) {
-        const base = Math.floor(systemData.abilities.cond.value / 2);
+        const base = systemData.abilities.cond.value;
         const armor = Number(systemData.armor.itemAzure) || 0;
         const temp = Number(systemData.tempazure) || 0;
         return base + armor + temp;
     }
 
-    /** Ментальная защита = floor(int/2) + бонус от брони + tempMental */
     _calculateMentalDefense(systemData) {
-        const base = Math.floor(systemData.abilities.int.value / 2);
+        const base = systemData.abilities.int.value;
         const armor = Number(systemData.armor.itemMental) || 0;
         const temp = Number(systemData.tempmental) || 0;
         return base + armor + temp;

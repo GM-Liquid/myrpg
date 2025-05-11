@@ -132,7 +132,20 @@
                     </section>
 
                     <!-- Третий ряд: бывшие "Параметры" (ОЗ, Поток, КД, Стойкость, Скорость, Напряжённость) -->
+
                     <section class="resources grid grid-3col">
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">
+                                {{localize "MY_RPG.KeyInfo.MomentOfGlory"}}
+                            </label>
+                            <div class="resource-content flexcol">
+                                <input type="number"
+                                       name="system.momentOfGlory"
+                                       value="{{system.momentOfGlory}}"
+                                       step="1"
+                                       inputmode="numeric" />
+                            </div>
+                        </div>
                         <!-- ОЗ -->
                         <div class="resource flex-group-center">
                             <label class="resource-label">{{localize "MY_RPG.Health.Label"}}</label>

@@ -525,7 +525,12 @@ export class myrpgActorSheet extends ActorSheet {
             return r;
         }
     }
+
+
+
+
     _rollDice(value, label) {
+        /*
         // число кубов
         const count = value > 0 ? value : 1;
         // грань куба
@@ -539,6 +544,16 @@ export class myrpgActorSheet extends ActorSheet {
         let formula = `${count}d${die}`;
         if (value === 0) formula += " - 1";
         // выполняем бросок
+        const r = new Roll(formula, this.actor.getRollData());
+        r.toMessage({
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            flavor: label,
+            rollMode: game.settings.get("core", "rollMode")
+        });
+        return r;
+        */
+
+        const formula = `1d20 + ${value}`;
         const r = new Roll(formula, this.actor.getRollData());
         r.toMessage({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
