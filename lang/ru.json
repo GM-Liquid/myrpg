@@ -147,23 +147,19 @@
       }
     },
     "Skill": {
-      "Stoikost": "Стойкость",
-      "Blef": "Блеф",
-      "Obshchenie": "Общение",
-      "Zapugivanie": "Запугивание",
-      "Torgovlya": "Торговля",
-      "Diplomatiya": "Дипломатия",
+      "Liderstvo": "Лидерство",
+      "Obman": "Обман",
 
       "Akrobatika": "Акробатика",
       "Skrytost": "Скрытность",
       "Vladeniye_takt_dalnim": "Владение Такт. Дальним",
-      "Upravlenie_transportom": "Пилотирование",
+      "Upravlenie_transportom": "Управление Транспортом",
       "Lovkost_ruk": "Ловкость Рук",
       "Blizhniy_boy": "Ближний Бой",
       "Vladeniye_tyazhelym_dalnim": "Владение Тяжелым Дальним",
 
       "Atletika": "Атлетика",
-      "Vynoslivost": "Выносливость",
+      "Zapugivanie": "Устрашение",
 
       "Analiz": "Анализ",
       "Tekhnika": "Техника",
@@ -172,14 +168,16 @@
       "Vnimanie": "Внимание",
       "Meditsina": "Медицина",
       "Oruzheynoe_delo": "Оружейное Дело",
-      "Hladnokrovie": "Хладнокровие",
-      "Znanie_azura": "Знание Азура",
-      "Runnoy_iskusstvo": "Рунное искусство",
-      "Kinetica": "Кинетика",
-      "Stitiyannost": "Стихийность",
+      "Znanie_azura": "Азурология",
+      "Manipulatsiya": "Манипуляция",
+      "Diplomatiya": "Дипломатия",
+
+      "Artefaktorika": "Артефакторика",
       "Biomantia": "Биомантия",
+      "Stitiyannost": "Стихийность",
       "Psionika": "Псионика",
-      "Predvidenie": "Предвидение"
+      "Predvidenie": "Предвидение",
+      "Kinetica": "Кинетика"
     },
     "Biography": {
       "Weight": "Вес",
