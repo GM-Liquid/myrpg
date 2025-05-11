@@ -31,6 +31,8 @@ export class myrpgActor extends Actor {
   }
 
     _prepareCharacterData(actorData) {
+        if (actorData.type !== "character") return;
+
         const systemData = actorData.system;
 
         // Вычисляем модификаторы способностей и навыков, а также корректируем значения навыков.
@@ -100,26 +102,25 @@ export class myrpgActor extends Actor {
     }
 
     _calculatePhysicalDefense(systemData) {
-        const base = systemData.abilities.con.value;
-        const armor = Number(systemData.armor.itemPhys) || 0;
+        const base = systemData.abilities?.con?.value ?? 0;
+        const armor = Number(systemData.armor?.itemPhys) || 0;
         const temp = Number(systemData.tempphys) || 0;
         return base + armor + temp;
     }
 
     _calculateAzureDefense(systemData) {
-        const base = systemData.abilities.cond.value;
-        const armor = Number(systemData.armor.itemAzure) || 0;
+        const base = systemData.abilities?.cond?.value ?? 0;
+        const armor = Number(systemData.armor?.itemAzure) || 0;
         const temp = Number(systemData.tempazure) || 0;
         return base + armor + temp;
     }
 
     _calculateMentalDefense(systemData) {
-        const base = systemData.abilities.int.value;
-        const armor = Number(systemData.armor.itemMental) || 0;
+        const base = systemData.abilities?.int?.value ?? 0;
+        const armor = Number(systemData.armor?.itemMental) || 0;
         const temp = Number(systemData.tempmental) || 0;
         return base + armor + temp;
     }
-
 
     // Расчёт КД (Armor)
     _calculateArmor(systemData) {
