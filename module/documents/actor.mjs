@@ -49,8 +49,8 @@ export class myrpgActor extends Actor {
 
         // Производные: Поток, КД, Стойкость и Скорость
         systemData.flux.value = this._calculateFlux(systemData);
-        systemData.armor.result = this._calculateArmor(systemData);
-        systemData.steadfast.result = this._calculateSteadfast(systemData);
+ //       systemData.armor.result = this._calculateArmor(systemData);
+//        systemData.steadfast.result = this._calculateSteadfast(systemData);
         systemData.speed.value = this._calculateSpeed(systemData);
         systemData.defenses = {
             physical: this._calculatePhysicalDefense(systemData),
@@ -124,16 +124,19 @@ export class myrpgActor extends Actor {
 
     // Расчёт КД (Armor)
     _calculateArmor(systemData) {
-        return Number(systemData.skills.vynoslivost.value) +
-            (Number(systemData.temparmor) || 0) +
-            (Number(systemData.armor.itemAC) || 0);
+        // Если навыка нет — получим undefined, ?.value вернёт undefined, а Number(undefined)||0 даст 0
+        const base = Number(systemData.skills.vynoslivost?.value) || 0;
+        const tempBonus = Number(systemData.temparmor) || 0;
+        const armorItem = Number(systemData.armor.itemAC) || 0;
+        return base + tempBonus + armorItem;
     }
 
     // Расчёт Стойкости (Steadfast)
     _calculateSteadfast(systemData) {
-        return Number(systemData.skills.stoikost.value) +
-            (Number(systemData.tempsteadfast) || 0) +
-            (Number(systemData.armor.itemSteadfast) || 0);
+        const base = Number(systemData.skills.stoikost?.value) || 0;
+        const tempBonus = Number(systemData.tempsteadfast) || 0;
+        const armorItem = Number(systemData.armor.itemSteadfast) || 0;
+        return base + tempBonus + armorItem;
     }
 
     // Расчёт Скорости
