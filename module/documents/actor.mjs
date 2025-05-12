@@ -87,7 +87,7 @@ export class myrpgActor extends Actor {
 
     // Расчёт максимального ОЗ по новой формуле
     _calculateHealthMax(systemData) {
-        return 10 + (systemData.abilities.con.value * 10);
+        return 10 + (systemData.abilities.will.value * 10);
     }
 
     // Расчёт Потока по новой таблице проводимости 1–20
