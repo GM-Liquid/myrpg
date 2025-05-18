@@ -245,21 +245,17 @@
                         </div>
 
                         <!-- Ментальная защита -->
-                        <div class="flexcol">
-                            <label>{{localize "MY_RPG.ArmorItem.BonusMentalLabel"}}</label>
-                            <input type="number"
-                                   name="system.armor.itemMental"
-                                   value="{{system.armor.itemMental}}"
-                                   step="1"
-                                   inputmode="numeric" />
-                        </div>
-                        <div class="flexcol">
-                            <label>{{localize "MY_RPG.ArmorItem.ShieldLabel"}}</label>
-                            <input type="number"
-                                   name="system.armor.itemShield"
-                                   value="{{system.armor.itemShield}}"
-                                   step="1"
-                                   inputmode="numeric" />
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">
+                                {{localize "MY_RPG.Defenses.MentalLabel"}}
+                            </label>
+                            <div class="resource-content flexcol">
+                                <input type="number"
+                                       name="system.defenses.mental"
+                                       value="{{system.defenses.mental}}"
+                                       step="1" inputmode="numeric"
+                                       readonly tabindex="-1" />
+                            </div>
                         </div>
                     </section>
                 </div> <!-- Конец большого sheet-box Key Info -->
