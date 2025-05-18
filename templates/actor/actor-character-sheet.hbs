@@ -149,31 +149,22 @@
                         <!-- ОЗ -->
                         <div class="resource flex-group-center">
                             <label class="resource-label">{{localize "MY_RPG.Health.Label"}}</label>
-                            <div class="resource-content flexcol">
-                                <div class="sub-labels flexrow flex-group-center">
-                                    <div class="sub-label">{{localize "MY_RPG.Health.SubCurrent"}}</div>
-                                    <div class="sub-label">{{localize "MY_RPG.Health.SubDamage"}}</div>
-                                    <div class="sub-label">{{localize "MY_RPG.Health.SubMax"}}</div>
-                                </div>
-                                <div class="flexrow flex-group-center">
-                                    <input type="number"
-                                           name="system.health.value"
-                                           value="{{system.health.value}}"
-                                           step="1"
-                                           inputmode="numeric" />
-                                    <input type="number"
-                                           name="system.health.damage"
-                                           value="{{system.health.damage}}"
-                                           step="1"
-                                           inputmode="numeric"
-                                           readonly tabindex="-1" />
-                                    <input type="number"
-                                           name="system.health.max"
-                                           value="{{system.health.max}}"
-                                           step="1"
-                                           inputmode="numeric"
-                                           readonly tabindex="-1" />
-                                </div>
+                            <div class="sub-labels flexrow flex-group-center">
+                                <div class="sub-label">{{localize "MY_RPG.Health.SubCurrent"}}</div>
+                                <div class="sub-label">{{localize "MY_RPG.Health.SubMax"}}</div>
+                            </div>
+                            <div class="flexrow flex-group-center">
+                                <input type="number"
+                                       name="system.health.value"
+                                       value="{{system.health.value}}"
+                                       step="1"
+                                       inputmode="numeric" />
+                                <input type="number"
+                                       name="system.health.max"
+                                       value="{{system.health.max}}"
+                                       step="1"
+                                       inputmode="numeric"
+                                       readonly tabindex="-1" />
                             </div>
                         </div>
                         <!-- Поток (Flux) -->
@@ -254,17 +245,21 @@
                         </div>
 
                         <!-- Ментальная защита -->
-                        <div class="resource flex-group-center">
-                            <label class="resource-label">
-                                {{localize "MY_RPG.Defenses.MentalLabel"}}
-                            </label>
-                            <div class="resource-content flexcol">
-                                <input type="number"
-                                       name="system.defenses.mental"
-                                       value="{{system.defenses.mental}}"
-                                       step="1" inputmode="numeric"
-                                       readonly tabindex="-1" />
-                            </div>
+                        <div class="flexcol">
+                            <label>{{localize "MY_RPG.ArmorItem.BonusMentalLabel"}}</label>
+                            <input type="number"
+                                   name="system.armor.itemMental"
+                                   value="{{system.armor.itemMental}}"
+                                   step="1"
+                                   inputmode="numeric" />
+                        </div>
+                        <div class="flexcol">
+                            <label>{{localize "MY_RPG.ArmorItem.ShieldLabel"}}</label>
+                            <input type="number"
+                                   name="system.armor.itemShield"
+                                   value="{{system.armor.itemShield}}"
+                                   step="1"
+                                   inputmode="numeric" />
                         </div>
                     </section>
                 </div> <!-- Конец большого sheet-box Key Info -->
@@ -449,6 +444,27 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="sheet-box">
+                    <h3>{{localize "MY_RPG.Resources.Title"}}</h3>
+                    <section class="resources grid grid-2col">
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">{{localize "MY_RPG.Resources.SuppliesLabel"}}</label>
+                            <input type="number"
+                                   name="system.supplies"
+                                   value="{{system.supplies}}"
+                                   step="1"
+                                   inputmode="numeric" />
+                        </div>
+                        <div class="resource flex-group-center">
+                            <label class="resource-label">{{localize "MY_RPG.Resources.MoneyLabel"}}</label>
+                            <input type="number"
+                                   name="system.money"
+                                   value="{{system.money}}"
+                                   step="1"
+                                   inputmode="numeric" />
+                        </div>
+                    </section>
                 </div>
             </div>
 

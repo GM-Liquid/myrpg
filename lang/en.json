@@ -20,7 +20,8 @@
       "Gender": "Gender",
       "Age": "Age",
       "CurrentRank": "Current Rank",
-      "Name": "Name"
+      "Name": "Name",
+      "MomentOfGlory": "Moment of Glory"
     },
     "Inventory": {
       "TableHeading": "Inventory",
@@ -82,7 +83,13 @@
       "ArmorSectionTitle": "Armor",
       "DescriptionLabel": "Description",
       "ACLabel": "AC Bonus",
-      "SteadfastLabel": "Steadfast Bonus"
+      "SteadfastLabel": "Steadfast Bonus",
+      "ShieldLabel": "Power Shield"
+    },
+    "Resources": {
+      "Title": "Resources",
+      "SuppliesLabel": "Supplies",
+      "MoneyLabel": "Money"
     },
     "Tension": {
       "Label": "Tension",

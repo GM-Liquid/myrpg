@@ -44,7 +44,6 @@ export class myrpgActor extends Actor {
         if (!systemData.health.value || systemData.health.value > systemData.health.max) {
             systemData.health.value = systemData.health.max;
         }
-        systemData.health.damage = Math.floor(systemData.health.max / 2);
         systemData.tension.max = Math.floor(systemData.health.max / 2);
 
         // Производные: Поток, КД, Стойкость и Скорость

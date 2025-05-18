@@ -25,7 +25,13 @@
       "DescriptionLabel": "Описание",
       "BonusPhysicalLabel": "Бонус к физической защите",
       "BonusAzureLabel": "Бонус к азур-защите",
-      "BonusMentalLabel": "Бонус к ментальной защите"
+      "BonusMentalLabel": "Бонус к ментальной защите",
+      "ShieldLabel": "Силовой щит"
+    },
+    "Resources": {
+      "Title": "Ресурсы",
+      "SuppliesLabel": "Припасы",
+      "MoneyLabel": "Деньги"
     },
     "Temp": {
       "BonusPhysicalLabel": "Временная физ. защита",
@@ -37,7 +43,8 @@
       "Gender": "Пол",
       "Age": "Возраст",
       "CurrentRank": "Текущий ранг",
-      "Name": "Имя"
+      "Name": "Имя",
+      "MomentOfGlory": "Миг Славы"
     },
     "SheetLabels": {
       "AbilitiesAndMods": "Способности и модификации",

@@ -61,7 +61,6 @@
         "inventoryList": [],
         "health": {
           "value": 10,
-          "damage": 0,
           "max": 10
         },
         "flux": {
@@ -72,8 +71,11 @@
           "itemDesc": "",
           "itemPhys": 0,
           "itemAzure": 0,
-          "itemMental": 0
+          "itemMental": 0,
+          "itemShield": 0
         },
+        "supplies": 0,
+        "money": 0,
         "tension": {
           "value": 0
         },
