@@ -104,21 +104,21 @@ export class myrpgActor extends Actor {
         const base = systemData.abilities?.con?.value ?? 0;
         const armor = Number(systemData.armor?.itemPhys) || 0;
         const temp = Number(systemData.tempphys) || 0;
-        return base + armor + temp;
+        return base + armor + temp + 2;
     }
 
     _calculateAzureDefense(systemData) {
-        const base = Math.floor(systemData.abilities.spi.value / 2);
+        const base = systemData.abilities?.cpi?.value ?? 0;
         const armor = Number(systemData.armor.itemAzure) || 0;
         const temp = Number(systemData.tempazure) || 0;
-        return base + armor + temp;
+        return base + armor + temp + 2;
     }
 
     _calculateMentalDefense(systemData) {
         const base = systemData.abilities?.int?.value ?? 0;
         const armor = Number(systemData.armor?.itemMental) || 0;
         const temp = Number(systemData.tempmental) || 0;
-        return base + armor + temp;
+        return base + armor + temp + 2;
     }
 
     // Расчёт КД (Armor)
@@ -127,14 +127,6 @@ export class myrpgActor extends Actor {
         const base = Number(systemData.skills.vynoslivost?.value) || 0;
         const tempBonus = Number(systemData.temparmor) || 0;
         const armorItem = Number(systemData.armor.itemAC) || 0;
-        return base + tempBonus + armorItem;
-    }
-
-    // Расчёт Стойкости (Steadfast)
-    _calculateSteadfast(systemData) {
-        const base = Number(systemData.skills.stoikost?.value) || 0;
-        const tempBonus = Number(systemData.tempsteadfast) || 0;
-        const armorItem = Number(systemData.armor.itemSteadfast) || 0;
         return base + tempBonus + armorItem;
     }
 
