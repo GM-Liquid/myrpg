@@ -1,7 +1,13 @@
-/**
+ï»¿/**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
  */
+function getRankAndDie(val) {
+    const rank = Math.floor((val - 1) / 4) + 1;          // 1..5
+    const die = [4, 6, 8, 10, 12][rank - 1];
+    return { rank, die };
+}
+
 export class myrpgActor extends Actor {
   /** @override */
   prepareData() {
@@ -35,18 +41,17 @@ export class myrpgActor extends Actor {
 
         const systemData = actorData.system;
 
-        // Âû÷èñëÿåì ìîäèôèêàòîðû ñïîñîáíîñòåé è íàâûêîâ, à òàêæå êîððåêòèðóåì çíà÷åíèÿ íàâûêîâ.
+        // Ð’Ñ‹Ñ‡Ð¸ÑÐ»ÑÐµÐ¼ Ð¼Ð¾Ð´Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€Ñ‹ ÑÐ¿Ð¾ÑÐ¾Ð±Ð½Ð¾ÑÑ‚ÐµÐ¹ Ð¸ Ð½Ð°Ð²Ñ‹ÐºÐ¾Ð², Ð° Ñ‚Ð°ÐºÐ¶Ðµ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð¸Ñ€ÑƒÐµÐ¼ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð½Ð°Ð²Ñ‹ÐºÐ¾Ð².
         this._calculateAbilityMods(systemData);
         this._calculateSkillMods(systemData);
 
-        // Ïðîèçâîäíûå õàðàêòåðèñòèêè
+        // ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð½Ñ‹Ðµ Ñ…Ð°Ñ€Ð°ÐºÑ‚ÐµÑ€Ð¸ÑÑ‚Ð¸ÐºÐ¸
         systemData.health.max = this._calculateHealthMax(systemData);
         if (!systemData.health.value || systemData.health.value > systemData.health.max) {
             systemData.health.value = systemData.health.max;
         }
-        systemData.tension.max = Math.floor(systemData.health.max / 2);
 
-        // Ïðîèçâîäíûå: Ïîòîê, ÊÄ, Ñòîéêîñòü è Ñêîðîñòü
+        // ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð½Ñ‹Ðµ: ÐŸÐ¾Ñ‚Ð¾Ðº, ÐšÐ”, Ð¡Ñ‚Ð¾Ð¹ÐºÐ¾ÑÑ‚ÑŒ Ð¸ Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÑŒ
         systemData.flux.value = this._calculateFlux(systemData);
  //       systemData.armor.result = this._calculateArmor(systemData);
 //        systemData.steadfast.result = this._calculateSteadfast(systemData);
@@ -59,22 +64,22 @@ export class myrpgActor extends Actor {
     }
 
     /*-------------------------------------------
-      Íîâûå ïðèâàòíûå ìåòîäû äëÿ ðàñ÷¸òîâ
+      ÐÐ¾Ð²Ñ‹Ðµ Ð¿Ñ€Ð¸Ð²Ð°Ñ‚Ð½Ñ‹Ðµ Ð¼ÐµÑ‚Ð¾Ð´Ñ‹ Ð´Ð»Ñ Ñ€Ð°ÑÑ‡Ñ‘Ñ‚Ð¾Ð²
     --------------------------------------------*/
 
-    // Âû÷èñëåíèå ìîäèôèêàòîðîâ ñïîñîáíîñòåé
+    // Ð’Ñ‹Ñ‡Ð¸ÑÐ»ÐµÐ½Ð¸Ðµ Ð¼Ð¾Ð´Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€Ð¾Ð² ÑÐ¿Ð¾ÑÐ¾Ð±Ð½Ð¾ÑÑ‚ÐµÐ¹
     _calculateAbilityMods(systemData) {
         for (let [key, ability] of Object.entries(systemData.abilities)) {
             ability.mod = ability.value;
         }
     }
 
-    // Âû÷èñëåíèå ìîäèôèêàòîðîâ íàâûêîâ è ïðîâåðêà èõ çíà÷åíèé
+    // Ð’Ñ‹Ñ‡Ð¸ÑÐ»ÐµÐ½Ð¸Ðµ Ð¼Ð¾Ð´Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€Ð¾Ð² Ð½Ð°Ð²Ñ‹ÐºÐ¾Ð² Ð¸ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¸Ñ… Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹
     _calculateSkillMods(systemData) {
         for (let [x, skill] of Object.entries(systemData.skills)) {
-            // Óñòàíàâëèâàåì ìîäèôèêàòîð, ïðåäïîëàãàÿ íàëè÷èå ñâîéñòâà c
+            // Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð¼Ð¾Ð´Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€, Ð¿Ñ€ÐµÐ´Ð¿Ð¾Ð»Ð°Ð³Ð°Ñ Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ðµ ÑÐ²Ð¾Ð¹ÑÑ‚Ð²Ð° c
             skill.mod = skill.c;
-            // Åñëè íàâûê ñâÿçàí ñ õàðàêòåðèñòèêîé – ïðîâåðÿåì, ÷òîáû åãî çíà÷åíèå íå ïðåâûøàëî çíà÷åíèå õàðàêòåðèñòèêè
+            // Ð•ÑÐ»Ð¸ Ð½Ð°Ð²Ñ‹Ðº ÑÐ²ÑÐ·Ð°Ð½ Ñ Ñ…Ð°Ñ€Ð°ÐºÑ‚ÐµÑ€Ð¸ÑÑ‚Ð¸ÐºÐ¾Ð¹ â€“ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼, Ñ‡Ñ‚Ð¾Ð±Ñ‹ ÐµÐ³Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð½Ðµ Ð¿Ñ€ÐµÐ²Ñ‹ÑˆÐ°Ð»Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ñ…Ð°Ñ€Ð°ÐºÑ‚ÐµÑ€Ð¸ÑÑ‚Ð¸ÐºÐ¸
             if (systemData.abilities[skill.ability]) {
                 const abilityValue = systemData.abilities[skill.ability].value;
                 if (skill.value > abilityValue) {
@@ -84,20 +89,15 @@ export class myrpgActor extends Actor {
         }
     }
 
-    // Ðàñ÷¸ò ìàêñèìàëüíîãî ÎÇ ïî íîâîé ôîðìóëå
+    // Ð Ð°ÑÑ‡Ñ‘Ñ‚ Ð¼Ð°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ð¾Ð³Ð¾ ÐžÐ— Ð¿Ð¾ Ð½Ð¾Ð²Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ðµ
     _calculateHealthMax(systemData) {
         return 10 + (systemData.abilities.will.value * 10);
     }
 
-    // Ðàñ÷¸ò Ïîòîêà ïî íîâîé òàáëèöå ïðîâîäèìîñòè 1–20
+    // Ð Ð°ÑÑ‡Ñ‘Ñ‚ ÐŸÐ¾Ñ‚Ð¾ÐºÐ° Ð¿Ð¾ Ð½Ð¾Ð²Ð¾Ð¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ Ð¿Ñ€Ð¾Ð²Ð¾Ð´Ð¸Ð¼Ð¾ÑÑ‚Ð¸ 1â€“20
     _calculateFlux(systemData) {
-        const fluxTable = [
-            15, 20, 25, 30, 40, 50, 60, 70, 85, 100, 115, 130, 150, 170, 190, 210, 235, 260, 285, 310        ];
-        const condValue = parseInt(systemData.abilities.cond.value) || 0;
-        const baseFlux = (condValue >= 1 && condValue <= 20)
-            ? fluxTable[condValue - 1]
-            : 0;
-        return baseFlux + (Number(systemData.tempflux) || 0);
+        const spirit = systemData.abilities.spi.value;
+        return getRankAndDie(spirit).rank;   // ÐŸÐ¾Ñ‚Ð¾Ðº = Ñ€Ð°Ð½Ð³ Ð”ÑƒÑ…Ð° (1â€‘5)
     }
 
     _calculatePhysicalDefense(systemData) {
@@ -108,8 +108,8 @@ export class myrpgActor extends Actor {
     }
 
     _calculateAzureDefense(systemData) {
-        const base = systemData.abilities?.cond?.value ?? 0;
-        const armor = Number(systemData.armor?.itemAzure) || 0;
+        const base = Math.floor(systemData.abilities.spi.value / 2);
+        const armor = Number(systemData.armor.itemAzure) || 0;
         const temp = Number(systemData.tempazure) || 0;
         return base + armor + temp;
     }
@@ -121,16 +121,16 @@ export class myrpgActor extends Actor {
         return base + armor + temp;
     }
 
-    // Ðàñ÷¸ò ÊÄ (Armor)
+    // Ð Ð°ÑÑ‡Ñ‘Ñ‚ ÐšÐ” (Armor)
     _calculateArmor(systemData) {
-        // Åñëè íàâûêà íåò — ïîëó÷èì undefined, ?.value âåðí¸ò undefined, à Number(undefined)||0 äàñò 0
+        // Ð•ÑÐ»Ð¸ Ð½Ð°Ð²Ñ‹ÐºÐ° Ð½ÐµÑ‚ â€” Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð¼ undefined, ?.value Ð²ÐµÑ€Ð½Ñ‘Ñ‚ undefined, Ð° Number(undefined)||0 Ð´Ð°ÑÑ‚ 0
         const base = Number(systemData.skills.vynoslivost?.value) || 0;
         const tempBonus = Number(systemData.temparmor) || 0;
         const armorItem = Number(systemData.armor.itemAC) || 0;
         return base + tempBonus + armorItem;
     }
 
-    // Ðàñ÷¸ò Ñòîéêîñòè (Steadfast)
+    // Ð Ð°ÑÑ‡Ñ‘Ñ‚ Ð¡Ñ‚Ð¾Ð¹ÐºÐ¾ÑÑ‚Ð¸ (Steadfast)
     _calculateSteadfast(systemData) {
         const base = Number(systemData.skills.stoikost?.value) || 0;
         const tempBonus = Number(systemData.tempsteadfast) || 0;
@@ -138,7 +138,7 @@ export class myrpgActor extends Actor {
         return base + tempBonus + armorItem;
     }
 
-    // Ðàñ÷¸ò Ñêîðîñòè
+    // Ð Ð°ÑÑ‡Ñ‘Ñ‚ Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚Ð¸
     _calculateSpeed(systemData) {
         return 10 + (Number(systemData.tempspeed) || 0);
     }
@@ -185,7 +185,7 @@ export class myrpgActor extends Actor {
       if (data.skills) {
           for (let [x, c] of Object.entries(data.skills)) {
               let skillData = foundry.utils.deepClone(c);
-              // Åñëè çíà÷åíèå ïóñòîå, îáðàáàòûâàåì åãî êàê 0
+              // Ð•ÑÐ»Ð¸ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿ÑƒÑÑ‚Ð¾Ðµ, Ð¾Ð±Ñ€Ð°Ð±Ð°Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ ÐµÐ³Ð¾ ÐºÐ°Ðº 0
               if (skillData.value === "" || skillData.value === null || skillData.value === undefined) {
                   skillData.value = 0;
               } else {

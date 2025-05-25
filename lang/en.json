@@ -119,16 +119,15 @@
       "Label": "Temp Speed"
     },
     "abilityAbbreviations": {
-      "will": "Spirit",
+      "spi": "Spi",
       "dex": "Ref",
       "con": "Body",
-      "int": "Mind",
-      "cond": "Agility"
+      "int": "Mind"
     },
     "Ability": {
-      "Will": {
+      "Spi": {
         "long": "Spirit",
-        "abbr": "Spirit"
+        "abbr": "Spi"
       },
       "Con": {
         "long": "Body",
@@ -141,10 +140,6 @@
       "Int": {
         "long": "Mind",
         "abbr": "Mind"
-      },
-      "Cond": {
-        "long": "Agility",
-        "abbr": "Agi"
       }
     },
     "Skill": {

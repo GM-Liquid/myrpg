@@ -819,3 +819,15 @@ form textarea {
 .sheet-box.defenses-block .sheet-box-header {
     margin-bottom: 0.25rem;
 }
+
+.wound-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1b1210;
+    margin: 0 2px;
+    cursor: pointer
+}
+
+    .wound-box.filled {
+        background: #1b1210
+    }

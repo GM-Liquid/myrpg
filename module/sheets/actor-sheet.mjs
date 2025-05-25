@@ -2,7 +2,11 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-
+function getRankAndDie(val) {
+    const rank = Math.floor((val - 1) / 4) + 1;          // 1..5
+    const die = [4, 6, 8, 10, 12][rank - 1];
+    return { rank, die };
+}
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
     async _render(force = false, options = {}) {
@@ -140,6 +144,7 @@ export class myrpgActorSheet extends ActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
+        html.find('.wound-box').click(this._onToggleWound.bind(this));
 
         // ----------------------------------------------------------------------
         // Rollable элементы (пример)
@@ -411,7 +416,6 @@ export class myrpgActorSheet extends ActorSheet {
             });
             diag.render(true);
         });
-
         html.find(".inventory-remove-row").click(ev => {
             ev.preventDefault();
             const index = Number(ev.currentTarget.dataset.index);
@@ -499,67 +503,37 @@ export class myrpgActorSheet extends ActorSheet {
     /**
      * ќбработка клика по rollable-элементам
      */
-    _onRoll(event) {
-        event.preventDefault();
-        const element = event.currentTarget;
-        const { skill, ability, label, roll } = element.dataset;
-
-        // ≈сли клик по навыку
-        if (skill) {
-            const val = parseInt(this.actor.system.skills[skill]?.value) || 0;
-            return this._rollDice(val, label);
-        }
-        // ≈сли клик по характеристике
-        if (ability) {
-            const val = parseInt(this.actor.system.abilities[ability]?.value) || 0;
-            return this._rollDice(val, label);
-        }
-        // fallback Ч если осталс€ data-roll
-        if (roll) {
-            const r = new Roll(roll, this.actor.getRollData());
-            r.toMessage({
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                flavor: label,
-                rollMode: game.settings.get("core", "rollMode")
-            });
-            return r;
-        }
+    async _onToggleWound(event) {
+        const idx = parseInt(event.currentTarget.dataset.idx);
+        let wounds = this.actor.system.wounds || 0;
+        // ≈сли текущее количество ранений больше индекса, уменьшаем, иначе увеличиваем
+        wounds = wounds > idx ? idx : idx + 1;
+        await this.actor.update({ 'system.wounds': wounds });
     }
 
+    async _onRoll(event) {
+        event.preventDefault();
+        const el = event.currentTarget;
+        const { skill, ability, label } = el.dataset;
 
+        let bonus = 0;
+        let abVal = 0;
 
+        if (skill) {
+            bonus = parseInt(this.actor.system.skills[skill]?.value) || 0;
+            const abKey = this.actor.system.skills[skill].ability;
+            abVal = parseInt(this.actor.system.abilities[abKey]?.value) || 0;
+        } else if (ability) {
+            abVal = parseInt(this.actor.system.abilities[ability]?.value) || 0;
+            bonus = abVal; // дл€ броска самой характеристики
+        }
 
-    _rollDice(value, label) {
-        /*
-        // число кубов
-        const count = value > 0 ? value : 1;
-        // грань куба
-        let die;
-        if (value === 0 || value <= 4) die = 4;
-        else if (value <= 8) die = 6;
-        else if (value <= 12) die = 8;
-        else if (value <= 16) die = 10;
-        else die = 12;
-        // формируем строку броска
-        let formula = `${count}d${die}`;
-        if (value === 0) formula += " - 1";
-        // выполн€ем бросок
-        const r = new Roll(formula, this.actor.getRollData());
-        r.toMessage({
+        const { die } = getRankAndDie(abVal);
+        const roll = await new Roll(`2d${die} + ${bonus}`).roll({ async: true });
+        roll.toMessage({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             flavor: label,
-            rollMode: game.settings.get("core", "rollMode")
+            rollMode: game.settings.get('core', 'rollMode')
         });
-        return r;
-        */
-
-        const formula = `1d20 + ${value}`;
-        const r = new Roll(formula, this.actor.getRollData());
-        r.toMessage({
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            flavor: label,
-            rollMode: game.settings.get("core", "rollMode")
-        });
-        return r;
     }
 }
