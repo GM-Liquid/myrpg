@@ -104,21 +104,21 @@ export class myrpgActor extends Actor {
         const base = systemData.abilities?.con?.value ?? 0;
         const armor = Number(systemData.armor?.itemPhys) || 0;
         const temp = Number(systemData.tempphys) || 0;
-        return base + armor + temp + 2;
+        return base + armor + temp;
     }
 
     _calculateAzureDefense(systemData) {
         const base = systemData.abilities?.cpi?.value ?? 0;
         const armor = Number(systemData.armor.itemAzure) || 0;
         const temp = Number(systemData.tempazure) || 0;
-        return base + armor + temp + 2;
+        return base + armor + temp;
     }
 
     _calculateMentalDefense(systemData) {
         const base = systemData.abilities?.int?.value ?? 0;
         const armor = Number(systemData.armor?.itemMental) || 0;
         const temp = Number(systemData.tempmental) || 0;
-        return base + armor + temp + 2;
+        return base + armor + temp;
     }
 
     // Расчёт КД (Armor)
