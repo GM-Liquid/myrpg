@@ -22,3 +22,17 @@ Handlebars.registerHelper('toPascalCase', (str) => {
 Handlebars.registerHelper('toLowerCase', function (str) {
     return str.toLowerCase();
 });
+// ѕовторить блок N раз, передава€ @index
+Handlebars.registerHelper('times', function (n, options) {
+    let accum = '';
+    for (let i = 0; i < n; i++) {
+        // передаЄм индекс в data, чтобы в шаблоне работал {{@index}}
+        accum += options.fn(this, { data: { index: i } });
+    }
+    return accum;
+});
+
+// Ђменьше или равної дл€ условных блоков {{#lte a b}}Е{{else}}Е{{/lte}}
+Handlebars.registerHelper('lte', function (a, b, options) {
+    return (a <= b) ? options.fn(this) : options.inverse(this);
+});
