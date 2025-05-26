@@ -149,10 +149,23 @@
                         <!-- ОЗ -->
                         <div class="resource flex-group-center">
                             <label class="resource-label">{{localize "MY_RPG.Health.Label"}}</label>
-                            <div class="wounds flexrow" data-binding="system.wounds">
-                                {{#times 3}}
-                                <div class="wound-box {{#lte @index ../system.wounds}}filled{{/lte}}" data-idx="{{@index}}"></div>
-                                {{/times}}
+                            <div class="resource-content flexcol">
+                                <div class="sub-labels flexrow flex-group-center">
+                                    <div class="sub-label">{{localize "MY_RPG.Health.SubCurrent"}}</div>
+                                    <div class="sub-label">{{localize "MY_RPG.Health.SubMax"}}</div>
+                                </div>
+                                <div class="flexrow flex-group-center">
+                                    <input type="number"
+                                           name="system.health.value"
+                                           value="{{system.health.value}}"
+                                           step="1"
+                                           inputmode="numeric" />
+                                    <input type="number"
+                                           name="system.health.max"
+                                           value="{{system.health.max}}"
+                                           step="1"
+                                           inputmode="numeric" />
+                                </div>
                             </div>
                         </div>
                         <!-- Поток (Flux) -->
@@ -177,31 +190,6 @@
                                        step="1"
                                        inputmode="numeric"
                                        readonly tabindex="-1" />
-                            </div>
-                        </div>
-                        <!-- Напряжённость (Tension) -->
-                        <div class="resource flex-group-center">
-                            <label class="resource-label">{{localize "MY_RPG.Tension.Label"}}</label>
-                            <div class="resource-content flexcol">
-                                <div class="sub-labels flexrow flex-group-center">
-                                    <div class="sub-label">{{localize "MY_RPG.Tension.ValueLabel"}}</div>
-                                    <div class="sub-label">{{localize "MY_RPG.Tension.MaxLabel"}}</div>
-                                </div>
-                                <div class="flexrow flex-group-center">
-                                    <input type="number"
-                                           name="system.tension.value"
-                                           value="{{system.tension.value}}"
-                                           step="1"
-                                           inputmode="numeric"
-                                           style="width: 50%;" />
-                                    <input type="number"
-                                           name="system.tension.max"
-                                           value="{{system.tension.max}}"
-                                           step="1"
-                                           inputmode="numeric"
-                                           readonly tabindex="-1"
-                                           style="width: 50%;" />
-                                </div>
                             </div>
                         </div>
                         <!-- Физическая защита -->
