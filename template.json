@@ -95,7 +95,7 @@
           "diplomatiya": {
             "value": 0,
             "ability": "spi"
-          }, 
+          },
           "stitiyannost": {
             "value": 0,
             "ability": "spi"
@@ -140,7 +140,7 @@
           "kinetica": {
             "value": 0,
             "ability": "dex"
-          }, 
+          },
 
           "atletika": {
             "value": 0,
@@ -182,11 +182,11 @@
           "znanie_azura": {
             "value": 0,
             "ability": "int"
-          }, 
+          },
           "artefaktorika": {
             "value": 0,
             "ability": "int"
-          }, 
+          },
           "manipulatsiya": {
             "value": 0,
             "ability": "int"
@@ -194,8 +194,8 @@
           "biomantia": {
             "value": 0,
             "ability": "int"
-          } 
-        }   
+          }
+        }
       }
     },
     "character": {
