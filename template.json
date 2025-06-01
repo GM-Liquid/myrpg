@@ -84,7 +84,6 @@
         "tempspeed": 0,
         "biography": "",
         "skills": {
-          /* ---------- ДУХ ---------- */
           "liderstvo": {
             "value": 0,
             "ability": "spi"
@@ -96,7 +95,7 @@
           "diplomatiya": {
             "value": 0,
             "ability": "spi"
-          }, // was int
+          }, 
           "stitiyannost": {
             "value": 0,
             "ability": "spi"
@@ -110,7 +109,6 @@
             "ability": "spi"
           },
 
-          /* ---------- РЕФЛЕКСЫ ---------- */
           "akrobatika": {
             "value": 0,
             "ability": "dex"
@@ -142,9 +140,8 @@
           "kinetica": {
             "value": 0,
             "ability": "dex"
-          }, // was spi
+          }, 
 
-          /* ---------- ТЕЛО ---------- */
           "atletika": {
             "value": 0,
             "ability": "con"
@@ -154,7 +151,6 @@
             "ability": "con"
           },
 
-          /* ---------- РАЗУМ ---------- */
           "analiz": {
             "value": 0,
             "ability": "int"
@@ -186,11 +182,11 @@
           "znanie_azura": {
             "value": 0,
             "ability": "int"
-          }, // «Знание магии»
+          }, 
           "artefaktorika": {
             "value": 0,
             "ability": "int"
-          }, // was spi
+          }, 
           "manipulatsiya": {
             "value": 0,
             "ability": "int"
@@ -198,8 +194,8 @@
           "biomantia": {
             "value": 0,
             "ability": "int"
-          } // was spi
-        }
+          } 
+        }   
       }
     },
     "character": {
