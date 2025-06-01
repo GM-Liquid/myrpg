@@ -8,12 +8,28 @@
         "age": "",
         "currentRank": "",
         "momentOfGlory": 0,
-"abilities": {
-  "spi": { "value": 10, "min": 1, "max": 20 },
-  "dex": { "value": 10, "min": 1, "max": 20 },
-  "con": { "value": 10, "min": 1, "max": 20 },
-  "int": { "value": 10, "min": 1, "max": 20 }
-},
+        "abilities": {
+          "spi": {
+            "value": 10,
+            "min": 1,
+            "max": 20
+          },
+          "dex": {
+            "value": 10,
+            "min": 1,
+            "max": 20
+          },
+          "con": {
+            "value": 10,
+            "min": 1,
+            "max": 20
+          },
+          "int": {
+            "value": 10,
+            "min": 1,
+            "max": 20
+          }
+        },
         "abilitiesList": [
           {
             "name": "",
@@ -68,6 +84,7 @@
         "tempspeed": 0,
         "biography": "",
         "skills": {
+          /* ---------- ДУХ ---------- */
           "liderstvo": {
             "value": 0,
             "ability": "spi"
@@ -76,6 +93,24 @@
             "value": 0,
             "ability": "spi"
           },
+          "diplomatiya": {
+            "value": 0,
+            "ability": "spi"
+          }, // was int
+          "stitiyannost": {
+            "value": 0,
+            "ability": "spi"
+          },
+          "psionika": {
+            "value": 0,
+            "ability": "spi"
+          },
+          "predvidenie": {
+            "value": 0,
+            "ability": "spi"
+          },
+
+          /* ---------- РЕФЛЕКСЫ ---------- */
           "akrobatika": {
             "value": 0,
             "ability": "dex"
@@ -104,6 +139,12 @@
             "value": 0,
             "ability": "dex"
           },
+          "kinetica": {
+            "value": 0,
+            "ability": "dex"
+          }, // was spi
+
+          /* ---------- ТЕЛО ---------- */
           "atletika": {
             "value": 0,
             "ability": "con"
@@ -112,6 +153,8 @@
             "value": 0,
             "ability": "con"
           },
+
+          /* ---------- РАЗУМ ---------- */
           "analiz": {
             "value": 0,
             "ability": "int"
@@ -143,39 +186,19 @@
           "znanie_azura": {
             "value": 0,
             "ability": "int"
-          },
-          "manipulatsiya": {
+          }, // «Знание магии»
+          "artefaktorika": {
             "value": 0,
             "ability": "int"
-          },
-          "diplomatiya": {
-            "value": 0,
-            "ability": "spi"
-          },
-          "artefaktorika": {
+          }, // was spi
+          "manipulatsiya": {
             "value": 0,
             "ability": "int"
           },
           "biomantia": {
             "value": 0,
             "ability": "int"
-          },
-          "stitiyannost": {
-            "value": 0,
-            "ability": "spi"
-          },
-          "psionika": {
-            "value": 0,
-            "ability": "spi"
-          },
-          "predvidenie": {
-            "value": 0,
-            "ability": "spi"
-          },
-          "kinetica": {
-            "value": 0,
-            "ability": "dex"
-          }
+          } // was spi
         }
       }
     },
