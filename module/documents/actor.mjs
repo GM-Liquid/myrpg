@@ -91,7 +91,9 @@ export class myrpgActor extends Actor {
 
     // Расчёт максимального ОЗ по новой формуле
     _calculateHealthMax(systemData) {
-        return 10 + (systemData.abilities.will.value * 10);
+        const { rank: conRank } = getRankAndDie(systemData.abilities.con.value);
+        const temp = Number(systemData.temphealth) || 0;
+        return 5 + conRank * 5 + temp;
     }
 
     // Расчёт Потока по новой таблице проводимости 1–20
@@ -101,21 +103,23 @@ export class myrpgActor extends Actor {
     }
 
     _calculatePhysicalDefense(systemData) {
-        const base = systemData.abilities?.con?.value ?? 0;
+        const base = Math.ceil(systemData.abilities.con.value / 2) + 3;
         const armor = Number(systemData.armor?.itemPhys) || 0;
         const temp = Number(systemData.tempphys) || 0;
         return base + armor + temp;
     }
 
+    /* Азур-защита = ⌈Дух / 2⌉ + 3 + бонусы (исправлен spi) */
     _calculateAzureDefense(systemData) {
-        const base = systemData.abilities?.cpi?.value ?? 0;
-        const armor = Number(systemData.armor.itemAzure) || 0;
+        const base = Math.ceil(systemData.abilities.spi.value / 2) + 3;
+        const armor = Number(systemData.armor?.itemAzure) || 0;
         const temp = Number(systemData.tempazure) || 0;
         return base + armor + temp;
     }
 
+    /* Ментал защита = ⌈Разум / 2⌉ + 3 + бонусы */
     _calculateMentalDefense(systemData) {
-        const base = systemData.abilities?.int?.value ?? 0;
+        const base = Math.ceil(systemData.abilities.int.value / 2) + 3;
         const armor = Number(systemData.armor?.itemMental) || 0;
         const temp = Number(systemData.tempmental) || 0;
         return base + armor + temp;
@@ -132,7 +136,9 @@ export class myrpgActor extends Actor {
 
     // Расчёт Скорости
     _calculateSpeed(systemData) {
-        return 10 + (Number(systemData.tempspeed) || 0);
+        const { rank: dexRank } = getRankAndDie(systemData.abilities.dex.value);
+        const temp = Number(systemData.tempspeed) || 0;
+        return 5 + dexRank + temp;
     }
 
 

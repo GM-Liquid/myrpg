@@ -150,15 +150,15 @@
           },
           "diplomatiya": {
             "value": 0,
-            "ability": "int"
+            "ability": "spi"
           },
           "artefaktorika": {
             "value": 0,
-            "ability": "spi"
+            "ability": "int"
           },
           "biomantia": {
             "value": 0,
-            "ability": "spi"
+            "ability": "int"
           },
           "stitiyannost": {
             "value": 0,
@@ -174,7 +174,7 @@
           },
           "kinetica": {
             "value": 0,
-            "ability": "spi"
+            "ability": "dex"
           }
         }
       }
