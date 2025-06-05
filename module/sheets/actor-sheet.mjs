@@ -55,7 +55,7 @@ export class myrpgActorSheet extends ActorSheet {
  * Èíèöèàëèçèðóåò TinyMCE äëÿ çàäàííîãî ýëåìåíòà, åñëè îí åùå íå èíèöèàëèçèðîâàí.
  * @param {HTMLElement} element - DOM-ýëåìåíò textarea, äëÿ êîòîðîãî òðåáóåòñÿ TinyMCE.
  */
-    initializeRichEditor(element) {
+    initializeRichEditor(element) 
         if (!element._tinyMCEInitialized) {
             tinymce.init({
                 target: element,
