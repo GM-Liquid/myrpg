@@ -4,9 +4,5 @@
  * @return {Promise}
  */
 export const preloadHandlebarsTemplates = async function () {
-  const templatePaths = [
-    'systems/myrpg/templates/actor/actor-character-sheet.hbs',
-    'systems/myrpg/templates/actor/actor-npc-sheet.hbs'
-  ];
-  return loadTemplates(templatePaths);
+  return loadTemplates([]);
 };

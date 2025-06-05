@@ -1,9 +1,12 @@
-/**
- * Extend the base Actor document by defining a custom roll data structure which
- * is ideal for the MyRPG system.
+﻿/**
+ * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
  */
-import { getRankAndDie } from '../helpers/utils.mjs';
+function getRankAndDie(val = 0) {
+    const rank = Math.max(1, Math.floor((val - 1) / 4) + 1); // 1..5
+    const die = [4, 6, 8, 10, 12][rank - 1] || 4;
+    return { rank, die };
+}
 
 export class myrpgActor extends Actor {
     /* ------------------------ Foundry Hooks ------------------------ */

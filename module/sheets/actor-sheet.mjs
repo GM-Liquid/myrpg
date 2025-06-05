@@ -2,29 +2,44 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import { getRankAndDie } from "../helpers/utils.mjs";
+function getRankAndDie(val) {
+    const rank = Math.floor((val - 1) / 4) + 1;          // 1..5
+    const die = [4, 6, 8, 10, 12][rank - 1];
+    return { rank, die };
+}
 export class myrpgActorSheet extends ActorSheet {
     /** @override */
     async _render(force = false, options = {}) {
-        const min = isAbility ? 1 : 0;
-        const max = 20;
-        let value = parseInt(input.value, 10);
-        if (Number.isNaN(value)) value = min;
+        // Сохраняем текущее положение скролла
+        const scrollContainer = this.element.find(".sheet-scrollable");
+        const scrollPos = scrollContainer.scrollTop();
 
-        if (value < min) {
-            ui.notifications.warn(game.i18n.format("MY_RPG.NumericWarning.Min", { label, min }));
-            value = min;
-        } else if (value > max) {
-            ui.notifications.warn(game.i18n.format("MY_RPG.NumericWarning.Max", { label, max }));
-            value = max;
+        // Вызываем родительскую реализацию рендера
+        await super._render(force, options);
 
-        input.value = value;
-        return value;
+        // Восстанавливаем положение скролла
+        this.element.find(".sheet-scrollable").scrollTop(scrollPos);
+    }
+
+    async close(options = {}) {
+        // Удаляем все оставшиеся tooltip
+        $("body").find(".ability-tooltip").remove();
+        return super.close(options);
+    }
+
+    /**
+     * Валидирует числовой ввод в полях, связанных с характеристиками и навыками.
+     * Все сообщения выводятся с использованием системы локализации.
+     * @param {HTMLElement} input - DOM-элемент input, который содержит значение.
+     * @returns {number} - проверенное числовое значение.
+     */
+    validateNumericInput(input) {
+        let val = parseInt(input.value, 10);
         const isAbility = input.name.includes("system.abilities.");
-        // Г€Г±ГЇГ®Г«ГјГ§ГіГҐГ¬ Г«Г®ГЄГ Г«ГЁГ§Г Г¶ГЁГѕ Г¤Г«Гї Г­Г Г§ГўГ Г­ГЁГ© ГІГЁГЇГ  ГЇГ®Г«Гї:
-        // Г„Г®ГЎГ ГўГјГІГҐ Гў Г«Г®ГЄГ Г«ГЁГ§Г Г¶ГЁГЁ Г±Г«ГҐГ¤ГіГѕГ№ГЁГҐ ГЄГ«ГѕГ·ГЁ: 
-        // "MY_RPG.NumericWarning.Attribute": "Г•Г Г°Г ГЄГІГҐГ°ГЁГ±ГІГЁГЄГ " (ru) / "Attribute" (en)
-        // "MY_RPG.NumericWarning.Skill": "ГЌГ ГўГ»ГЄ" (ru) / "Skill" (en)
+        // Используем локализацию для названий типа поля:
+        // Добавьте в локализации следующие ключи: 
+        // "MY_RPG.NumericWarning.Attribute": "Характеристика" (ru) / "Attribute" (en)
+        // "MY_RPG.NumericWarning.Skill": "Навык" (ru) / "Skill" (en)
         const labelKey = isAbility ? "MY_RPG.NumericWarning.Attribute" : "MY_RPG.NumericWarning.Skill";
         const label = game.i18n.localize(labelKey);
         const minVal = isAbility ? 1 : 0;
@@ -33,16 +48,16 @@ export class myrpgActorSheet extends ActorSheet {
         if (isNaN(val)) {
             val = minVal;
         }
-        // ГЏГ°ГЁ ГЇГ°ГҐГўГ»ГёГҐГ­ГЁГЁ Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г®ГЈГ® Г§Г­Г Г·ГҐГ­ГЁГї вЂ“ ГўГ»ГўГ®Г¤ГЁГ¬ ГіГўГҐГ¤Г®Г¬Г«ГҐГ­ГЁГҐ Г± Г«Г®ГЄГ Г«ГЁГ§Г®ГўГ Г­Г­Г»Г¬ ГІГҐГЄГ±ГІГ®Г¬
+        // При превышении минимального значения – выводим уведомление с локализованным текстом
         if (val < minVal) {
-            // Г‚ Г«Г®ГЄГ Г«ГЁГ§Г Г¶ГЁГїГµ Г¤Г®ГЎГ ГўГјГІГҐ ГЄГ«ГѕГ· "MY_RPG.NumericWarning.Min"
-            // ГЌГ ГЇГ°ГЁГ¬ГҐГ°: ru.json: "{{label}} Г­ГҐ Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј Г¬ГҐГ­ГјГёГҐ {{min}}"
+            // В локализациях добавьте ключ "MY_RPG.NumericWarning.Min"
+            // Например: ru.json: "{{label}} не может быть меньше {{min}}"
             //              en.json: "{{label}} cannot be less than {{min}}"
             ui.notifications.warn(game.i18n.format("MY_RPG.NumericWarning.Min", { label: label, min: minVal }));
             val = minVal;
         } else if (val > maxVal) {
-            // ГЂГ­Г Г«Г®ГЈГЁГ·Г­Г® Г¤Г«Гї Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­Г®ГЈГ® Г§Г­Г Г·ГҐГ­ГЁГї вЂ“ ГЄГ«ГѕГ· "MY_RPG.NumericWarning.Max"
-            // ГЌГ ГЇГ°ГЁГ¬ГҐГ°: ru.json: "{{label}} Г­ГҐ Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј ГЎГ®Г«ГјГёГҐ {{max}}"
+            // Аналогично для максимального значения – ключ "MY_RPG.NumericWarning.Max"
+            // Например: ru.json: "{{label}} не может быть больше {{max}}"
             //              en.json: "{{label}} cannot be greater than {{max}}"
             ui.notifications.warn(game.i18n.format("MY_RPG.NumericWarning.Max", { label: label, max: maxVal }));
             val = maxVal;
@@ -52,10 +67,10 @@ export class myrpgActorSheet extends ActorSheet {
     }
 
     /**
- * Г€Г­ГЁГ¶ГЁГ Г«ГЁГ§ГЁГ°ГіГҐГІ TinyMCE Г¤Г«Гї Г§Г Г¤Г Г­Г­Г®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ , ГҐГ±Г«ГЁ Г®Г­ ГҐГ№ГҐ Г­ГҐ ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§ГЁГ°Г®ГўГ Г­.
- * @param {HTMLElement} element - DOM-ГЅГ«ГҐГ¬ГҐГ­ГІ textarea, Г¤Г«Гї ГЄГ®ГІГ®Г°Г®ГЈГ® ГІГ°ГҐГЎГіГҐГІГ±Гї TinyMCE.
+ * Инициализирует TinyMCE для заданного элемента, если он еще не инициализирован.
+ * @param {HTMLElement} element - DOM-элемент textarea, для которого требуется TinyMCE.
  */
-    initializeRichEditor(element) 
+    initializeRichEditor(element) {
         if (!element._tinyMCEInitialized) {
             tinymce.init({
                 target: element,
@@ -71,7 +86,7 @@ export class myrpgActorSheet extends ActorSheet {
                 width: "100%",
                 setup: function (editor) {
                     editor.on("init", function () {
-                        // Г„Г®ГЇГ®Г«Г­ГЁГІГҐГ«ГјГ­Г»ГҐ Г­Г Г±ГІГ°Г®Г©ГЄГЁ, ГҐГ±Г«ГЁ Г­ГіГ¦Г­Г»
+                        // Дополнительные настройки, если нужны
                     });
                 }
             });
@@ -80,9 +95,9 @@ export class myrpgActorSheet extends ActorSheet {
     }
 
     /**
-     * ГЏГ®ГЄГ Г§Г»ГўГ ГҐГІ tooltip Г¤Г«Гї Г±ГІГ°Г®ГЄГЁ Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГЁ.
-     * @param {jQuery} $row - jQuery Г®ГЎГєГҐГЄГІ Г±ГІГ°Г®ГЄГЁ, Г¤Г«Гї ГЄГ®ГІГ®Г°Г®Г© ГЇГ®ГЄГ Г§Г»ГўГ ГҐГІГ±Гї tooltip.
-     * @param {Object} abilityData - Г¤Г Г­Г­Г»ГҐ Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГЁ Г¤Г«Гї Г®ГІГ®ГЎГ°Г Г¦ГҐГ­ГЁГї.
+     * Показывает tooltip для строки способности.
+     * @param {jQuery} $row - jQuery объект строки, для которой показывается tooltip.
+     * @param {Object} abilityData - данные способности для отображения.
      */
     showAbilityTooltip($row, abilityData) {
         const costValue = abilityData.cost;
@@ -116,8 +131,8 @@ export class myrpgActorSheet extends ActorSheet {
     }
 
     /**
-     * Г“Г¤Г Г«ГїГҐГІ tooltip, Г±ГўГїГ§Г Г­Г­Г»Г© Г± Г§Г Г¤Г Г­Г­Г®Г© Г±ГІГ°Г®ГЄГ®Г©.
-     * @param {jQuery} $row - jQuery Г®ГЎГєГҐГЄГІ Г±ГІГ°Г®ГЄГЁ, Г¤Г«Гї ГЄГ®ГІГ®Г°Г®Г© ГіГ¤Г Г«ГїГҐГІГ±Гї tooltip.
+     * Удаляет tooltip, связанный с заданной строкой.
+     * @param {jQuery} $row - jQuery объект строки, для которой удаляется tooltip.
      */
     hideAbilityTooltip($row) {
         const $tooltip = $row.data("tooltip");
@@ -132,21 +147,21 @@ export class myrpgActorSheet extends ActorSheet {
         html.find('.wound-box').click(this._onToggleWound.bind(this));
 
         // ----------------------------------------------------------------------
-        // Rollable ГЅГ«ГҐГ¬ГҐГ­ГІГ» (ГЇГ°ГЁГ¬ГҐГ°)
+        // Rollable элементы (пример)
         // ----------------------------------------------------------------------
         html.find(".rollable").click(this._onRoll.bind(this));
 
         // ----------------------------------------------------------------------
-        // Г’ГЂГЃГ‹Г€Г–ГЂ Г‘ГЏГЋГ‘ГЋГЃГЌГЋГ‘Г’Г…Г‰
+        // ТАБЛИЦА СПОСОБНОСТЕЙ
         // ----------------------------------------------------------------------
         const $table = html.find(".abilities-table");
 
-        // ГЏГ°ГЁ ГіГµГ®Г¤ГҐ ГЄГіГ°Г±Г®Г°Г  Г± ГІГ ГЎГ«ГЁГ¶Г» Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГҐГ© ГіГЎГЁГ°Г ГҐГ¬ tooltip
+        // При уходе курсора с таблицы способностей убираем tooltip
         $table.on("mouseleave", () => {
             $("body").find(".ability-tooltip").remove();
         });
 
-        // ГЏГ®ГЄГ Г§Г»ГўГ ГҐГ¬ tooltip ГЇГ°ГЁ Г­Г ГўГҐГ¤ГҐГ­ГЁГЁ Г­Г  Г±ГІГ°Г®ГЄГі Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГЁ
+        // Показываем tooltip при наведении на строку способности
         html.find("tr.ability-row").on("mouseenter", event => {
             const $row = $(event.currentTarget);
             const index = Number($row.data("index"));
@@ -156,19 +171,19 @@ export class myrpgActorSheet extends ActorSheet {
             this.showAbilityTooltip($row, abilityData);
         });
 
-        // Г“ГЎГЁГ°Г ГҐГ¬ tooltip, ГЄГ®ГЈГ¤Г  ГЄГіГ°Г±Г®Г° ГіГµГ®Г¤ГЁГІ Г±Г® Г±ГІГ°Г®ГЄГЁ
+        // Убираем tooltip, когда курсор уходит со строки
         html.find("tr.ability-row").on("mouseleave", event => {
             const $row = $(event.currentTarget);
             this.hideAbilityTooltip($row);
         });
 
-        // ГЉГ­Г®ГЇГЄГ  "ГЋГІГ¬ГҐГ­Г " (ГҐГ±Г«ГЁ ГЈГ¤ГҐ-ГІГ® ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГ±Гї)
+        // Кнопка "Отмена" (если где-то используется)
         html.find(".ability-cancel").click(ev => {
             ev.preventDefault();
             this.close();
         });
 
-        // Г„Г®ГЎГ ГўГЁГІГј Г­Г®ГўГіГѕ Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГј (Г±ГІГ°Г®ГЄГі)
+        // Добавить новую способность (строку)
         html.find("tr.add-row").click(ev => {
             ev.preventDefault();
             let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
@@ -185,7 +200,7 @@ export class myrpgActorSheet extends ActorSheet {
             this.actor.update({ "system.abilitiesList": abilities });
         });
 
-        // Г“Г¤Г Г«ГЁГІГј Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГј
+        // Удалить способность
         html.find(".abilities-remove-row").click(ev => {
             ev.preventDefault();
             const index = Number(ev.currentTarget.dataset.index);
@@ -214,7 +229,7 @@ export class myrpgActorSheet extends ActorSheet {
             }).render(true);
         });
 
-        // ГђГҐГ¤Г ГЄГІГЁГ°Г®ГўГ Г­ГЁГҐ Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГЁ (TinyMCE Г± ГЄГ®Г­ГІГҐГЄГ±ГІГ­Г»Г¬ Г¬ГҐГ­Гѕ)
+        // Редактирование способности (TinyMCE с контекстным меню)
         html.find("tr.ability-row").click(ev => {
             if ($(ev.target).closest(".abilities-remove-row").length) return;
             if (this._editing) {
@@ -288,7 +303,7 @@ export class myrpgActorSheet extends ActorSheet {
                 },
                 render: (html) => {
                     html.find("textarea.rich-editor").each((index, element) => {
-                        // Г‚Г»Г§Г»ГўГ ГҐГ¬ Г­Г®ГўГ»Г© Г¬ГҐГІГ®Г¤ ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГЁ Г°ГҐГ¤Г ГЄГІГ®Г°Г 
+                        // Вызываем новый метод инициализации редактора
                         this.initializeRichEditor(element);
                     });
                 }
@@ -297,7 +312,7 @@ export class myrpgActorSheet extends ActorSheet {
         });
 
         // ----------------------------------------------------------------------
-        // Г’ГЂГЃГ‹Г€Г–ГЂ Г€ГЌГ‚Г…ГЌГ’ГЂГђГџ
+        // ТАБЛИЦА ИНВЕНТАРЯ
         // ----------------------------------------------------------------------
         html.find(".inventory .add-row").click(ev => {
             ev.preventDefault();
@@ -381,16 +396,16 @@ export class myrpgActorSheet extends ActorSheet {
                                 menubar: false,
                                 branding: false,
                                 statusbar: false,
-                                plugins: "autoresize link lists",  // contextmenu ГіГЎГ°Г Г­
-                                toolbar: false,                   // Г¬Г®Г¦Г­Г® ГіГЎГ°Г ГІГј ГЁГ«ГЁ ГЁГ§Г¬ГҐГ­ГЁГІГј
-                                // Г…Г±Г«ГЁ ГўГ Г¬ ГўГ±Вё-ГІГ ГЄГЁ Г­ГіГ¦Г­Г® ГЄГ ГЄГ®ГҐ-Г«ГЁГЎГ® ГЄГ®Г­ГІГҐГЄГ±ГІГ­Г®ГҐ Г¬ГҐГ­Гѕ, Г®Г§Г­Г ГЄГ®Г¬ГјГІГҐГ±Гј Г± Г¤Г®ГЄГіГ¬ГҐГ­ГІГ Г¶ГЁГҐГ© TinyMCE 6
+                                plugins: "autoresize link lists",  // contextmenu убран
+                                toolbar: false,                   // можно убрать или изменить
+                                // Если вам всё-таки нужно какое-либо контекстное меню, ознакомьтесь с документацией TinyMCE 6
                                 content_style: "body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }",
                                 autoresize_min_height: 40,
                                 autoresize_bottom_margin: 0,
                                 width: "100%",
                                 setup: function (editor) {
                                     editor.on("init", function () {
-                                        // Г„Г®ГЇГ®Г«Г­ГЁГІГҐГ«ГјГ­Г»ГҐ Г­Г Г±ГІГ°Г®Г©ГЄГЁ, ГҐГ±Г«ГЁ Г­ГіГ¦Г­Г»
+                                        // Дополнительные настройки, если нужны
                                     });
                                 }
                             });
@@ -429,9 +444,9 @@ export class myrpgActorSheet extends ActorSheet {
 
         html.find('input[name^="system.abilities."], input[name^="system.skills."]').on("change", ev => {
             const input = ev.currentTarget;
-            // Г‚Г»Г§Г»ГўГ ГҐГ¬ Г­Г®ГўГіГѕ ГґГіГ­ГЄГ¶ГЁГѕ ГўГ Г«ГЁГ¤Г Г¶ГЁГЁ
+            // Вызываем новую функцию валидации
             const validatedValue = this.validateNumericInput(input);
-            // ГЋГЎГ­Г®ГўГ«ГїГҐГ¬ Г¤Г Г­Г­Г»ГҐ Г ГЄГІГ®Г°Г  ГЎГҐГ§ ГЇГ®ГўГІГ®Г°Г­Г®ГЈГ® Г°ГҐГ­Г¤ГҐГ°Г 
+            // Обновляем данные актора без повторного рендера
             this.actor.update({ [input.name]: validatedValue }, { render: false });
         });
     }
@@ -486,12 +501,12 @@ export class myrpgActorSheet extends ActorSheet {
     }
 
     /**
-     * ГЋГЎГ°Г ГЎГ®ГІГЄГ  ГЄГ«ГЁГЄГ  ГЇГ® rollable-ГЅГ«ГҐГ¬ГҐГ­ГІГ Г¬
+     * Обработка клика по rollable-элементам
      */
     async _onToggleWound(event) {
         const idx = parseInt(event.currentTarget.dataset.idx);
         let wounds = this.actor.system.wounds || 0;
-        // Г…Г±Г«ГЁ ГІГҐГЄГіГ№ГҐГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г°Г Г­ГҐГ­ГЁГ© ГЎГ®Г«ГјГёГҐ ГЁГ­Г¤ГҐГЄГ±Г , ГіГ¬ГҐГ­ГјГёГ ГҐГ¬, ГЁГ­Г Г·ГҐ ГіГўГҐГ«ГЁГ·ГЁГўГ ГҐГ¬
+        // Если текущее количество ранений больше индекса, уменьшаем, иначе увеличиваем
         wounds = wounds > idx ? idx : idx + 1;
         await this.actor.update({ 'system.wounds': wounds });
     }
@@ -510,7 +525,7 @@ export class myrpgActorSheet extends ActorSheet {
             abVal = parseInt(this.actor.system.abilities[abKey]?.value) || 0;
         } else if (ability) {
             abVal = parseInt(this.actor.system.abilities[ability]?.value) || 0;
-            bonus = abVal; // Г¤Г«Гї ГЎГ°Г®Г±ГЄГ  Г±Г Г¬Г®Г© ГµГ Г°Г ГЄГІГҐГ°ГЁГ±ГІГЁГЄГЁ
+            bonus = abVal; // для броска самой характеристики
         }
 
         const { die } = getRankAndDie(abVal);
