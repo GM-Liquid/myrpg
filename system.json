@@ -22,7 +22,7 @@
     "verified": "12"
   },
   "esmodules": ["module/myrpg.mjs"],
-  "styles": ["css/myrpg.scss"],
+  "styles": ["css/myrpg.css"],
   "languages": [
     {
       "lang": "ru",

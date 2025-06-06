@@ -113,9 +113,9 @@
       "Label": "Temp Flux"
     },
     "Temp": {
-      "BonusPhysicalLabel": "Physical Defense",
-      "BonusAzureLabel": "Magic Defense",
-      "BonusMentalLabel": "Psychic Defense"
+      "BonusPhysicalLabel": "Временная физ. защита",
+      "BonusAzureLabel": "Временная азур-защита",
+      "BonusMentalLabel": "Временная ментальная защита"
     },
     "TempPhys": { "Label": "Temp Physical Defense" },
     "TempAzure": { "Label": "Temp Azure Defense" },
