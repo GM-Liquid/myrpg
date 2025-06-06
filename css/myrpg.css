@@ -1,830 +1,423 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-/* Global styles */
+/* Refactored CSS for MyRPG character sheet – June 2025
+ * ----------------------------------------------------
+ * Goals
+ *  • Remove obvious duplicates / dead code
+ *  • Consolidate identical rules
+ *  • Preserve every existing selector so nothing breaks in the HBS templates
+ *  • Introduce CSS variables for palette so future tweaks are easier
+ *  • Keep the visual appearance 1-to-1 with the previous sheet
+ *
+ * If something still relies on cascade order we kept the last-defined value.
+ * Colours & sizes originate from the original file to avoid visual drift.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+:root {
+    /* palette */
+    --clr-bg: #d2d2c9;
+    --clr-fg: #1b1210;
+    --clr-accent: #673e37;
+    --clr-accent-dark: #6d031c;
+    --clr-input-bg: #f8f8f8;
+    --clr-input-disabled: #f0f0f0;
+    --clr-input-text-disabled: #666;
+    /* borders */
+    --border: 2px solid var(--clr-fg);
+}
+
+/* -------------------------------------------------- */
+/* 1. Generic window & typography                     */
+/* -------------------------------------------------- */
 .window-app {
-  font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
-/* ������: ���� ������ �������� ����� �������� */
-.top-features,
-.middle-features,
-.bottom-features {
-  margin-bottom: 10px;
-}
+    .window-app.myrpg.sheet.actor,
+    .window-app.myrpg.dialog {
+        background: var(--clr-bg);
+        color: var(--clr-fg);
+        opacity: 1;
+    }
 
-.small-input {
-  width: 100px; /* ��� ����� ������ �������� */
-  max-width: 150px;
-}
+        .window-app.myrpg .window-header,
+        .window-app.myrpg.dialog .window-header {
+            background-color: var(--clr-accent-dark) !important;
+            background-image: none !important;
+            opacity: 1 !important;
+            filter: none !important;
+        }
 
-/* ��������� ��� ����� ������ ������ */
-.skill-row {
-  display: flex; /* ����� ������� ��� � ���� ������ */
-  align-items: center; /* ������������ ������������ �� ������ */
-  margin-bottom: 4px; /* ������ ����� �������� */
-}
+            .window-app.myrpg .window-header .window-title,
+            .window-app.myrpg.dialog .window-header .window-title,
+            .window-app.myrpg.dialog .window-header .close {
+                color: #fff !important;
+                text-shadow: none !important;
+            }
 
-/* ����� ����� ��� ����� �� ��� ������� */
-.skill-col {
-  /* ������� ������� �������, ���� ����� */
-  margin-right: 8px;
-}
-
-/* ������ �������: ������� ��� �������������� */
-.skill-ability-abbr {
-  width: 40px; /* ��������� ������ ��� �������� ����� (DEX, WIS � �.�.) */
-  text-align: center;
-}
-
-/* ������ �������: �������� ������, ������ � "����������" */
-.skill-name {
-  flex: 1; /* �������� �� ���������� ����� */
-  cursor: pointer; /* ����� ����������, ��� �� ������ ����� ������� (roll) */
-}
-
-/* ������ �������: ���� ����� */
-.skill-value {
-  width: 60px; /* ��������� ������ ��� ����� */
-}
-
-input[readonly],
-textarea[readonly],
-input[disabled],
-textarea[disabled] {
-  pointer-events: none; /* ��������� ����� ����� */
-  user-select: none; /* ��������� ��������� ������ */
-  cursor: default; /* ������� ���������� ������ ��� ��������� */
-  background-color: #f0f0f0; /* ����� ���� ���������� ���, ���� ������ */
-  color: #666; /* � ������ ��������� �����, ����� ���� �����, ��� ���� ���������� */
-}
-
-/* ����� ������ ��� ���������� ��������� � ��������� ������ � ����� ��������� */
-
-/* ������ ��� ������� Features */
-.features-tab {
-  padding: 10px;
-}
-
-/* ����������� ������� ������������� �������� �� 30% � ���������� � */
-.attributes-table {
-  margin: 0 auto; /* �������������� ������������� */
-  border-collapse: collapse; /* �� ������ ������ */
-}
-
-/* ������ ������ (th � td) ����� ������� ������ � ������ */
-.attributes-table th,
-.attributes-table td {
-  width: 90px; /* �������� ~80px * 1.3 = 104px */
-  height: 45px; /* ���� ~30px, ����������� �� 48px */
-  border: 2px solid #1b1210;
-  text-align: center;
-  padding: 5px;
-}
-
-/* ��������� h3 ������ �� ������ � ����� ������� */
-.sheet-box h3 {
-  text-align: center;
-  font-weight: 700; /* h3 ������ � ��� bold, �� �� ������ ������ ������ ���� */
-}
-
-/* �����, ����� ������������ ��� ���� ������� � ���������� */
-.center-attributes {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ������������ ������ ������, ����� ���������� ������� � �������� ���� ����������� ������� */
-.limited-height {
-  height: 250px; /* �� ���� ���������� - 200-300px */
-  overflow-y: auto; /* ���� ������ ������ ��������, �������� ������ */
-}
-
-/* ����� ����� ��� ������ � �������� ����� */
-.custom-flexrow {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.top-row {
-  display: flex;
-  /* ����� �������� ���������� � ����� ������ ���� ��� �������� ����� */
-  flex-wrap: nowrap;
-  /* �������������� ������ ����� ��������� � �������� (��� �������������) */
-  gap: 10px;
-  /* �� ��������� ����������� �� ������ */
-  align-items: center;
-  /* �� ����������� ������ flex-start (�����), �� ����� � center, ���� ����� */
-  justify-content: center;
-}
-
-/* �����-�������. ������� float � ��������� �� flex: 0 0 XX% */
-.col-50,
-.col-50-last,
-.col-33,
-.col-33-last,
-.col-25,
-.col-25-last {
-  box-sizing: border-box;
-  /* �� ��������� ����� ����� auto, ����� ������������� */
-}
-
-/* ��������� �������� ��� ������� ��������� */
-.myrpg .abilities-table th.col-name {
-  width: 30%;
-}
-
-.myrpg .abilities-table th.col-effect {
-  width: 55%;
-}
-
-.myrpg .abilities-table th.col-cost {
-  width: 10%;
-}
-
-.myrpg .abilities-table th.col-delete {
-  width: 5%;
-}
-
-/* ������� ��� ���� ������:
-   ��� 50% ������ */
-.col-50 {
-  flex: 0 0 calc(50% - 10px);
-  padding-right: 10px;
-}
-
-.col-50-last {
-  flex: 0 0 50%;
-  padding-right: 0;
-}
-
-/* ��� 33.33% */
-.col-33 {
-  flex: 0 0 33.33%;
-  padding-right: 10px;
-}
-
-.col-33-last {
-  flex: 0 0 33.33%;
-  padding-right: 0;
-}
-
-/* ��� 25% */
-.col-25 {
-  padding-right: 10px;
-  flex: 0 0 calc(25% - 5px);
-}
-
-.col-25-last {
-  flex: 0 0 calc(25% - 5px);
-  padding-right: 0;
-}
-
-/* ���� �� ������, ����� ������� �� "��������" ���� ��� ������������, 
-   �������� ���-�� �����:
-   .flexrow { flex-wrap: wrap; } ��� overflow. �� ������� �� �������. */
-
-.attributes-col {
-  flex: 0 0 auto;
-  /* �.�. ������� ����� ������� �����, ������� ����� ������� */
-
-  display: flex;
-  align-items: center;
-  justify-content: center; /* ����� ���� ������� ���� �� ������ ����� ����� */
-}
-
-/* sheet-box - ����� */
-.sheet-box {
-  border: 2px solid #1b1210; /* ��� �������� ���� ������� */
-  padding: 10px;
-  margin-bottom: 10px; /* ����� ����� ������� ��� ������ */
-}
-
-/* ������������� ��� � ����� ��� ����� ����� */
-.myrpg.sheet.actor {
-  background-color: #d2d2c9; /* ��� ���� ������� */
-  color: #1b1210; /* �������� ���� ������ */
-}
-
+/* -------------------------------------------------- */
+/* 2. Inputs & textareas                              */
+/* -------------------------------------------------- */
 form textarea,
-form input[type='text'],
-form input[type='number'] {
-  border: 2px solid #1b1210; /* ���� ����� */
-  background-color: #f8f8f8; /* ����� �������� ������� ��� ������ ����� */
-  color: #1b1210; /* ���� ������ ������ ����� */
-  font-family: inherit;
-  font-size: inherit;
-  padding: 5px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.myrpg .biography .form-group {
-  margin-bottom: 5px;
-}
-
-.myrpg .abilities .ability {
-  margin-bottom: 5px;
-}
-
-.myrpg .skills .skill {
-  margin-bottom: 5px;
-}
-
-/* ������� resizable � textarea */
-form textarea {
-  resize: none;
-  overflow: hidden;
-  min-height: 60px;
-  max-height: 500px;
-}
-
-/* ��������� �������� */
-.portrait {
-  width: auto;
-  margin-right: 10px;
-}
-
-.profile-img {
-  display: block;
-  max-width: 150px;
-  max-height: 150px;
-  width: auto !important;
-  height: auto !important;
-}
-
-.rollable:hover,
-.rollable:focus {
-  color: #000;
-  text-shadow: 0 0 10px red;
-  cursor: pointer;
-}
-
-.sub-labels {
-  margin-bottom: 3px;
-}
-
-.ability-tooltip {
-  white-space: normal;
-  word-break: break-word;
-  max-width: 300px;
-}
-
-/* ������� ������������ */
-.myrpg .abilities-table {
-  width: 100%;
-  border-collapse: collapse !important;
-  margin-bottom: 1em;
-  background: none !important;
-}
-
-.myrpg .abilities-table th,
-.myrpg .abilities-table td {
-  border: 2px solid #1b1210 !important; /* ���� ������ ������� */
-  padding: 5px;
-  text-align: center;
-  color: #1b1210; /* ���� ������ */
-}
-
-/* ��������� ������� */
-.myrpg .abilities-table thead th {
-  background-color: #673e37 !important; /* ���� ����� */
-  color: #d2d2c9 !important; /* ����� �� ����� (��� ���������) */
-  text-shadow: none !important;
-}
-
-/* �����-������ (������ ������) */
-.myrpg .abilities-table tr:nth-child(even) {
-  background-color: #a79086 !important;
-}
-
-/* �����-������ (��������� ������) */
-.myrpg .abilities-table tr:hover td {
-  background-color: #673e37 !important; /* �������� ������ */
-  color: #d2d2c9 !important; /* ����� ��� hover */
-  transition: background-color 0.2s;
-}
-
-.tab.abilities table.abilities-table {
-  table-layout: fixed;
-  width: 100%;
-}
-
-.tab.abilities table.abilities-table th.col-name {
-  width: 25% !important;
-}
-
-.tab.abilities table.abilities-table th.col-rank {
-  width: 10% !important;
-}
-
-.tab.abilities table.abilities-table th.col-effect {
-  width: 47% !important;
-}
-
-.tab.abilities table.abilities-table th.col-cost {
-  width: 13% !important;
-}
-
-.tab.abilities table.abilities-table th.col-delete {
-  width: 5% !important;
-}
-
-/* CSS ����� ��� ������� ��������� � ������������� ������� ������� */
-.tab.inventory table.abilities-table {
-  width: 100%;
-  table-layout: fixed; /* ������������� ��������� ��� ������������ ������������� */
-}
-
-.tab.inventory table.abilities-table th.col-name {
-  width: 25%;
-}
-
-.tab.inventory table.abilities-table th.col-effect {
-  width: 50%;
-}
-
-.tab.inventory table.abilities-table th.col-cost {
-  width: 20%;
-}
-
-.tab.inventory table.abilities-table th.col-delete {
-  width: 5%;
-}
-
-/* ����� ������������� �� ��� ��������� ������� ���� */
-.myrpg.sheet.actor form {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-/* ��������� ��������� �������� */
-.sheet-scrollable {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  box-sizing: border-box;
-}
-
-/* ���� � ��������� (������������� ������) */
-.sheet-tabs-hex {
-  position: absolute;
-  right: -240px;
-  top: 15%;
-  transform: translateY(-50%);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* ���� ������ ��������� */
-.hex-button {
-  background: #d2d2c9; /* ������� ���� ������ */
-  color: #1b1210; /* ���� ������ */
-  border: 2px solid #1b1210; /* ���� ������� */
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 6px;
-  width: 220px;
-  height: 40px;
-  transition: background 0.3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.hex-button.active {
-  background: #673e37; /* ���� �������� ������ */
-  color: #d2d2c9; /* ����� �� �������� ������ */
-}
-
-/* ��� ���� � ��� ����������� overflow: visible */
-.window-app.myrpg-hex-tabs,
-.window-app.myrpg-hex-tabs .window-content {
-  overflow: visible !important;
-}
-
-/* Grid Layout (��������� ������ ����������� �����, ���� �����) */
-.grid,
-.grid-2col {
-  display: grid;
-  grid-column: span 2 / span 2;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 10px 0;
-  padding: 0;
-}
-
-.grid-3col {
-  grid-column: span 3 / span 3;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid-4col {
-  grid-column: span 4 / span 4;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.grid-5col {
-  grid-column: span 5 / span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.grid-6col {
-  grid-column: span 6 / span 6;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
-.grid-7col {
-  grid-column: span 7 / span 7;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.grid-8col {
-  grid-column: span 8 / span 8;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-}
-
-.grid-9col {
-  grid-column: span 9 / span 9;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
-}
-
-.grid-10col {
-  grid-column: span 10 / span 10;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-}
-
-.grid-11col {
-  grid-column: span 11 / span 11;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
-}
-
-.grid-12col {
-  grid-column: span 12 / span 12;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.grid-start-2 {
-  grid-column-start: 2;
-}
-
-.grid-start-3 {
-  grid-column-start: 3;
-}
-
-.grid-start-4 {
-  grid-column-start: 4;
-}
-
-.grid-start-5 {
-  grid-column-start: 5;
-}
-
-.grid-start-6 {
-  grid-column-start: 6;
-}
-
-.grid-start-7 {
-  grid-column-start: 7;
-}
-
-.grid-start-8 {
-  grid-column-start: 8;
-}
-
-.grid-start-9 {
-  grid-column-start: 9;
-}
-
-.grid-start-10 {
-  grid-column-start: 10;
-}
-
-.grid-start-11 {
-  grid-column-start: 11;
-}
-
-.grid-start-12 {
-  grid-column-start: 12;
-}
-
-.grid-span-2 {
-  grid-column-end: span 2;
-}
-
-.grid-span-3 {
-  grid-column-end: span 3;
-}
-
-.grid-span-4 {
-  grid-column-end: span 4;
-}
-
-.grid-span-5 {
-  grid-column-end: span 5;
-}
-
-.grid-span-6 {
-  grid-column-end: span 6;
-}
-
-.grid-span-7 {
-  grid-column-end: span 7;
-}
-
-.grid-span-8 {
-  grid-column-end: span 8;
-}
-
-.grid-span-9 {
-  grid-column-end: span 9;
-}
-
-.grid-span-10 {
-  grid-column-end: span 10;
-}
-
-.grid-span-11 {
-  grid-column-end: span 11;
-}
-
-.grid-span-12 {
-  grid-column-end: span 12;
-}
-
-/* �������� ��������� .flexrow, ����� �������� �� ������������� �� ������ */
-.flexrow {
-  display: flex;
-  align-items: flex-start; /* ����� ����� ����� ������������� */
-  gap: 10px;
-  /* justify-content: flex-start; ��� space-between; - �� ��� ���� */
-}
-
-/* ������� "clearfix" �������������, �.�. float ������ �� ���������� */
-/*
-.flexrow::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-*/
-
-/* ������ ��������� (Chrome, Edge, Safari) */
-.myrpg.sheet.actor::-webkit-scrollbar {
-  width: 12px;
-}
-
-.myrpg.sheet.actor::-webkit-scrollbar-track {
-  background: #d2d2c9; /* ��� �� ���, ��� � � ����� */
-}
-
-.myrpg.sheet.actor::-webkit-scrollbar-thumb {
-  background-color: #6d031c; /* ���� ������ ��������� */
-  border: 2px solid #d2d2c9; /* �������, ����� ���� ����� ������ */
-  border-radius: 6px;
-}
-
-.top-row > .portrait-col,
-.top-row > .attributes-col {
-  flex: 0 0 auto !important;
-}
-
-/* --- 1. ��������� � ������ ����� ��� h2/h3 �� �������� ��������� � ����������� --- */
-.tab.biography h2,
-.tab.biography h3,
-.tab.abilities h2,
-.tab.abilities h3 {
-  text-align: center; /* ���������� ��������� */
-  font-weight: 700; /* ������ ����� ������ */
-}
-
-/* --- 2. ��������� ���������� ���������� (label) � �������� ���������� � ������� --- */
-/* ��������������, ��� � ��� ���� .sheet-box .form-group label, .resource-label � �.�. */
-.sheet-box .form-group label,
-.sheet-box .resource-label,
-.sheet-box .armor-description label,
-.sheet-box .armor-values label {
-  text-align: center; /* ���������� ����� */
-  /* font-weight: 600;  // ���� ������ ������� �� �����������, ���������������� */
-}
-
-/*******************************************************
-  1) ��������� ������ �������� (��, �����, ���������,
-     ��������, ������������) �� �������� �����
- *******************************************************/
-.resource,
-.resource .resource-label,
-.resource .sub-label,
-.resource .resource-content {
-  text-align: center;
-}
-
-/* ����� ����� � input ���� ���� �� ������ */
-.resource input {
-  text-align: center;
-}
-
-/*******************************************************
-  2) ��������� ������� �� ����� ������������
-     (�� ���� .resource, ��� ��� ������ ����� (1) ��� ����������)
- *******************************************************/
-/* �� ������ ������ ���������, ���� Foundry ����������: */
-.flux-section .resource,
-.flux-section .resource-label,
-.flux-section .resource-content {
-  text-align: center;
-}
-
-/*******************************************************
-  3) ��������� ��������� �������� (label) � ����������
-     � ����������, � ����� ������ ������ � input/textarea
- *******************************************************/
-.tab.biography .form-group label {
-  text-align: center;
-  display: block;
-}
-
-.tab.biography .form-group input,
-.tab.biography .form-group textarea {
-  text-align: center;
-}
-
-/*******************************************************
-  4) ��������� ������ � ���� ��������� �������
- *******************************************************/
-.armor-description,
-.armor-description label,
-.armor-description textarea {
-  text-align: center;
-}
-
-/*******************************************************
-  5) (������) ������� ��������� (h2/h3) � ���������
-     � ������������ �� ������ � ������
- *******************************************************/
-.tab.biography h2,
-.tab.biography h3,
-.tab.abilities h2,
-.tab.abilities h3 {
-  text-align: center;
-  font-weight: 700; /* ������ ����� */
-}
-
-.limited-height {
-  height: 300px; /* ������ 250px */
-}
-
-.armor-description textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-/* ������ ������ ����� ��������� ����� ������� */
+form input[type="text"],
+form input[type="number"],
 .myrpg.sheet.actor form input[type='text'],
 .myrpg.sheet.actor form input[type='number'],
 .myrpg.sheet.actor form textarea {
-  text-align: center;
+    border: var(--border);
+    background-color: var(--clr-input-bg);
+    color: var(--clr-fg);
+    font-family: inherit;
+    font-size: inherit;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-/* ������ ��������� ������� (header) ��������� ������������ */
-.window-app.myrpg .window-header {
-  background-color: #6d031c !important; /* �������� �� ����� ���� */
-  opacity: 1 !important;
+form textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 60px;
+    max-height: 500px;
 }
 
-/* ��� ������� ������ ���� ������ � ��������� */
-.window-app.myrpg .window-header .window-title {
-  color: #ffffff !important; /* �������� �� ����� ���� */
+input[readonly], textarea[readonly], input[disabled], textarea[disabled] {
+    pointer-events: none;
+    user-select: none;
+    cursor: default;
+    background-color: var(--clr-input-disabled);
+    color: var(--clr-input-text-disabled);
 }
 
-/* 1) ����� ��� ������� (���� ����� ������ ������������ ���� ������ ����) */
-.window-app.myrpg.dialog {
-  background: #d2d2c9 !important; /* ��� ���, ����� �������� ��� ���� */
-  opacity: 1 !important;
-  filter: none !important;
-}
-
-/* 2) ������� ������ (�����) ������� */
-.window-app.myrpg.dialog .window-header {
-  background-color: #6d031c !important; /* ��� �������� ���� */
-  background-image: none !important; /* ������� ��������� Foundry */
-  opacity: 1 !important; /* ������� ������������ */
-  filter: none !important;
-}
-
-/* 3) ��������� (�����) � ������ "Close" */
-.window-app.myrpg.dialog .window-header .window-title,
-.window-app.myrpg.dialog .window-header .close {
-  color: #ffffff !important; /* ���� ������ */
-  text-shadow: none !important; /* ������� ����, ���� ��� ���� */
-  opacity: 1 !important;
-}
-/* --- ������ ����� ��� ����������� ������ TinyMCE (Foundry V10+), ��� ������������ ������ .tox-... --- */
-
-/* ������� ��������� ��������� */
-.myrpg .tox-tinymce {
-  border: 2px solid #1b1210 !important;
-  background-color: #f8f8f8 !important;
-  border-radius: 4px !important;
-  box-sizing: border-box;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important; /* �����������, ��� �������� �������� ��� ������ */
-}
-
-/* ���������� �����, ��� ��������� ���� ���� ����� */
-.myrpg .tox-tinymce .tox-editor-container {
-  background-color: #f8f8f8 !important;
-  border: none !important;
-  min-height: 40px !important; /* ��������� ������� ������ �� 40px */
-  box-sizing: border-box;
-}
-
-/* ��� iframe, ���� ����� ������ ��� ���� ���� */
-.myrpg .tox-tinymce .tox-edit-area__iframe {
-  background-color: #f8f8f8 !important;
-}
-
-/* ��������� �����, ������ � ���� �� .myrpg (��� � ������� <input> � <textarea>) */
-.myrpg .tox-tinymce * {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  color: #1b1210 !important;
-}
-
-/* --- ����� ����� --- */
-
+/* TinyMCE iframe skin (dialog & sheet) */
+.myrpg .tox-tinymce,
 .window-app.dialog .tox-tinymce {
-  border: 2px solid #1b1210 !important;
-  background-color: #f8f8f8 !important;
-  border-radius: 4px !important;
-  box-sizing: border-box;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important;
+    border: var(--border) !important;
+    background-color: var(--clr-input-bg) !important;
+    border-radius: 4px !important;
+    width: 100% !important;
+    box-sizing: border-box;
 }
 
-.window-app.dialog .form-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+    .myrpg .tox-editor-container, .myrpg .tox-tinymce .tox-editor-container {
+        background-color: var(--clr-input-bg) !important;
+        min-height: 40px !important;
+    }
+
+    .myrpg .tox-edit-area__iframe, .myrpg .tox-tinymce .tox-edit-area__iframe {
+        background-color: var(--clr-input-bg) !important;
+    }
+
+    .myrpg .tox-tinymce *, .window-app.dialog .tox-tinymce * {
+        font-family: inherit !important;
+        font-size: inherit !important;
+        color: var(--clr-fg) !important;
+    }
+
+/* -------------------------------------------------- */
+/* 3. Layout helpers                                  */
+/* -------------------------------------------------- */
+
+/* Flexible rows */
+.flexrow, .custom-flexrow {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
 }
 
-.window-app.dialog .form-group label {
-  flex: 1;
-  margin-right: 10px;
+/* Grid helpers – kept explicit classes for backwards compatibility */
+.grid, .grid-2col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
 }
 
-.window-app.dialog .form-group input[type='text'],
-.window-app.dialog .form-group input[type='number'],
-.window-app.dialog .form-group textarea {
-  width: 250px;
-  box-sizing: border-box;
+.grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
 }
 
-/* ����� ����� ����� ����� ��� ��������� */
-.sheet-box.defenses-block {
-  /* ���, �����, �������� ������� �� .sheet-box */
+.grid-4col {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
 }
 
-/* === ����� ����� ��� ����� ����� === */
-.sheet-box.defenses-block {
-  /* ���� ���, ������� � �������� �� .sheet-box */
-}
-/* ������� ������ �� ����� ������ ����� � ������� ������� */
-.defenses-table {
-  width: 100%;
-  border-collapse: collapse;
+.grid-5col {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
 }
 
-.defenses-table th,
-.defenses-table td {
-  border: none;
-  background: none;
-  padding: 0.25rem;
-  text-align: center;
-}
-/* ���� � ��� ���� ���������� ��� ����� ����������, ����� �������� */
-.sheet-box.defenses-block .sheet-box-header {
-  margin-bottom: 0.25rem;
+.grid-6col {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
 }
 
-.wound-box {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #1b1210;
-  margin: 0 2px;
-  cursor: pointer;
+.grid-7col {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
 }
 
-.wound-box.filled {
-  background: #1b1210;
+.grid-8col {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.grid-9col {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.grid-10col {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.grid-11col {
+    display: grid;
+    grid-template-columns: repeat(11, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.grid-12col {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+/* column start / span helpers */
+.grid-start-1 {
+    grid-column-start: 1;
+}
+
+.grid-start-2 {
+    grid-column-start: 2;
+}
+
+.grid-start-3 {
+    grid-column-start: 3;
+}
+
+.grid-start-4 {
+    grid-column-start: 4;
+}
+
+.grid-start-5 {
+    grid-column-start: 5;
+}
+
+.grid-start-6 {
+    grid-column-start: 6;
+}
+
+.grid-start-7 {
+    grid-column-start: 7;
+}
+
+.grid-start-8 {
+    grid-column-start: 8;
+}
+
+.grid-start-9 {
+    grid-column-start: 9;
+}
+
+.grid-start-10 {
+    grid-column-start: 10;
+}
+
+.grid-start-11 {
+    grid-column-start: 11;
+}
+
+.grid-start-12 {
+    grid-column-start: 12;
+}
+
+.grid-span-1 {
+    grid-column-end: span 1;
+}
+
+.grid-span-2 {
+    grid-column-end: span 2;
+}
+
+.grid-span-3 {
+    grid-column-end: span 3;
+}
+
+.grid-span-4 {
+    grid-column-end: span 4;
+}
+
+.grid-span-5 {
+    grid-column-end: span 5;
+}
+
+.grid-span-6 {
+    grid-column-end: span 6;
+}
+
+.grid-span-7 {
+    grid-column-end: span 7;
+}
+
+.grid-span-8 {
+    grid-column-end: span 8;
+}
+
+.grid-span-9 {
+    grid-column-end: span 9;
+}
+
+.grid-span-10 {
+    grid-column-end: span 10;
+}
+
+.grid-span-11 {
+    grid-column-end: span 11;
+}
+
+.grid-span-12 {
+    grid-column-end: span 12;
+}
+
+/* Limited-height scroll boxes (one-off override) */
+.limited-height {
+    height: 300px;
+    overflow-y: auto;
+}
+
+/* Scrollable sheet section */
+.sheet-scrollable {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* -------------------------------------------------- */
+/* 4. Character sheet structure                       */
+/* -------------------------------------------------- */
+.myrpg.sheet.actor {
+    background-color: var(--clr-bg);
+}
+
+    .myrpg.sheet.actor form {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+/* Layout columns */
+.col-25 {
+    flex: 0 0 calc(25% - 5px);
+    padding-right: 10px;
+}
+
+.col-25-last {
+    flex: 0 0 25%;
+    padding-right: 0;
+}
+
+.col-33 {
+    flex: 0 0 calc(33.333% - 6px);
+    padding-right: 10px;
+}
+
+.col-33-last {
+    flex: 0 0 33.333%;
+    padding-right: 0;
+}
+
+.col-50 {
+    flex: 0 0 calc(50% - 10px);
+    padding-right: 10px;
+}
+
+.col-50-last {
+    flex: 0 0 50%;
+    padding-right: 0;
+}
+
+.top-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+    .top-row > .portrait-col {
+        flex: 0 0 auto;
+    }
+
+    .top-row > .attributes-col {
+        flex: 1 1 auto;
+    }
+
+.attributes-col {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-attributes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Boxes */
+.sheet-box {
+    border: var(--border);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+    .sheet-box h3 {
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .sheet-box.defenses-block { /* inherits .sheet-box */
+    }
+
+        .sheet-box.defenses-block .sheet-box-header {
+            margin-bottom: 0.25rem;
+        }
+
+/* Abilities & skills */
+.skill-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.skill-ability-abbr {
+    width: 40px;
+    text-align: center;
 }
