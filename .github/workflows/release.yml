@@ -2,16 +2,9 @@ name: Build & Publish Latest Release
 
 on:
   push:
-    branches: [ "main" ]      # триггер на любой пуш в main
-    paths-ignore:             # изменения, на которые НЕ реагируем
-      - ".github/**"
-      - "**/*.md"
-      - ".prettierrc*"
-      - "eslint.*"
-      - ".gitignore"
-      - "package*.json"
-      - "node_modules/**"
+    branches: [ "main" ]
 
+# ⬅️  даём токену права писать релизы / ассеты
 permissions:
   contents: write
 
@@ -20,40 +13,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Клонируем репозиторий
+      # 1️⃣ Клонируем репозиторий
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Создаём временную папку dist/ и копируем в неё ТОЛЬКО нужные файлы
+      # 2️⃣ Готовим «чистую» папку dist
       - name: Prepare distribution folder
         run: |
           rm -rf dist
-          mkdir -p dist
-          cp -R module templates css lang assets dist/
+          mkdir dist
+          # каталоги системы
+          cp -R module templates css lang assets dist/ 2>/dev/null || true
+          # обязательные файлы
           cp system.json template.json README.md LICENSE dist/ 2>/dev/null || true
 
-      # 3. Упаковываем ZIP (имя фиксированное, чтобы легко ссылаться)
+      # 3️⃣ Упаковываем dist в myrpg.zip
       - name: Zip distribution
         run: |
           cd dist
-          zip -r ../myrpg-latest.zip .
+          zip -r ../myrpg.zip .
 
-      # 4. Создаём / обновляем релиз с тегом latest
+      # 4️⃣ Публикуем или обновляем релиз с тегом latest
       - name: Publish or update GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: latest                 # всегда один и тот же тег
+          tag_name: latest           # всегда один тег
           name: Latest build (auto)
           body: |
-            ⚠️ **Автоматическая сборка** — формируется при каждом push в `main`.
-            Содержит только файлы системы, без исходных dev-зависимостей.
+            ⚠️ Автоматическая сборка с ветки **main**.
+            * `myrpg.zip` — полный пакет системы;
+            * `system.json` — манифест отдельно.
+          files: |
+            myrpg.zip
+            system.json               # ← отдельным ассетом
           draft: false
           prerelease: false
-          files: |
-            myrpg-latest.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 5. Чистим артефакт (не обязателен, просто аккуратно)
-      - name: Remove local artefacts
-        run: rm -rf dist myrpg-latest.zip
+      # 5️⃣ Прибираемся
+      - name: Clean up
+        run: rm -rf dist myrpg.zip
