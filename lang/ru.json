@@ -199,14 +199,14 @@
       "Rank": "Ранг"
     }
   },
-    "TYPES": {
-      "Actor": {
-        "character": "Персонаж",
-        "npc": "NPC"
-      },
-      "Item": {
-        "item": "Предмет",
-        "feature": "Особенность"
-      }
+  "TYPES": {
+    "Actor": {
+      "character": "Персонаж",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Предмет",
+      "feature": "Особенность"
     }
   }
+}

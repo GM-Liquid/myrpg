@@ -4,5 +4,10 @@
  * @return {Promise}
  */
 export const preloadHandlebarsTemplates = async function () {
-  return loadTemplates([]);
+  const paths = [
+    'systems/myrpg/templates/actor/actor-character-sheet.hbs',
+    'systems/myrpg/templates/actor/actor-npc-sheet.hbs',
+    'systems/myrpg/templates/partials/ability-row.hbs'
+  ];
+  return loadTemplates(paths);
 };

@@ -21,8 +21,8 @@
     "minimum": "12",
     "verified": "12"
   },
-  "esmodules": [ "module/myrpg.mjs" ],
-  "styles": [ "css/myrpg.css" ],
+  "esmodules": ["module/myrpg.mjs"],
+  "styles": ["css/myrpg.css"],
   "languages": [
     {
       "lang": "ru",
@@ -34,7 +34,6 @@
       "name": "English",
       "path": "lang/en.json"
     }
-
   ],
   "packs": [],
   "packFolders": [],
@@ -46,6 +45,15 @@
     "distance": 2,
     "units": "м"
   },
-  "primaryTokenAttribute": "ОЗ",
-  "secondaryTokenAttribute": "КД"
+  "primaryTokenAttribute": {
+    "attribute": "system.health.value",
+    "value": "system.health.value",
+    "max": "system.health.max"
+  },
+  "secondaryTokenAttribute": {
+    "attribute": "system.flux.value"
+  },
+  "license": "CC BY-NC-SA 4.0",
+  "bugs": "https://github.com/GM-Liquid/myrpg/issues",
+  "readme": "https://github.com/GM-Liquid/myrpg#"
 }

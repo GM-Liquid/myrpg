@@ -1,38 +1,38 @@
 // systems/myrpg/helpers/handlebars-helpers.mjs
 
 /**
- * Регистрация дополнительных хелперов для Handlebars.
- * Эти хелперы доступны во всех шаблонах после загрузки системы.
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ Handlebars.
+ * пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
  */
 
-// Хелпер для конкатенации строк
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 Handlebars.registerHelper('concat', (...args) => {
-    // Удаляем последний аргумент — объект опций
-    args.pop();
-    return args.join('');
+  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+  args.pop();
+  return args.join('');
 });
 
-// Хелпер для преобразования строки в PascalCase
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ PascalCase
 Handlebars.registerHelper('toPascalCase', (str) => {
-    if (typeof str !== 'string') return '';
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  if (typeof str !== 'string') return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
 });
 
-// Хелпер для преобразования строки в нижний регистр
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Handlebars.registerHelper('toLowerCase', function (str) {
-    return str.toLowerCase();
+  return str.toLowerCase();
 });
-// Повторить блок N раз, передавая @index
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ N пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ @index
 Handlebars.registerHelper('times', function (n, options) {
-    let accum = '';
-    for (let i = 0; i < n; i++) {
-        // передаём индекс в data, чтобы в шаблоне работал {{@index}}
-        accum += options.fn(this, { data: { index: i } });
-    }
-    return accum;
+  let accum = '';
+  for (let i = 0; i < n; i++) {
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ data, пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ {{@index}}
+    accum += options.fn(this, { data: { index: i } });
+  }
+  return accum;
 });
 
-// «меньше или равно» для условных блоков {{#lte a b}}…{{else}}…{{/lte}}
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ {{#lte a b}}пїЅ{{else}}пїЅ{{/lte}}
 Handlebars.registerHelper('lte', function (a, b, options) {
-    return (a <= b) ? options.fn(this) : options.inverse(this);
+  return a <= b ? options.fn(this) : options.inverse(this);
 });

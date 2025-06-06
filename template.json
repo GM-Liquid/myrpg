@@ -30,29 +30,7 @@
             "max": 20
           }
         },
-        "abilitiesList": [
-          {
-            "name": "",
-            "desc": "",
-            "rank": "",
-            "effect": "",
-            "cost": ""
-          },
-          {
-            "name": "",
-            "desc": "",
-            "rank": "",
-            "effect": "",
-            "cost": ""
-          },
-          {
-            "name": "",
-            "desc": "",
-            "rank": "",
-            "effect": "",
-            "cost": ""
-          }
-        ],
+        "abilitiesList": [],
         "inventoryList": [],
         "health": {
           "value": 10,

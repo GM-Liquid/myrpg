@@ -1,575 +1,574 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 /* Global styles */
 .window-app {
-    font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* Пример: чуть больше отступов между секциями */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .top-features,
 .middle-features,
 .bottom-features {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .small-input {
-    width: 100px; /* или любое нужное значение */
-    max-width: 150px;
+  width: 100px; /* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  max-width: 150px;
 }
 
-/* Контейнер для одной строки навыка */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 .skill-row {
-    display: flex; /* чтобы колонки шли в одну строку */
-    align-items: center; /* вертикальное выравнивание по центру */
-    margin-bottom: 4px; /* отступ между строками */
+  display: flex; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  align-items: center; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  margin-bottom: 4px; /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-/* Общий класс для любой из трёх колонок */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .skill-col {
-    /* Немного правого отступа, если нужно */
-    margin-right: 8px;
+  /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  margin-right: 8px;
 }
 
-/* Первая колонка: краткое имя характеристики */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .skill-ability-abbr {
-    width: 40px; /* фиксируем ширину под короткий текст (DEX, WIS и т.п.) */
-    text-align: center;
+  width: 40px; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (DEX, WIS пїЅ пїЅ.пїЅ.) */
+  text-align: center;
 }
 
-/* Вторая колонка: название навыка, делаем её "растяжимой" */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" */
 .skill-name {
-    flex: 1; /* занимает всё оставшееся место */
-    cursor: pointer; /* чтобы показывать, что по навыку можно кликать (roll) */
+  flex: 1; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  cursor: pointer; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (roll) */
 }
 
-/* Третья колонка: поле ввода */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 .skill-value {
-    width: 60px; /* фиксируем ширину под число */
+  width: 60px; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 }
 
 input[readonly],
 textarea[readonly],
 input[disabled],
 textarea[disabled] {
-    pointer-events: none; /* Запрещаем любые клики */
-    user-select: none; /* Запрещаем выделение текста */
-    cursor: default; /* Убираем «текстовый» курсор при наведении */
-    background-color: #f0f0f0; /* Можно чуть «засерить» фон, если хотите */
-    color: #666; /* И слегка осветлить текст, чтобы было видно, что поле недоступно */
+  pointer-events: none; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  user-select: none; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  cursor: default; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  background-color: #f0f0f0; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  color: #666; /* пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-/* Новые классы для управления размерами и отступами блоков в листе персонажа */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 
-/* Отступ для вкладки Features */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Features */
 .features-tab {
-    padding: 10px;
+  padding: 10px;
 }
 
-/* Увеличиваем таблицу характеристик примерно на 30% и центрируем её */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 30% пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ */
 .attributes-table {
-    margin: 0 auto; /* горизонтальное центрирование */
-    border-collapse: collapse; /* на всякий случай */
+  margin: 0 auto; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  border-collapse: collapse; /* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-    /* Каждой ячейке (th и td) задаём большую ширину и высоту */
-    .attributes-table th,
-    .attributes-table td {
-        width: 90px; /* исходные ~80px * 1.3 = 104px */
-        height: 45px; /* было ~30px, увеличиваем до 48px */
-        border: 2px solid #1b1210;
-        text-align: center;
-        padding: 5px;
-    }
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (th пїЅ td) пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+.attributes-table th,
+.attributes-table td {
+  width: 90px; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ~80px * 1.3 = 104px */
+  height: 45px; /* пїЅпїЅпїЅпїЅ ~30px, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 48px */
+  border: 2px solid #1b1210;
+  text-align: center;
+  padding: 5px;
+}
 
-/* Заголовки h3 делаем по центру и точно жирными */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ h3 пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .sheet-box h3 {
-    text-align: center;
-    font-weight: 700; /* h3 обычно и так bold, но на всякий случай укажем явно */
+  text-align: center;
+  font-weight: 700; /* h3 пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ bold, пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
 }
 
-/* Класс, чтобы центрировать сам блок таблицы в контейнере */
+/* пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .center-attributes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Ограничиваем высоту блоков, чтобы «Временные бонусы» и «Доспех» были одинакового размера */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .limited-height {
-    height: 250px; /* на ваше усмотрение - 200-300px */
-    overflow-y: auto; /* если влезет больше контента, появится скролл */
+  height: 250px; /* пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - 200-300px */
+  overflow-y: auto; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-/* Общий класс для строки с отступом снизу */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 .custom-flexrow {
-    display: flex;
-    margin-bottom: 10px;
+  display: flex;
+  margin-bottom: 10px;
 }
 
 .top-row {
-    display: flex;
-    /* Чтобы элементы оставались в одной строке даже при нехватке места */
-    flex-wrap: nowrap;
-    /* Горизонтальный отступ между портретом и таблицей (при необходимости) */
-    gap: 10px;
-    /* По вертикали выравниваем по центру */
-    align-items: center;
-    /* По горизонтали обычно flex-start (слева), но можно и center, если нужно */
-    justify-content: center;
+  display: flex;
+  /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  flex-wrap: nowrap;
+  /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ) */
+  gap: 10px;
+  /* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  align-items: center;
+  /* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ flex-start (пїЅпїЅпїЅпїЅпїЅ), пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ center, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  justify-content: center;
 }
 
-/* Блоки-колонки. Убираем float и переходим на flex: 0 0 XX% */
+/* пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ float пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ flex: 0 0 XX% */
 .col-50,
 .col-50-last,
 .col-33,
 .col-33-last,
 .col-25,
 .col-25-last {
-    box-sizing: border-box;
-    /* по умолчанию пусть займёт auto, потом переопределим */
+  box-sizing: border-box;
+  /* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ auto, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-/* Настройка столбцов для таблицы инвентаря */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .myrpg .abilities-table th.col-name {
-    width: 30%;
+  width: 30%;
 }
 
 .myrpg .abilities-table th.col-effect {
-    width: 55%;
+  width: 55%;
 }
 
 .myrpg .abilities-table th.col-cost {
-    width: 10%;
+  width: 10%;
 }
 
 .myrpg .abilities-table th.col-delete {
-    width: 5%;
+  width: 5%;
 }
 
-/* Примеры под ваши макеты:
-   Для 50% ширины */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ:
+   пїЅпїЅпїЅ 50% пїЅпїЅпїЅпїЅпїЅпїЅ */
 .col-50 {
-    flex: 0 0 calc(50% - 10px);
-    padding-right: 10px;
+  flex: 0 0 calc(50% - 10px);
+  padding-right: 10px;
 }
 
 .col-50-last {
-    flex: 0 0 50%;
-    padding-right: 0;
+  flex: 0 0 50%;
+  padding-right: 0;
 }
 
-/* Для 33.33% */
+/* пїЅпїЅпїЅ 33.33% */
 .col-33 {
-    flex: 0 0 33.33%;
-    padding-right: 10px;
+  flex: 0 0 33.33%;
+  padding-right: 10px;
 }
 
 .col-33-last {
-    flex: 0 0 33.33%;
-    padding-right: 0;
+  flex: 0 0 33.33%;
+  padding-right: 0;
 }
 
-/* Для 25% */
+/* пїЅпїЅпїЅ 25% */
 .col-25 {
-    padding-right: 10px;
-    flex: 0 0 calc(25% - 5px);
+  padding-right: 10px;
+  flex: 0 0 calc(25% - 5px);
 }
 
 .col-25-last {
-    flex: 0 0 calc(25% - 5px);
-    padding-right: 0;
+  flex: 0 0 calc(25% - 5px);
+  padding-right: 0;
 }
 
-/* Если вы хотите, чтобы колонки не "съезжали" вниз при переполнении, 
-   добавьте что-то вроде:
-   .flexrow { flex-wrap: wrap; } или overflow. Но решайте по дизайну. */
+/* пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 
+   пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
+   .flexrow { flex-wrap: wrap; } пїЅпїЅпїЅ overflow. пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. */
 
 .attributes-col {
-    flex: 0 0 auto;
-    /* т.е. занимай ровно столько места, сколько нужно таблице */
+  flex: 0 0 auto;
+  /* пїЅ.пїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 
-    display: flex;
-    align-items: center;
-    justify-content: center; /* чтобы сама таблица была по центру этого блока */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 }
 
-/* sheet-box - рамка */
+/* sheet-box - пїЅпїЅпїЅпїЅпїЅ */
 .sheet-box {
-    border: 2px solid #1b1210; /* Ваш основной цвет бордюра */
-    padding: 10px;
-    margin-bottom: 10px; /* чтобы между блоками был отступ */
+  border: 2px solid #1b1210; /* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  padding: 10px;
+  margin-bottom: 10px; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-/* Устанавливаем фон и текст для всего листа */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 .myrpg.sheet.actor {
-    background-color: #d2d2c9; /* Фон всех страниц */
-    color: #1b1210; /* Основной цвет текста */
+  background-color: #d2d2c9; /* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  color: #1b1210; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
 form textarea,
-form input[type="text"],
-form input[type="number"] {
-    border: 2px solid #1b1210; /* Цвет рамки */
-    background-color: #f8f8f8; /* Можно оставить светлый фон внутри полей */
-    color: #1b1210; /* Цвет текста внутри полей */
-    font-family: inherit;
-    font-size: inherit;
-    padding: 5px;
-    width: 100%;
-    box-sizing: border-box;
+form input[type='text'],
+form input[type='number'] {
+  border: 2px solid #1b1210; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  background-color: #f8f8f8; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  color: #1b1210; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  font-family: inherit;
+  font-size: inherit;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .myrpg .biography .form-group {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .myrpg .abilities .ability {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .myrpg .skills .skill {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
-/* Убираем resizable у textarea */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ resizable пїЅ textarea */
 form textarea {
-    resize: none;
-    overflow: hidden;
-    min-height: 60px;
-    max-height: 500px;
+  resize: none;
+  overflow: hidden;
+  min-height: 60px;
+  max-height: 500px;
 }
 
-/* Контейнер портрета */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .portrait {
-    width: auto;
-    margin-right: 10px;
+  width: auto;
+  margin-right: 10px;
 }
 
 .profile-img {
-    display: block;
-    max-width: 150px;
-    max-height: 150px;
-    width: auto !important;
-    height: auto !important;
+  display: block;
+  max-width: 150px;
+  max-height: 150px;
+  width: auto !important;
+  height: auto !important;
 }
 
 .rollable:hover,
 .rollable:focus {
-    color: #000;
-    text-shadow: 0 0 10px red;
-    cursor: pointer;
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
 }
 
 .sub-labels {
-    margin-bottom: 3px;
+  margin-bottom: 3px;
 }
 
 .ability-tooltip {
-    white-space: normal;
-    word-break: break-word;
-    max-width: 300px;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 300px;
 }
 
-/* Таблица способностей */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .myrpg .abilities-table {
-    width: 100%;
-    border-collapse: collapse !important;
-    margin-bottom: 1em;
-    background: none !important;
+  width: 100%;
+  border-collapse: collapse !important;
+  margin-bottom: 1em;
+  background: none !important;
 }
 
-    .myrpg .abilities-table th,
-    .myrpg .abilities-table td {
-        border: 2px solid #1b1210 !important; /* Цвет границ таблицы */
-        padding: 5px;
-        text-align: center;
-        color: #1b1210; /* Цвет текста */
-    }
+.myrpg .abilities-table th,
+.myrpg .abilities-table td {
+  border: 2px solid #1b1210 !important; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  padding: 5px;
+  text-align: center;
+  color: #1b1210; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+}
 
-    /* Заголовок таблицы */
-    .myrpg .abilities-table thead th {
-        background-color: #673e37 !important; /* Цвет шапки */
-        color: #d2d2c9 !important; /* Текст на шапке (для контраста) */
-        text-shadow: none !important;
-    }
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+.myrpg .abilities-table thead th {
+  background-color: #673e37 !important; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  color: #d2d2c9 !important; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ) */
+  text-shadow: none !important;
+}
 
-    /* Зебра-полосы (чётные строки) */
-    .myrpg .abilities-table tr:nth-child(even) {
-        background-color: #a79086 !important;
-    }
+/* пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ) */
+.myrpg .abilities-table tr:nth-child(even) {
+  background-color: #a79086 !important;
+}
 
-    /* Ховер-эффект (подсветка строки) */
-    .myrpg .abilities-table tr:hover td {
-        background-color: #673e37 !important; /* Активная строка */
-        color: #d2d2c9 !important; /* Текст при hover */
-        transition: background-color 0.2s;
-    }
+/* пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ) */
+.myrpg .abilities-table tr:hover td {
+  background-color: #673e37 !important; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  color: #d2d2c9 !important; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ hover */
+  transition: background-color 0.2s;
+}
 
 .tab.abilities table.abilities-table {
-    table-layout: fixed;
-    width: 100%;
+  table-layout: fixed;
+  width: 100%;
 }
 
-    .tab.abilities table.abilities-table th.col-name {
-        width: 25% !important;
-    }
+.tab.abilities table.abilities-table th.col-name {
+  width: 25% !important;
+}
 
-    .tab.abilities table.abilities-table th.col-rank {
-        width: 10% !important;
-    }
+.tab.abilities table.abilities-table th.col-rank {
+  width: 10% !important;
+}
 
-    .tab.abilities table.abilities-table th.col-effect {
-        width: 47% !important;
-    }
+.tab.abilities table.abilities-table th.col-effect {
+  width: 47% !important;
+}
 
-    .tab.abilities table.abilities-table th.col-cost {
-        width: 13% !important;
-    }
+.tab.abilities table.abilities-table th.col-cost {
+  width: 13% !important;
+}
 
-    .tab.abilities table.abilities-table th.col-delete {
-        width: 5% !important;
-    }
+.tab.abilities table.abilities-table th.col-delete {
+  width: 5% !important;
+}
 
-
-/* CSS стили для таблицы инвентаря с фиксированной шириной колонок */
+/* CSS пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tab.inventory table.abilities-table {
-    width: 100%;
-    table-layout: fixed; /* фиксированная раскладка для равномерного распределения */
+  width: 100%;
+  table-layout: fixed; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-    .tab.inventory table.abilities-table th.col-name {
-        width: 25%; 
-    }
+.tab.inventory table.abilities-table th.col-name {
+  width: 25%;
+}
 
-    .tab.inventory table.abilities-table th.col-effect {
-        width: 50%;
-    }
+.tab.inventory table.abilities-table th.col-effect {
+  width: 50%;
+}
 
-    .tab.inventory table.abilities-table th.col-cost {
-        width: 20%; 
-    }
+.tab.inventory table.abilities-table th.col-cost {
+  width: 20%;
+}
 
-    .tab.inventory table.abilities-table th.col-delete {
-        width: 5%; 
-    }
+.tab.inventory table.abilities-table th.col-delete {
+  width: 5%;
+}
 
-/* Форма растягивается на всю доступную площадь окна */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
 .myrpg.sheet.actor form {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-/* Прокрутка основного контента */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .sheet-scrollable {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-/* Блок с вкладками (шестиугольные кнопки) */
+/* пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ) */
 .sheet-tabs-hex {
-    position: absolute;
-    right: -240px;
-    top: 15%;
-    transform: translateY(-50%);
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  position: absolute;
+  right: -240px;
+  top: 15%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* Сами кнопки навигации */
+/* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .hex-button {
-    background: #d2d2c9; /* Базовый цвет кнопок */
-    color: #1b1210; /* Цвет текста */
-    border: 2px solid #1b1210; /* Цвет бордюра */
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 6px;
-    width: 220px;
-    height: 40px;
-    transition: background 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  background: #d2d2c9; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  color: #1b1210; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  border: 2px solid #1b1210; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 220px;
+  height: 40px;
+  transition: background 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-    .hex-button.active {
-        background: #673e37; /* Цвет активной кнопки */
-        color: #d2d2c9; /* Текст на активной кнопке */
-    }
+.hex-button.active {
+  background: #673e37; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  color: #d2d2c9; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+}
 
-/* Даём окну и его содержимому overflow: visible */
+/* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ overflow: visible */
 .window-app.myrpg-hex-tabs,
 .window-app.myrpg-hex-tabs .window-content {
-    overflow: visible !important;
+  overflow: visible !important;
 }
 
-/* Grid Layout (остальные классы изначальной сетки, если нужны) */
+/* Grid Layout (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ) */
 .grid,
 .grid-2col {
-    display: grid;
-    grid-column: span 2/span 2;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin: 10px 0;
-    padding: 0;
+  display: grid;
+  grid-column: span 2 / span 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 10px 0;
+  padding: 0;
 }
 
 .grid-3col {
-    grid-column: span 3/span 3;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-column: span 3 / span 3;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .grid-4col {
-    grid-column: span 4/span 4;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column: span 4 / span 4;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .grid-5col {
-    grid-column: span 5/span 5;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-column: span 5 / span 5;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .grid-6col {
-    grid-column: span 6/span 6;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-column: span 6 / span 6;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .grid-7col {
-    grid-column: span 7/span 7;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-column: span 7 / span 7;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .grid-8col {
-    grid-column: span 8/span 8;
-    grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-column: span 8 / span 8;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
 }
 
 .grid-9col {
-    grid-column: span 9/span 9;
-    grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-column: span 9 / span 9;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
 }
 
 .grid-10col {
-    grid-column: span 10/span 10;
-    grid-template-columns: repeat(10, minmax(0, 1fr));
+  grid-column: span 10 / span 10;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
 }
 
 .grid-11col {
-    grid-column: span 11/span 11;
-    grid-template-columns: repeat(11, minmax(0, 1fr));
+  grid-column: span 11 / span 11;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
 }
 
 .grid-12col {
-    grid-column: span 12/span 12;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-column: span 12 / span 12;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
 .grid-start-2 {
-    grid-column-start: 2;
+  grid-column-start: 2;
 }
 
 .grid-start-3 {
-    grid-column-start: 3;
+  grid-column-start: 3;
 }
 
 .grid-start-4 {
-    grid-column-start: 4;
+  grid-column-start: 4;
 }
 
 .grid-start-5 {
-    grid-column-start: 5;
+  grid-column-start: 5;
 }
 
 .grid-start-6 {
-    grid-column-start: 6;
+  grid-column-start: 6;
 }
 
 .grid-start-7 {
-    grid-column-start: 7;
+  grid-column-start: 7;
 }
 
 .grid-start-8 {
-    grid-column-start: 8;
+  grid-column-start: 8;
 }
 
 .grid-start-9 {
-    grid-column-start: 9;
+  grid-column-start: 9;
 }
 
 .grid-start-10 {
-    grid-column-start: 10;
+  grid-column-start: 10;
 }
 
 .grid-start-11 {
-    grid-column-start: 11;
+  grid-column-start: 11;
 }
 
 .grid-start-12 {
-    grid-column-start: 12;
+  grid-column-start: 12;
 }
 
 .grid-span-2 {
-    grid-column-end: span 2;
+  grid-column-end: span 2;
 }
 
 .grid-span-3 {
-    grid-column-end: span 3;
+  grid-column-end: span 3;
 }
 
 .grid-span-4 {
-    grid-column-end: span 4;
+  grid-column-end: span 4;
 }
 
 .grid-span-5 {
-    grid-column-end: span 5;
+  grid-column-end: span 5;
 }
 
 .grid-span-6 {
-    grid-column-end: span 6;
+  grid-column-end: span 6;
 }
 
 .grid-span-7 {
-    grid-column-end: span 7;
+  grid-column-end: span 7;
 }
 
 .grid-span-8 {
-    grid-column-end: span 8;
+  grid-column-end: span 8;
 }
 
 .grid-span-9 {
-    grid-column-end: span 9;
+  grid-column-end: span 9;
 }
 
 .grid-span-10 {
-    grid-column-end: span 10;
+  grid-column-end: span 10;
 }
 
 .grid-span-11 {
-    grid-column-end: span 11;
+  grid-column-end: span 11;
 }
 
 .grid-span-12 {
-    grid-column-end: span 12;
+  grid-column-end: span 12;
 }
 
-/* Изменяем поведение .flexrow, чтобы элементы не растягивались по высоте */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ .flexrow, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 .flexrow {
-    display: flex;
-    align-items: flex-start; /* иначе блоки могут растягиваться */
-    gap: 10px;
-    /* justify-content: flex-start; или space-between; - на ваш вкус */
+  display: flex;
+  align-items: flex-start; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  gap: 10px;
+  /* justify-content: flex-start; пїЅпїЅпїЅ space-between; - пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
 }
 
-/* Удаляем "clearfix" псевдоэлемент, т.к. float больше не используем */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "clearfix" пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ.пїЅ. float пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 /*
 .flexrow::after {
     content: "";
@@ -578,256 +577,254 @@ form textarea {
 }
 */
 
-/* Полосы прокрутки (Chrome, Edge, Safari) */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (Chrome, Edge, Safari) */
 .myrpg.sheet.actor::-webkit-scrollbar {
-    width: 12px;
+  width: 12px;
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-track {
-    background: #d2d2c9; /* Тот же фон, что и у листа */
+  background: #d2d2c9; /* пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ */
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-thumb {
-    background-color: #6d031c; /* Цвет полосы прокрутки */
-    border: 2px solid #d2d2c9; /* Обводка, чтобы было видно скролл */
-    border-radius: 6px;
+  background-color: #6d031c; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  border: 2px solid #d2d2c9; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  border-radius: 6px;
 }
 
 .top-row > .portrait-col,
 .top-row > .attributes-col {
-    flex: 0 0 auto !important;
+  flex: 0 0 auto !important;
 }
 
-/* --- 1. Центровка и жирный шрифт для h2/h3 во вкладках Биография и Способности --- */
+/* --- 1. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ h2/h3 пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ --- */
 .tab.biography h2,
 .tab.biography h3,
 .tab.abilities h2,
 .tab.abilities h3 {
-    text-align: center; /* Центрируем заголовок */
-    font-weight: 700; /* Делаем шрифт жирным */
+  text-align: center; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  font-weight: 700; /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-/* --- 2. Центровка «маленьких заголовков» (label) в Ключевой информации и Доспехе --- */
-/* Предполагается, что у вас есть .sheet-box .form-group label, .resource-label и т.д. */
+/* --- 2. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (label) пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ --- */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ .sheet-box .form-group label, .resource-label пїЅ пїЅ.пїЅ. */
 .sheet-box .form-group label,
 .sheet-box .resource-label,
 .sheet-box .armor-description label,
 .sheet-box .armor-values label {
-    text-align: center; /* Центрируем текст */
-    /* font-weight: 600;  // Если хотите сделать их полужирными, раскомментируйте */
+  text-align: center; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+  /* font-weight: 600;  // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
 /*******************************************************
-  1) Центровка блоков ресурсов (ОЗ, Поток, Стойкость,
-     Скорость, Напряжённость) на основном листе
+  1) пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ,
+     пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
  *******************************************************/
 .resource,
 .resource .resource-label,
 .resource .sub-label,
 .resource .resource-content {
-    text-align: center;
+  text-align: center;
 }
 
-    /* Чтобы числа в input тоже были по центру */
-    .resource input {
-        text-align: center;
-    }
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ input пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+.resource input {
+  text-align: center;
+}
 
 /*******************************************************
-  2) Центровка «Потока» на листе Способностей
-     (Он тоже .resource, так что обычно пункт (1) уже охватывает)
+  2) пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+     (пїЅпїЅ пїЅпїЅпїЅпїЅ .resource, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (1) пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
  *******************************************************/
-/* На всякий случай дублируем, если Foundry перебивает: */
+/* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ Foundry пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: */
 .flux-section .resource,
 .flux-section .resource-label,
 .flux-section .resource-content {
-    text-align: center;
+  text-align: center;
 }
 
 /*******************************************************
-  3) Центровка маленьких надписей (label) в «Биографии»
-     и «Заметках», а также самого текста в input/textarea
+  3) пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (label) пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+     пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ input/textarea
  *******************************************************/
 .tab.biography .form-group label {
-    text-align: center;
-    display: block;
+  text-align: center;
+  display: block;
 }
 
 .tab.biography .form-group input,
 .tab.biography .form-group textarea {
-    text-align: center;
+  text-align: center;
 }
 
 /*******************************************************
-  4) Центровка текста в поле «Описание доспеха»
+  4) пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  *******************************************************/
 .armor-description,
 .armor-description label,
 .armor-description textarea {
-    text-align: center;
+  text-align: center;
 }
 
 /*******************************************************
-  5) (Повтор) Большие заголовки (h2/h3) в Биографии
-     и Способностях по центру и жирные
+  5) (пїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (h2/h3) пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+     пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
  *******************************************************/
 .tab.biography h2,
 .tab.biography h3,
 .tab.abilities h2,
 .tab.abilities h3 {
-    text-align: center;
-    font-weight: 700; /* жирный шрифт */
+  text-align: center;
+  font-weight: 700; /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 }
 
 .limited-height {
-    height: 300px; /* вместо 250px */
+  height: 300px; /* пїЅпїЅпїЅпїЅпїЅпїЅ 250px */
 }
 
 .armor-description textarea {
-    min-height: 120px;
-    resize: vertical;
+  min-height: 120px;
+  resize: vertical;
 }
 
-/* Только внутри листа персонажа вашей системы */
-.myrpg.sheet.actor form input[type="text"],
-.myrpg.sheet.actor form input[type="number"],
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+.myrpg.sheet.actor form input[type='text'],
+.myrpg.sheet.actor form input[type='number'],
 .myrpg.sheet.actor form textarea {
-    text-align: center;
+  text-align: center;
 }
 
-/* Делаем заголовок диалога (header) полностью непрозрачным */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (header) пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .window-app.myrpg .window-header {
-    background-color: #6d031c !important; /* Замените на любой цвет */
-    opacity: 1 !important;
+  background-color: #6d031c !important; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+  opacity: 1 !important;
 }
 
-    /* При желании меняем цвет текста в заголовке */
-    .window-app.myrpg .window-header .window-title {
-        color: #ffffff !important; /* Замените на любой цвет */
-    }
+/* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+.window-app.myrpg .window-header .window-title {
+  color: #ffffff !important; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+}
 
-
-/* 1) Общий фон диалога (если нужно убрать прозрачность фона самого окна) */
+/* 1) пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ) */
 .window-app.myrpg.dialog {
-    background: #d2d2c9 !important; /* ваш фон, можно оставить как есть */
-    opacity: 1 !important;
-    filter: none !important;
+  background: #d2d2c9 !important; /* пїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+  opacity: 1 !important;
+  filter: none !important;
 }
 
-    /* 2) Верхняя панель (шапка) диалога */
-    .window-app.myrpg.dialog .window-header {
-        background-color: #6d031c !important; /* ваш основной цвет */
-        background-image: none !important; /* убираем градиенты Foundry */
-        opacity: 1 !important; /* убираем прозрачность */
-        filter: none !important;
-    }
+/* 2) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+.window-app.myrpg.dialog .window-header {
+  background-color: #6d031c !important; /* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+  background-image: none !important; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Foundry */
+  opacity: 1 !important; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+  filter: none !important;
+}
 
-        /* 3) Заголовок (текст) и кнопка "Close" */
-        .window-app.myrpg.dialog .window-header .window-title,
-        .window-app.myrpg.dialog .window-header .close {
-            color: #ffffff !important; /* цвет текста */
-            text-shadow: none !important; /* убираем тень, если она была */
-            opacity: 1 !important;
-        }
-/* --- Начало блока для современных версий TinyMCE (Foundry V10+), где используются классы .tox-... --- */
+/* 3) пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ) пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ "Close" */
+.window-app.myrpg.dialog .window-header .window-title,
+.window-app.myrpg.dialog .window-header .close {
+  color: #ffffff !important; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+  text-shadow: none !important; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+  opacity: 1 !important;
+}
+/* --- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ TinyMCE (Foundry V10+), пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ .tox-... --- */
 
-/* Внешний контейнер редактора */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .myrpg .tox-tinymce {
-    border: 2px solid #1b1210 !important;
-    background-color: #f8f8f8 !important;
-    border-radius: 4px !important;
-    box-sizing: border-box;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important; /* гарантирует, что редактор занимает всю ширину */
+  border: 2px solid #1b1210 !important;
+  background-color: #f8f8f8 !important;
+  border-radius: 4px !important;
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-    /* Внутренняя часть, где находится само поле ввода */
-    .myrpg .tox-tinymce .tox-editor-container {
-        background-color: #f8f8f8 !important;
-        border: none !important;
-        min-height: 40px !important; /* уменьшили базовую высоту до 40px */
-        box-sizing: border-box;
-    }
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+.myrpg .tox-tinymce .tox-editor-container {
+  background-color: #f8f8f8 !important;
+  border: none !important;
+  min-height: 40px !important; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 40px */
+  box-sizing: border-box;
+}
 
-    /* Сам iframe, если нужно задать ему цвет фона */
-    .myrpg .tox-tinymce .tox-edit-area__iframe {
-        background-color: #f8f8f8 !important;
-    }
+/* пїЅпїЅпїЅ iframe, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+.myrpg .tox-tinymce .tox-edit-area__iframe {
+  background-color: #f8f8f8 !important;
+}
 
-    /* Наследуем шрифт, размер и цвет из .myrpg (как у обычных <input> и <textarea>) */
-    .myrpg .tox-tinymce * {
-        font-family: inherit !important;
-        font-size: inherit !important;
-        color: #1b1210 !important;
-    }
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ .myrpg (пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ <input> пїЅ <textarea>) */
+.myrpg .tox-tinymce * {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: #1b1210 !important;
+}
 
-/* --- Конец блока --- */
-
+/* --- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ --- */
 
 .window-app.dialog .tox-tinymce {
-    border: 2px solid #1b1210 !important;
-    background-color: #f8f8f8 !important;
-    border-radius: 4px !important;
-    box-sizing: border-box;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
+  border: 2px solid #1b1210 !important;
+  background-color: #f8f8f8 !important;
+  border-radius: 4px !important;
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
 }
 
 .window-app.dialog .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-    .window-app.dialog .form-group label {
-        flex: 1;
-        margin-right: 10px;
-    }
+.window-app.dialog .form-group label {
+  flex: 1;
+  margin-right: 10px;
+}
 
-    .window-app.dialog .form-group input[type="text"],
-    .window-app.dialog .form-group input[type="number"],
-    .window-app.dialog .form-group textarea {
-        width: 250px;
-        box-sizing: border-box;
-    }
+.window-app.dialog .form-group input[type='text'],
+.window-app.dialog .form-group input[type='number'],
+.window-app.dialog .form-group textarea {
+  width: 250px;
+  box-sizing: border-box;
+}
 
-/* Общий стиль блока защит без заголовка */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .sheet-box.defenses-block {
-    /* фон, рамка, паддинги берутся из .sheet-box */
+  /* пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ .sheet-box */
 }
 
-/* === Общий стиль для блока защит === */
+/* === пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ === */
 .sheet-box.defenses-block {
-    /* берёт фон, границу и паддинги из .sheet-box */
+  /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ .sheet-box */
 }
-/* Таблица внутри не имеет лишних рамок и фоновых заливок */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .defenses-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-    .defenses-table th,
-    .defenses-table td {
-        border: none;
-        background: none;
-        padding: 0.25rem;
-        text-align: center;
-    }
-/* Если у вас есть переменная для цвета заголовков, можно добавить */
+.defenses-table th,
+.defenses-table td {
+  border: none;
+  background: none;
+  padding: 0.25rem;
+  text-align: center;
+}
+/* пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .sheet-box.defenses-block .sheet-box-header {
-    margin-bottom: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .wound-box {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #1b1210;
-    margin: 0 2px;
-    cursor: pointer
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1b1210;
+  margin: 0 2px;
+  cursor: pointer;
 }
 
-    .wound-box.filled {
-        background: #1b1210
-    }
+.wound-box.filled {
+  background: #1b1210;
+}

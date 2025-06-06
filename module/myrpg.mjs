@@ -11,37 +11,36 @@ import './helpers/handlebars-helpers.mjs';
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-Hooks.once('init', function ()
-    {
-    // Add utility classes to the global game object so that they're more easily
-    // accessible in global contexts.
-    game.myrpg = {
-        myrpgActor,
-    };
+Hooks.once('init', function () {
+  // Add utility classes to the global game object so that they're more easily
+  // accessible in global contexts.
+  game.myrpg = {
+    myrpgActor
+  };
 
-    // Add custom constants for configuration.
-    CONFIG.MY_RPG = MY_RPG;
+  // Add custom constants for configuration.
+  CONFIG.MY_RPG = MY_RPG;
 
-    /**
-     * Set an initiative formula for the system
-     * @type {String}
-     */
+  /**
+   * Set an initiative formula for the system
+   * @type {String}
+   */
 
-    // Define custom Document classes
-    CONFIG.Actor.documentClass = myrpgActor;
+  // Define custom Document classes
+  CONFIG.Actor.documentClass = myrpgActor;
 
-    CONFIG.Combat.initiative = {
-        formula: "1d20 + @abilities.dex.mod",
-        decimals: 2
-    };
+  CONFIG.Combat.initiative = {
+    formula: '1d20 + @abilities.dex.mod',
+    decimals: 2
+  };
 
-    // Register sheet application classes
-    Actors.unregisterSheet('core', ActorSheet);
-    Actors.registerSheet('myrpg', myrpgActorSheet, {
-        makeDefault: true,
-        label: 'MY_RPG.SheetLabels.Actor',
-    });
+  // Register sheet application classes
+  Actors.unregisterSheet('core', ActorSheet);
+  Actors.registerSheet('myrpg', myrpgActorSheet, {
+    makeDefault: true,
+    label: 'MY_RPG.SheetLabels.Actor'
+  });
 
-    // Preload Handlebars templates.
-    return preloadHandlebarsTemplates();
+  // Preload Handlebars templates.
+  return preloadHandlebarsTemplates();
 });

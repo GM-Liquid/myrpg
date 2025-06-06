@@ -2,7 +2,7 @@ name: Auto-Release
 
 on:
   push:
-    branches: [ main ]  # Можно указать конкретную ветку или убрать, чтобы реагировать на пуш в любую ветку
+    branches: [main] # Можно указать конкретную ветку или убрать, чтобы реагировать на пуш в любую ветку
 
 permissions:
   contents: write
@@ -21,13 +21,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "auto-${{ github.run_id }}"
-          release_name: "Release ${{ github.run_id }}"
+          tag_name: 'auto-${{ github.run_id }}'
+          release_name: 'Release ${{ github.run_id }}'
           draft: false
           prerelease: false
-          
-      - run:  zip myrpg.zip -r lang module templates lib css assets system.json template.json
-      
+
+      - run: zip myrpg.zip -r lang module templates lib css assets system.json template.json
+
       - name: Upload Release Asset(s)
         uses: sekwah41/upload-release-assets@v1.1.0
         env:
@@ -41,9 +41,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: myrpg.zip  
-            
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: myrpg.zip
+
       - name: Delete Old Releases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
