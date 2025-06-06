@@ -215,41 +215,26 @@ body {
   border-radius: 4px;
 }
 
-.skill-row {
-  /* заменяем возможные устаревшие flex-правила */
-  display: grid !important;
-  grid-template-columns: 40px 1fr 60px; /* abbr | name | value */
-  align-items: center; /* вертикальное выравнивание */
-  -moz-column-gap: 0.25rem;
-       column-gap: 0.25rem;
+/* 4.4 «Короткая» строка навыка: abbr 40px / name auto / value 60px */
+.skills-list .skill-row,
+.skills-block .skill-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 60px;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-/* точечные размеры ячеек (если нужно переопределить) */
-.skill-ability-abbr {
+.skill-row .abbr,
+.skill-row .skill-abbr {
+  text-align: center;
+  font-weight: 600;
   width: 40px;
-  text-align: center;
 }
 
-.skill-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.skill-value input {
+.skill-row input[type=number] {
   width: 60px !important;
+  max-width: 60px;
   text-align: center;
 }
 
-/* 2. Центрируем все h3 в листе персонажа */
-.sheet-box > h3, .sheet-tabs-hex .hex-button > h3, .skills-block > h3, .temp-bonuses-block > h3 {
-  text-align: center !important;
-  margin: 0.25rem 0 0.5rem;
-}
-
-/* 3. Центрируем подписи и значения «Ключевой информации» */
-.resource-label,
-.resource-content,
-.resource-content input {
-  text-align: center !important;
-}/*# sourceMappingURL=myrpg.css.map */
+/* ------------------------------------------------------- *//*# sourceMappingURL=myrpg.css.map */
