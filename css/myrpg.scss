@@ -126,3 +126,25 @@ body { font-family: $font-main; color: var(--text-main); }
 .resource-label,
 .resource-content,
 .resource-content input { text-align: center !important; }
+
+/* 1 ── Ресурсы: ставим label + input по центру ячейки */
+.resources .resource.flex-group-center {
+  flex-direction: column !important;   /* вертикальная «стопка» */
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.resources .resource-label,
+.resources .resource-content { text-align: center !important; }
+
+/* 2 ── Таблица характеристик: +33 % ширины и высоты */
+.attributes-table th,
+.attributes-table td {
+  width: 120px !important;   /* было ~90px */
+  height: 60px !important;   /* было ~45px */
+}
+
+/* 3 ── «Кидаться» должен ТОЛЬКО текст навыка */
+.skill-ability-abbr,
+.skill-value                { pointer-events: none; }   /* клики игнорируются */
+.skill-name.rollable        { pointer-events: auto;  }   /* кликается как раньше */
