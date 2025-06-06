@@ -1,248 +1,199 @@
 /* ========================================================
- * myrpg.scss
- * Полный рефакторинг исходного myrpg.css
- *
- * Структура:
- *   1) Переменные и базовые цвета
- *   2) Base / Reset
- *   3) Утилиты
- *   4) Компоненты листа персонажа
- *   5) Кнопки и интерактив
- *   6) Специфичные правила (добавлять ниже)
+ * myrpg.scss — переработанная версия после обратной связи
  * --------------------------------------------------------
- * Для использования:
- *   - Скомпилируйте этот файл в myrpg.css (например, `sass --style compressed myrpg.scss myrpg.css`)
- *   - Подключите myrpg.css в manifest модуля или системы
- * ====================================================== */
+ *  Старая верстка «сломалась» из‑за отсутствия нескольких
+ *  критичных блоков: вертикальных вкладок .sheet-tabs-hex,
+ *  утилитарных классов колонок (.col‑25 и др.) и сеток,
+ *  а также базовой стилизации .sheet-box.  Ниже эти элементы
+ *  возвращены и объединены в единый, читаемый SCSS‑файл.
+ *
+ *  Структура файла:
+ *    1) Переменные (цвета, размеры)
+ *    2) Base / Reset
+ *    3) Утилиты (flex, grid, col‑x, limited‑height)
+ *    4) Компоненты (sheet‑box, hex‑tabs, таблицы, скроллбар)
+ *    5) Специфичные правила (добавляйте ниже)
+ * -------------------------------------------------------- */
 
+/* ========================================================
+ * 1) Переменные (CSS Custom Properties)
+ * -------------------------------------------------------- */
+:root {
+  /* Цветовая палитра, подобранная автором */
+  --bg-main: #d2d2c9;
+  --bg-panel: #d2d2c9; /* Подложка самих панелей */
+  --text-main: #1b1210;
+  --accent: #673e37;   /* Выделяющий бордовый */
+  --accent-dark: #6d031c;
+  --border-radius: 6px;
+  --gap: 10px;
+  --scrollbar-size: 12px;
+  --font-main: 'Roboto', sans-serif;
+}
+
+/* ========================================================
+ * 2) Base / Reset
+ * -------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-/* =========================================
- * 1. Переменные (Variables)
- * ========================================= */
-:root {
-    /* Цветовая палитра */
-    --color-bg: #d2d2c9; /* Светлый фон */
-    --color-bg-dark: #1b1210; /* Тёмный фон, основной текст/рамки */
-    --color-accent: #6d031c; /* Контрастный акцент (кнопки, ссылки) */
-    --color-accent-muted: #673e37; /* Приглушённый акцент */
-    --color-grey: #a79086; /* Нейтральный серый текст */
-    --color-white: #ffffff;
-    /* Шрифты */
-    --font-primary: 'Roboto', sans-serif;
-}
-
-/* =========================================
- * 2. Base / Reset
- * ========================================= */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--color-bg);
-    color: var(--color-bg-dark);
-    font-family: var(--font-primary);
-    line-height: 1.4;
-}
-
 .window-app {
-    font-family: var(--font-primary);
+  font-family: var(--font-main);
+  color: var(--text-main);
 }
 
-/* Скроллбар под Windows */
-::-webkit-scrollbar {
-    width: 8px;
+
+/* ========================================================
+ * 3) Утилиты
+ * -------------------------------------------------------- */
+/* Общий flex‑ряд с контролем отступов */
+.flexrow {
+  display: flex;
+  gap: var(--gap);
+  align-items: flex-start;
+}
+.flexcol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
 }
 
-::-webkit-scrollbar-track {
-    background: var(--color-bg);
+/* Колонки фиксированной ширины (исп. в разметке листа) */
+$col‑map: (
+  50: calc(50% - var(--gap)),
+  33: calc(33.33% - var(--gap)),
+  25: calc(25% - var(--gap) / 2)
+);
+@each $k, $w in $col‑map {
+  .col-#{$k}  { flex: 0 0 $w; padding-right: var(--gap); }
+  .col-#{$k}-last { flex: 0 0 $w; padding-right: 0; }
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--color-accent-muted);
-    border-radius: 4px;
+/* Grid‑утилиты: repeat(N,1fr) */
+%grid-base {
+  display: grid;
+  gap: var(--gap);
+  margin: var(--gap) 0;
+  padding: 0;
+}
+.grid      { @extend %grid-base; grid-template-columns: repeat(2, 1fr); }
+@for $i from 2 through 12 {
+  .grid-#{$i}col { @extend %grid-base; grid-template-columns: repeat($i, 1fr); }
 }
 
-/* =========================================
- * 3. Утилиты (Utility classes)
- * ========================================= */
-.flex {
-    display: flex;
-    &-column
-
-{
-    flex-direction: column;
-}
-
-&-center {
-    align-items: center;
-    justify-content: center;
-}
-
-&-between {
-    justify-content: space-between;
-}
-
-}
-
-.grid-2col {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: .5rem;
-}
-
-.grid-3col {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: .5rem;
-}
-
-.grid-4col {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: .5rem;
-}
-
+/* Ограничитель по высоте (для длинных списков) */
 .limited-height {
-    height: 250px; /* Меняйте высоту по необходимости */
-    overflow-y: auto;
+  height: 250px;
+  overflow-y: auto;
 }
 
-/* =========================================
- * 4. Компоненты листа персонажа (Components)
- * ========================================= */
+
+/* ========================================================
+ * 4) Компоненты
+ * -------------------------------------------------------- */
+/* 4.1  Обёртка «коробка» вокруг секций листа */
 .sheet-box {
-    background: var(--color-white);
-    border: 2px solid var(--color-bg-dark);
-    border-radius: 6px;
-    padding: .75rem;
-    margin-bottom: .75rem;
-    &__title
+  border: 2px solid var(--text-main);
+  padding: var(--gap);
+  margin-bottom: var(--gap);
+  border-radius: var(--border-radius);
+  background: var(--bg-panel);
+}
+.sheet-box h3 {
+  text-align: center;
+  font-weight: 700;
+  margin: 0 0 var(--gap) 0;
+}
 
-{
-    font-weight: 700;
+/* 4.2  Вертикальные вкладки (hex‑tabs) */
+.sheet-tabs-hex {
+  position: absolute;
+  right: -240px;            /* вынос за пределы окна */
+  top: 15%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: visible;        /* важно для всплытия */
+}
+.hex-button {
+  width: 220px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-panel);
+  color: var(--text-main);
+  border: 2px solid var(--text-main);
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .3s;
+  user-select: none;
+  text-align: center;
+}
+.hex-button.active {
+  background: var(--accent);
+  color: var(--bg-main);
+}
+
+/* 4.3  Таблица характеристик героя */
+.attributes-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  th, td {
+    width: 90px;
+    height: 45px;
+    border: 2px solid var(--text-main);
     text-align: center;
-    margin-bottom: .25rem;
-    color: var(--color-accent);
+    padding: 5px;
+  }
+  thead th {
+    background: var(--accent);
+    color: var(--bg-main);
+  }
 }
 
-/* Специализированные блоки ---------------- */
-&.defenses-block {
-    .defense-value
-
-{
-    @extend .flex-center;
-    width: 3rem;
-    height: 3rem;
-    background: var(--color-bg-dark);
-    color: var(--color-white);
-    border-radius: 50%;
-    font-size: 1.25rem;
-    margin: 0 auto .5rem;
+/* 4.4  Универсальный скроллбар под стили игры */
+.myrpg.sheet.actor::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+}
+.myrpg.sheet.actor::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+.myrpg.sheet.actor::-webkit-scrollbar-thumb {
+  background: var(--accent-dark);
+  border: 2px solid var(--bg-main);
+  border-radius: var(--border-radius);
 }
 
+/* 4.5  Инпуты / текстовые поля */
+form input[type='text'],
+form input[type='number'],
+form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid var(--text-main);
+  background: #f8f8f8;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: inherit;
+  padding: 5px;
+  resize: none;
 }
 
-&.skills-block,
-&.attacks-block {
-    .table
-
-{
-    width: 100%;
-    border-collapse: collapse;
-    th, td
-
-{
-    padding: .25rem .5rem;
+/* 4.6  Строка c аватаром и атрибутами */
+.top-row {
+  @extend .flexrow;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
 }
+.portrait-col img        { max-width: 150px; max-height: 150px; display: block; }
+.center-attributes       { display: flex; justify-content: center; align-items: center; }
 
-thead {
-    background: var(--color-bg-dark);
-    color: var(--color-white);
-    font-weight: 700;
-}
+/* ========================================================
+ * 5) Специфичные правила — добавляйте ниже по мере роста системы
+ * -------------------------------------------------------- */
 
-tbody tr:nth-child(odd) {
-    background: var(--color-bg);
-}
-
-}
-}
-}
-
-/* --- Оружие и броня --- */
-.weapon-description,
-.armor-description {
-    textarea
-
-{
-    min-height: 120px;
-    width: 100%;
-    resize: vertical;
-}
-
-}
-
-/* --- Таблица инвентаря --- */
-.items-table {
-    width: 100%;
-    border-collapse: collapse;
-    th, td
-
-{
-    padding: .25rem;
-}
-
-th {
-    background: var(--color-bg-dark);
-    color: var(--color-white);
-}
-
-tbody tr:nth-child(even) {
-    background: var(--color-bg);
-}
-
-&__weight {
-    text-align: right;
-}
-
-}
-
-/* =========================================
- * 5. Кнопки и интерактив (Buttons)
- * ========================================= */
-button,
-.button {
-    background: var(--color-accent);
-    border: none;
-    color: var(--color-white);
-    padding: .25rem .75rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background .2s;
-    &:hover
-
-{
-    background: var(--color-accent-muted);
-}
-
-&:disabled {
-    background: var(--color-grey);
-    cursor: not-allowed;
-}
-
-}
-
-/* =========================================
- * 6. Специфичные правила (Overrides)
- * ========================================= */
-/* Добавляйте новые блоки ниже, чтобы предотвратить
-   непреднамеренное переопределение вышестоящего кода. */
-
-/* Пример заготовки:
-.new-block {
-  // ...
-}
+/* Плейсхолдер для будущих кастомизаций */
