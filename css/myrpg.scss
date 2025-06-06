@@ -1,188 +1,124 @@
 /* =========================================================
- * myrpg.scss  (вариант «B» — все стили в одном файле)
+ * myrpg.scss  (v2025‑06‑06 — портрет 180×240 + «короткая» строка навыков)
  * ---------------------------------------------------------
- *  Этот файл не использует @import.  Достаточно положить его
- *  рядом с system.json (обычно systems/myrpg/css/) и
- *  компилировать:   sass myrpg.scss myrpg.css --style=compressed
+ *  Файл самодостаточен (без @import).
  *
- *  Структура:
- *    0) Настраиваемые переменные цвета / шрифтов
- *    1) Mini‑reset + базовые стили
- *    2) Пользовательский скроллбар
- *    3) Утилиты (flex, grid, колонки, отступы)
- *    4) Контейнеры листа персонажа
- *    5) Компоненты: атрибуты, навыки, временные бонусы
- *    6) Вертикальные вкладки (.sheet-tabs-hex)
- *    7) Специфичные фиксы (добавляйте ниже)
+ *  Изменения этого коммита:
+ *    • Портрет персонажа теперь фиксированный 180×240 px.
+ *    • Строка навыка: grid 40 px (abbr) / auto (название) / 60 px (value).
  * ---------------------------------------------------------
- *  Все комментарии — на русском для вашего удобства.
- *  Palitra сохранена из оригинала.
+ *   0) Переменные, mini‑reset, базовая типографика, скроллбар
+ *   1) Утилиты (flex, grid‑Ncol, колонки, limited‑height)
+ *   2) Компоненты (sheet‑box, вкладки, атрибуты, навыки, бонусы)
+ *   3) Исправления‑patches (узкие inputs, центр атрибутов, portrait, skills‑row)
  * =========================================================*/
 
-/* ---------- 0. Переменные ------------------------------------------ */
 @use "sass:math";
 
-// SCSS‑переменные
-$clr-bg-main:   #d2d2c9;
-$clr-bg-panel:  #cecebf;
-$clr-text:      #1b1210;
-$clr-accent:    #6d031c;
-$clr-border:    #2e2e2e;
-$radius:        0.5rem;
-$gap:           0.5rem;
+// ---------------------------------------------------------
+// 0. Переменные цвета / шрифтов
+// ---------------------------------------------------------
+$clr-bg-main: #d2d2c9;
+$clr-panel:   #cecebf;
+$clr-text:    #1b1210;
+$clr-accent:  #6d031c;
+$font-main:   "Roboto", sans-serif;
 
-/* CSS‑custom‑properties для использования в JS / шаблонах */
 :root {
   --bg-main:   #{$clr-bg-main};
-  --bg-panel:  #{$clr-bg-panel};
+  --bg-panel:  #{$clr-panel};
   --text-main: #{$clr-text};
   --accent:    #{$clr-accent};
-  --radius:    #{$radius};
-  --gap:       #{$gap};
 }
 
-/* ---------- 1. Mini‑reset + базовые стили -------------------------- */
-
+// ---------------------------------------------------------
+// 1. Mini‑reset & базовая типографика
+// ---------------------------------------------------------
 *,*::before,*::after { box-sizing: border-box; }
-html,body { margin:0; padding:0; height:100%; }
-body {
-  font-family: "Roboto", sans-serif;
-  color: var(--text-main);
-  background: var(--bg-main);
-}
+html,body { margin:0; padding:0; }
 button,input,select,textarea { font: inherit; }
-input[type="number"] { -moz-appearance: textfield; }
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-/* ---------- 2. Кастомный скроллбар для Foundry --------------------- */
+body { font-family: $font-main; color: var(--text-main); }
+.window-app { background: var(--bg-panel); }
 
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+/* скроллбар (Chromium) */
+::-webkit-scrollbar { width:8px; height:8px; }
+::-webkit-scrollbar-thumb { background:var(--accent); border-radius:4px; }
 
-/* ---------- 3. Утилиты --------------------------------------------- */
+// ---------------------------------------------------------
+// 2. Утилитные классы
+// ---------------------------------------------------------
+.flex-center { display:flex; align-items:center; justify-content:center; }
+.limited-height { max-height:400px; overflow-y:auto; }
 
-// Flex helpers
-.flex-row   { display:flex; flex-direction: row; }
-.flex-col   { display:flex; flex-direction: column; }
-.flex-center{ display:flex; align-items:center; justify-content:center; }
-
-// Gap util (используйте class="gap-sm"/"gap-md")
-$gaps:(sm:0.25rem, md:0.5rem, lg:1rem);
-@each $name,$size in $gaps {
-  .gap-#{$name} { gap:$size; }
-}
-
-// Column helpers (flex‑basis)
-@for $i from 1 through 4 {
- $perc: math.div(100%, 4) * $i; // =25%,50%,75%,100%
-  .col-#{25*$i} { flex:0 0 $perc; max-width:$perc; }
-}
-
-// Grid helpers (2‑12 колонок)
+// grid‑Ncol (2‑12)
 @for $n from 2 through 12 {
-  .grid-#{$n}col { display:grid; grid-template-columns: repeat($n, 1fr); gap: var(--gap); }
+  .grid-#{$n}col {
+    display:grid;
+    grid-template-columns: repeat(#{$n}, 1fr);
+    gap:0.5rem;
+  }
 }
 
-/* ---------- 4. Контейнеры листа персонажа -------------------------- */
+// колонки 25/33/50 %
+.col-25 { flex:0 0 25%; max-width:25%; }
+.col-33 { flex:0 0 33.333%; max-width:33.333%; }
+.col-50 { flex:0 0 50%; max-width:50%; }
 
+// ---------------------------------------------------------
+// 3. Компоненты листа
+// ---------------------------------------------------------
 .sheet-box {
-  border: 1px solid $clr-border;
-  border-radius: $radius;
-  background: var(--bg-panel);
-  padding: $gap;
-  margin-bottom: $gap;
+  padding:0.5rem; border:1px solid var(--text-main); border-radius:4px; background:var(--bg-main);
 }
 
-.limited-height {
-  max-height: 20rem;
-  overflow-y: auto;
-}
-
-/* ---------- 5. Компоненты ------------------------------------------ */
-
-/* 5.1 Блок «Ключевая информация» */
-.top-attributes {
-  @extend .flex-row;
-  justify-content: center;
-  gap: var(--gap);
-  margin-bottom: $gap;
-}
-
-.attribute-core {
-  @extend .sheet-box;
-  text-align: center;
-  width: 10rem;
-}
-
-.attribute-core .attr-name { font-weight: 600; margin-bottom: 0.25rem; }
-.attribute-core .attr-value {
-  font-size: 1.2rem;
-  background: #fff;
-  border: 1px solid $clr-border;
-  border-radius: calc($radius / 2);
-  width: 4rem;
-  margin: 0 auto;
-}
-
-/* 5.2 Навыки */
-.skills {
-  @extend .sheet-box;
-  .skills-list { @extend .flex-col; gap: 0.25rem; }
-  input[type="text"] { width:100%; }
-  input[type="number"] {
-    max-width:4rem; min-width:3rem;
-    text-align:center;
-  }
-}
-
-/* 5.3 Временные бонусы */
-.temp-bonuses {
-  @extend .sheet-box;
-  width: 12rem;
-  .bonus-row {
-    @extend .flex-row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.25rem;
-    input { max-width:4rem; text-align:center; }
-  }
-}
-
-/* 5.4 Таблица атрибутов (если используется grid) */
-.attributes-grid {
-  @extend .grid-5col; // 5 столбцов по скриншоту (дух, реф, тело, разум, …)
-  justify-content:center;
-}
-
-/* ---------- 6. Вертикальные вкладки -------------------------------- */
-
+// ---- кнопки вкладок (правый бордюр)
 .sheet-tabs-hex {
-  position: absolute;
-  right: -11rem; /* снаружи окна */
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-
-  .hex-button {
-    @extend .flex-center;
-    width: 10rem;
-    padding: 0.4rem 0.5rem;
-    background: var(--bg-panel);
-    border: 2px solid var(--accent);
-    border-radius: $radius;
-    cursor: pointer;
-    font-weight: 600;
-    text-align:center;
-    transition: background 0.2s;
-
-    &:hover { background: lighten($clr-accent, 30%); }
-    &.active { background: var(--accent); color:#fff; }
-  }
+  position:absolute; right:-190px; top:1rem; display:flex; flex-direction:column; gap:0.5rem;
+  .hex-button { @extend .sheet-box; width:180px; text-align:center; cursor:pointer; }
+  .is-active { background:var(--accent); color:#fff; }
 }
 
-/* ---------- 7. Специфичные фиксы ----------------------------------- */
+// ---- атрибуты сверху
+.attribute-core { margin:0 auto 0.5rem; display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem; }
+.attribute-core input { width:100%; text-align:center; }
 
-// (Добавляйте новые патчи ниже этой строки)
+// ---- блок навыков и временных бонусов
+.skills-wrap { display:flex; gap:1rem; }
+
+.skills-block, .temp-bonuses-block {
+  @extend .sheet-box; flex:1 1 0;
+}
+
+// ---------------------------------------------------------
+// 4. Исправления / патчи по фидбеку
+// ---------------------------------------------------------
+
+/* 4.1 Узкий numeric‑input навыков */
+.skills-block input[type="number"] { width:60px; max-width:60px; text-align:center; }
+
+/* 4.2 Центрирование атрибутов */
+.top-attributes { display:flex; justify-content:center; gap:0.5rem; }
+
+/* 4.3 Фиксированный размер портрета 180×240 */
+.profile img,
+.profile-img {
+  width:180px; height:240px; object-fit:cover; border-radius:4px;
+}
+
+/* 4.4 «Короткая» строка навыка: abbr 40px / name auto / value 60px */
+$abbr-w: 40px; $val-w: 60px;
+
+.skills-list .skill-row,
+.skills-block .skill-row {
+  display:grid;
+  grid-template-columns: $abbr-w 1fr $val-w;
+  align-items:center; gap:0.25rem;
+}
+
+.skill-row .abbr,
+.skill-row .skill-abbr { text-align:center; font-weight:600; width:$abbr-w; }
+
+.skill-row input[type="number"] { width:$val-w !important; max-width:$val-w; text-align:center; }
+
+/* ------------------------------------------------------- */
