@@ -1,199 +1,188 @@
-/* ========================================================
- * myrpg.scss — переработанная версия после обратной связи
- * --------------------------------------------------------
- *  Старая верстка «сломалась» из‑за отсутствия нескольких
- *  критичных блоков: вертикальных вкладок .sheet-tabs-hex,
- *  утилитарных классов колонок (.col‑25 и др.) и сеток,
- *  а также базовой стилизации .sheet-box.  Ниже эти элементы
- *  возвращены и объединены в единый, читаемый SCSS‑файл.
+/* =========================================================
+ * myrpg.scss  (вариант «B» — все стили в одном файле)
+ * ---------------------------------------------------------
+ *  Этот файл не использует @import.  Достаточно положить его
+ *  рядом с system.json (обычно systems/myrpg/css/) и
+ *  компилировать:   sass myrpg.scss myrpg.css --style=compressed
  *
- *  Структура файла:
- *    1) Переменные (цвета, размеры)
- *    2) Base / Reset
- *    3) Утилиты (flex, grid, col‑x, limited‑height)
- *    4) Компоненты (sheet‑box, hex‑tabs, таблицы, скроллбар)
- *    5) Специфичные правила (добавляйте ниже)
- * -------------------------------------------------------- */
+ *  Структура:
+ *    0) Настраиваемые переменные цвета / шрифтов
+ *    1) Mini‑reset + базовые стили
+ *    2) Пользовательский скроллбар
+ *    3) Утилиты (flex, grid, колонки, отступы)
+ *    4) Контейнеры листа персонажа
+ *    5) Компоненты: атрибуты, навыки, временные бонусы
+ *    6) Вертикальные вкладки (.sheet-tabs-hex)
+ *    7) Специфичные фиксы (добавляйте ниже)
+ * ---------------------------------------------------------
+ *  Все комментарии — на русском для вашего удобства.
+ *  Palitra сохранена из оригинала.
+ * =========================================================*/
 
-/* ========================================================
- * 1) Переменные (CSS Custom Properties)
- * -------------------------------------------------------- */
+/* ---------- 0. Переменные ------------------------------------------ */
+@use "sass:math";
+
+// SCSS‑переменные
+$clr-bg-main:   #d2d2c9;
+$clr-bg-panel:  #cecebf;
+$clr-text:      #1b1210;
+$clr-accent:    #6d031c;
+$clr-border:    #2e2e2e;
+$radius:        0.5rem;
+$gap:           0.5rem;
+
+/* CSS‑custom‑properties для использования в JS / шаблонах */
 :root {
-  /* Цветовая палитра, подобранная автором */
-  --bg-main: #d2d2c9;
-  --bg-panel: #d2d2c9; /* Подложка самих панелей */
-  --text-main: #1b1210;
-  --accent: #673e37;   /* Выделяющий бордовый */
-  --accent-dark: #6d031c;
-  --border-radius: 6px;
-  --gap: 10px;
-  --scrollbar-size: 12px;
-  --font-main: 'Roboto', sans-serif;
+  --bg-main:   #{$clr-bg-main};
+  --bg-panel:  #{$clr-bg-panel};
+  --text-main: #{$clr-text};
+  --accent:    #{$clr-accent};
+  --radius:    #{$radius};
+  --gap:       #{$gap};
 }
 
-/* ========================================================
- * 2) Base / Reset
- * -------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* ---------- 1. Mini‑reset + базовые стили -------------------------- */
 
-.window-app {
-  font-family: var(--font-main);
+*,*::before,*::after { box-sizing: border-box; }
+html,body { margin:0; padding:0; height:100%; }
+body {
+  font-family: "Roboto", sans-serif;
   color: var(--text-main);
+  background: var(--bg-main);
+}
+button,input,select,textarea { font: inherit; }
+input[type="number"] { -moz-appearance: textfield; }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ---------- 2. Кастомный скроллбар для Foundry --------------------- */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ---------- 3. Утилиты --------------------------------------------- */
+
+// Flex helpers
+.flex-row   { display:flex; flex-direction: row; }
+.flex-col   { display:flex; flex-direction: column; }
+.flex-center{ display:flex; align-items:center; justify-content:center; }
+
+// Gap util (используйте class="gap-sm"/"gap-md")
+$gaps:(sm:0.25rem, md:0.5rem, lg:1rem);
+@each $name,$size in $gaps {
+  .gap-#{$name} { gap:$size; }
 }
 
-
-/* ========================================================
- * 3) Утилиты
- * -------------------------------------------------------- */
-/* Общий flex‑ряд с контролем отступов */
-.flexrow {
-  display: flex;
-  gap: var(--gap);
-  align-items: flex-start;
-}
-.flexcol {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
+// Column helpers (flex‑basis)
+@for $i from 1 through 4 {
+ $perc: math.div(100%, 4) * $i; // =25%,50%,75%,100%
+  .col-#{25*$i} { flex:0 0 $perc; max-width:$perc; }
 }
 
-/* Колонки фиксированной ширины (исп. в разметке листа) */
-$col‑map: (
-  50: calc(50% - var(--gap)),
-  33: calc(33.33% - var(--gap)),
-  25: calc(25% - var(--gap) / 2)
-);
-@each $k, $w in $col‑map {
-  .col-#{$k}  { flex: 0 0 $w; padding-right: var(--gap); }
-  .col-#{$k}-last { flex: 0 0 $w; padding-right: 0; }
+// Grid helpers (2‑12 колонок)
+@for $n from 2 through 12 {
+  .grid-#{$n}col { display:grid; grid-template-columns: repeat($n, 1fr); gap: var(--gap); }
 }
 
-/* Grid‑утилиты: repeat(N,1fr) */
-%grid-base {
-  display: grid;
-  gap: var(--gap);
-  margin: var(--gap) 0;
-  padding: 0;
-}
-.grid      { @extend %grid-base; grid-template-columns: repeat(2, 1fr); }
-@for $i from 2 through 12 {
-  .grid-#{$i}col { @extend %grid-base; grid-template-columns: repeat($i, 1fr); }
+/* ---------- 4. Контейнеры листа персонажа -------------------------- */
+
+.sheet-box {
+  border: 1px solid $clr-border;
+  border-radius: $radius;
+  background: var(--bg-panel);
+  padding: $gap;
+  margin-bottom: $gap;
 }
 
-/* Ограничитель по высоте (для длинных списков) */
 .limited-height {
-  height: 250px;
+  max-height: 20rem;
   overflow-y: auto;
 }
 
+/* ---------- 5. Компоненты ------------------------------------------ */
 
-/* ========================================================
- * 4) Компоненты
- * -------------------------------------------------------- */
-/* 4.1  Обёртка «коробка» вокруг секций листа */
-.sheet-box {
-  border: 2px solid var(--text-main);
-  padding: var(--gap);
-  margin-bottom: var(--gap);
-  border-radius: var(--border-radius);
-  background: var(--bg-panel);
+/* 5.1 Блок «Ключевая информация» */
+.top-attributes {
+  @extend .flex-row;
+  justify-content: center;
+  gap: var(--gap);
+  margin-bottom: $gap;
 }
-.sheet-box h3 {
+
+.attribute-core {
+  @extend .sheet-box;
   text-align: center;
-  font-weight: 700;
-  margin: 0 0 var(--gap) 0;
+  width: 10rem;
 }
 
-/* 4.2  Вертикальные вкладки (hex‑tabs) */
+.attribute-core .attr-name { font-weight: 600; margin-bottom: 0.25rem; }
+.attribute-core .attr-value {
+  font-size: 1.2rem;
+  background: #fff;
+  border: 1px solid $clr-border;
+  border-radius: calc($radius / 2);
+  width: 4rem;
+  margin: 0 auto;
+}
+
+/* 5.2 Навыки */
+.skills {
+  @extend .sheet-box;
+  .skills-list { @extend .flex-col; gap: 0.25rem; }
+  input[type="text"] { width:100%; }
+  input[type="number"] {
+    max-width:4rem; min-width:3rem;
+    text-align:center;
+  }
+}
+
+/* 5.3 Временные бонусы */
+.temp-bonuses {
+  @extend .sheet-box;
+  width: 12rem;
+  .bonus-row {
+    @extend .flex-row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+    input { max-width:4rem; text-align:center; }
+  }
+}
+
+/* 5.4 Таблица атрибутов (если используется grid) */
+.attributes-grid {
+  @extend .grid-5col; // 5 столбцов по скриншоту (дух, реф, тело, разум, …)
+  justify-content:center;
+}
+
+/* ---------- 6. Вертикальные вкладки -------------------------------- */
+
 .sheet-tabs-hex {
   position: absolute;
-  right: -240px;            /* вынос за пределы окна */
-  top: 15%;
-  transform: translateY(-50%);
-  z-index: 10;
+  right: -11rem; /* снаружи окна */
+  top: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow: visible;        /* важно для всплытия */
-}
-.hex-button {
-  width: 220px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--bg-panel);
-  color: var(--text-main);
-  border: 2px solid var(--text-main);
-  border-radius: var(--border-radius);
-  font-weight: 700;
-  cursor: pointer;
-  transition: background .3s;
-  user-select: none;
-  text-align: center;
-}
-.hex-button.active {
-  background: var(--accent);
-  color: var(--bg-main);
-}
+  gap: 0.25rem;
 
-/* 4.3  Таблица характеристик героя */
-.attributes-table {
-  margin: 0 auto;
-  border-collapse: collapse;
-  th, td {
-    width: 90px;
-    height: 45px;
-    border: 2px solid var(--text-main);
-    text-align: center;
-    padding: 5px;
-  }
-  thead th {
-    background: var(--accent);
-    color: var(--bg-main);
+  .hex-button {
+    @extend .flex-center;
+    width: 10rem;
+    padding: 0.4rem 0.5rem;
+    background: var(--bg-panel);
+    border: 2px solid var(--accent);
+    border-radius: $radius;
+    cursor: pointer;
+    font-weight: 600;
+    text-align:center;
+    transition: background 0.2s;
+
+    &:hover { background: lighten($clr-accent, 30%); }
+    &.active { background: var(--accent); color:#fff; }
   }
 }
 
-/* 4.4  Универсальный скроллбар под стили игры */
-.myrpg.sheet.actor::-webkit-scrollbar {
-  width: var(--scrollbar-size);
-}
-.myrpg.sheet.actor::-webkit-scrollbar-track {
-  background: var(--bg-main);
-}
-.myrpg.sheet.actor::-webkit-scrollbar-thumb {
-  background: var(--accent-dark);
-  border: 2px solid var(--bg-main);
-  border-radius: var(--border-radius);
-}
+/* ---------- 7. Специфичные фиксы ----------------------------------- */
 
-/* 4.5  Инпуты / текстовые поля */
-form input[type='text'],
-form input[type='number'],
-form textarea {
-  width: 100%;
-  box-sizing: border-box;
-  border: 2px solid var(--text-main);
-  background: #f8f8f8;
-  color: var(--text-main);
-  font-family: inherit;
-  font-size: inherit;
-  padding: 5px;
-  resize: none;
-}
-
-/* 4.6  Строка c аватаром и атрибутами */
-.top-row {
-  @extend .flexrow;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-.portrait-col img        { max-width: 150px; max-height: 150px; display: block; }
-.center-attributes       { display: flex; justify-content: center; align-items: center; }
-
-/* ========================================================
- * 5) Специфичные правила — добавляйте ниже по мере роста системы
- * -------------------------------------------------------- */
-
-/* Плейсхолдер для будущих кастомизаций */
+// (Добавляйте новые патчи ниже этой строки)
