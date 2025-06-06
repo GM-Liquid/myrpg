@@ -29,7 +29,7 @@ jobs:
       # 4. Формируем уникальный тег — выводим как output
       - name: Generate release tag
         id: tag
-        run: echo "tag_name=build-${{ github.run_number }}" >> $GITHUB_OUTPUT
+        run: echo "tag_name= ${{ github.run_number }}" >> $GITHUB_OUTPUT
 
       # 5. Публикуем новый релиз (используем output)
       - name: Create GitHub release
