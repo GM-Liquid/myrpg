@@ -106,19 +106,23 @@ body { font-family: $font-main; color: var(--text-main); }
   width:180px; height:240px; object-fit:cover; border-radius:4px;
 }
 
-/* 4.4 «Короткая» строка навыка: abbr 40px / name auto / value 60px */
-$abbr-w: 40px; $val-w: 60px;
-
-.skills-list .skill-row,
-.skills-block .skill-row {
-  display:grid;
-  grid-template-columns: $abbr-w 1fr $val-w;
-  align-items:center; gap:0.25rem;
+.skill-row {
+  /* заменяем возможные устаревшие flex-правила */
+  display: grid !important;
+  grid-template-columns: 40px 1fr 60px; /* abbr | name | value */
+  align-items: center;                  /* вертикальное выравнивание */
+  column-gap: 0.25rem;
 }
 
-.skill-row .abbr,
-.skill-row .skill-abbr { text-align:center; font-weight:600; width:$abbr-w; }
+/* точечные размеры ячеек (если нужно переопределить) */
+.skill-ability-abbr   { width: 40px; text-align: center; }
+.skill-name           { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.skill-value input    { width: 60px !important; text-align: center; }
 
-.skill-row input[type="number"] { width:$val-w !important; max-width:$val-w; text-align:center; }
+/* 2. Центрируем все h3 в листе персонажа */
+.sheet-box > h3 { text-align: center !important; margin: 0.25rem 0 0.5rem; }
 
-/* ------------------------------------------------------- */
+/* 3. Центрируем подписи и значения «Ключевой информации» */
+.resource-label,
+.resource-content,
+.resource-content input { text-align: center !important; }
