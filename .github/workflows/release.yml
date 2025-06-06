@@ -34,10 +34,11 @@ jobs:
           zip -r ../myrpg.zip .
 
       # 4️⃣ Публикуем или обновляем релиз с тегом latest
+ # .github/workflows/release.yml  (фрагмент)
       - name: Publish or update GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: latest           # всегда один тег
+          tag_name: latest
           name: Latest build (auto)
           body: |
             ⚠️ Автоматическая сборка с ветки **main**.
@@ -45,7 +46,7 @@ jobs:
             * `system.json` — манифест отдельно.
           files: |
             myrpg.zip
-            system.json               # ← отдельным ассетом
+            system.json
           draft: false
           prerelease: false
         env:
