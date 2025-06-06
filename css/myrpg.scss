@@ -1,0 +1,248 @@
+/* ========================================================
+ * myrpg.scss
+ * Полный рефакторинг исходного myrpg.css
+ *
+ * Структура:
+ *   1) Переменные и базовые цвета
+ *   2) Base / Reset
+ *   3) Утилиты
+ *   4) Компоненты листа персонажа
+ *   5) Кнопки и интерактив
+ *   6) Специфичные правила (добавлять ниже)
+ * --------------------------------------------------------
+ * Для использования:
+ *   - Скомпилируйте этот файл в myrpg.css (например, `sass --style compressed myrpg.scss myrpg.css`)
+ *   - Подключите myrpg.css в manifest модуля или системы
+ * ====================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* =========================================
+ * 1. Переменные (Variables)
+ * ========================================= */
+:root {
+    /* Цветовая палитра */
+    --color-bg: #d2d2c9; /* Светлый фон */
+    --color-bg-dark: #1b1210; /* Тёмный фон, основной текст/рамки */
+    --color-accent: #6d031c; /* Контрастный акцент (кнопки, ссылки) */
+    --color-accent-muted: #673e37; /* Приглушённый акцент */
+    --color-grey: #a79086; /* Нейтральный серый текст */
+    --color-white: #ffffff;
+    /* Шрифты */
+    --font-primary: 'Roboto', sans-serif;
+}
+
+/* =========================================
+ * 2. Base / Reset
+ * ========================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-bg);
+    color: var(--color-bg-dark);
+    font-family: var(--font-primary);
+    line-height: 1.4;
+}
+
+.window-app {
+    font-family: var(--font-primary);
+}
+
+/* Скроллбар под Windows */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-accent-muted);
+    border-radius: 4px;
+}
+
+/* =========================================
+ * 3. Утилиты (Utility classes)
+ * ========================================= */
+.flex {
+    display: flex;
+    &-column
+
+{
+    flex-direction: column;
+}
+
+&-center {
+    align-items: center;
+    justify-content: center;
+}
+
+&-between {
+    justify-content: space-between;
+}
+
+}
+
+.grid-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .5rem;
+}
+
+.grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .5rem;
+}
+
+.grid-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+}
+
+.limited-height {
+    height: 250px; /* Меняйте высоту по необходимости */
+    overflow-y: auto;
+}
+
+/* =========================================
+ * 4. Компоненты листа персонажа (Components)
+ * ========================================= */
+.sheet-box {
+    background: var(--color-white);
+    border: 2px solid var(--color-bg-dark);
+    border-radius: 6px;
+    padding: .75rem;
+    margin-bottom: .75rem;
+    &__title
+
+{
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: .25rem;
+    color: var(--color-accent);
+}
+
+/* Специализированные блоки ---------------- */
+&.defenses-block {
+    .defense-value
+
+{
+    @extend .flex-center;
+    width: 3rem;
+    height: 3rem;
+    background: var(--color-bg-dark);
+    color: var(--color-white);
+    border-radius: 50%;
+    font-size: 1.25rem;
+    margin: 0 auto .5rem;
+}
+
+}
+
+&.skills-block,
+&.attacks-block {
+    .table
+
+{
+    width: 100%;
+    border-collapse: collapse;
+    th, td
+
+{
+    padding: .25rem .5rem;
+}
+
+thead {
+    background: var(--color-bg-dark);
+    color: var(--color-white);
+    font-weight: 700;
+}
+
+tbody tr:nth-child(odd) {
+    background: var(--color-bg);
+}
+
+}
+}
+}
+
+/* --- Оружие и броня --- */
+.weapon-description,
+.armor-description {
+    textarea
+
+{
+    min-height: 120px;
+    width: 100%;
+    resize: vertical;
+}
+
+}
+
+/* --- Таблица инвентаря --- */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    th, td
+
+{
+    padding: .25rem;
+}
+
+th {
+    background: var(--color-bg-dark);
+    color: var(--color-white);
+}
+
+tbody tr:nth-child(even) {
+    background: var(--color-bg);
+}
+
+&__weight {
+    text-align: right;
+}
+
+}
+
+/* =========================================
+ * 5. Кнопки и интерактив (Buttons)
+ * ========================================= */
+button,
+.button {
+    background: var(--color-accent);
+    border: none;
+    color: var(--color-white);
+    padding: .25rem .75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .2s;
+    &:hover
+
+{
+    background: var(--color-accent-muted);
+}
+
+&:disabled {
+    background: var(--color-grey);
+    cursor: not-allowed;
+}
+
+}
+
+/* =========================================
+ * 6. Специфичные правила (Overrides)
+ * ========================================= */
+/* Добавляйте новые блоки ниже, чтобы предотвратить
+   непреднамеренное переопределение вышестоящего кода. */
+
+/* Пример заготовки:
+.new-block {
+  // ...
+}

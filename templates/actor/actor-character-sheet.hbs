@@ -1,6 +1,6 @@
 <form class='{{cssClass}} {{actor.type}} flexcol' autocomplete='off'>
 
-  <!-- ������� (������������� ������) -->
+  <!--         (                    ) -->
   <div class='sheet-tabs-hex-container'>
     <nav class='sheet-tabs-hex' data-group='primary'>
       <a class='hex-button' data-tab='features'>{{localize 'MY_RPG.SheetLabels.Features'}}</a>
@@ -12,14 +12,14 @@
     </nav>
   </div>
 
-  <!-- �������������� ����� -->
+  <!--                      -->
   <div class='sheet-scrollable'>
     <section class='sheet-body'>
 
-      <!-- ������� "��������� � �������" -->
+      <!--         "                   " -->
       <div class='tab biography' data-group='primary' data-tab='biography'>
         <h2>{{localize 'MY_RPG.SheetLabels.Biography'}}</h2>
-        <!-- ���� ����� ���� �� 6 ��������: ���, ����, �����, ������, ���, ������� -->
+        <!--                    6         :    ,     ,      ,       ,    ,         -->
         <section class='resources grid grid-6col'>
           <div class='resource flex-group-center'>
             <label>{{localize 'MY_RPG.Biography.Weight'}}</label>
@@ -67,7 +67,7 @@
           </div>
         </section>
 
-        <!-- ��������� � ������� (������� ����) -->
+        <!--                     (            ) -->
         <section class='appearance'>
           <div class='form-group'>
             <label>{{localize 'MY_RPG.Biography.Appearance'}}</label>
@@ -83,21 +83,21 @@
         </section>
       </div>
 
-      <!-- ������� "Features" -->
+      <!--         "Features" -->
       <div class='tab features features-tab' data-group='primary' data-tab='features'>
 
-        <!-- ���� ������� ���� "�������� ����������" -->
+        <!--                   "                   " -->
         <div class='sheet-box'>
           <h3>{{localize 'MY_RPG.SheetLabels.KeyInfo'}}</h3>
 
-          <!-- ������ ���: ������� �����, ������� ������������� �� ������ -->
+          <!--           :              ,                                 -->
           <section class='flexrow top-row'>
-            <!-- ������� -->
+            <!--         -->
             <div class='portrait-col'>
               <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
             </div>
 
-            <!-- ������� ������������� (�� ������) -->
+            <!--                       (         ) -->
             <div class='attributes-col center-attributes'>
               <table class='attributes-table'>
                 <thead>
@@ -131,7 +131,7 @@
             </div>
           </section>
 
-          <!-- ������ ���: ���, ���������, ������� ���� -->
+          <!--           :    ,          ,              -->
           <section class='flexrow key-fields-row'>
             <div class='grid grid-3col'>
               <div class='form-group'>
@@ -165,7 +165,7 @@
             </div>
           </section>
 
-          <!-- ������ ���: ������ "���������" (��, �����, ��, ���������, ��������, ������������) -->
+          <!--           :        "         " (  ,      ,   ,          ,         ,             ) -->
 
           <section class='resources grid grid-3col'>
             <div class='resource flex-group-center'>
@@ -182,7 +182,7 @@
                 />
               </div>
             </div>
-            <!-- �� -->
+            <!--    -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>{{localize 'MY_RPG.Health.Label'}}</label>
               <div class='resource-content flexcol'>
@@ -208,7 +208,7 @@
                 </div>
               </div>
             </div>
-            <!-- ����� (Flux) -->
+            <!--       (Flux) -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>{{localize 'MY_RPG.Flux.Label'}}</label>
               <div class='resource-content flexrow flex-center'>
@@ -223,7 +223,7 @@
                 />
               </div>
             </div>
-            <!-- �������� (Speed) -->
+            <!--          (Speed) -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>{{localize 'MY_RPG.Speed.Label'}}</label>
               <div class='resource-content flexrow flex-center'>
@@ -238,7 +238,7 @@
                 />
               </div>
             </div>
-            <!-- ���������� ������ -->
+            <!--                   -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>
                 {{localize 'MY_RPG.Defenses.PhysicalLabel'}}
@@ -256,7 +256,7 @@
               </div>
             </div>
 
-            <!-- ����-������ -->
+            <!--     -       -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>
                 {{localize 'MY_RPG.Defenses.AzureLabel'}}
@@ -274,7 +274,7 @@
               </div>
             </div>
 
-            <!-- ���������� ������ -->
+            <!--                   -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>
                 {{localize 'MY_RPG.Defenses.MentalLabel'}}
@@ -293,20 +293,19 @@
             </div>
           </section>
         </div>
-        <!-- ����� �������� sheet-box Key Info -->
-        <!-- ����� "������", "��������� ������", "������" -->
+
         <section class='flexrow'>
-          <!-- ������: 50% -->
+          <!--       : 50% -->
           <div class='flexcol col-50'>
             <div class='sheet-box'>
               <h3>{{localize 'MY_RPG.SheetLabels.Skills'}}</h3>
               {{#each system.skills as |skill key|}}
                 <div class='skill skill-row'>
-                  <!-- ������� �������� �������������� -->
+                  <!--                                 -->
                   <div class='skill-col skill-ability-abbr'>
                     {{localize (concat 'MY_RPG.abilityAbbreviations.' skill.ability)}}
                   </div>
-                  <!-- �������� ������ (����������� ��� ������) -->
+                  <!--                 (                      ) -->
                   <div
                     class='skill-col skill-name rollable'
                     data-skill='{{key}}'
@@ -314,7 +313,7 @@
                   >
                     {{localize (concat 'MY_RPG.Skill.' (toPascalCase key))}}
                   </div>
-                  <!-- ���� ����� �������� (����/�����) -->
+                  <!--                     (    /     ) -->
                   <div class='skill-col skill-value'>
                     <input
                       type='number'
@@ -331,7 +330,7 @@
             </div>
           </div>
 
-          <!-- ��������� ������: ������������ ������ .limited-height -->
+          <!--                 :                     .limited-height -->
           <div class='flexcol col-25'>
             <div class='sheet-box limited-height'>
               <h3>{{localize 'MY_RPG.TempBonus.Label'}}</h3>
@@ -388,13 +387,13 @@
             </div>
           </div>
 
-          <!-- ������: ���� .limited-height, ����� �������� �� ������� -->
+          <!--       :      .limited-height,                           -->
 
         </section>
 
       </div>
-      <!-- ����� ������� Features -->
-      <!-- ������� "����������� � �����������" -->
+      <!--               Features -->
+      <!--         "                         " -->
       <div class='tab abilities' data-group='primary' data-tab='abilities'>
         <section class='flux-section'>
           <h2>{{localize 'MY_RPG.SheetLabels.Abilities'}}</h2>
@@ -452,7 +451,7 @@
         </section>
       </div>
 
-      <!-- ������� "���������" -->
+      <!--         "         " -->
       <div class='tab inventory' data-group='primary' data-tab='inventory'>
         <div class='sheet-box limited-height'>
           <h3>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</h3>
