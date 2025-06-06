@@ -1,62 +1,56 @@
-name: Auto-Release
+name: Build & Publish Latest Release
 
 on:
   push:
-    branches: [ main ]  # Можно указать конкретную ветку или убрать, чтобы реагировать на пуш в любую ветку
-
-permissions:
-  contents: write
+    branches: [ "main" ]      # триггер на любой пуш в main
+    paths-ignore:             # изменения, на которые НЕ реагируем
+      - ".github/**"
+      - "**/*.md"
+      - ".prettierrc*"
+      - "eslint.*"
+      - ".gitignore"
+      - "package*.json"
+      - "node_modules/**"
 
 jobs:
-  create_and_upload:
-    runs-on: ubuntu-22.04
+  build-and-release:
+    runs-on: ubuntu-latest
+
     steps:
+      # 1. Клонируем репозиторий
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Define Tag
-        run: echo "TAG=build-${{ github.sha }}" >> $GITHUB_ENV
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/checkout@v4
+
+      # 2. Создаём временную папку dist/ и копируем в неё ТОЛЬКО нужные файлы
+      - name: Prepare distribution folder
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          cp -R module templates css lang assets dist/
+          cp system.json template.json README.md LICENSE dist/ 2>/dev/null || true
+
+      # 3. Упаковываем ZIP (имя фиксированное, чтобы легко ссылаться)
+      - name: Zip distribution
+        run: |
+          cd dist
+          zip -r ../myrpg-latest.zip .
+
+      # 4. Создаём / обновляем релиз с тегом latest
+      - name: Publish or update GitHub release
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: "auto-${{ github.run_id }}"
-          release_name: "Release ${{ github.run_id }}"
+          tag_name: latest                 # всегда один и тот же тег
+          name: Latest build (auto)
+          body: |
+            ⚠️ **Автоматическая сборка** — формируется при каждом push в `main`.
+            Содержит только файлы системы, без исходных dev-зависимостей.
           draft: false
           prerelease: false
-          
-      - run:  zip myrpg.zip -r lang module templates lib css assets system.json template.json
-      
-      - name: Upload Release Asset(s)
-        uses: sekwah41/upload-release-assets@v1.1.0
+          files: |
+            myrpg-latest.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './system.json'
 
-      - name: Upload Release Assets
-        uses: sekwah41/upload-release-assets@v1.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: myrpg.zip  
-            
-      - name: Delete Old Releases
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Получаем список релизов, кроме последнего
-          releases=$(gh api repos/${{ github.repository }}/releases --jq '.[1:] | map(.id)')
-          echo "Releases to delete: $releases"
-
-          # Удаляем релизы по их ID
-          for release_id in $releases; do
-            echo "Deleting release ID: $release_id"
-            gh api \
-              -X DELETE \
-              -H "Accept: application/vnd.github+json" \
-              https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/$release_id || echo "Failed to delete release $release_id"
-          done
+      # 5. Чистим артефакт (не обязателен, просто аккуратно)
+      - name: Remove local artefacts
+        run: rm -rf dist myrpg-latest.zip
