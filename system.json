@@ -16,13 +16,13 @@
       "thumbnail": "systems/myrpg/assets/anvil-impact.png"
     }
   ],
-  "version": "2.182",
+  "version": "2.183",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
   },
   "esmodules": ["module/myrpg.mjs"],
-  "styles": ["css/myrpg.scss"],
+  "styles": ["css/myrpg.css"],
   "languages": [
     {
       "lang": "ru",
