@@ -831,3 +831,6 @@ form textarea {
         color: #d2d2c9;
         font-weight: 700;
     }
+table {
+  margin: 0em 0 !important;
+}
