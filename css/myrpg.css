@@ -101,13 +101,9 @@ textarea[disabled] {
 
 .top-row {
   display: flex;
-  /*                                                                  */
   flex-wrap: nowrap;
-  /*                                                  (                 ) */
   gap: 6px;
-  /*                                    */
-  align-items: center;
-  /*                       flex-start (     ),            center,            */
+  align-items: center !important;
   justify-content: center;
 }
 
@@ -227,8 +223,8 @@ form textarea {
 
 .profile-img {
   display: block;
-  max-width: 146px;
-  max-height: 146px;
+  max-width: 180px;
+  max-height: 180px;
   width: auto !important;
   height: auto !important;
 }
