@@ -86,11 +86,12 @@ textarea[disabled] {
   font-weight: 700; /* h3 ������ � ��� bold, �� �� ������ ������ ������ ���� */
 }
 
-/* �����, ����� ������������ ��� ���� ������� � ���������� */
-.center-attributes {
+.center-attributes{
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;   /* Ставим вертикально */
+  align-items: center;      /* По центру по горизонтали */
+  justify-content: flex-start;
+  gap: 6px;                 /* Чуть воздуха между таблицами */
 }
 
 /* ������������ ������ ������, ����� ���������� ������� � �������� ���� ����������� ������� */
