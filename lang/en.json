@@ -15,6 +15,14 @@
       "Yes": "Yes",
       "No": "No"
     },
+    "RankGradient": {
+      "Title": "Rank Gradient",
+      "Rank1": "Rank 1",
+      "Rank2": "Rank 2",
+      "Rank3": "Rank 3",
+      "Rank4": "Rank 4",
+      "Rank5": "Rank 5"
+    },
     "KeyInfo": {
       "Calling": "Calling",
       "Gender": "Gender",

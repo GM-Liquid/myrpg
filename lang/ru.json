@@ -20,6 +20,14 @@
       "AzureLabel": "Азур-защита",
       "MentalLabel": "Ментальная защита"
     },
+    "RankGradient": {
+      "Title": "Градация рангов",
+      "Rank1": "1 ранг",
+      "Rank2": "2 ранг",
+      "Rank3": "3 ранг",
+      "Rank4": "4 ранг",
+      "Rank5": "5 ранг"
+    },
     "ArmorItem": {
       "ArmorSectionTitle": "Доспех",
       "DescriptionLabel": "Описание",

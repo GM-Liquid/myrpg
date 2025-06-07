@@ -128,46 +128,49 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
-          </section>
+              <table class='rank-hint-table'>
+  <tr>
+    <th colspan='5'>{{localize 'MY_RPG.RankGradient.Title'}}</th>
+  </tr>
+  <tr>
+    <td>{{localize 'MY_RPG.RankGradient.Rank1'}}</td>
+    <td>{{localize 'MY_RPG.RankGradient.Rank2'}}</td>
+    <td>{{localize 'MY_RPG.RankGradient.Rank3'}}</td>
+    <td>{{localize 'MY_RPG.RankGradient.Rank4'}}</td>
+    <td>{{localize 'MY_RPG.RankGradient.Rank5'}}</td>
+  </tr>
+</table>
 
-          <!-- ������ ���: ���, ���������, ������� ���� -->
-          <section class='flexrow key-fields-row'>
-            <div class='grid grid-3col'>
-              <div class='form-group'>
-                <label>{{localize 'MY_RPG.KeyInfo.Name'}}</label>
-                <input
-                  type='text'
-                  class='small-input'
-                  name='name'
-                  value='{{actor.name}}'
-                  placeholder='Name'
-                />
-              </div>
-              <div class='form-group'>
-                <label>{{localize 'MY_RPG.KeyInfo.Calling'}}</label>
-                <input
-                  type='text'
-                  class='small-input'
-                  name='system.calling'
-                  value='{{system.calling}}'
-                />
-              </div>
-              <div class='form-group'>
-                <label>{{localize 'MY_RPG.KeyInfo.CurrentRank'}}</label>
-                <input
-                  type='text'
-                  class='small-input'
-                  name='system.currentRank'
-                  value='{{system.currentRank}}'
-                />
-              </div>
             </div>
           </section>
 
           <!-- ������ ���: ������ "���������" (��, �����, ��, ���������, ��������, ������������) -->
 
           <section class='resources grid grid-3col'>
+  <!-- Имя -->
+  <div class='resource flex-group-center'>
+    <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.Name'}}</label>
+    <div class='resource-content flexrow flex-center'>
+      <input type='text' name='name' value='{{actor.name}}' class='small-input'/>
+    </div>
+  </div>
+
+  <!-- Призвание -->
+  <div class='resource flex-group-center'>
+    <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.Calling'}}</label>
+    <div class='resource-content flexrow flex-center'>
+      <input type='text' name='system.calling' value='{{system.calling}}' class='small-input'/>
+    </div>
+  </div>
+
+  <!-- Текущий ранг -->
+  <div class='resource flex-group-center'>
+    <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.CurrentRank'}}</label>
+    <div class='resource-content flexrow flex-center'>
+      <input type='text' name='system.currentRank' value='{{system.currentRank}}' class='small-input'/>
+    </div>
+  </div>
+
             <div class='resource flex-group-center'>
               <label class='resource-label'>
                 {{localize 'MY_RPG.KeyInfo.MomentOfGlory'}}

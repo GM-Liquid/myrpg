@@ -790,15 +790,6 @@ form textarea {
   box-sizing: border-box;
 }
 
-/* ����� ����� ����� ����� ��� ��������� */
-.sheet-box.defenses-block {
-  /* ���, �����, �������� ������� �� .sheet-box */
-}
-
-/* === ����� ����� ��� ����� ����� === */
-.sheet-box.defenses-block {
-  /* ���� ���, ������� � �������� �� .sheet-box */
-}
 /* ������� ������ �� ����� ������ ����� � ������� ������� */
 .defenses-table {
   width: 100%;
@@ -828,3 +819,32 @@ form textarea {
 .wound-box.filled {
   background: #1b1210;
 }
+
+/* --- Top-row columns 1/3 | 2/3 --- */
+.top-row .portrait-col {
+    flex: 0 0 33% !important;
+}
+
+.top-row .attributes-col {
+    flex: 0 0 67% !important;
+}
+
+/* --- таблица-подсказка рангов --- */
+.rank-hint-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+}
+
+    .rank-hint-table th,
+    .rank-hint-table td {
+        border: 1px solid #1b1210;
+        text-align: center;
+        padding: 2px 4px;
+    }
+
+    .rank-hint-table th {
+        background: #673e37;
+        color: #d2d2c9;
+        font-weight: 700;
+    }
