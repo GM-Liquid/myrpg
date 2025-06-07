@@ -111,7 +111,7 @@ textarea[disabled] {
   /* ����� �������� ���������� � ����� ������ ���� ��� �������� ����� */
   flex-wrap: nowrap;
   /* �������������� ������ ����� ��������� � �������� (��� �������������) */
-  gap: 10px;
+  gap: 6px;
   /* �� ��������� ����������� �� ������ */
   align-items: center;
   /* �� ����������� ������ flex-start (�����), �� ����� � center, ���� ����� */
@@ -178,19 +178,6 @@ textarea[disabled] {
 .col-25-last {
   flex: 0 0 calc(25% - 5px);
   padding-right: 0;
-}
-
-/* ���� �� ������, ����� ������� �� "��������" ���� ��� ������������, 
-   �������� ���-�� �����:
-   .flexrow { flex-wrap: wrap; } ��� overflow. �� ������� �� �������. */
-
-.attributes-col {
-  flex: 0 0 auto;
-  /* �.�. ������� ����� ������� �����, ������� ����� ������� */
-
-  display: flex;
-  align-items: center;
-  justify-content: center; /* ����� ���� ������� ���� �� ������ ����� ����� */
 }
 
 /* sheet-box - ����� */
@@ -824,14 +811,6 @@ form textarea {
   display: flex;
   justify-content: center;  /* по горизонтали */
   align-items:    center;   /* по вертикали (на случай высоких портретов) */
-}
-
-.top-row .portrait-col .profile-img{
-  margin: 0; /* на всякий случай убираем возможные отступы */
-}
-
-.top-row .attributes-col {
-    flex: 0 0 67% !important;
 }
 
 /* --- таблица-подсказка рангов --- */
