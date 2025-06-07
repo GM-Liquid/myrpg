@@ -552,7 +552,6 @@ form textarea {
 .flexrow {
   display: flex;
   align-items: flex-start; /* ����� ����� ����� ������������� */
-  gap: 10px;
   /* justify-content: flex-start; ��� space-between; - �� ��� ���� */
 }
 
