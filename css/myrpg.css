@@ -171,15 +171,13 @@ textarea[disabled] {
 
 /* sheet-box -       */
 .sheet-box {
-  border: 2px solid #1b1210; /*                           */
+  border: 2px solid #1b1210; 
   padding: 10px;
-  margin-bottom: 10px; /*                                */
+  margin-bottom: 10px; 
 }
 
-/*                                           */
 .myrpg.sheet.actor {
-  background-color: #d2d2c9; /*                  */
-  color: #1b1210; /*                      */
+  background-color: #d2d2c9;               
 }
 
 form textarea,
@@ -223,10 +221,12 @@ form textarea {
 
 .profile-img {
   display: block;
-  max-width: 180px;
-  max-height: 180px;
+  max-width: 194px;
+  max-height: 194px;
   width: auto !important;
   height: auto !important;
+  border: 2px solid #1b1210;   /* та же толщина и цвет */
+  box-sizing: border-box;      /* чтобы рамка не «режала» картинку */
 }
 
 .rollable:hover,
