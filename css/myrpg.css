@@ -805,25 +805,27 @@ form textarea {
   align-items:    center;   /* по вертикали (на случай высоких портретов) */
 }
 
-/* --- таблица-подсказка рангов --- */
-.rank-hint-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 6px;
+/* --- таблица-подсказка рангов (тот же вид, что и .attributes-table) --- */
+.rank-hint-table{
+  margin: 0 auto;           /* как у таблицы характеристик */
+  border-collapse: collapse;
 }
 
-    .rank-hint-table th,
-    .rank-hint-table td {
-        border: 1px solid #1b1210;
-        text-align: center;
-        padding: 2px 4px;
-    }
+.rank-hint-table th,
+.rank-hint-table td{
+  width: 90px;              /* 1 в 1 с  .attributes-table */
+  height: 45px;
+  border: 2px solid #1b1210;
+  text-align: center;
+  padding: 5px;
+}
 
-    .rank-hint-table th {
-        background: #673e37;
-        color: #d2d2c9;
-        font-weight: 700;
-    }
+.rank-hint-table th{        /* хотим оставить цветную «шапку» */
+  background: #673e37;
+  color: #d2d2c9;
+  font-weight: 700;
+}
+
 table {
   margin: 0em 0 !important;
 }
