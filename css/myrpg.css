@@ -4,7 +4,6 @@
   font-family: 'Roboto', sans-serif;
 }
 
-/* ������: ���� ������ �������� ����� �������� */
 .top-features,
 .middle-features,
 .bottom-features {
@@ -12,77 +11,72 @@
 }
 
 .small-input {
-  width: 100px; /* ��� ����� ������ �������� */
+  width: 100px;
   max-width: 150px;
 }
 
-/* ��������� ��� ����� ������ ������ */
 .skill-row {
-  display: flex; /* ����� ������� ��� � ���� ������ */
-  align-items: center; /* ������������ ������������ �� ������ */
-  margin-bottom: 4px; /* ������ ����� �������� */
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 4px;
 }
 
-/* ����� ����� ��� ����� �� ��� ������� */
 .skill-col {
-  /* ������� ������� �������, ���� ����� */
   margin-right: 8px;
 }
 
-/* ������ �������: ������� ��� �������������� */
 .skill-ability-abbr {
-  width: 40px; /* ��������� ������ ��� �������� ����� (DEX, WIS � �.�.) */
+  width: 40px;
   text-align: center;
 }
 
-/* ������ �������: �������� ������, ������ � "����������" */
 .skill-name {
-  flex: 1; /* �������� �� ���������� ����� */
-  cursor: pointer; /* ����� ����������, ��� �� ������ ����� ������� (roll) */
+  flex: 1; 
+  cursor: pointer; 
 }
 
-/* ������ �������: ���� ����� */
+
 .skill-value {
-  width: 60px; /* ��������� ������ ��� ����� */
+  width: 60px;
 }
 
 input[readonly],
 textarea[readonly],
 input[disabled],
 textarea[disabled] {
-  pointer-events: none; /* ��������� ����� ����� */
-  user-select: none; /* ��������� ��������� ������ */
-  cursor: default; /* ������� ���������� ������ ��� ��������� */
-  background-color: #f0f0f0; /* ����� ���� ���������� ���, ���� ������ */
-  color: #666; /* � ������ ��������� �����, ����� ���� �����, ��� ���� ���������� */
+  pointer-events: none; /*                       */
+  user-select: none; /*                            */
+  cursor: default; /*                                         */
+  background-color: #f0f0f0; /*                          ,             */
+  color: #666; /*                         ,                 ,                     */
 }
 
-/* ����� ������ ��� ���������� ��������� � ��������� ������ � ����� ��������� */
+/*                                                                            */
 
-/* ������ ��� ������� Features */
+/*                    Features */
 .features-tab {
   padding: 10px;
 }
 
-/* ����������� ������� ������������� �������� �� 30% � ���������� � */
+/*                                               30%                */
 .attributes-table {
-  margin: 0 auto; /* �������������� ������������� */
+  margin: 0 auto; /*                              */
 }
 
-/* ������ ������ (th � td) ����� ������� ������ � ������ */
+/*               (th   td)                               */
 .attributes-table th,
 .attributes-table td {
-  width: 90px; /* �������� ~80px * 1.3 = 104px */
-  height: 45px; /* ���� ~30px, ����������� �� 48px */
+  width: 90px; /*          ~80px * 1.3 = 104px */
+  height: 45px; /*      ~30px,                48px */
   border: 2px solid #1b1210;
   text-align: center;
   padding: 5px;
 }
 
-/* ��������� h3 ������ �� ������ � ����� ������� */
+/*           h3                                  */
 .sheet-box h3 {
   text-align: center;
-  font-weight: 700; /* h3 ������ � ��� bold, �� �� ������ ������ ������ ���� */
+  font-weight: 700; /* h3              bold,                                 */
 }
 
 .center-attributes{
@@ -93,13 +87,13 @@ textarea[disabled] {
   gap: 10px;                 /* Чуть воздуха между таблицами */
 }
 
-/* ������������ ������ ������, ����� ���������� ������� � �������� ���� ����������� ������� */
+/*                           ,                                                              */
 .limited-height {
-  height: 250px; /* �� ���� ���������� - 200-300px */
-  overflow-y: auto; /* ���� ������ ������ ��������, �������� ������ */
+  height: 250px; /*                    - 200-300px */
+  overflow-y: auto; /*                            ,                 */
 }
 
-/* ����� ����� ��� ������ � �������� ����� */
+/*                                         */
 .custom-flexrow {
   display: flex;
   margin-bottom: 10px;
@@ -107,17 +101,17 @@ textarea[disabled] {
 
 .top-row {
   display: flex;
-  /* ����� �������� ���������� � ����� ������ ���� ��� �������� ����� */
+  /*                                                                  */
   flex-wrap: nowrap;
-  /* �������������� ������ ����� ��������� � �������� (��� �������������) */
+  /*                                                  (                 ) */
   gap: 6px;
-  /* �� ��������� ����������� �� ������ */
+  /*                                    */
   align-items: center;
-  /* �� ����������� ������ flex-start (�����), �� ����� � center, ���� ����� */
+  /*                       flex-start (     ),            center,            */
   justify-content: center;
 }
 
-/* �����-�������. ������� float � ��������� �� flex: 0 0 XX% */
+/*      -       .         float                flex: 0 0 XX% */
 .col-50,
 .col-50-last,
 .col-33,
@@ -125,10 +119,10 @@ textarea[disabled] {
 .col-25,
 .col-25-last {
   box-sizing: border-box;
-  /* �� ��������� ����� ����� auto, ����� ������������� */
+  /*                          auto,                     */
 }
 
-/* ��������� �������� ��� ������� ��������� */
+/*                                          */
 .myrpg .abilities-table th.col-name {
   width: 30%;
 }
@@ -145,8 +139,8 @@ textarea[disabled] {
   width: 5%;
 }
 
-/* ������� ��� ���� ������:
-   ��� 50% ������ */
+/*                        :
+       50%        */
 .col-50 {
   flex: 0 0 calc(50% - 10px);
   padding-right: 10px;
@@ -157,7 +151,7 @@ textarea[disabled] {
   padding-right: 0;
 }
 
-/* ��� 33.33% */
+/*     33.33% */
 .col-33 {
   flex: 0 0 33.33%;
   padding-right: 10px;
@@ -168,7 +162,7 @@ textarea[disabled] {
   padding-right: 0;
 }
 
-/* ��� 25% */
+/*     25% */
 .col-25 {
   padding-right: 10px;
   flex: 0 0 calc(25% - 5px);
@@ -179,25 +173,25 @@ textarea[disabled] {
   padding-right: 0;
 }
 
-/* sheet-box - ����� */
+/* sheet-box -       */
 .sheet-box {
-  border: 2px solid #1b1210; /* ��� �������� ���� ������� */
+  border: 2px solid #1b1210; /*                           */
   padding: 10px;
-  margin-bottom: 10px; /* ����� ����� ������� ��� ������ */
+  margin-bottom: 10px; /*                                */
 }
 
-/* ������������� ��� � ����� ��� ����� ����� */
+/*                                           */
 .myrpg.sheet.actor {
-  background-color: #d2d2c9; /* ��� ���� ������� */
-  color: #1b1210; /* �������� ���� ������ */
+  background-color: #d2d2c9; /*                  */
+  color: #1b1210; /*                      */
 }
 
 form textarea,
 form input[type='text'],
 form input[type='number'] {
-  border: 2px solid #1b1210; /* ���� ����� */
-  background-color: #f8f8f8; /* ����� �������� ������� ��� ������ ����� */
-  color: #1b1210; /* ���� ������ ������ ����� */
+  border: 2px solid #1b1210; /*            */
+  background-color: #f8f8f8; /*                                         */
+  color: #1b1210; /*                          */
   font-family: inherit;
   font-size: inherit;
   padding: 5px;
@@ -217,7 +211,7 @@ form input[type='number'] {
   margin-bottom: 5px;
 }
 
-/* ������� resizable � textarea */
+/*         resizable   textarea */
 form textarea {
   resize: none;
   overflow: hidden;
@@ -225,7 +219,7 @@ form textarea {
   max-height: 500px;
 }
 
-/* ��������� �������� */
+/*                    */
 .portrait {
   width: auto;
   margin-right: 10px;
@@ -256,7 +250,7 @@ form textarea {
   max-width: 300px;
 }
 
-/* ������� ������������ */
+/*                      */
 .myrpg .abilities-table {
   width: 100%;
   border-collapse: collapse !important;
@@ -266,28 +260,28 @@ form textarea {
 
 .myrpg .abilities-table th,
 .myrpg .abilities-table td {
-  border: 2px solid #1b1210 !important; /* ���� ������ ������� */
+  border: 2px solid #1b1210 !important; /*                     */
   padding: 5px;
   text-align: center;
-  color: #1b1210; /* ���� ������ */
+  color: #1b1210; /*             */
 }
 
-/* ��������� ������� */
+/*                   */
 .myrpg .abilities-table thead th {
-  background-color: #673e37 !important; /* ���� ����� */
-  color: #d2d2c9 !important; /* ����� �� ����� (��� ���������) */
+  background-color: #673e37 !important; /*            */
+  color: #d2d2c9 !important; /*                (             ) */
   text-shadow: none !important;
 }
 
-/* �����-������ (������ ������) */
+/*      -       (             ) */
 .myrpg .abilities-table tr:nth-child(even) {
   background-color: #a79086 !important;
 }
 
-/* �����-������ (��������� ������) */
+/*      -       (                ) */
 .myrpg .abilities-table tr:hover td {
-  background-color: #673e37 !important; /* �������� ������ */
-  color: #d2d2c9 !important; /* ����� ��� hover */
+  background-color: #673e37 !important; /*                 */
+  color: #d2d2c9 !important; /*           hover */
   transition: background-color 0.2s;
 }
 
@@ -316,10 +310,10 @@ form textarea {
   width: 5% !important;
 }
 
-/* CSS ����� ��� ������� ��������� � ������������� ������� ������� */
+/* CSS                                                             */
 .tab.inventory table.abilities-table {
   width: 100%;
-  table-layout: fixed; /* ������������� ��������� ��� ������������ ������������� */
+  table-layout: fixed; /*                                                        */
 }
 
 .tab.inventory table.abilities-table th.col-name {
@@ -338,7 +332,7 @@ form textarea {
   width: 5%;
 }
 
-/* ����� ������������� �� ��� ��������� ������� ���� */
+/*                                                   */
 .myrpg.sheet.actor form {
   position: relative;
   width: 100%;
@@ -347,7 +341,7 @@ form textarea {
   box-sizing: border-box;
 }
 
-/* ��������� ��������� �������� */
+/*                              */
 .sheet-scrollable {
   position: absolute;
   top: 0;
@@ -358,7 +352,7 @@ form textarea {
   box-sizing: border-box;
 }
 
-/* ���� � ��������� (������������� ������) */
+/*                  (                    ) */
 .sheet-tabs-hex {
   position: absolute;
   right: -240px;
@@ -370,11 +364,11 @@ form textarea {
   gap: 20px;
 }
 
-/* ���� ������ ��������� */
+/*                       */
 .hex-button {
-  background: #d2d2c9; /* ������� ���� ������ */
-  color: #1b1210; /* ���� ������ */
-  border: 2px solid #1b1210; /* ���� ������� */
+  background: #d2d2c9; /*                     */
+  color: #1b1210; /*             */
+  border: 2px solid #1b1210; /*              */
   font-weight: bold;
   cursor: pointer;
   border-radius: 6px;
@@ -388,17 +382,17 @@ form textarea {
 }
 
 .hex-button.active {
-  background: #673e37; /* ���� �������� ������ */
-  color: #d2d2c9; /* ����� �� �������� ������ */
+  background: #673e37; /*                      */
+  color: #d2d2c9; /*                          */
 }
 
-/* ��� ���� � ��� ����������� overflow: visible */
+/*                            overflow: visible */
 .window-app.myrpg-hex-tabs,
 .window-app.myrpg-hex-tabs .window-content {
   overflow: visible !important;
 }
 
-/* Grid Layout (��������� ������ ����������� �����, ���� �����) */
+/* Grid Layout (                                  ,           ) */
 .grid,
 .grid-2col {
   display: grid;
@@ -547,14 +541,14 @@ form textarea {
   grid-column-end: span 12;
 }
 
-/* �������� ��������� .flexrow, ����� �������� �� ������������� �� ������ */
+/*                    .flexrow,                                           */
 .flexrow {
   display: flex;
-  align-items: flex-start; /* ����� ����� ����� ������������� */
-  /* justify-content: flex-start; ��� space-between; - �� ��� ���� */
+  align-items: flex-start; /*                                 */
+  /* justify-content: flex-start;     space-between; -             */
 }
 
-/* ������� "clearfix" �������������, �.�. float ������ �� ���������� */
+/*         "clearfix"              ,  . . float                      */
 /*
 .flexrow::after {
     content: "";
@@ -563,43 +557,43 @@ form textarea {
 }
 */
 
-/* ������ ��������� (Chrome, Edge, Safari) */
+/*                  (Chrome, Edge, Safari) */
 .myrpg.sheet.actor::-webkit-scrollbar {
   width: 12px;
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-track {
-  background: #d2d2c9; /* ��� �� ���, ��� � � ����� */
+  background: #d2d2c9; /*           ,               */
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-thumb {
-  background-color: #6d031c; /* ���� ������ ��������� */
-  border: 2px solid #d2d2c9; /* �������, ����� ���� ����� ������ */
+  background-color: #6d031c; /*                       */
+  border: 2px solid #d2d2c9; /*        ,                         */
   border-radius: 6px;
 }
 
-/* --- 1. ��������� � ������ ����� ��� h2/h3 �� �������� ��������� � ����������� --- */
+/* --- 1.                              h2/h3                                     --- */
 .tab.biography h2,
 .tab.biography h3,
 .tab.abilities h2,
 .tab.abilities h3 {
-  text-align: center; /* ���������� ��������� */
-  font-weight: 700; /* ������ ����� ������ */
+  text-align: center; /*                      */
+  font-weight: 700; /*                     */
 }
 
-/* --- 2. ��������� ���������� ���������� (label) � �������� ���������� � ������� --- */
-/* ��������������, ��� � ��� ���� .sheet-box .form-group label, .resource-label � �.�. */
+/* --- 2.                                 (label)                                 --- */
+/*               ,                .sheet-box .form-group label, .resource-label    . . */
 .sheet-box .form-group label,
 .sheet-box .resource-label,
 .sheet-box .armor-description label,
 .sheet-box .armor-values label {
-  text-align: center; /* ���������� ����� */
-  /* font-weight: 600;  // ���� ������ ������� �� �����������, ���������������� */
+  text-align: center; /*                  */
+  /* font-weight: 600;  //                                   ,                  */
 }
 
 /*******************************************************
-  1) ��������� ������ �������� (��, �����, ���������,
-     ��������, ������������) �� �������� �����
+  1)                           (  ,      ,          ,
+             ,             )                  
  *******************************************************/
 .resource,
 .resource .resource-label,
@@ -608,16 +602,16 @@ form textarea {
   text-align: center;
 }
 
-/* ����� ����� � input ���� ���� �� ������ */
+/*               input                     */
 .resource input {
   text-align: center;
 }
 
 /*******************************************************
-  2) ��������� ������� �� ����� ������������
-     (�� ���� .resource, ��� ��� ������ ����� (1) ��� ����������)
+  2)                                        
+     (        .resource,                      (1)               )
  *******************************************************/
-/* �� ������ ������ ���������, ���� Foundry ����������: */
+/*                           ,      Foundry           : */
 .flux-section .resource,
 .flux-section .resource-label,
 .flux-section .resource-content {
@@ -625,8 +619,8 @@ form textarea {
 }
 
 /*******************************************************
-  3) ��������� ��������� �������� (label) � ����������
-     � ����������, � ����� ������ ������ � input/textarea
+  3)                              (label)             
+                 ,                         input/textarea
  *******************************************************/
 .tab.biography .form-group label {
   text-align: center;
@@ -639,7 +633,7 @@ form textarea {
 }
 
 /*******************************************************
-  4) ��������� ������ � ���� ��������� �������
+  4)                                          
  *******************************************************/
 .armor-description,
 .armor-description label,
@@ -648,19 +642,19 @@ form textarea {
 }
 
 /*******************************************************
-  5) (������) ������� ��������� (h2/h3) � ���������
-     � ������������ �� ������ � ������
+  5) (      )                   (h2/h3)            
+                                      
  *******************************************************/
 .tab.biography h2,
 .tab.biography h3,
 .tab.abilities h2,
 .tab.abilities h3 {
   text-align: center;
-  font-weight: 700; /* ������ ����� */
+  font-weight: 700; /*              */
 }
 
 .limited-height {
-  height: 300px; /* ������ 250px */
+  height: 300px; /*        250px */
 }
 
 .armor-description textarea {
@@ -668,49 +662,49 @@ form textarea {
   resize: vertical;
 }
 
-/* ������ ������ ����� ��������� ����� ������� */
+/*                                             */
 .myrpg.sheet.actor form input[type='text'],
 .myrpg.sheet.actor form input[type='number'],
 .myrpg.sheet.actor form textarea {
   text-align: center;
 }
 
-/* ������ ��������� ������� (header) ��������� ������������ */
+/*                          (header)                        */
 .window-app.myrpg .window-header {
-  background-color: #6d031c !important; /* �������� �� ����� ���� */
+  background-color: #6d031c !important; /*                        */
   opacity: 1 !important;
 }
 
-/* ��� ������� ������ ���� ������ � ��������� */
+/*                                            */
 .window-app.myrpg .window-header .window-title {
-  color: #ffffff !important; /* �������� �� ����� ���� */
+  color: #ffffff !important; /*                        */
 }
 
-/* 1) ����� ��� ������� (���� ����� ������ ������������ ���� ������ ����) */
+/* 1)                   (                                               ) */
 .window-app.myrpg.dialog {
-  background: #d2d2c9 !important; /* ��� ���, ����� �������� ��� ���� */
+  background: #d2d2c9 !important; /*        ,                         */
   opacity: 1 !important;
   filter: none !important;
 }
 
-/* 2) ������� ������ (�����) ������� */
+/* 2)                (     )         */
 .window-app.myrpg.dialog .window-header {
-  background-color: #6d031c !important; /* ��� �������� ���� */
-  background-image: none !important; /* ������� ��������� Foundry */
-  opacity: 1 !important; /* ������� ������������ */
+  background-color: #6d031c !important; /*                   */
+  background-image: none !important; /*                   Foundry */
+  opacity: 1 !important; /*                      */
   filter: none !important;
 }
 
-/* 3) ��������� (�����) � ������ "Close" */
+/* 3)           (     )          "Close" */
 .window-app.myrpg.dialog .window-header .window-title,
 .window-app.myrpg.dialog .window-header .close {
-  color: #ffffff !important; /* ���� ������ */
-  text-shadow: none !important; /* ������� ����, ���� ��� ���� */
+  color: #ffffff !important; /*             */
+  text-shadow: none !important; /*             ,               */
   opacity: 1 !important;
 }
-/* --- ������ ����� ��� ����������� ������ TinyMCE (Foundry V10+), ��� ������������ ������ .tox-... --- */
+/* ---                                     TinyMCE (Foundry V10+),                         .tox-... --- */
 
-/* ������� ��������� ��������� */
+/*                             */
 .myrpg .tox-tinymce {
   border: 2px solid #1b1210 !important;
   background-color: #f8f8f8 !important;
@@ -718,30 +712,30 @@ form textarea {
   box-sizing: border-box;
   margin: 0 !important;
   padding: 0 !important;
-  width: 100% !important; /* �����������, ��� �������� �������� ��� ������ */
+  width: 100% !important; /*            ,                                  */
 }
 
-/* ���������� �����, ��� ��������� ���� ���� ����� */
+/*                 ,                               */
 .myrpg .tox-tinymce .tox-editor-container {
   background-color: #f8f8f8 !important;
   border: none !important;
-  min-height: 40px !important; /* ��������� ������� ������ �� 40px */
+  min-height: 40px !important; /*                             40px */
   box-sizing: border-box;
 }
 
-/* ��� iframe, ���� ����� ������ ��� ���� ���� */
+/*     iframe,                                 */
 .myrpg .tox-tinymce .tox-edit-area__iframe {
   background-color: #f8f8f8 !important;
 }
 
-/* ��������� �����, ������ � ���� �� .myrpg (��� � ������� <input> � <textarea>) */
+/*                ,                  .myrpg (              <input>   <textarea>) */
 .myrpg .tox-tinymce * {
   font-family: inherit !important;
   font-size: inherit !important;
   color: #1b1210 !important;
 }
 
-/* --- ����� ����� --- */
+/* ---             --- */
 
 .window-app.dialog .tox-tinymce {
   border: 2px solid #1b1210 !important;
@@ -771,7 +765,7 @@ form textarea {
   box-sizing: border-box;
 }
 
-/* ������� ������ �� ����� ������ ����� � ������� ������� */
+/*                                                        */
 .defenses-table {
   width: 100%;
   border-collapse: collapse;
@@ -784,7 +778,7 @@ form textarea {
   padding: 0.25rem;
   text-align: center;
 }
-/* ���� � ��� ���� ���������� ��� ����� ����������, ����� �������� */
+/*                                                ,                */
 .sheet-box.defenses-block .sheet-box-header {
   margin-bottom: 0.25rem;
 }
