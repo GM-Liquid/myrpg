@@ -593,11 +593,6 @@ form textarea {
   border-radius: 6px;
 }
 
-.top-row > .portrait-col,
-.top-row > .attributes-col {
-  flex: 0 0 auto !important;
-}
-
 /* --- 1. ��������� � ������ ����� ��� h2/h3 �� �������� ��������� � ����������� --- */
 .tab.biography h2,
 .tab.biography h3,
