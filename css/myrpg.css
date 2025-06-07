@@ -817,8 +817,17 @@ form textarea {
 }
 
 /* --- Top-row columns 1/3 | 2/3 --- */
-.top-row .portrait-col {
-    flex: 0 0 33% !important;
+/* --- Центрируем портрет внутри своей колонки --- */
+.top-row .portrait-col{
+  flex: 0 0 33% !important;
+  /* делаем колонку flex-контейнером */
+  display: flex;
+  justify-content: center;  /* по горизонтали */
+  align-items:    center;   /* по вертикали (на случай высоких портретов) */
+}
+
+.top-row .portrait-col .profile-img{
+  margin: 0; /* на всякий случай убираем возможные отступы */
 }
 
 .top-row .attributes-col {
