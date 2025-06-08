@@ -4,7 +4,7 @@
       "Attribute": "Attribute",
       "Skill": "Skill",
       "Min": "{{label}} cannot be less than {{min}}",
-      "Max": "{{label}} cannot be greater than {{max}}"
+      "RankLimit": "At rank {{rank}} your attributes and skills cannot exceed {{limit}}"
     },
     "Flux": {
       "Label": "Flux"

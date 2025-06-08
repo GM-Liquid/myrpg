@@ -60,13 +60,10 @@ export class myrpgActorSheet extends ActorSheet {
       );
       val = minVal;
     } else if (val > maxVal) {
-      // ���������� ��� ������������� �������� � ���� "MY_RPG.NumericWarning.Max"
-      // ��������: ru.json: "{{label}} �� ����� ���� ������ {{max}}"
-      //              en.json: "{{label}} cannot be greater than {{max}}"
       ui.notifications.warn(
-        game.i18n.format('MY_RPG.NumericWarning.Max', {
-          label: label,
-          max: maxVal
+        game.i18n.format('MY_RPG.NumericWarning.RankLimit', {
+          rank: actorRank,
+          limit: maxVal
         })
       );
       val = maxVal;
