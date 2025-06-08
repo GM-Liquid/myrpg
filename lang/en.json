@@ -94,6 +94,7 @@
       "SuppliesLabel": "Supplies",
       "MoneyLabel": "Money"
     },
+    "Initiative": "Initiative",
     "Speed": {
       "Label": "Movement Speed"
     },

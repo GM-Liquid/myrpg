@@ -21,16 +21,12 @@ Hooks.once('init', function () {
   // Add custom constants for configuration.
   CONFIG.MY_RPG = MY_RPG;
 
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
-
   // Define custom Document classes
   CONFIG.Actor.documentClass = myrpgActor;
 
   CONFIG.Combat.initiative = {
-    formula: '1d20 + @abilities.dex.mod',
+    // 2dX, где X — @abilities.dex.die, плюс полное значение ловкости
+    formula: '2d@abilities.dex.die + @abilities.dex.value',
     decimals: 2
   };
 

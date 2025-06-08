@@ -18,6 +18,14 @@ export class myrpgActor extends Actor {
   _prepareCharacterData() {
     const s = this.system; // короче запись
 
+    for (const a of Object.values(s.abilities)) {
+      a.value = Math.min(a.value, rankLimit);
+      a.mod = a.value;
+
+      // ⬇️ Добавляем размер куба для каждой способности
+      a.die = getRankAndDie(a.value).die;
+    }
+
     /* 1. Модификаторы способностей и навыков ---------------------- */
     for (const a of Object.values(s.abilities)) a.mod = a.value;
 
