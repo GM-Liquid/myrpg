@@ -87,12 +87,6 @@ textarea[disabled] {
   gap: 10px;                 /* Чуть воздуха между таблицами */
 }
 
-/*                           ,                                                              */
-.limited-height {
-  height: 250px; /*                    - 200-300px */
-  overflow-y: auto; /*                            ,                 */
-}
-
 /*                                         */
 .custom-flexrow {
   display: flex;
@@ -537,29 +531,17 @@ form textarea {
   grid-column-end: span 12;
 }
 
-/*                    .flexrow,                                           */
 .flexrow {
-  display: flex;
   align-items: flex-start; /*                                 */
   /* justify-content: flex-start;     space-between; -             */
 }
 
-/*         "clearfix"              ,  . . float                      */
-/*
-.flexrow::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-*/
-
-/*                  (Chrome, Edge, Safari) */
 .myrpg.sheet.actor::-webkit-scrollbar {
   width: 12px;
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-track {
-  background: #d2d2c9; /*           ,               */
+  background: #d2d2c9; 
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-thumb {
@@ -650,11 +632,12 @@ form textarea {
 }
 
 .limited-height {
-  height: 300px; /*        250px */
+  height: 280px; 
+  overflow-y: auto;
 }
 
 .armor-description textarea {
-  height: 200px;
+  height: 130px;
   resize: vertical;
 }
 

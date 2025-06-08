@@ -40,7 +40,7 @@ export class myrpgActorSheet extends ActorSheet {
     // "MY_RPG.NumericWarning.Skill": "�����" (ru) / "Skill" (en)
     const labelKey = isAbility ? 'MY_RPG.NumericWarning.Attribute' : 'MY_RPG.NumericWarning.Skill';
     const label = game.i18n.localize(labelKey);
-    const minVal = isAbility ? 1 : 0;
+    const minVal = 0;
     const actorRank = Number(this.actor.system.currentRank || 1);
     const maxVal = actorRank * 4; // 8, 12, 16, 20 и т.д.
 
