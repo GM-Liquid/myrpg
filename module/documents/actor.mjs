@@ -21,10 +21,17 @@ export class myrpgActor extends Actor {
     /* 1. Модификаторы способностей и навыков ---------------------- */
     for (const a of Object.values(s.abilities)) a.mod = a.value;
 
+    /* 1. Модификаторы способностей и навыков + лимиты ---------------- */
+    const rankLimit = (Number(s.currentRank) || 1) * 4; // напр. 2-й ранг → 8
+
+    for (const a of Object.values(s.abilities)) {
+      a.value = Math.min(a.value, rankLimit);
+      a.mod = a.value;
+    }
+
     for (const sk of Object.values(s.skills)) {
-      sk.mod = sk.value; // если понадобится «c» – замените
-      const abilVal = s.abilities[sk.ability]?.value ?? 0;
-      if (sk.value > abilVal) sk.value = abilVal;
+      sk.value = Math.min(sk.value, rankLimit);
+      sk.mod = sk.value;
     }
 
     /* 2. Производные характеристики ------------------------------ */
