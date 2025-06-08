@@ -6,54 +6,35 @@
 import { getRankAndDie } from '../helpers/utils.mjs';
 
 export class myrpgActor extends Actor {
-  /* ------------------------ Foundry Hooks ------------------------ */
   prepareDerivedData() {
-    // базовая подготовка
     super.prepareDerivedData();
-
     if (this.type === 'character') this._prepareCharacterData();
   }
 
-  /* ------------------------ CHARACTER ---------------------------- */
   _prepareCharacterData() {
-    const s = this.system; // короче запись
+    const s = this.system;
 
+    /* 0. Лимит значений по рангу ----------------------------------- */
+    const rankLimit = (Number(s.currentRank) || 1) * 4; // 4-8-12-16-20…
+
+    /* 1. Способности ---------------------------------------------- */
     for (const a of Object.values(s.abilities)) {
-      a.value = Math.min(a.value, rankLimit);
-      a.mod = a.value;
-
-      // ⬇️ Добавляем размер куба для каждой способности
-      a.die = getRankAndDie(a.value).die;
+      a.value = Math.min(a.value, rankLimit); // обрезаем
+      a.mod = a.value; // «бонус» = само значение
+      a.die = getRankAndDie(a.value).die; // размер куба 6/8/10/12/14
     }
 
-    for (const a of Object.values(s.abilities)) {
-      // лимит и мод уже выставлены чуть выше
-      const { die } = getRankAndDie(a.value);
-      a.die = die; // ← НОВАЯ строка: сохраняем размер куба
-    }
-
-    /* 1. Модификаторы способностей и навыков ---------------------- */
-    for (const a of Object.values(s.abilities)) a.mod = a.value;
-
-    /* 1. Модификаторы способностей и навыков + лимиты ---------------- */
-    const rankLimit = (Number(s.currentRank) || 1) * 4; // напр. 2-й ранг → 8
-
-    for (const a of Object.values(s.abilities)) {
-      a.value = Math.min(a.value, rankLimit);
-      a.mod = a.value;
-    }
-
+    /* 2. Навыки ---------------------------------------------------- */
     for (const sk of Object.values(s.skills)) {
       sk.value = Math.min(sk.value, rankLimit);
       sk.mod = sk.value;
     }
 
-    /* 2. Производные характеристики ------------------------------ */
+    /* 3. Производные параметры ------------------------------------ */
     s.speed.value = this._calcSpeed(s);
     s.health.max = this._calcHealthMax(s);
     s.health.value = Math.min(s.health.value ?? s.health.max, s.health.max);
     s.flux.value = this._calcFlux(s);
-
     s.defenses = {
       physical: this._calcDefPhys(s),
       azure: this._calcDefAzure(s),
