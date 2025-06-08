@@ -48,8 +48,8 @@
     },
     "Defenses": {
       "PhysicalLabel": "Physical Protection",
-      "MagicalLabel": "Magical Protection",
-      "PsychicLabel": "Psychic Protection"
+      "MagicalLabel": "Arcane Protection",
+      "PsychicLabel": "Mental Protection"
     },
     "SheetLabels": {
       "AbilitiesAndMods": "Abilities and Mods",
@@ -82,8 +82,8 @@
     },
     "ArmorItem": {
       "BonusPhysicalLabel": "Bonus to Physical Protection",
-      "BonusMagicalLabel": "Bonus to Magical Protection",
-      "BonusPsychicLabel": "Bonus to Psychic Protection",
+      "BonusMagicalLabel": "Bonus to Arcane Protection",
+      "BonusPsychicLabel": "Bonus to Mental Protection",
       "ArmorSectionTitle": "Armor",
       "DescriptionLabel": "Description",
       "ShieldLabel": "Power Shield",
@@ -101,18 +101,18 @@
       "Label": "Temporary Bonuses"
     },
     "TempHealth": {
-      "Label": "Temp HP"
+      "Label": "Temp. HP"
     },
     "TempFlux": {
-      "Label": "Temp Flux"
+      "Label": "Temp. Flux"
     },
     "Temp": {
-      "BonusPhysicalLabel": "Temp Physical Protection",
-      "BonusMagicalLabel": "Temp Magical Protection",
-      "BonusPsychicLabel": "Temp Psychic Protection"
+      "BonusPhysicalLabel": "Temp. Phys. Protection",
+      "BonusMagicalLabel": "Temp. Arc. Protection",
+      "BonusPsychicLabel": "Temp. Ment. Protection"
     },
     "TempSpeed": {
-      "Label": "Temp Speed"
+      "Label": "Temp. Speed"
     },
     "abilityAbbreviations": {
       "spi": "Spi",

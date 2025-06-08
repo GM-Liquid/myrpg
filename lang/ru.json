@@ -43,9 +43,9 @@
       "MoneyLabel": "Деньги"
     },
     "Temp": {
-      "BonusPhysicalLabel": "Временная физ. защита",
-      "BonusMagicalLabel": "Временная маг. защита",
-      "BonusPsychicLabel": "Временная псих. защита"
+      "BonusPhysicalLabel": "Врем. физ. защита",
+      "BonusMagicalLabel": "Врем. маг. защита",
+      "BonusPsychicLabel": "Врем. псих. защита"
     },
     "KeyInfo": {
       "Calling": "Призвание",
@@ -106,19 +106,13 @@
       "Label": "Временные бонусы"
     },
     "TempHealth": {
-      "Label": "Временное ОЗ"
+      "Label": "Врем. ОЗ"
     },
     "TempFlux": {
-      "Label": "Временный поток"
-    },
-    "TempArmor": {
-      "Label": "Временный бонус КД"
-    },
-    "TempSteadfast": {
-      "Label": "Временная стойкость"
+      "Label": "Врем. поток"
     },
     "TempSpeed": {
-      "Label": "Временная скорость"
+      "Label": "Врем. скорость"
     },
     "abilityAbbreviations": {
       "spi": "Дух",
