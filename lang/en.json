@@ -48,8 +48,8 @@
     },
     "Defenses": {
       "PhysicalLabel": "Physical Defense",
-      "AzureLabel": "Azure Defense",
-      "MentalLabel": "Mental Defense"
+      "MagicalLabel": "Magical Defense",
+      "PsychicLabel": "Psychic Defense"
     },
     "SheetLabels": {
       "AbilitiesAndMods": "Abilities and Mods",
@@ -86,8 +86,8 @@
     },
     "ArmorItem": {
       "BonusPhysicalLabel": "Bonus to Physical Defense",
-      "BonusAzureLabel": "Bonus to Azure Defense",
-      "BonusMentalLabel": "Bonus to Mental Defense",
+      "BonusMagicalLabel": "Bonus to Magical Defense",
+      "BonusPsychicLabel": "Bonus to Psychic Defense",
       "ArmorSectionTitle": "Armor",
       "DescriptionLabel": "Description",
       "ACLabel": "AC Bonus",
@@ -121,13 +121,10 @@
       "Label": "Temp Flux"
     },
     "Temp": {
-      "BonusPhysicalLabel": "Временная физ. защита",
-      "BonusAzureLabel": "Временная азур-защита",
-      "BonusMentalLabel": "Временная ментальная защита"
+      "BonusPhysicalLabel": "Temp Physical Defense",
+      "BonusMagicalLabel": "Temp Magical Defense",
+      "BonusPsychicLabel": "Temp Psychic Defense"
     },
-    "TempPhys": { "Label": "Temp Physical Defense" },
-    "TempAzure": { "Label": "Temp Azure Defense" },
-    "TempMental": { "Label": "Temp Mental Defense" },
     "TempSpeed": {
       "Label": "Temp Speed"
     },

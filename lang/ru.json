@@ -17,8 +17,8 @@
     },
     "Defenses": {
       "PhysicalLabel": "Физическая защита",
-      "AzureLabel": "Азур-защита",
-      "MentalLabel": "Ментальная защита"
+      "MagicalLabel": "Магическая защита",
+      "PsychicLabel": "Психическая защита"
     },
     "RankGradient": {
       "Title": "Градация рангов",
@@ -32,8 +32,8 @@
       "ArmorSectionTitle": "Доспех",
       "DescriptionLabel": "Описание",
       "BonusPhysicalLabel": "Бонус к физической защите",
-      "BonusAzureLabel": "Бонус к азур-защите",
-      "BonusMentalLabel": "Бонус к ментальной защите",
+      "BonusMagicalLabel": "Бонус к магической защите",
+      "BonusPsychicLabel": "Бонус к психической защите",
       "ShieldLabel": "Силовой щит"
     },
     "Resources": {
@@ -43,8 +43,8 @@
     },
     "Temp": {
       "BonusPhysicalLabel": "Временная физ. защита",
-      "BonusAzureLabel": "Временная азур-защита",
-      "BonusMentalLabel": "Временная ментальная защита"
+      "BonusMagicalLabel": "Временная магическая защита",
+      "BonusPsychicLabel": "Временная психическая защита"
     },
     "KeyInfo": {
       "Calling": "Призвание",
