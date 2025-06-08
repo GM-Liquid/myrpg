@@ -3,7 +3,7 @@
     "NumericWarning": {
       "Attribute": "Attribute",
       "Skill": "Skill",
-      "Min": "{label} cannot be less than {{min}}",
+      "Min": "{label} cannot be less than {min}",
       "RankLimit": "At rank {rank} your attributes and skills cannot exceed {limit}"
     },
     "Flux": {
