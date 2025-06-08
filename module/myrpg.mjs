@@ -24,8 +24,9 @@ Hooks.once('init', function () {
   // Define custom Document classes
   CONFIG.Actor.documentClass = myrpgActor;
 
+  // myrpg.mjs  – хук init
   CONFIG.Combat.initiative = {
-    // 2dX, где X — @abilities.dex.die, плюс полное значение ловкости
+    // Initiative rolls exactly like Reflex (RU: «инициатива бросается как рефлексы»)
     formula: '2d@abilities.dex.die + @abilities.dex.value',
     decimals: 2
   };

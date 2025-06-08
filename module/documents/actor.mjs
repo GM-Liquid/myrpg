@@ -26,6 +26,12 @@ export class myrpgActor extends Actor {
       a.die = getRankAndDie(a.value).die;
     }
 
+    for (const a of Object.values(s.abilities)) {
+      // лимит и мод уже выставлены чуть выше
+      const { die } = getRankAndDie(a.value);
+      a.die = die; // ← НОВАЯ строка: сохраняем размер куба
+    }
+
     /* 1. Модификаторы способностей и навыков ---------------------- */
     for (const a of Object.values(s.abilities)) a.mod = a.value;
 
