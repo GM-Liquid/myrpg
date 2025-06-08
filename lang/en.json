@@ -3,8 +3,8 @@
     "NumericWarning": {
       "Attribute": "Attribute",
       "Skill": "Skill",
-      "Min": "{{label}} cannot be less than {{min}}",
-      "RankLimit": "At rank {{rank}} your attributes and skills cannot exceed {{limit}}"
+      "Min": "{label} cannot be less than {{min}}",
+      "RankLimit": "At rank {rank} your attributes and skills cannot exceed {limit}"
     },
     "Flux": {
       "Label": "Flux"
@@ -47,9 +47,9 @@
       "AlreadyEditing": "An edit dialog is already open. Please close it before opening another."
     },
     "Defenses": {
-      "PhysicalLabel": "Physical Defense",
-      "MagicalLabel": "Magical Defense",
-      "PsychicLabel": "Psychic Defense"
+      "PhysicalLabel": "Physical Protection",
+      "MagicalLabel": "Magical Protection",
+      "PsychicLabel": "Psychic Protection"
     },
     "SheetLabels": {
       "AbilitiesAndMods": "Abilities and Mods",
@@ -85,9 +85,9 @@
       "BonusLabel": "Armor Bonus"
     },
     "ArmorItem": {
-      "BonusPhysicalLabel": "Bonus to Physical Defense",
-      "BonusMagicalLabel": "Bonus to Magical Defense",
-      "BonusPsychicLabel": "Bonus to Psychic Defense",
+      "BonusPhysicalLabel": "Bonus to Physical Protection",
+      "BonusMagicalLabel": "Bonus to Magical Protection",
+      "BonusPsychicLabel": "Bonus to Psychic Protection",
       "ArmorSectionTitle": "Armor",
       "DescriptionLabel": "Description",
       "ACLabel": "AC Bonus",
@@ -121,9 +121,9 @@
       "Label": "Temp Flux"
     },
     "Temp": {
-      "BonusPhysicalLabel": "Temp Physical Defense",
-      "BonusMagicalLabel": "Temp Magical Defense",
-      "BonusPsychicLabel": "Temp Psychic Defense"
+      "BonusPhysicalLabel": "Temp Physical Protection",
+      "BonusMagicalLabel": "Temp Magical Protection",
+      "BonusPsychicLabel": "Temp Psychic Protection"
     },
     "TempSpeed": {
       "Label": "Temp Speed"
