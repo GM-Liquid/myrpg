@@ -34,7 +34,8 @@
       "BonusPhysicalLabel": "Бонус к физической защите",
       "BonusMagicalLabel": "Бонус к магической защите",
       "BonusPsychicLabel": "Бонус к психической защите",
-      "ShieldLabel": "Силовой щит"
+      "ShieldLabel": "Силовой щит",
+      "BonusSpeedLabel": "Бонус к скорости"
     },
     "Resources": {
       "Title": "Ресурсы",
@@ -43,8 +44,8 @@
     },
     "Temp": {
       "BonusPhysicalLabel": "Временная физ. защита",
-      "BonusMagicalLabel": "Временная магическая защита",
-      "BonusPsychicLabel": "Временная психическая защита"
+      "BonusMagicalLabel": "Временная маг. защита",
+      "BonusPsychicLabel": "Временная псих. защита"
     },
     "KeyInfo": {
       "Calling": "Призвание",
@@ -98,19 +99,6 @@
       "SubDamage": "Рана",
       "SubMax": "Макс"
     },
-    "Armor": {
-      "Label": "Класс Доспеха",
-      "BonusLabel": "Бонус доспеха"
-    },
-    "Tension": {
-      "Label": "Напряженность",
-      "ValueLabel": "Текущее",
-      "MaxLabel": "Макс"
-    },
-    "Steadfast": {
-      "Label": "Стойкость",
-      "BonusLabel": "Бонус доспеха"
-    },
     "Speed": {
       "Label": "Скорость передвижения"
     },
@@ -153,7 +141,7 @@
       },
       "Int": {
         "long": "Разум",
-        "abbr": "Разум"
+        "abbr": "Раз"
       }
     },
     "Skill": {

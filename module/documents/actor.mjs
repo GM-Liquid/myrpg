@@ -48,11 +48,6 @@ export class myrpgActor extends Actor {
   }
 
   /* ------------------------ Формулы ------------------------------ */
-  _calcSpeed(s) {
-    const { rank } = getRankAndDie(s.abilities.dex?.value ?? 0);
-    return 5 + rank + (Number(s.tempspeed) || 0);
-  }
-
   _calcHealthMax(s) {
     const { rank } = getRankAndDie(s.abilities.con?.value ?? 0);
     return 5 + rank * 5 + (Number(s.temphealth) || 0);
@@ -63,27 +58,35 @@ export class myrpgActor extends Actor {
     return rank; // 1-5
   }
 
-  _defBase(attrVal) {
+  _BonusBase(attrVal) {
     return Math.ceil(attrVal / 2) + 3;
+  }
+
+  _calcSpeed(s) {
+    return (
+      this._BonusBase(s.abilities.dex?.value ?? 0) +
+      (Number(s.armor?.itemSpeed) || 0) +
+      (Number(s.tempspeed) || 0)
+    );
   }
 
   _calcDefPhys(s) {
     return (
-      this._defBase(s.abilities.con?.value ?? 0) +
+      this._BonusBase(s.abilities.con?.value ?? 0) +
       (Number(s.armor?.itemPhys) || 0) +
       (Number(s.tempphys) || 0)
     );
   }
   _calcDefAzure(s) {
     return (
-      this._defBase(s.abilities.spi?.value ?? 0) +
+      this._BonusBase(s.abilities.spi?.value ?? 0) +
       (Number(s.armor?.itemAzure) || 0) +
       (Number(s.tempazure) || 0)
     );
   }
   _calcDefMent(s) {
     return (
-      this._defBase(s.abilities.int?.value ?? 0) +
+      this._BonusBase(s.abilities.int?.value ?? 0) +
       (Number(s.armor?.itemMental) || 0) +
       (Number(s.tempmental) || 0)
     );

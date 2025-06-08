@@ -80,33 +80,19 @@
       "SubDamage": "Damage",
       "SubMax": "Max"
     },
-    "Armor": {
-      "Label": "Armor Class",
-      "BonusLabel": "Armor Bonus"
-    },
     "ArmorItem": {
       "BonusPhysicalLabel": "Bonus to Physical Protection",
       "BonusMagicalLabel": "Bonus to Magical Protection",
       "BonusPsychicLabel": "Bonus to Psychic Protection",
       "ArmorSectionTitle": "Armor",
       "DescriptionLabel": "Description",
-      "ACLabel": "AC Bonus",
-      "SteadfastLabel": "Steadfast Bonus",
-      "ShieldLabel": "Power Shield"
+      "ShieldLabel": "Power Shield",
+      "BonusSpeedLabel": "Speed Bonus"
     },
     "Resources": {
       "Title": "Resources",
       "SuppliesLabel": "Supplies",
       "MoneyLabel": "Money"
-    },
-    "Tension": {
-      "Label": "Tension",
-      "ValueLabel": "Current",
-      "MaxLabel": "Max"
-    },
-    "Steadfast": {
-      "Label": "Steadfast",
-      "BonusLabel": "Armor Bonus"
     },
     "Speed": {
       "Label": "Movement Speed"

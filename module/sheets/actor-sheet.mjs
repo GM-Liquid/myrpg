@@ -49,9 +49,6 @@ export class myrpgActorSheet extends ActorSheet {
     }
     // ��� ���������� ������������ �������� � ������� ����������� � �������������� �������
     if (val < minVal) {
-      // � ������������ �������� ���� "MY_RPG.NumericWarning.Min"
-      // ��������: ru.json: "{{label}} �� ����� ���� ������ {{min}}"
-      //              en.json: "{{label}} cannot be less than {{min}}"
       ui.notifications.warn(
         game.i18n.format('MY_RPG.NumericWarning.Min', {
           label: label,

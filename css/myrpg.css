@@ -654,10 +654,15 @@ form textarea {
 }
 
 .armor-description textarea {
-  min-height: 120px;
+  height: 200px;
   resize: vertical;
 }
 
+.armor-input{
+  width: 70%;          /* 30 % уже “срезали” */
+  max-width: 60px;     /* если раньше было 90 px */
+  box-sizing: border-box;
+}
 /*                                             */
 .myrpg.sheet.actor form input[type='text'],
 .myrpg.sheet.actor form input[type='number'],
