@@ -45,7 +45,7 @@ export class myrpgActor extends Actor {
   /* ------------------------ Формулы ------------------------------ */
   _calcHealthMax(s) {
     const { rank } = getRankAndDie(s.abilities.con?.value ?? 0);
-    return 5 + rank * 5 + (Number(s.temphealth) || 0);
+    return 10 + rank * 10 + (Number(s.temphealth) || 0);
   }
 
   _calcFlux(s) {
