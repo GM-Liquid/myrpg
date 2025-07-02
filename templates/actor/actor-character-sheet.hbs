@@ -96,11 +96,10 @@
                   <tr>
                     {{#each system.abilities as |ability key|}}
                       <th
-                        class='rollable'
+                        class='rollable {{ability.rankClass}}'
                         data-ability='{{key}}'
                         data-label='{{ability.label}}'
-                        class='{{ability.rankClass}}'
-                        >{{ability.label}}</th>
+                      >{{ability.label}}</th>
                     {{/each}}
                   </tr>
                 </thead>
@@ -200,6 +199,8 @@
                     value='{{system.health.max}}'
                     step='1'
                     inputmode='numeric'
+                    readonly
+                    tabindex='-1'
                   />
                 </div>
               </div>
