@@ -96,7 +96,7 @@
                   <tr>
                     {{#each system.abilities as |ability key|}}
                       <th
-                        class='rollable'
+                        class='rollable {{ability.rankClass}}'
                         data-ability='{{key}}'
                         data-label='{{ability.label}}'
                       >{{ability.label}}</th>
