@@ -48,7 +48,10 @@ export class myrpgActor extends Actor {
   }
 
   _calcFlux(s) {
-    return (s.abilities.spi?.value ?? 0) * 10;
+    return (
+      (s.abilities.spi?.value ?? 0) * 10 +
+      (Number(s.tempflux) || 0)
+    );
   }
 
   _BonusBase(attrVal) {

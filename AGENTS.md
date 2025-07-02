@@ -11,7 +11,7 @@
 | ----------------------------- | --------------------------------------------------------------- |
 | **System name**               | **MyRPG**                                                       |
 | **Foundry VTT compatibility** | v12 (tested on 12.324)                                          |
-| **Current version (**``**)**  | `2.206` -> **auto-bumped to** `2.207` on next commit             |
+| **Current version (**``**)**  | `2.207` -> **auto-bumped to** `2.208` on next commit             |
 | **Languages**                 | 🇬🇧 English, 🇷🇺 Русский (full parity required)               |
 | **Main tech**                 | ES‑module JavaScript (`*.mjs`), Handlebars (`*.hbs`), JSON, CSS |
 | **Licence**                   | MIT (source) / CC BY‑SA 4.0 (game rules)                        |
