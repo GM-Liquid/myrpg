@@ -27,7 +27,8 @@ export class myrpgActor extends Actor {
 
     /* 3. Производные параметры ------------------------------------ */
     s.speed.value = this._calcSpeed(s);
-    s.health.max = this._calcHealthMax(s);
+    // health is not auto-calculated
+    s.health.max = s.health.max ?? 20;
     s.health.value = Math.min(s.health.value ?? s.health.max, s.health.max);
     s.flux.value = this._calcFlux(s);
     s.defenses = {
