@@ -14,11 +14,6 @@
             "min": 1,
             "max": 20
           },
-          "dex": {
-            "value": 10,
-            "min": 1,
-            "max": 20
-          },
           "con": {
             "value": 10,
             "min": 1,
@@ -89,35 +84,31 @@
 
           "akrobatika": {
             "value": 0,
-            "ability": "dex"
+            "ability": "con"
           },
           "skrytost": {
             "value": 0,
-            "ability": "dex"
+            "ability": "con"
           },
-          "vladeniye_takt_dalnim": {
-            "value": 0,
-            "ability": "dex"
-          },
+            "strelba": {
+              "value": 0,
+              "ability": "con"
+            },
           "upravlenie_transportom": {
             "value": 0,
-            "ability": "dex"
+            "ability": "con"
           },
           "lovkost_ruk": {
             "value": 0,
-            "ability": "dex"
+            "ability": "con"
           },
           "blizhniy_boy": {
             "value": 0,
-            "ability": "dex"
-          },
-          "vladeniye_tyazhelym_dalnim": {
-            "value": 0,
-            "ability": "dex"
+            "ability": "con"
           },
           "kinetica": {
             "value": 0,
-            "ability": "dex"
+            "ability": "spi"
           },
 
           "atletika": {
@@ -171,7 +162,7 @@
           },
           "biomantia": {
             "value": 0,
-            "ability": "int"
+            "ability": "spi"
           }
         }
       }

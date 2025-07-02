@@ -41,8 +41,6 @@ export class myrpgActorSheet extends ActorSheet {
     const labelKey = isAbility ? 'MY_RPG.NumericWarning.Attribute' : 'MY_RPG.NumericWarning.Skill';
     const label = game.i18n.localize(labelKey);
     const minVal = 0;
-    const actorRank = Number(this.actor.system.currentRank || 1);
-    const maxVal = actorRank * 4; // 8, 12, 16, 20 и т.д.
 
     if (isNaN(val)) {
       val = minVal;
@@ -56,14 +54,6 @@ export class myrpgActorSheet extends ActorSheet {
         })
       );
       val = minVal;
-    } else if (val > maxVal) {
-      ui.notifications.warn(
-        game.i18n.format('MY_RPG.NumericWarning.RankLimit', {
-          rank: actorRank,
-          limit: maxVal
-        })
-      );
-      val = maxVal;
     }
     input.value = val;
     return val;

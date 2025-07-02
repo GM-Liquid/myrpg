@@ -117,7 +117,6 @@
     },
     "abilityAbbreviations": {
       "spi": "Дух",
-      "dex": "Реф",
       "con": "Тело",
       "int": "Разум"
     },
@@ -130,10 +129,6 @@
         "long": "Тело",
         "abbr": "Тело"
       },
-      "Dex": {
-        "long": "Реф",
-        "abbr": "Реф"
-      },
       "Int": {
         "long": "Разум",
         "abbr": "Раз"
@@ -145,11 +140,10 @@
 
       "Akrobatika": "Акробатика",
       "Skrytost": "Скрытность",
-      "Vladeniye_takt_dalnim": "Владение Такт. Дальним",
+      "Strelba": "Стрельба",
       "Upravlenie_transportom": "Управление Транспортом",
       "Lovkost_ruk": "Ловкость Рук",
       "Blizhniy_boy": "Ближний Бой",
-      "Vladeniye_tyazhelym_dalnim": "Владение Тяжелым Дальним",
 
       "Atletika": "Атлетика",
       "Zapugivanie": "Устрашение",

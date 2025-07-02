@@ -6,14 +6,12 @@ export const MY_RPG = {};
  */
 MY_RPG.abilities = {
   spi: 'MY_RPG.Ability.Spi.long', // �����/ Spirit�
-  dex: 'MY_RPG.Ability.Dex.long',
   con: 'MY_RPG.Ability.Con.long',
   int: 'MY_RPG.Ability.Int.long'
 };
 
 MY_RPG.abilityAbbreviations = {
   spi: 'MY_RPG.Ability.Spi.abbr', // �����/ Spi�
-  dex: 'MY_RPG.Ability.Dex.abbr',
   con: 'MY_RPG.Ability.Con.abbr',
   int: 'MY_RPG.Ability.Int.abbr'
 };
@@ -27,17 +25,14 @@ MY_RPG.skills = {
   psionika: 'MY_RPG.Skill.Psionika',
   predvidenie: 'MY_RPG.Skill.Predvidenie',
 
-  // Dexterity-based
+  // Body-based
   akrobatika: 'MY_RPG.Skill.Akrobatika',
   skrytost: 'MY_RPG.Skill.Skrytost',
-  vladeniye_takt_dalnim: 'MY_RPG.Skill.Vladeniye_takt_dalnim',
-  vladeniye_tyazhelym_dalnim: 'MY_RPG.Skill.Vladeniye_tyazhelym_dalnim',
+  strelba: 'MY_RPG.Skill.Strelba',
+  upravlenie_transportom: 'MY_RPG.Skill.Upravlenie_transportom',
   lovkost_ruk: 'MY_RPG.Skill.Lovkost_ruk',
   blizhniy_boy: 'MY_RPG.Skill.Blizhniy_boy',
-  upravlenie_transportom: 'MY_RPG.Skill.Upravlenie_transportom',
   kinetica: 'MY_RPG.Skill.Kinetica',
-
-  // Constitution-based
   atletika: 'MY_RPG.Skill.Atletika',
   zapugivanie: 'MY_RPG.Skill.Zapugivanie',
 
