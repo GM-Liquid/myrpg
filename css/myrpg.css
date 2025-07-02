@@ -226,7 +226,6 @@ form textarea {
 .rollable:hover,
 .rollable:focus {
   color: #000;
-  text-shadow: 0 0 10px red;
   cursor: pointer;
 }
 
@@ -817,32 +816,32 @@ table {
 /* Rank coloring -------------------------------------------------- */
 .rank1 { color: #6dbb32; }
 input.rank1 {
-  background-color: #c7e6b3;
-  border-color: #6dbb32;
+  background-color: #c7e6b3 !important;
+  border-color: #6dbb32 !important;
   color: #000;
 }
 .rank2 { color: #cd7f32; }
 input.rank2 {
-  background-color: #cd7f32;
-  border-color: #cd7f32;
+  background-color: #cd7f32 !important;
+  border-color: #cd7f32 !important;
   color: #000;
 }
 .rank3 { color: #c0c0c0; }
 input.rank3 {
-  background-color: #c0c0c0;
-  border-color: #c0c0c0;
+  background-color: #c0c0c0 !important;
+  border-color: #c0c0c0 !important;
   color: #000;
 }
 .rank4 { color: #d4af37; }
 input.rank4 {
-  background-color: #d4af37;
-  border-color: #d4af37;
+  background-color: #d4af37 !important;
+  border-color: #d4af37 !important;
   color: #000;
 }
 .rank5 { color: #5fa8d3; }
 input.rank5 {
-  background-color: #5fa8d3;
-  border-color: #5fa8d3;
+  background-color: #5fa8d3 !important;
+  border-color: #5fa8d3 !important;
   color: #000;
 }
 .skill-name.rank1, th.rank1 {
