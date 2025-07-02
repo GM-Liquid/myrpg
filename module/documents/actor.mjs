@@ -27,8 +27,8 @@ export class myrpgActor extends Actor {
 
     /* 3. Производные параметры ------------------------------------ */
     s.speed.value = this._calcSpeed(s);
-    // health is not auto-calculated
-    s.health.max = s.health.max ?? 20;
+    // health max derives from base 20 plus bonuses
+    s.health.max = this._calcHealthMax(s);
     s.health.value = Math.min(s.health.value ?? s.health.max, s.health.max);
     s.flux.value = this._calcFlux(s);
     s.defenses = {
@@ -48,7 +48,10 @@ export class myrpgActor extends Actor {
   }
 
   _calcFlux(s) {
-    return (s.abilities.spi?.value ?? 0) * 10;
+    return (
+      (s.abilities.spi?.value ?? 0) * 10 +
+      (Number(s.tempflux) || 0)
+    );
   }
 
   _BonusBase(attrVal) {

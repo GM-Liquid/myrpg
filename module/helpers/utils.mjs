@@ -18,5 +18,9 @@ export function getRankAndDie(val = 0) {
  * @returns {number} Rank between 1 and 5
  */
 export function getColorRank(val = 0) {
-  return Math.min(5, Math.floor((val - 1) / 2) + 1);
+  if (val <= 2) return 1;
+  if (val <= 4) return 2;
+  if (val <= 6) return 3;
+  if (val <= 8) return 4;
+  return 5;
 }

@@ -99,8 +99,7 @@
                         class='rollable'
                         data-ability='{{key}}'
                         data-label='{{ability.label}}'
-                        class='{{ability.rankClass}}'
-                        >{{ability.label}}</th>
+                      >{{ability.label}}</th>
                     {{/each}}
                   </tr>
                 </thead>
@@ -200,6 +199,8 @@
                     value='{{system.health.max}}'
                     step='1'
                     inputmode='numeric'
+                    readonly
+                    tabindex='-1'
                   />
                 </div>
               </div>
@@ -302,7 +303,7 @@
                   </div>
 
                   <div
-                    class='skill-col skill-name rollable {{skill.rankClass}}'
+                    class='skill-col skill-name rollable'
                     data-skill='{{key}}'
                     data-label='{{localize (concat "MY_RPG.Skill." (toPascalCase key))}}'
                   >
