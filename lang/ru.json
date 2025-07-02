@@ -22,11 +22,11 @@
     },
     "RankGradient": {
       "Title": "Градация рангов",
-      "Rank1": "1 ранг",
-      "Rank2": "2 ранг",
-      "Rank3": "3 ранг",
-      "Rank4": "4 ранг",
-      "Rank5": "5 ранг"
+      "Rank1": "Дерево",
+      "Rank2": "Бронза",
+      "Rank3": "Серебро",
+      "Rank4": "Золото",
+      "Rank5": "Небо"
     },
     "ArmorItem": {
       "ArmorSectionTitle": "Доспех",
