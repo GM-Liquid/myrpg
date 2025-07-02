@@ -845,6 +845,31 @@ input.rank5 {
   border-color: #5fa8d3;
   color: #000;
 }
+.skill-name.rank1, th.rank1 {
+  background-color: #c7e6b3;
+  border-color: #6dbb32;
+  color: #000;
+}
+.skill-name.rank2, th.rank2 {
+  background-color: #cd7f32;
+  border-color: #cd7f32;
+  color: #000;
+}
+.skill-name.rank3, th.rank3 {
+  background-color: #c0c0c0;
+  border-color: #c0c0c0;
+  color: #000;
+}
+.skill-name.rank4, th.rank4 {
+  background-color: #d4af37;
+  border-color: #d4af37;
+  color: #000;
+}
+.skill-name.rank5, th.rank5 {
+  background-color: #5fa8d3;
+  border-color: #5fa8d3;
+  color: #000;
+}
 .rank1-bg { background-color: #6dbb32; color: #1b1210; }
 .rank2-bg { background-color: #cd7f32; color: #1b1210; }
 .rank3-bg { background-color: #c0c0c0; color: #1b1210; }
