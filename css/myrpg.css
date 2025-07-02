@@ -813,3 +813,40 @@ form textarea {
 table {
   margin: 0em 0 !important;
 }
+
+/* Rank coloring -------------------------------------------------- */
+.rank1 { color: #6dbb32; }
+input.rank1 {
+  background-color: #c7e6b3;
+  border-color: #6dbb32;
+  color: #000;
+}
+.rank2 { color: #cd7f32; }
+input.rank2 {
+  background-color: #cd7f32;
+  border-color: #cd7f32;
+  color: #000;
+}
+.rank3 { color: #c0c0c0; }
+input.rank3 {
+  background-color: #c0c0c0;
+  border-color: #c0c0c0;
+  color: #000;
+}
+.rank4 { color: #d4af37; }
+input.rank4 {
+  background-color: #d4af37;
+  border-color: #d4af37;
+  color: #000;
+}
+.rank5 { color: #5fa8d3; }
+input.rank5 {
+  background-color: #5fa8d3;
+  border-color: #5fa8d3;
+  color: #000;
+}
+.rank1-bg { background-color: #6dbb32; color: #1b1210; }
+.rank2-bg { background-color: #cd7f32; color: #1b1210; }
+.rank3-bg { background-color: #c0c0c0; color: #1b1210; }
+.rank4-bg { background-color: #d4af37; color: #1b1210; }
+.rank5-bg { background-color: #5fa8d3; color: #1b1210; }
