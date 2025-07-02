@@ -14,11 +14,6 @@
             "min": 1,
             "max": 20
           },
-          "dex": {
-            "value": 10,
-            "min": 1,
-            "max": 20
-          },
           "con": {
             "value": 10,
             "min": 1,
@@ -33,8 +28,8 @@
         "abilitiesList": [],
         "inventoryList": [],
         "health": {
-          "value": 10,
-          "max": 10
+          "value": 20,
+          "max": 20
         },
         "flux": {
           "value": 0
@@ -86,38 +81,13 @@
             "value": 0,
             "ability": "spi"
           },
-
-          "akrobatika": {
+          "biomantia": {
             "value": 0,
-            "ability": "dex"
-          },
-          "skrytost": {
-            "value": 0,
-            "ability": "dex"
-          },
-          "vladeniye_takt_dalnim": {
-            "value": 0,
-            "ability": "dex"
-          },
-          "upravlenie_transportom": {
-            "value": 0,
-            "ability": "dex"
-          },
-          "lovkost_ruk": {
-            "value": 0,
-            "ability": "dex"
-          },
-          "blizhniy_boy": {
-            "value": 0,
-            "ability": "dex"
-          },
-          "vladeniye_tyazhelym_dalnim": {
-            "value": 0,
-            "ability": "dex"
+            "ability": "spi"
           },
           "kinetica": {
             "value": 0,
-            "ability": "dex"
+            "ability": "spi"
           },
 
           "atletika": {
@@ -125,6 +95,30 @@
             "ability": "con"
           },
           "zapugivanie": {
+            "value": 0,
+            "ability": "con"
+          },
+          "akrobatika": {
+            "value": 0,
+            "ability": "con"
+          },
+          "skrytost": {
+            "value": 0,
+            "ability": "con"
+          },
+          "strelba": {
+            "value": 0,
+            "ability": "con"
+          },
+          "upravlenie_transportom": {
+            "value": 0,
+            "ability": "con"
+          },
+          "lovkost_ruk": {
+            "value": 0,
+            "ability": "con"
+          },
+          "blizhniy_boy": {
             "value": 0,
             "ability": "con"
           },
@@ -166,10 +160,6 @@
             "ability": "int"
           },
           "manipulatsiya": {
-            "value": 0,
-            "ability": "int"
-          },
-          "biomantia": {
             "value": 0,
             "ability": "int"
           }
