@@ -39,8 +39,12 @@ export class myrpgActor extends Actor {
   }
 
   /* ------------------------ Формулы ------------------------------ */
-  _calcHealthMax() {
-    return 20;
+  _calcHealthMax(s) {
+    return (
+      20 +
+      (Number(s.armor?.itemShield) || 0) +
+      (Number(s.temphealth) || 0)
+    );
   }
 
   _calcFlux(s) {

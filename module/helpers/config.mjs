@@ -5,7 +5,7 @@ export const MY_RPG = {};
  * @type {Object}
  */
 MY_RPG.abilities = {
-  spi: 'MY_RPG.Ability.Spi.long', 
+  spi: 'MY_RPG.Ability.Spi.long',
   con: 'MY_RPG.Ability.Con.long',
   int: 'MY_RPG.Ability.Int.long'
 };

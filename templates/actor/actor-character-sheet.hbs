@@ -99,7 +99,8 @@
                         class='rollable'
                         data-ability='{{key}}'
                         data-label='{{ability.label}}'
-                      >{{ability.label}}</th>
+                        class='{{ability.rankClass}}'
+                        >{{ability.label}}</th>
                     {{/each}}
                   </tr>
                 </thead>
@@ -108,6 +109,7 @@
                     {{#each system.abilities as |ability key|}}
                       <td>
                         <input
+                          class='{{ability.rankClass}}'
                           type='number'
                           name='system.abilities.{{key}}.value'
                           value='{{ability.value}}'
@@ -125,11 +127,11 @@
     <th colspan='5'>{{localize 'MY_RPG.RankGradient.Title'}}</th>
   </tr>
   <tr>
-    <td>{{localize 'MY_RPG.RankGradient.Rank1'}}</td>
-    <td>{{localize 'MY_RPG.RankGradient.Rank2'}}</td>
-    <td>{{localize 'MY_RPG.RankGradient.Rank3'}}</td>
-    <td>{{localize 'MY_RPG.RankGradient.Rank4'}}</td>
-    <td>{{localize 'MY_RPG.RankGradient.Rank5'}}</td>
+    <td class='rank1-bg'>{{localize 'MY_RPG.RankGradient.Rank1'}}</td>
+    <td class='rank2-bg'>{{localize 'MY_RPG.RankGradient.Rank2'}}</td>
+    <td class='rank3-bg'>{{localize 'MY_RPG.RankGradient.Rank3'}}</td>
+    <td class='rank4-bg'>{{localize 'MY_RPG.RankGradient.Rank4'}}</td>
+    <td class='rank5-bg'>{{localize 'MY_RPG.RankGradient.Rank5'}}</td>
   </tr>
 </table>
 
@@ -300,7 +302,7 @@
                   </div>
 
                   <div
-                    class='skill-col skill-name rollable'
+                    class='skill-col skill-name rollable {{skill.rankClass}}'
                     data-skill='{{key}}'
                     data-label='{{localize (concat "MY_RPG.Skill." (toPascalCase key))}}'
                   >
@@ -309,6 +311,7 @@
 
                   <div class='skill-col skill-value'>
                     <input
+                      class='{{skill.rankClass}}'
                       type='number'
                       name='system.skills.{{key}}.value'
                       value='{{skill.value}}'

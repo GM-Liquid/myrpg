@@ -3,7 +3,7 @@
  * @extends {ActorSheet}
  */
 
-import { getRankAndDie } from '../helpers/utils.mjs';
+import { getRankAndDie, getColorRank } from '../helpers/utils.mjs';
 
 export class myrpgActorSheet extends ActorSheet {
   /** @override */
@@ -491,6 +491,7 @@ export class myrpgActorSheet extends ActorSheet {
   _prepareCharacterData(context) {
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
+      v.rankClass = 'rank' + getColorRank(v.value);
     }
     const order = [
       'liderstvo',
@@ -525,6 +526,7 @@ export class myrpgActorSheet extends ActorSheet {
       if (context.system.skills[key]) {
         const c = context.system.skills[key];
         c.label = game.i18n.localize(CONFIG.MY_RPG.skills[key]) ?? key;
+        c.rankClass = 'rank' + getColorRank(c.value);
         sorted[key] = c;
       }
     }
