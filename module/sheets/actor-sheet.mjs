@@ -492,9 +492,43 @@ export class myrpgActorSheet extends ActorSheet {
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
     }
-    for (let [x, c] of Object.entries(context.system.skills)) {
-      c.label = game.i18n.localize(CONFIG.MY_RPG.skills[x]) ?? x;
+    const order = [
+      'liderstvo',
+      'obman',
+      'diplomatiya',
+      'stitiyannost',
+      'psionika',
+      'predvidenie',
+      'biomantia',
+      'kinetica',
+      'atletika',
+      'zapugivanie',
+      'akrobatika',
+      'skrytost',
+      'strelba',
+      'upravlenie_transportom',
+      'lovkost_ruk',
+      'blizhniy_boy',
+      'analiz',
+      'tekhnika',
+      'priroda',
+      'kultura',
+      'vnimanie',
+      'meditsina',
+      'oruzheynoe_delo',
+      'znanie_azura',
+      'artefaktorika',
+      'manipulatsiya'
+    ];
+    const sorted = {};
+    for (let key of order) {
+      if (context.system.skills[key]) {
+        const c = context.system.skills[key];
+        c.label = game.i18n.localize(CONFIG.MY_RPG.skills[key]) ?? key;
+        sorted[key] = c;
+      }
     }
+    context.system.skills = sorted;
   }
 
   /**

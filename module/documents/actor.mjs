@@ -28,7 +28,7 @@ export class myrpgActor extends Actor {
     /* 3. Производные параметры ------------------------------------ */
     s.speed.value = this._calcSpeed(s);
     // health is not auto-calculated
-    s.health.max = s.health.max ?? 10;
+    s.health.max = s.health.max ?? 20;
     s.health.value = Math.min(s.health.value ?? s.health.max, s.health.max);
     s.flux.value = this._calcFlux(s);
     s.defenses = {
@@ -39,23 +39,22 @@ export class myrpgActor extends Actor {
   }
 
   /* ------------------------ Формулы ------------------------------ */
-  _calcHealthMax(s) {
-    const { rank } = getRankAndDie(s.abilities.con?.value ?? 0);
-    return 10 + rank * 10 + (Number(s.temphealth) || 0);
+  _calcHealthMax() {
+    return 20;
   }
 
   _calcFlux(s) {
-    const { rank } = getRankAndDie(s.abilities.spi?.value ?? 0);
-    return rank; // 1-5
+    return (s.abilities.spi?.value ?? 0) * 10;
   }
 
   _BonusBase(attrVal) {
-    return Math.ceil(attrVal / 2) + 3;
+    return attrVal + 1;
   }
 
   _calcSpeed(s) {
     return (
-      this._BonusBase(s.abilities.con?.value ?? 0) +
+      5 +
+      (s.abilities.con?.value ?? 0) +
       (Number(s.armor?.itemSpeed) || 0) +
       (Number(s.tempspeed) || 0)
     );
@@ -63,21 +62,24 @@ export class myrpgActor extends Actor {
 
   _calcDefPhys(s) {
     return (
-      this._BonusBase(s.abilities.con?.value ?? 0) +
+      1 +
+      (s.abilities.con?.value ?? 0) +
       (Number(s.armor?.itemPhys) || 0) +
       (Number(s.tempphys) || 0)
     );
   }
   _calcDefAzure(s) {
     return (
-      this._BonusBase(s.abilities.spi?.value ?? 0) +
+      1 +
+      (s.abilities.spi?.value ?? 0) +
       (Number(s.armor?.itemAzure) || 0) +
       (Number(s.tempazure) || 0)
     );
   }
   _calcDefMent(s) {
     return (
-      this._BonusBase(s.abilities.int?.value ?? 0) +
+      1 +
+      (s.abilities.int?.value ?? 0) +
       (Number(s.armor?.itemMental) || 0) +
       (Number(s.tempmental) || 0)
     );
