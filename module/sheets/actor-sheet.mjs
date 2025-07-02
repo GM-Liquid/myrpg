@@ -41,8 +41,6 @@ export class myrpgActorSheet extends ActorSheet {
     const labelKey = isAbility ? 'MY_RPG.NumericWarning.Attribute' : 'MY_RPG.NumericWarning.Skill';
     const label = game.i18n.localize(labelKey);
     const minVal = 0;
-    const actorRank = Number(this.actor.system.currentRank || 1);
-    const maxVal = actorRank * 4; // 8, 12, 16, 20 и т.д.
 
     if (isNaN(val)) {
       val = minVal;
@@ -56,14 +54,6 @@ export class myrpgActorSheet extends ActorSheet {
         })
       );
       val = minVal;
-    } else if (val > maxVal) {
-      ui.notifications.warn(
-        game.i18n.format('MY_RPG.NumericWarning.RankLimit', {
-          rank: actorRank,
-          limit: maxVal
-        })
-      );
-      val = maxVal;
     }
     input.value = val;
     return val;
@@ -502,9 +492,43 @@ export class myrpgActorSheet extends ActorSheet {
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
     }
-    for (let [x, c] of Object.entries(context.system.skills)) {
-      c.label = game.i18n.localize(CONFIG.MY_RPG.skills[x]) ?? x;
+    const order = [
+      'liderstvo',
+      'obman',
+      'diplomatiya',
+      'stitiyannost',
+      'psionika',
+      'predvidenie',
+      'biomantia',
+      'kinetica',
+      'atletika',
+      'zapugivanie',
+      'akrobatika',
+      'skrytost',
+      'strelba',
+      'upravlenie_transportom',
+      'lovkost_ruk',
+      'blizhniy_boy',
+      'analiz',
+      'tekhnika',
+      'priroda',
+      'kultura',
+      'vnimanie',
+      'meditsina',
+      'oruzheynoe_delo',
+      'znanie_azura',
+      'artefaktorika',
+      'manipulatsiya'
+    ];
+    const sorted = {};
+    for (let key of order) {
+      if (context.system.skills[key]) {
+        const c = context.system.skills[key];
+        c.label = game.i18n.localize(CONFIG.MY_RPG.skills[key]) ?? key;
+        sorted[key] = c;
+      }
     }
+    context.system.skills = sorted;
   }
 
   /**

@@ -117,7 +117,6 @@
     },
     "abilityAbbreviations": {
       "spi": "Spi",
-      "dex": "Ref",
       "con": "Body",
       "int": "Mind"
     },
@@ -130,10 +129,6 @@
         "long": "Body",
         "abbr": "Body"
       },
-      "Dex": {
-        "long": "Reflex",
-        "abbr": "Ref"
-      },
       "Int": {
         "long": "Mind",
         "abbr": "Mind"
@@ -145,11 +140,10 @@
 
       "Akrobatika": "Acrobatics",
       "Skrytost": "Stealth",
-      "Vladeniye_takt_dalnim": "Tactical Ranged",
+      "Strelba": "Shooting",
       "Upravlenie_transportom": "Vehicle Handling",
       "Lovkost_ruk": "Sleight of Hand",
       "Blizhniy_boy": "Melee",
-      "Vladeniye_tyazhelym_dalnim": "Heavy Ranged",
 
       "Atletika": "Athletics",
       "Zapugivanie": "Intimidation",
