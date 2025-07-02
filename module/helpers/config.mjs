@@ -5,13 +5,13 @@ export const MY_RPG = {};
  * @type {Object}
  */
 MY_RPG.abilities = {
-  spi: 'MY_RPG.Ability.Spi.long',
+  spi: 'MY_RPG.Ability.Spi.long', // �����/ Spirit�
   con: 'MY_RPG.Ability.Con.long',
   int: 'MY_RPG.Ability.Int.long'
 };
 
 MY_RPG.abilityAbbreviations = {
-  spi: 'MY_RPG.Ability.Spi.abbr',
+  spi: 'MY_RPG.Ability.Spi.abbr', // �����/ Spi�
   con: 'MY_RPG.Ability.Con.abbr',
   int: 'MY_RPG.Ability.Int.abbr'
 };

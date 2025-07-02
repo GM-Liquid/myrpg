@@ -441,10 +441,10 @@ export class myrpgActorSheet extends ActorSheet {
       .find('input[name^="system.abilities."], input[name^="system.skills."]')
       .on('change', (ev) => {
         const input = ev.currentTarget;
-        // �������� ����� ������� ���������
         const validatedValue = this.validateNumericInput(input);
-        // ��������� ������ ������ ��� ���������� �������
-        this.actor.update({ [input.name]: validatedValue }, { render: false });
+        this.actor.update({ [input.name]: validatedValue }).then(() => {
+          this.render(false);
+        });
       });
   }
 
