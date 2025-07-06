@@ -4,6 +4,20 @@
   font-family: 'Roboto', sans-serif;
 }
 
+/* Rank colors -------------------------------------------------- */
+:root {
+  --rank1-bg: #c7e6b3;
+  --rank1-border: #6dbb32;
+  --rank2-bg: #f5a75a;
+  --rank2-border: #cd7f32;
+  --rank3-bg: #ececec;
+  --rank3-border: #a0a0a0;
+  --rank4-bg: #fcd75f;
+  --rank4-border: #d4af37;
+  --rank5-bg: #87d0fb;
+  --rank5-border: #5fa8d3;
+}
+
 .top-features,
 .middle-features,
 .bottom-features {
@@ -821,87 +835,56 @@ table {
 
 /* Rank coloring -------------------------------------------------- */
 .rank1 {
-  color: #6dbb32;
-}
-input.rank1 {
-  background-color: #c7e6b3 !important;
-  border-color: #6dbb32 !important;
-  color: #000;
+  --rank-bg: var(--rank1-bg);
+  --rank-border: var(--rank1-border);
+  color: var(--rank1-border);
 }
 .rank2 {
-  color: #cd7f32;
-}
-input.rank2 {
-  background-color: #f5a75a !important;
-  border-color: #cd7f32 !important;
-  color: #000;
+  --rank-bg: var(--rank2-bg);
+  --rank-border: var(--rank2-border);
+  color: var(--rank2-border);
 }
 .rank3 {
-  color: #d8d8d8;
-}
-input.rank3 {
-  background-color: #ececec !important;
-  border-color: #d8d8d8 !important;
-  color: #000;
+  --rank-bg: var(--rank3-bg);
+  --rank-border: var(--rank3-border);
+  color: var(--rank3-border);
 }
 .rank4 {
-  color: #d4af37;
-}
-input.rank4 {
-  background-color: #fcd75f !important;
-  border-color: #d4af37 !important;
-  color: #000;
+  --rank-bg: var(--rank4-bg);
+  --rank-border: var(--rank4-border);
+  color: var(--rank4-border);
 }
 .rank5 {
-  color: #5fa8d3;
+  --rank-bg: var(--rank5-bg);
+  --rank-border: var(--rank5-border);
+  color: var(--rank5-border);
 }
+
+input.rank1,
+input.rank2,
+input.rank3,
+input.rank4,
 input.rank5 {
-  background-color: #87d0fb !important;
-  border-color: #5fa8d3 !important;
+  background-color: var(--rank-bg) !important;
+  border-color: var(--rank-border) !important;
   color: #000;
 }
-.skill-name.rank1 {
-  background-color: #c7e6b3;
-  border-color: #6dbb32;
-  color: #000;
-}
-.skill-name.rank2 {
-  background-color: #f5a75a;
-  border-color: #cd7f32;
-  color: #000;
-}
-.skill-name.rank3 {
-  background-color: #ececec;
-  border-color: #d8d8d8;
-  color: #000;
-}
-.skill-name.rank4 {
-  background-color: #fcd75f;
-  border-color: #d4af37;
-  color: #000;
-}
+
+.skill-name.rank1,
+.skill-name.rank2,
+.skill-name.rank3,
+.skill-name.rank4,
 .skill-name.rank5 {
-  background-color: #87d0fb;
-  border-color: #5fa8d3;
+  background-color: var(--rank-bg);
+  border-color: var(--rank-border);
   color: #000;
 }
-.rank1-bg {
-  background-color: #6dbb32;
-  color: #1b1210;
-}
-.rank2-bg {
-  background-color: #cd7f32;
-  color: #1b1210;
-}
-.rank3-bg {
-  background-color: #d8d8d8;
-  color: #1b1210;
-}
-.rank4-bg {
-  background-color: #d4af37;
-  color: #1b1210;
-}
-.rank5-bg {
-  background-color: #5fa8d3;
+
+.rank-hint-table td.rank1,
+.rank-hint-table td.rank2,
+.rank-hint-table td.rank3,
+.rank-hint-table td.rank4,
+.rank-hint-table td.rank5 {
+  background-color: var(--rank-border);
   color: #1b1210;
 }
