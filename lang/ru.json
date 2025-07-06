@@ -115,6 +115,7 @@
     "TempSpeed": {
       "Label": "Врем. скорость"
     },
+    "MinimalBonus": "минимальный бонус",
     "abilityAbbreviations": {
       "spi": "Дух",
       "con": "Тело",
