@@ -6,20 +6,21 @@
 
 /* Rank colors -------------------------------------------------- */
 :root {
-  /* BG остаются прежними */
+  /* фоны не меняем */
   --rank1-bg: #c7e6b3;
   --rank2-bg: #f5a75a;
   --rank3-bg: #a5a9b4;
   --rank4-bg: #fcd75f;
   --rank5-bg: #87d0fb;
 
-  /* Border с контрастом ≈ 1.7 : 1 */
-  --rank1-border: #70be3e; /* контраст 1.69 */
-  --rank2-border: #d6710d; /* контраст 1.70 */
-  --rank3-border: #7a8090; /* контраст 1.68 */
-  --rank4-border: #d2a104; /* контраст 1.70 */
-  --rank5-border: #0ca0f7; /* контраст 1.68 */
+  /* новые рамки с контрастом ≈ 1.9 : 1 */
+  --rank1-border: #6ab23b; /* контраст 1.91 */
+  --rank2-border: #c96a0c; /* 1.90 */
+  --rank3-border: #717788; /* 1.90 */
+  --rank4-border: #c69804; /* 1.90 */
+  --rank5-border: #0896e9; /* 1.90 */
 }
+
 
 .top-features,
 .middle-features,
