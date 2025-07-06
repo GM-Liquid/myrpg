@@ -885,6 +885,6 @@ input.rank5 {
 .rank-hint-table td.rank3,
 .rank-hint-table td.rank4,
 .rank-hint-table td.rank5 {
-  background-color: var(--rank-border);
+  background-color: var(--rank-bg);
   color: #1b1210;
 }
