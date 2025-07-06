@@ -832,7 +832,7 @@ input.rank1 {
   color: #cd7f32;
 }
 input.rank2 {
-  background-color: #cd7f32 !important;
+  background-color: #f5a75a !important;
   border-color: #cd7f32 !important;
   color: #000;
 }
@@ -840,7 +840,7 @@ input.rank2 {
   color: #d8d8d8;
 }
 input.rank3 {
-  background-color: #d8d8d8 !important;
+  background-color: #ececec !important;
   border-color: #d8d8d8 !important;
   color: #000;
 }
@@ -848,7 +848,7 @@ input.rank3 {
   color: #d4af37;
 }
 input.rank4 {
-  background-color: #d4af37 !important;
+  background-color: #fcd75f !important;
   border-color: #d4af37 !important;
   color: #000;
 }
@@ -856,7 +856,7 @@ input.rank4 {
   color: #5fa8d3;
 }
 input.rank5 {
-  background-color: #5fa8d3 !important;
+  background-color: #87d0fb !important;
   border-color: #5fa8d3 !important;
   color: #000;
 }
@@ -866,22 +866,22 @@ input.rank5 {
   color: #000;
 }
 .skill-name.rank2 {
-  background-color: #cd7f32;
+  background-color: #f5a75a;
   border-color: #cd7f32;
   color: #000;
 }
 .skill-name.rank3 {
-  background-color: #d8d8d8;
+  background-color: #ececec;
   border-color: #d8d8d8;
   color: #000;
 }
 .skill-name.rank4 {
-  background-color: #d4af37;
+  background-color: #fcd75f;
   border-color: #d4af37;
   color: #000;
 }
 .skill-name.rank5 {
-  background-color: #5fa8d3;
+  background-color: #87d0fb;
   border-color: #5fa8d3;
   color: #000;
 }
