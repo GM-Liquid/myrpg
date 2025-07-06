@@ -26,8 +26,8 @@ Hooks.once('init', function () {
 
   // systems/myrpg/myrpg.mjs  — в хуке init
   CONFIG.Combat.initiative = {
-    // Initiative rolls based on Body
-    formula: '2d@abilities.con.die + @abilities.con.value',
+    // Initiative rolls use d10 plus Body value
+    formula: '1d10 + @abilities.con.value',
     decimals: 2
   };
 
