@@ -115,6 +115,7 @@
     "TempSpeed": {
       "Label": "Temp. Speed"
     },
+    "MinimalBonus": "minimal bonus",
     "abilityAbbreviations": {
       "spi": "Spi",
       "con": "Body",

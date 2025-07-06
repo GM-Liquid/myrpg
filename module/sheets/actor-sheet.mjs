@@ -3,7 +3,7 @@
  * @extends {ActorSheet}
  */
 
-import { getRankAndDie, getColorRank } from '../helpers/utils.mjs';
+import { getColorRank } from '../helpers/utils.mjs';
 
 export class myrpgActorSheet extends ActorSheet {
   /** @override */
@@ -551,21 +551,29 @@ export class myrpgActorSheet extends ActorSheet {
 
     let bonus = 0;
     let abVal = 0;
+    let minimal = false;
 
     if (skill) {
       bonus = parseInt(this.actor.system.skills[skill]?.value) || 0;
       const abKey = this.actor.system.skills[skill].ability;
       abVal = parseInt(this.actor.system.abilities[abKey]?.value) || 0;
+
+      const minBonus = Math.ceil(abVal / 2);
+      if (bonus < minBonus) {
+        bonus = minBonus;
+        minimal = true;
+      }
     } else if (ability) {
       abVal = parseInt(this.actor.system.abilities[ability]?.value) || 0;
       bonus = abVal; // ��� ������ ����� ��������������
     }
 
-    const { die } = getRankAndDie(abVal);
-    const roll = await new Roll(`2d${die} + ${bonus}`).roll({ async: true });
+    const roll = await new Roll(`1d10 + ${bonus}`).roll({ async: true });
+    let flavor = label;
+    if (minimal) flavor += `: ${game.i18n.localize('MY_RPG.MinimalBonus')}`;
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: label,
+      flavor,
       rollMode: game.settings.get('core', 'rollMode')
     });
   }
