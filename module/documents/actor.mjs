@@ -3,7 +3,6 @@
  * @extends {Actor}
  */
 
-import { getRankAndDie } from '../helpers/utils.mjs';
 
 export class myrpgActor extends Actor {
   prepareDerivedData() {
@@ -17,7 +16,6 @@ export class myrpgActor extends Actor {
     /* 1. Способности ---------------------------------------------- */
     for (const a of Object.values(s.abilities)) {
       a.mod = a.value; // «бонус» = само значение
-      a.die = getRankAndDie(a.value).die; // размер куба 6/8/10/12/14
     }
 
     /* 2. Навыки ---------------------------------------------------- */
