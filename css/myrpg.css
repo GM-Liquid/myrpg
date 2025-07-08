@@ -645,13 +645,6 @@ form textarea {
   5) (      )                   (h2/h3)            
                                       
  *******************************************************/
-.tab.biography h2,
-.tab.biography h3,
-.tab.abilities h2,
-.tab.abilities h3 {
-  text-align: center;
-  font-weight: 700; /*              */
-}
 
 .limited-height {
   height: 280px;
