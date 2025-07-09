@@ -16,7 +16,7 @@
     <section class='sheet-body'>
 
       <div class='tab biography' data-group='primary' data-tab='biography'>
-        <h2>{{localize 'MY_RPG.SheetLabels.Biography'}}</h2>
+        <h1>{{localize 'MY_RPG.SheetLabels.Biography'}}</h1>
         <section class='resources grid grid-6col'>
           <div class='resource flex-group-center'>
             <label>{{localize 'MY_RPG.Biography.Weight'}}</label>
@@ -83,7 +83,7 @@
       <div class='tab features features-tab' data-group='primary' data-tab='features'>
 
         <div class='sheet-box'>
-          <h3>{{localize 'MY_RPG.SheetLabels.KeyInfo'}}</h3>
+          <h2>{{localize 'MY_RPG.SheetLabels.KeyInfo'}}</h2>
 
           <section class='flexrow top-row'>
             <div class='portrait-col'>
@@ -138,7 +138,6 @@
           </section>
 
 
-          <h4 class='key-info-health-heading'>{{localize 'MY_RPG.Health.Label'}}</h4>
           <section class='resources grid grid-2col key-info-grid'>
             <div class='resource flex-group-center'>
               <label class='resource-label'>{{localize 'MY_RPG.Health.SubCurrent'}}</label>
@@ -170,7 +169,6 @@
             </div>
           </section>
 
-          <hr class='key-info-divider' />
 
           <section class='resources grid grid-3col key-info-grid'>
             <!-- Имя -->
@@ -305,7 +303,7 @@
           <!--       : 50% -->
           <div class='flexcol col-50'>
             <div class='sheet-box'>
-              <h3>{{localize 'MY_RPG.SheetLabels.Skills'}}</h3>
+              <h2>{{localize 'MY_RPG.SheetLabels.Skills'}}</h2>
               {{#each system.skills as |skill key|}}
                 <div class='skill skill-row'>
                   <!--                                 -->
@@ -341,7 +339,7 @@
 
           <div class='flexcol col-25'>
             <div class='sheet-box limited-height'>
-              <h3>{{localize 'MY_RPG.TempBonus.Label'}}</h3>
+              <h2>{{localize 'MY_RPG.TempBonus.Label'}}</h2>
               <table>
                 <tr>
                   <td>{{localize 'MY_RPG.TempHealth.Label'}}</td>
@@ -404,7 +402,7 @@
 
       <div class='tab abilities' data-group='primary' data-tab='abilities'>
         <section class='flux-section'>
-          <h2>{{localize 'MY_RPG.SheetLabels.Abilities'}}</h2>
+          <h1>{{localize 'MY_RPG.SheetLabels.Abilities'}}</h1>
           <div class='resource flex-group-center'>
             <label for='system.flux.value' class='resource-label'>
               {{localize 'MY_RPG.Flux.Label'}}
@@ -424,7 +422,7 @@
           </div>
         </section>
         <section class='abilities-section'>
-          <h3>{{localize 'MY_RPG.AbilitiesTable.TableHeading'}}</h3>
+          <h2>{{localize 'MY_RPG.AbilitiesTable.TableHeading'}}</h2>
           <table class='abilities-table'>
             <thead>
               <tr>
@@ -462,7 +460,7 @@
 
       <div class='tab inventory' data-group='primary' data-tab='inventory'>
         <div class='sheet-box limited-height'>
-          <h3>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</h3>
+          <h2>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</h2>
           <div class='armor-description'>
             <label>{{localize 'MY_RPG.ArmorItem.DescriptionLabel'}}</label>
             <textarea name='system.armor.itemDesc' rows='3'>{{system.armor.itemDesc}}</textarea>
@@ -521,7 +519,7 @@
           </div>
         </div>
         <div class='sheet-box'>
-          <h3>{{localize 'MY_RPG.Inventory.TableHeading'}}</h3>
+          <h2>{{localize 'MY_RPG.Inventory.TableHeading'}}</h2>
           <table class='abilities-table'>
             <thead>
               <tr>
@@ -554,7 +552,7 @@
           </table>
         </div>
         <div class='sheet-box'>
-          <h3>{{localize 'MY_RPG.Resources.Title'}}</h3>
+          <h2>{{localize 'MY_RPG.Resources.Title'}}</h2>
           <section class='resources grid grid-2col'>
             <div class='resource flex-group-center'>
               <label class='resource-label'>{{localize 'MY_RPG.Resources.SuppliesLabel'}}</label>

@@ -91,9 +91,9 @@
     "Health": {
       "Label": "Health Points (HP)",
       "Temp": "Temp HP",
-      "SubCurrent": "Current",
+      "SubCurrent": "Current HP",
       "SubDamage": "Damage",
-      "SubMax": "Max"
+      "SubMax": "Maximum Health Points"
     },
     "ArmorItem": {
       "BonusPhysicalLabel": "Bonus to Physical Protection",
