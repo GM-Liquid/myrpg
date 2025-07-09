@@ -201,8 +201,26 @@ export class myrpgActorSheet extends ActorSheet {
         },
         render: (html) => {
           html.find('textarea.rich-editor').each((index, element) => {
-            // �������� ����� ����� ������������� ���������
+            // ensure TinyMCE editors are created
             this.initializeRichEditor(element);
+          });
+
+          const form = html.find('form');
+          form.on('change', 'input, textarea', () => {
+            tinymce.triggerSave();
+            const formEl = form[0];
+            const fd = new FormData(formEl);
+            let formData = {};
+            for (let [k, v] of fd.entries()) {
+              formData[k] = v;
+            }
+            abilities[index] = {
+              name: formData.name ?? '',
+              rank: formData.rank ?? '',
+              effect: formData.effect ?? '',
+              cost: formData.cost ?? ''
+            };
+            this.actor.update({ 'system.abilitiesList': abilities });
           });
         }
       });
@@ -280,6 +298,23 @@ export class myrpgActorSheet extends ActorSheet {
           html
             .find('textarea.rich-editor')
             .each((i, el) => this.initializeRichEditor(el));
+
+          const form = html.find('form');
+          form.on('change', 'input, textarea', () => {
+            tinymce.triggerSave();
+            const formEl = form[0];
+            const fd = new FormData(formEl);
+            let formData = {};
+            for (let [k, v] of fd.entries()) {
+              formData[k] = v;
+            }
+            inventory[index] = {
+              name: formData.name ?? '',
+              desc: formData.desc ?? '',
+              quantity: formData.quantity ?? ''
+            };
+            this.actor.update({ 'system.inventoryList': inventory });
+          });
         }
       });
       diag.render(true);
