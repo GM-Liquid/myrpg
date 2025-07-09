@@ -138,38 +138,69 @@
           </section>
 
 
-          <section class='resources grid grid-3col'>
-  <!-- Имя -->
-  <div class='resource flex-group-center'>
-    <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.Name'}}</label>
-    <div class='resource-content flexrow flex-center'>
-      <input type='text' name='name' value='{{actor.name}}'/>
-    </div>
-  </div>
-
-  <!-- Призвание -->
-  <div class='resource flex-group-center'>
-    <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.Calling'}}</label>
-    <div class='resource-content flexrow flex-center'>
-      <input type='text' name='system.calling' value='{{system.calling}}'/>
-    </div>
-  </div>
-
-  <!-- Текущий ранг -->
-  <div class='resource flex-group-center'>
-    <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.CurrentRank'}}</label>
-    <div class='resource-content flexrow flex-center'>
-      <input type='text' name='system.currentRank' value='{{system.currentRank}}'/>
-    </div>
-  </div>
-
+          <section class='resources grid grid-2col key-info-grid'>
             <div class='resource flex-group-center'>
-              <label class='resource-label'>
-                {{localize 'MY_RPG.KeyInfo.MomentOfGlory'}}
-              </label>
+              <label class='resource-label'>{{localize 'MY_RPG.Health.SubCurrent'}}</label>
               <div class='resource-content flexcol'>
                 <input
                   type='number'
+                  class='key-info-input'
+                  name='system.health.value'
+                  value='{{system.health.value}}'
+                  step='1'
+                  inputmode='numeric'
+                />
+              </div>
+            </div>
+            <div class='resource flex-group-center'>
+              <label class='resource-label'>{{localize 'MY_RPG.Health.SubMax'}}</label>
+              <div class='resource-content flexcol'>
+                <input
+                  type='number'
+                  class='key-info-input'
+                  name='system.health.max'
+                  value='{{system.health.max}}'
+                  step='1'
+                  inputmode='numeric'
+                  readonly
+                  tabindex='-1'
+                />
+              </div>
+            </div>
+          </section>
+
+
+          <section class='resources grid grid-3col key-info-grid'>
+            <!-- Имя -->
+            <div class='resource flex-group-center'>
+              <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.Name'}}</label>
+              <div class='resource-content flexcol'>
+                <input type='text' class='key-info-input' name='name' value='{{actor.name}}'/>
+              </div>
+            </div>
+
+            <!-- Призвание -->
+            <div class='resource flex-group-center'>
+              <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.Calling'}}</label>
+              <div class='resource-content flexcol'>
+                <input type='text' class='key-info-input' name='system.calling' value='{{system.calling}}'/>
+              </div>
+            </div>
+
+            <!-- Текущий ранг -->
+            <div class='resource flex-group-center'>
+              <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.CurrentRank'}}</label>
+              <div class='resource-content flexcol'>
+                <input type='text' class='key-info-input' name='system.currentRank' value='{{system.currentRank}}'/>
+              </div>
+            </div>
+
+            <div class='resource flex-group-center'>
+              <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.MomentOfGlory'}}</label>
+              <div class='resource-content flexcol'>
+                <input
+                  type='number'
+                  class='key-info-input'
                   name='system.momentOfGlory'
                   value='{{system.momentOfGlory}}'
                   step='1'
@@ -178,39 +209,13 @@
               </div>
             </div>
             <!--    -->
-            <div class='resource flex-group-center'>
-              <label class='resource-label'>{{localize 'MY_RPG.Health.Label'}}</label>
-              <div class='resource-content flexcol'>
-                <div class='sub-labels flexrow flex-group-center'>
-                  <div class='sub-label'>{{localize 'MY_RPG.Health.SubCurrent'}}</div>
-                  <div class='sub-label'>{{localize 'MY_RPG.Health.SubMax'}}</div>
-                </div>
-                <div class='flexrow flex-group-center'>
-                  <input
-                    type='number'
-                    name='system.health.value'
-                    value='{{system.health.value}}'
-                    step='1'
-                    inputmode='numeric'
-                  />
-                  <input
-                    type='number'
-                    name='system.health.max'
-                    value='{{system.health.max}}'
-                    step='1'
-                    inputmode='numeric'
-                    readonly
-                    tabindex='-1'
-                  />
-                </div>
-              </div>
-            </div>
             <!--       (Flux) -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>{{localize 'MY_RPG.Flux.Label'}}</label>
-              <div class='resource-content flexrow flex-center'>
+              <div class='resource-content flexcol'>
                 <input
                   type='number'
+                  class='key-info-input'
                   name='system.flux.value'
                   value='{{system.flux.value}}'
                   step='1'
@@ -223,9 +228,10 @@
             <!--          (Speed) -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>{{localize 'MY_RPG.Speed.Label'}}</label>
-              <div class='resource-content flexrow flex-center'>
+              <div class='resource-content flexcol'>
                 <input
                   type='number'
+                  class='key-info-input'
                   name='system.speed.value'
                   value='{{system.speed.value}}'
                   step='1'
@@ -243,6 +249,7 @@
               <div class='resource-content flexcol'>
                 <input
                   type='number'
+                  class='key-info-input'
                   name='system.defenses.physical'
                   value='{{system.defenses.physical}}'
                   step='1'
@@ -260,6 +267,7 @@
               <div class='resource-content flexcol'>
                 <input
                   type='number'
+                  class='key-info-input'
                   name='system.defenses.azure'
                   value='{{system.defenses.azure}}'
                   step='1'
@@ -277,6 +285,7 @@
               <div class='resource-content flexcol'>
                 <input
                   type='number'
+                  class='key-info-input'
                   name='system.defenses.mental'
                   value='{{system.defenses.mental}}'
                   step='1'
@@ -398,9 +407,10 @@
             <label for='system.flux.value' class='resource-label'>
               {{localize 'MY_RPG.Flux.Label'}}
             </label>
-            <div class='resource-content flexrow flex-center'>
+            <div class='resource-content flexcol'>
               <input
                 type='number'
+                class='key-info-input'
                 name='system.flux.value'
                 value='{{system.flux.value}}'
                 step='1'
