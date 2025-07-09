@@ -45,6 +45,12 @@
   color: #1b1210;
 }
 
+.key-info-divider {
+  border: 0;
+  border-top: 2px solid #1b1210;
+  margin: 4px 0;
+}
+
 .skill-row {
   display: flex;
   align-items: center;
