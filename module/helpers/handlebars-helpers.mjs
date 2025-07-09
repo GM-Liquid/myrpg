@@ -36,3 +36,10 @@ Handlebars.registerHelper('times', function (n, options) {
 Handlebars.registerHelper('lte', function (a, b, options) {
   return a <= b ? options.fn(this) : options.inverse(this);
 });
+
+// Return the rank label based on current world mode
+Handlebars.registerHelper('rankLabel', function (rankNum) {
+  const mode = game.settings.get('myrpg', 'worldType');
+  const base = mode === 'stellar' ? 'MY_RPG.RankNumeric' : 'MY_RPG.RankGradient';
+  return game.i18n.localize(`${base}.Rank${rankNum}`);
+});

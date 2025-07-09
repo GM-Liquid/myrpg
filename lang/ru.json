@@ -15,6 +15,14 @@
       "Yes": "Да",
       "No": "Нет"
     },
+    "WorldMode": {
+      "SettingName": "Мир",
+      "SettingHint": "Выберите набор правил для этой кампании.",
+      "Unity": "Юнити",
+      "Stellar": "Стеллар",
+      "DialogTitle": "Выбор мира",
+      "DialogContent": "Выберите мир, правила которого будут использоваться."
+    },
     "Defenses": {
       "PhysicalLabel": "Физическая защита",
       "MagicalLabel": "Магическая защита",
@@ -27,6 +35,13 @@
       "Rank3": "Серебро",
       "Rank4": "Золото",
       "Rank5": "Небо"
+    },
+    "RankNumeric": {
+      "Rank1": "Ранг 1",
+      "Rank2": "Ранг 2",
+      "Rank3": "Ранг 3",
+      "Rank4": "Ранг 4",
+      "Rank5": "Ранг 5"
     },
     "ArmorItem": {
       "ArmorSectionTitle": "Доспех",
