@@ -71,16 +71,20 @@ export class myrpgActorSheet extends ActorSheet {
         menubar: false,
         branding: false,
         statusbar: false,
-        plugins: 'autoresize',
-        toolbar: 'bold italic strikethrough',
+        plugins: 'autoresize contextmenu paste',
+        toolbar: false,
+        contextmenu: 'bold italic strikethrough',
+        valid_elements: 'p,strong/b,em/i,strike/s,br',
         content_style:
-          'body, p { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }',
+          'body { margin: 0; padding: 5px; font-family: inherit; font-size: inherit; color: #1b1210; text-align: center; } p { margin: 0; }',
         autoresize_min_height: 40,
         autoresize_bottom_margin: 0,
         width: '100%',
         setup: function (editor) {
-          editor.on('init', function () {
-            // �������������� ���������, ���� �����
+          editor.on('Paste', (e) => {
+            e.preventDefault();
+            const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+            editor.insertContent(text.replace(/\n/g, '<br>'));
           });
         }
       });
@@ -382,31 +386,9 @@ export class myrpgActorSheet extends ActorSheet {
           this._editing = false;
         },
         render: (html) => {
-          html.find('textarea.rich-editor').each(function () {
-            if (!this._tinyMCEInitialized) {
-              tinymce.init({
-                target: this,
-                inline: false,
-                menubar: false,
-                branding: false,
-                statusbar: false,
-                plugins: 'autoresize', // contextmenu �����
-                toolbar: 'bold italic strikethrough', // ����� ������ ��� ��������
-                // ���� ��� ��-���� ����� �����-���� ����������� ����, ������������ � ������������� TinyMCE 6
-                content_style:
-                  'body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }',
-                autoresize_min_height: 40,
-                autoresize_bottom_margin: 0,
-                width: '100%',
-                setup: function (editor) {
-                  editor.on('init', function () {
-                    // �������������� ���������, ���� �����
-                  });
-                }
-              });
-              this._tinyMCEInitialized = true;
-            }
-          });
+          html
+            .find('textarea.rich-editor')
+            .each((i, el) => this.initializeRichEditor(el));
         }
       });
       diag.render(true);
