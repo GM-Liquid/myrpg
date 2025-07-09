@@ -439,7 +439,9 @@
                 <tr class='ability-row' data-index='{{i}}'>
                   <td class='col-name'>{{{row.name}}}</td>
                   <td class='col-rank'>{{row.rank}}</td>
-                  <td class='col-effect'>{{{row.effect}}}</td>
+                  <td class='col-effect'>
+                    <div class='effect-wrapper'>{{{row.effect}}}</div>
+                  </td>
                   <td class='col-cost'>{{row.cost}}</td>
                   <td class='col-delete'>
                     <a class='abilities-edit-row' data-index='{{i}}'>

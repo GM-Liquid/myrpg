@@ -297,16 +297,14 @@ form textarea {
   transition: background-color 0.2s;
 }
 
-.abilities-table tr.ability-row .col-effect {
+.abilities-table tr.ability-row .col-effect .effect-wrapper {
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
   max-height: 3em;
+  white-space: pre-wrap;
 }
 
-.abilities-table tr.ability-row.expanded .col-effect {
+.abilities-table tr.ability-row.expanded .col-effect .effect-wrapper {
   max-height: none;
-  display: block;
 }
 
 .tab.abilities table.abilities-table {
