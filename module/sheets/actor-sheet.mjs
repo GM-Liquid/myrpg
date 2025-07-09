@@ -6,6 +6,7 @@
 import { getColorRank } from '../helpers/utils.mjs';
 
 export class myrpgActorSheet extends ActorSheet {
+  _editDialog = null;
   /** @override */
   async _render(force = false, options = {}) {
     const scrollContainer = this.element.find('.sheet-scrollable');
@@ -149,11 +150,9 @@ export class myrpgActorSheet extends ActorSheet {
     // open ability edit dialog
     html.find('.abilities-edit-row').click((ev) => {
       ev.preventDefault();
-      if (this._editing) {
-        ui.notifications.warn(game.i18n.localize('MY_RPG.AbilityConfig.AlreadyEditing'));
-        return;
+      if (this._editDialog) {
+        this._editDialog.close();
       }
-      this._editing = true;
 
       const index = Number(ev.currentTarget.dataset.index);
       let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
@@ -182,35 +181,23 @@ export class myrpgActorSheet extends ActorSheet {
             </div>
           </form>
         `,
-        buttons: {
-          save: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('MY_RPG.AbilityConfig.Save'),
-            callback: (htmlDialog) => {
-              tinymce.triggerSave();
-              const formEl = htmlDialog.find('form')[0];
-              const fd = new FormData(formEl);
-              let formData = {};
-              for (let [k, v] of fd.entries()) {
-                formData[k] = v;
-              }
-              abilities[index] = {
-                name: formData.name ?? '',
-                rank: formData.rank ?? '',
-                effect: formData.effect ?? '',
-                cost: formData.cost ?? ''
-              };
-              this.actor.update({ 'system.abilitiesList': abilities });
-            }
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('MY_RPG.AbilityConfig.Cancel')
+        buttons: {},
+        close: (htmlDialog) => {
+          tinymce.triggerSave();
+          const formEl = htmlDialog.find('form')[0];
+          const fd = new FormData(formEl);
+          let formData = {};
+          for (let [k, v] of fd.entries()) {
+            formData[k] = v;
           }
-        },
-        default: 'save',
-        close: () => {
-          this._editing = false;
+          abilities[index] = {
+            name: formData.name ?? '',
+            rank: formData.rank ?? '',
+            effect: formData.effect ?? '',
+            cost: formData.cost ?? ''
+          };
+          this.actor.update({ 'system.abilitiesList': abilities });
+          this._editDialog = null;
         },
         render: (html) => {
           html.find('textarea.rich-editor').each((index, element) => {
@@ -220,6 +207,7 @@ export class myrpgActorSheet extends ActorSheet {
         }
       });
       diag.render(true);
+      this._editDialog = diag;
     });
 
     // ----------------------------------------------------------------------
@@ -244,11 +232,9 @@ export class myrpgActorSheet extends ActorSheet {
 
     html.find('.inventory-edit-row').click((ev) => {
       ev.preventDefault();
-      if (this._editing) {
-        ui.notifications.warn(game.i18n.localize('MY_RPG.Inventory.AlreadyEditing'));
-        return;
+      if (this._editDialog) {
+        this._editDialog.close();
       }
-      this._editing = true;
 
       const index = Number(ev.currentTarget.dataset.index);
       let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
@@ -273,34 +259,22 @@ export class myrpgActorSheet extends ActorSheet {
             </div>
           </form>
         `,
-        buttons: {
-          save: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('MY_RPG.Inventory.Save'),
-            callback: (htmlDialog) => {
-              tinymce.triggerSave();
-              const formEl = htmlDialog.find('form')[0];
-              const fd = new FormData(formEl);
-              let formData = {};
-              for (let [k, v] of fd.entries()) {
-                formData[k] = v;
-              }
-              inventory[index] = {
-                name: formData.name ?? '',
-                desc: formData.desc ?? '',
-                quantity: formData.quantity ?? ''
-              };
-              this.actor.update({ 'system.inventoryList': inventory });
-            }
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('MY_RPG.Inventory.Cancel')
+        buttons: {},
+        close: (htmlDialog) => {
+          tinymce.triggerSave();
+          const formEl = htmlDialog.find('form')[0];
+          const fd = new FormData(formEl);
+          let formData = {};
+          for (let [k, v] of fd.entries()) {
+            formData[k] = v;
           }
-        },
-        default: 'save',
-        close: () => {
-          this._editing = false;
+          inventory[index] = {
+            name: formData.name ?? '',
+            desc: formData.desc ?? '',
+            quantity: formData.quantity ?? ''
+          };
+          this.actor.update({ 'system.inventoryList': inventory });
+          this._editDialog = null;
         },
         render: (html) => {
           html
@@ -309,6 +283,7 @@ export class myrpgActorSheet extends ActorSheet {
         }
       });
       diag.render(true);
+      this._editDialog = diag;
     });
     html.find('.inventory-remove-row').click((ev) => {
       ev.preventDefault();
