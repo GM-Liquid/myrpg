@@ -278,33 +278,28 @@ form textarea {
   border: 1px solid #1b1210 !important;
   padding: 5px;
   text-align: center;
-  color: #1b1210; /*             */
+  color: #1b1210; 
 }
 
-/*                   */
 .myrpg .abilities-table thead th {
-  background-color: #673e37 !important; /*            */
-  color: #d2d2c9 !important; /*                (             ) */
+  background-color: #673e37 !important;
+  color: #d2d2c9 !important; 
   text-shadow: none !important;
 }
 
-/*      -       (             ) */
 .myrpg .abilities-table tr:nth-child(even) {
   background-color: #a79086 !important;
 }
 
-/*      -       (                ) */
 .myrpg .abilities-table tr:hover td {
-  background-color: #673e37 !important; /*                 */
-  color: #d2d2c9 !important; /*           hover */
+  background-color: #673e37 !important; 
+  color: #d2d2c9 !important;
   transition: background-color 0.2s;
 }
 
-/* collapse effect text in ability rows */
 .abilities-table tr.ability-row .col-effect {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   max-height: 3em;
   transition: max-height 0.3s ease;
@@ -313,8 +308,6 @@ form textarea {
 .abilities-table tr.ability-row.expanded .col-effect {
   max-height: none;
   display: block;
-  -webkit-line-clamp: unset;
-  -webkit-box-orient: unset;
 }
 
 .tab.abilities table.abilities-table {
@@ -331,15 +324,15 @@ form textarea {
 }
 
 .tab.abilities table.abilities-table th.col-effect {
-  width: 47% !important;
+  width: 45% !important;
 }
 
 .tab.abilities table.abilities-table th.col-cost {
-  width: 10% !important;
+  width: 11% !important;
 }
 
 .tab.abilities table.abilities-table th.col-delete {
-  width: 5% !important;
+  width: 9% !important;
 }
 
 .abilities-table td.col-delete a {
