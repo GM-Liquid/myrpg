@@ -200,13 +200,13 @@ export class myrpgActorSheet extends ActorSheet {
           this._editDialog = null;
         },
         render: (html) => {
-          html.find('textarea.rich-editor').each((index, element) => {
+          html.find('textarea.rich-editor').each((i, element) => {
             // ensure TinyMCE editors are created
             this.initializeRichEditor(element);
           });
 
           const form = html.find('form');
-          form.on('change', 'input, textarea', () => {
+          form.on('input', 'input, textarea', () => {
             tinymce.triggerSave();
             const formEl = form[0];
             const fd = new FormData(formEl);
@@ -300,7 +300,7 @@ export class myrpgActorSheet extends ActorSheet {
             .each((i, el) => this.initializeRichEditor(el));
 
           const form = html.find('form');
-          form.on('change', 'input, textarea', () => {
+          form.on('input', 'input, textarea', () => {
             tinymce.triggerSave();
             const formEl = form[0];
             const fd = new FormData(formEl);
