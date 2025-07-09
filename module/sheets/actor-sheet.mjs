@@ -60,12 +60,21 @@ export class myrpgActorSheet extends ActorSheet {
         autoresize_min_height: 40,
         autoresize_bottom_margin: 0,
         width: '100%',
-        setup: function (editor) {
+        setup: (editor) => {
+          const dispatch = () => {
+            editor.save();
+            element.dispatchEvent(new Event('input', { bubbles: true }));
+          };
+
           editor.on('Paste', (e) => {
             e.preventDefault();
             const text = (e.clipboardData || window.clipboardData).getData('text/plain');
             editor.insertContent(text.replace(/\n/g, '<br>'));
+            dispatch();
           });
+
+          editor.on('KeyUp', dispatch);
+          editor.on('Change', dispatch);
         }
       });
       element._tinyMCEInitialized = true;
@@ -220,7 +229,20 @@ export class myrpgActorSheet extends ActorSheet {
               effect: formData.effect ?? '',
               cost: formData.cost ?? ''
             };
-            this.actor.update({ 'system.abilitiesList': abilities });
+            // update actor data without re-render to prevent flicker
+            this.actor.update(
+              { 'system.abilitiesList': abilities },
+              { render: false }
+            );
+
+            // update the table row manually
+            const row = this.element.find(
+              `.abilities-table tr.ability-row[data-index="${index}"]`
+            );
+            row.find('.col-name').html(formData.name ?? '');
+            row.find('.col-rank').text(formData.rank ?? '');
+            row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
+            row.find('.col-cost').text(formData.cost ?? '');
           });
         }
       });
@@ -313,7 +335,21 @@ export class myrpgActorSheet extends ActorSheet {
               desc: formData.desc ?? '',
               quantity: formData.quantity ?? ''
             };
-            this.actor.update({ 'system.inventoryList': inventory });
+            // update actor data without re-render
+            this.actor.update(
+              { 'system.inventoryList': inventory },
+              { render: false }
+            );
+
+            // update the table row manually
+            const row = this.element.find(
+              `.abilities-table tr.inventory-row[data-index="${index}"]`
+            );
+            row.find('.col-name').html(formData.name ?? '');
+            row
+              .find('.col-effect .effect-wrapper')
+              .html(formData.desc ?? '');
+            row.find('.col-cost').text(formData.quantity ?? '');
           });
         }
       });
