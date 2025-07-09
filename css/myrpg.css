@@ -578,12 +578,14 @@ form textarea {
 /* ---                                     TinyMCE (Foundry V10+),                         .tox-... --- */
 
 /*                             */
-.myrpg .tox-tinymce {
+.myrpg .tox-tinymce,
+.window-app.dialog .tox-tinymce {
   border: 2px solid #1b1210;
   background-color: #f8f8f8;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border-radius: 6px;
   width: 100%; /*            ,                                  */
 }
 
@@ -593,30 +595,26 @@ form textarea {
   border: none;
   min-height: 40px; /*                             40px */
   box-sizing: border-box;
+  text-align: center;
+  padding: 0;
 }
 
 /*     iframe,                                 */
 .myrpg .tox-tinymce .tox-edit-area__iframe {
   background-color: #f8f8f8;
+  padding: 0;
 }
 
 /*                ,                  .myrpg (              <input>   <textarea>) */
 .myrpg .tox-tinymce * {
   font-family: inherit;
   font-size: inherit;
+  line-height: inherit;
   color: #1b1210;
+  text-align: inherit;
 }
 
 /* ---             --- */
-
-.window-app.dialog .tox-tinymce {
-  border: 2px solid #1b1210;
-  background-color: #f8f8f8;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
 
 .window-app.dialog .form-group {
   display: flex;
