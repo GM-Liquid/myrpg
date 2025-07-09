@@ -91,7 +91,7 @@
     "Health": {
       "Label": "Health Points (HP)",
       "Temp": "Temp HP",
-      "SubCurrent": "Current HP",
+      "SubCurrent": "Current Health Points",
       "SubDamage": "Damage",
       "SubMax": "Maximum Health Points"
     },
