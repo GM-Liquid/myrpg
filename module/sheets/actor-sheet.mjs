@@ -60,12 +60,21 @@ export class myrpgActorSheet extends ActorSheet {
         autoresize_min_height: 40,
         autoresize_bottom_margin: 0,
         width: '100%',
-        setup: function (editor) {
+        setup: (editor) => {
+          const dispatch = () => {
+            editor.save();
+            element.dispatchEvent(new Event('input', { bubbles: true }));
+          };
+
           editor.on('Paste', (e) => {
             e.preventDefault();
             const text = (e.clipboardData || window.clipboardData).getData('text/plain');
             editor.insertContent(text.replace(/\n/g, '<br>'));
+            dispatch();
           });
+
+          editor.on('KeyUp', dispatch);
+          editor.on('Change', dispatch);
         }
       });
       element._tinyMCEInitialized = true;
