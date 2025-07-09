@@ -564,45 +564,43 @@ form textarea {
 
 /*                             */
 .myrpg .tox-tinymce {
-  border: 2px solid #1b1210 !important;
-  background-color: #f8f8f8 !important;
-  border-radius: 4px !important;
+  border: 2px solid #1b1210;
+  background-color: #f8f8f8;
   box-sizing: border-box;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important; /*            ,                                  */
+  margin: 0;
+  padding: 0;
+  width: 100%; /*            ,                                  */
 }
 
 /*                 ,                               */
 .myrpg .tox-tinymce .tox-editor-container {
-  background-color: #f8f8f8 !important;
-  border: none !important;
-  min-height: 40px !important; /*                             40px */
+  background-color: #f8f8f8;
+  border: none;
+  min-height: 40px; /*                             40px */
   box-sizing: border-box;
 }
 
 /*     iframe,                                 */
 .myrpg .tox-tinymce .tox-edit-area__iframe {
-  background-color: #f8f8f8 !important;
+  background-color: #f8f8f8;
 }
 
 /*                ,                  .myrpg (              <input>   <textarea>) */
 .myrpg .tox-tinymce * {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  color: #1b1210 !important;
+  font-family: inherit;
+  font-size: inherit;
+  color: #1b1210;
 }
 
 /* ---             --- */
 
 .window-app.dialog .tox-tinymce {
-  border: 2px solid #1b1210 !important;
-  background-color: #f8f8f8 !important;
-  border-radius: 4px !important;
+  border: 2px solid #1b1210;
+  background-color: #f8f8f8;
   box-sizing: border-box;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .window-app.dialog .form-group {

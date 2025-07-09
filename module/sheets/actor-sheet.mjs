@@ -71,8 +71,8 @@ export class myrpgActorSheet extends ActorSheet {
         menubar: false,
         branding: false,
         statusbar: false,
-        plugins: 'autoresize link lists',
-        toolbar: false,
+        plugins: 'autoresize',
+        toolbar: 'bold italic strikethrough',
         content_style:
           'body, p { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }',
         autoresize_min_height: 40,
@@ -390,8 +390,8 @@ export class myrpgActorSheet extends ActorSheet {
                 menubar: false,
                 branding: false,
                 statusbar: false,
-                plugins: 'autoresize link lists', // contextmenu �����
-                toolbar: false, // ����� ������ ��� ��������
+                plugins: 'autoresize', // contextmenu �����
+                toolbar: 'bold italic strikethrough', // ����� ������ ��� ��������
                 // ���� ��� ��-���� ����� �����-���� ����������� ����, ������������ � ������������� TinyMCE 6
                 content_style:
                   'body { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #1b1210; }',
