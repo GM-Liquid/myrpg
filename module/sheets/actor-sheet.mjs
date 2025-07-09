@@ -238,12 +238,16 @@ export class myrpgActorSheet extends ActorSheet {
     });
 
     html.find('tr.inventory-row').click((ev) => {
-      if ($(ev.target).closest('.inventory-remove-row').length) return;
+      if ($(ev.target).closest('.inventory-remove-row, .inventory-edit-row').length) return;
+      $(ev.currentTarget).toggleClass('expanded');
+    });
+
+    html.find('.inventory-edit-row').click((ev) => {
+      ev.preventDefault();
       if (this._editing) {
         ui.notifications.warn(game.i18n.localize('MY_RPG.Inventory.AlreadyEditing'));
         return;
       }
-      ev.preventDefault();
       this._editing = true;
 
       const index = Number(ev.currentTarget.dataset.index);
