@@ -715,3 +715,7 @@ input.rank5 {
   background-color: var(--rank-bg);
   color: #1b1210;
 }
+
+.myrpg-sheet table td:first-child {
+  padding-left: 0 !important;   /* гарантированный способ перебить чужой стиль */
+}
