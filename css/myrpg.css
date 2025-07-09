@@ -108,9 +108,9 @@ textarea[disabled] {
   text-shadow: none;
 }
 
-.sheet-box h3 {
+.sheet-box h2 {
   text-align: center;
-  font-weight: 700; 
+  font-weight: 700;
 }
 
 .center-attributes {
@@ -452,10 +452,10 @@ form textarea {
 }
 
 /* --- 1.                              h2/h3                                     --- */
+.tab.biography h1,
 .tab.biography h2,
-.tab.biography h3,
-.tab.abilities h2,
-.tab.abilities h3 {
+.tab.abilities h1,
+.tab.abilities h2 {
   text-align: center; /*                      */
   font-weight: 700; /*                     */
 }
