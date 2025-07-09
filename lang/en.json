@@ -85,7 +85,6 @@
       "Rank": "Rank",
       "Effect": "Effect",
       "Cost": "Cost",
-      "Desc": "Full Description",
       "AlreadyEditing": "An edit dialog is already open. Please close it before opening another."
     },
     "Health": {
@@ -193,7 +192,6 @@
     "AbilitiesTable": {
       "TableHeading": "Abilities Table",
       "Name": "Name",
-      "Desc": "Full Description",
       "Effect": "Effect",
       "Cost": "Cost",
       "AddRow": "Add Row",
