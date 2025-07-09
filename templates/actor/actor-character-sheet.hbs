@@ -68,13 +68,14 @@
           <div class='form-group'>
             <label>{{localize 'MY_RPG.Biography.Appearance'}}</label>
             <textarea
+              class='rich-editor'
               name='system.biography.appearance'
               rows='5'
             >{{system.biography.appearance}}</textarea>
           </div>
           <div class='form-group'>
             <label>{{localize 'MY_RPG.Biography.Notes'}}</label>
-            <textarea name='system.biography.notes' rows='8'>{{system.biography.notes}}</textarea>
+            <textarea class='rich-editor' name='system.biography.notes' rows='8'>{{system.biography.notes}}</textarea>
           </div>
         </section>
       </div>
@@ -463,7 +464,7 @@
           <h2>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</h2>
           <div class='armor-description'>
             <label>{{localize 'MY_RPG.ArmorItem.DescriptionLabel'}}</label>
-            <textarea name='system.armor.itemDesc' rows='3'>{{system.armor.itemDesc}}</textarea>
+            <textarea class='rich-editor' name='system.armor.itemDesc' rows='3'>{{system.armor.itemDesc}}</textarea>
           </div>
           <div class='armor-values flexrow'>
             <div class='flexcol'>

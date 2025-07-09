@@ -8,36 +8,21 @@ import { getColorRank } from '../helpers/utils.mjs';
 export class myrpgActorSheet extends ActorSheet {
   /** @override */
   async _render(force = false, options = {}) {
-    // ��������� ������� ��������� �������
     const scrollContainer = this.element.find('.sheet-scrollable');
     const scrollPos = scrollContainer.scrollTop();
-
-    // �������� ������������ ���������� �������
     await super._render(force, options);
 
-    // ��������������� ��������� �������
     this.element.find('.sheet-scrollable').scrollTop(scrollPos);
   }
 
   async close(options = {}) {
-    // ������� ��� ���������� tooltip
     $('body').find('.ability-tooltip').remove();
     return super.close(options);
   }
 
-  /**
-   * ���������� �������� ���� � �����, ��������� � ���������������� � ��������.
-   * ��� ��������� ��������� � �������������� ������� �����������.
-   * @param {HTMLElement} input - DOM-������� input, ������� �������� ��������.
-   * @returns {number} - ����������� �������� ��������.
-   */
   validateNumericInput(input) {
     let val = parseInt(input.value, 10);
     const isAbility = input.name.includes('system.abilities.');
-    // ���������� ����������� ��� �������� ���� ����:
-    // �������� � ����������� ��������� �����:
-    // "MY_RPG.NumericWarning.Attribute": "��������������" (ru) / "Attribute" (en)
-    // "MY_RPG.NumericWarning.Skill": "�����" (ru) / "Skill" (en)
     const labelKey = isAbility ? 'MY_RPG.NumericWarning.Attribute' : 'MY_RPG.NumericWarning.Skill';
     const label = game.i18n.localize(labelKey);
     const minVal = 0;
@@ -45,7 +30,6 @@ export class myrpgActorSheet extends ActorSheet {
     if (isNaN(val)) {
       val = minVal;
     }
-    // ��� ���������� ������������ �������� � ������� ����������� � �������������� �������
     if (val < minVal) {
       ui.notifications.warn(
         game.i18n.format('MY_RPG.NumericWarning.Min', {
@@ -59,10 +43,6 @@ export class myrpgActorSheet extends ActorSheet {
     return val;
   }
 
-  /**
-   * �������������� TinyMCE ��� ��������� ��������, ���� �� ��� �� ���������������.
-   * @param {HTMLElement} element - DOM-������� textarea, ��� �������� ��������� TinyMCE.
-   */
   initializeRichEditor(element) {
     if (!element._tinyMCEInitialized) {
       tinymce.init({
@@ -76,7 +56,7 @@ export class myrpgActorSheet extends ActorSheet {
         contextmenu: 'bold italic strikethrough',
         valid_elements: 'p,strong/b,em/i,strike/s,br',
         content_style:
-          'body { margin: 0; padding: 5px; font-family: inherit; font-size: inherit; color: #1b1210; text-align: center; } p { margin: 0; }',
+          'body { margin: 0; padding: 5px; font-family: inherit; font-size: inherit; color: #1b1210; } p { margin: 0; }',
         autoresize_min_height: 40,
         autoresize_bottom_margin: 0,
         width: '100%',
@@ -142,6 +122,9 @@ export class myrpgActorSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
+    html
+      .find('textarea.rich-editor')
+      .each((i, el) => this.initializeRichEditor(el));
     html.find('.wound-box').click(this._onToggleWound.bind(this));
 
     // ----------------------------------------------------------------------
