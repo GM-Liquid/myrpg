@@ -16,7 +16,6 @@ export class myrpgActorSheet extends ActorSheet {
   }
 
   async close(options = {}) {
-    $('body').find('.ability-tooltip').remove();
     return super.close(options);
   }
 
@@ -72,53 +71,6 @@ export class myrpgActorSheet extends ActorSheet {
     }
   }
 
-  /**
-   * ���������� tooltip ��� ������ �����������.
-   * @param {jQuery} $row - jQuery ������ ������, ��� ������� ������������ tooltip.
-   * @param {Object} abilityData - ������ ����������� ��� �����������.
-   */
-  showAbilityTooltip($row, abilityData) {
-    const costValue = abilityData.cost;
-    const costText = costValue ?? '';
-    const $tooltip = $(`
-    <div class="ability-tooltip">
-      <strong>${abilityData.name || ''}</strong><br/>
-      <strong>${game.i18n.localize('MY_RPG.AbilityConfig.Rank')}:</strong> ${abilityData.rank || ''}<br/>
-      <strong>${game.i18n.localize('MY_RPG.AbilityConfig.Effect')}:</strong> ${abilityData.effect || ''}<br/>
-      <strong>${game.i18n.localize('MY_RPG.AbilityConfig.Desc')}:</strong><br/>${abilityData.desc || ''}<br/>
-      <strong>${game.i18n.localize('MY_RPG.AbilityConfig.Cost')}:</strong> ${costText}<br/>
-    </div>
-  `);
-    $('body').append($tooltip);
-    $tooltip.css({
-      position: 'absolute',
-      zIndex: 99999,
-      backgroundColor: '#fff',
-      border: '1px solid #ccc',
-      padding: '5px',
-      boxShadow: '0 0 5px rgba(0,0,0,0.2)',
-      pointerEvents: 'none'
-    });
-    const rowOffset = $row.offset();
-    const tooltipWidth = $tooltip.outerWidth();
-    $tooltip.css({
-      top: rowOffset.top + 'px',
-      left: rowOffset.left - tooltipWidth - 10 + 'px'
-    });
-    $row.data('tooltip', $tooltip);
-  }
-
-  /**
-   * ������� tooltip, ��������� � �������� �������.
-   * @param {jQuery} $row - jQuery ������ ������, ��� ������� ��������� tooltip.
-   */
-  hideAbilityTooltip($row) {
-    const $tooltip = $row.data('tooltip');
-    if ($tooltip) {
-      $tooltip.remove();
-      $row.removeData('tooltip');
-    }
-  }
 
   activateListeners(html) {
     super.activateListeners(html);
@@ -137,25 +89,10 @@ export class myrpgActorSheet extends ActorSheet {
     // ----------------------------------------------------------------------
     const $table = html.find('.abilities-table');
 
-    // ��� ����� ������� � ������� ������������ ������� tooltip
-    $table.on('mouseleave', () => {
-      $('body').find('.ability-tooltip').remove();
-    });
-
-    // ���������� tooltip ��� ��������� �� ������ �����������
-    html.find('tr.ability-row').on('mouseenter', (event) => {
-      const $row = $(event.currentTarget);
-      const index = Number($row.data('index'));
-      let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-      if (!Array.isArray(abilities)) abilities = Object.values(abilities);
-      const abilityData = abilities[index] || {};
-      this.showAbilityTooltip($row, abilityData);
-    });
-
-    // ������� tooltip, ����� ������ ������ �� ������
-    html.find('tr.ability-row').on('mouseleave', (event) => {
-      const $row = $(event.currentTarget);
-      this.hideAbilityTooltip($row);
+    // toggle expanded ability description
+    html.find('tr.ability-row').click((ev) => {
+      if ($(ev.target).closest('.abilities-remove-row, .abilities-edit-row').length) return;
+      $(ev.currentTarget).toggleClass('expanded');
     });
 
     // ������ "������" (���� ���-�� ������������)
@@ -173,7 +110,6 @@ export class myrpgActorSheet extends ActorSheet {
       abilities.push({
         name: '',
         rank: '',
-        desc: '',
         effect: '',
         cost: ''
       });
@@ -210,14 +146,13 @@ export class myrpgActorSheet extends ActorSheet {
       }).render(true);
     });
 
-    // �������������� ����������� (TinyMCE � ����������� ����)
-    html.find('tr.ability-row').click((ev) => {
-      if ($(ev.target).closest('.abilities-remove-row').length) return;
+    // open ability edit dialog
+    html.find('.abilities-edit-row').click((ev) => {
+      ev.preventDefault();
       if (this._editing) {
         ui.notifications.warn(game.i18n.localize('MY_RPG.AbilityConfig.AlreadyEditing'));
         return;
       }
-      ev.preventDefault();
       this._editing = true;
 
       const index = Number(ev.currentTarget.dataset.index);
@@ -242,10 +177,6 @@ export class myrpgActorSheet extends ActorSheet {
               <textarea name="effect" class="rich-editor">${abilityData.effect ?? ''}</textarea>
             </div>
             <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Desc')}</label>
-              <textarea name="desc" class="rich-editor">${abilityData.desc ?? ''}</textarea>
-            </div>
-            <div class="form-group">
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Cost')}</label>
               <input type="number" name="cost" value="${abilityData.cost ?? ''}" />
             </div>
@@ -267,7 +198,6 @@ export class myrpgActorSheet extends ActorSheet {
                 name: formData.name ?? '',
                 rank: formData.rank ?? '',
                 effect: formData.effect ?? '',
-                desc: formData.desc ?? '',
                 cost: formData.cost ?? ''
               };
               this.actor.update({ 'system.abilitiesList': abilities });

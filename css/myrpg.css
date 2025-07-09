@@ -262,11 +262,8 @@ form textarea {
   margin-bottom: 3px;
 }
 
-.ability-tooltip {
-  white-space: normal;
-  word-break: break-word;
-  max-width: 300px;
-}
+
+/* ability tooltip removed */
 
 /*                      */
 .myrpg .abilities-table {
@@ -278,7 +275,7 @@ form textarea {
 
 .myrpg .abilities-table th,
 .myrpg .abilities-table td {
-  border: 2px solid #1b1210 !important; /*                     */
+  border: 1px solid #1b1210 !important;
   padding: 5px;
   text-align: center;
   color: #1b1210; /*             */
@@ -303,6 +300,23 @@ form textarea {
   transition: background-color 0.2s;
 }
 
+/* collapse effect text in ability rows */
+.abilities-table tr.ability-row .col-effect {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 3em;
+  transition: max-height 0.3s ease;
+}
+
+.abilities-table tr.ability-row.expanded .col-effect {
+  max-height: none;
+  display: block;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+}
+
 .tab.abilities table.abilities-table {
   table-layout: fixed;
   width: 100%;
@@ -321,11 +335,17 @@ form textarea {
 }
 
 .tab.abilities table.abilities-table th.col-cost {
-  width: 13% !important;
+  width: 10% !important;
 }
 
 .tab.abilities table.abilities-table th.col-delete {
   width: 5% !important;
+}
+
+.abilities-table td.col-delete a {
+  display: inline-block;
+  margin: 0 2px;
+  white-space: nowrap;
 }
 
 /* CSS                                                             */
