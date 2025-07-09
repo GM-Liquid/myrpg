@@ -411,6 +411,11 @@ form textarea {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* 6-колоночная сетка для Биографии */
+.grid-6col {
+  grid-column: span 6 / span 6;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
 
 .flexrow {
   align-items: flex-start; /*                                 */
