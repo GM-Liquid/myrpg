@@ -142,6 +142,9 @@ export class myrpgActorSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
+    html
+      .find('textarea.rich-editor')
+      .each((i, el) => this.initializeRichEditor(el));
     html.find('.wound-box').click(this._onToggleWound.bind(this));
 
     // ----------------------------------------------------------------------
