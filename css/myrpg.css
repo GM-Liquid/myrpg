@@ -28,6 +28,23 @@
   max-width: 150px;
 }
 
+/* unified appearance for key info inputs */
+.key-info-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.key-info-grid .resource-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.key-info-input[readonly] {
+  background-color: #f8f8f8;
+  color: #1b1210;
+}
+
 .skill-row {
   display: flex;
   align-items: center;
