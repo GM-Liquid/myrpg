@@ -597,7 +597,6 @@ form textarea {
   border: none;
   min-height: 60px;
   box-sizing: border-box;
-  text-align: center;
   padding: 0;
 }
 
@@ -613,7 +612,6 @@ form textarea {
   font-size: inherit;
   line-height: inherit;
   color: #1b1210;
-  text-align: inherit;
 }
 
 /* ---             --- */
