@@ -307,6 +307,16 @@ form textarea {
   max-height: none;
 }
 
+.abilities-table tr.inventory-row .col-effect .effect-wrapper {
+  overflow: hidden;
+  max-height: 3em;
+  white-space: pre-wrap;
+}
+
+.abilities-table tr.inventory-row.expanded .col-effect .effect-wrapper {
+  max-height: none;
+}
+
 .tab.abilities table.abilities-table {
   table-layout: fixed;
   width: 100%;
@@ -334,7 +344,7 @@ form textarea {
 
 .abilities-table td.col-delete a {
   display: inline-block;
-  margin: 0 2px;
+  margin: 0 6px;
   white-space: nowrap;
 }
 
@@ -357,7 +367,7 @@ form textarea {
 }
 
 .tab.inventory table.abilities-table th.col-delete {
-  width: 5%;
+  width: 9%;
 }
 
 /*                                                   */

@@ -539,9 +539,14 @@
               {{#each system.inventoryList as |item i|}}
                 <tr class='inventory-row' data-index='{{i}}'>
                   <td class='col-name'>{{{item.name}}}</td>
-                  <td class='col-effect'>{{{item.desc}}}</td>
+                  <td class='col-effect'>
+                    <div class='effect-wrapper'>{{{item.desc}}}</div>
+                  </td>
                   <td class='col-cost'>{{item.quantity}}</td>
                   <td class='col-delete'>
+                    <a class='inventory-edit-row' data-index='{{i}}'>
+                      <i class='fa-solid fa-pen'></i>
+                    </a>
                     <a class='inventory-remove-row' data-index='{{i}}'>
                       <i class='fa-solid fa-trash'></i>
                     </a>
