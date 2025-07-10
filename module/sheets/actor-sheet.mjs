@@ -112,7 +112,7 @@ export class myrpgActorSheet extends ActorSheet {
     });
 
     // �������� ����� ����������� (������)
-    html.find('tr.add-row').click((ev) => {
+    html.find('.abilities-section tr.add-row').click((ev) => {
       ev.preventDefault();
       let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
       if (!Array.isArray(abilities)) abilities = Object.values(abilities);
@@ -253,7 +253,7 @@ export class myrpgActorSheet extends ActorSheet {
     // ----------------------------------------------------------------------
     // Mods table actions
     // ----------------------------------------------------------------------
-    html.find('tr.mod-row').click((ev) => {
+    html.find('.mods-section tr.mod-row').click((ev) => {
       if ($(ev.target).closest('.mods-remove-row, .mods-edit-row').length) return;
       $(ev.currentTarget).toggleClass('expanded');
     });
@@ -397,7 +397,7 @@ export class myrpgActorSheet extends ActorSheet {
       this.actor.update({ 'system.inventoryList': inventory });
     });
 
-    html.find('tr.inventory-row').click((ev) => {
+    html.find('.inventory tr.inventory-row').click((ev) => {
       if ($(ev.target).closest('.inventory-remove-row, .inventory-edit-row').length) return;
       $(ev.currentTarget).toggleClass('expanded');
     });
