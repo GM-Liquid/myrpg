@@ -247,6 +247,138 @@ export class myrpgActorSheet extends ActorSheet {
         }
       });
       diag.render(true);
+    this._editDialog = diag;
+  });
+
+    // ----------------------------------------------------------------------
+    // Mods table actions
+    // ----------------------------------------------------------------------
+    html.find('tr.mod-row').click((ev) => {
+      if ($(ev.target).closest('.mods-remove-row, .mods-edit-row').length) return;
+      $(ev.currentTarget).toggleClass('expanded');
+    });
+
+    html.find('.mods-table .add-row').click((ev) => {
+      ev.preventDefault();
+      let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
+      if (!Array.isArray(mods)) mods = Object.values(mods);
+      mods.push({ name: '', rank: '', effect: '', cost: '' });
+      this.actor.update({ 'system.modsList': mods });
+    });
+
+    html.find('.mods-remove-row').click((ev) => {
+      ev.preventDefault();
+      const index = Number(ev.currentTarget.dataset.index);
+      new Dialog({
+        title: game.i18n.localize('MY_RPG.Dialog.ConfirmDeleteTitle'),
+        content: `<p>${game.i18n.localize('MY_RPG.Dialog.ConfirmDeleteMessage')}</p>`,
+        buttons: {
+          yes: {
+            icon: '<i class="fas fa-check"></i>',
+            label: game.i18n.localize('MY_RPG.Dialog.Yes'),
+            callback: () => {
+              let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
+              if (!Array.isArray(mods)) mods = Object.values(mods);
+              mods.splice(index, 1);
+              this.actor.update({ 'system.modsList': mods });
+            }
+          },
+          no: {
+            icon: '<i class="fas fa-times"></i>',
+            label: game.i18n.localize('MY_RPG.Dialog.No')
+          }
+        },
+        default: 'no'
+      }).render(true);
+    });
+
+    html.find('.mods-edit-row').click((ev) => {
+      ev.preventDefault();
+      if (this._editDialog) {
+        this._editDialog.close();
+      }
+
+      const index = Number(ev.currentTarget.dataset.index);
+      let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
+      if (!Array.isArray(mods)) mods = Object.values(mods);
+      const modData = mods[index] || {};
+
+      let diag = new Dialog({
+        title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
+        content: `
+          <form>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Name')}</label>
+              <input type="text" name="name" value="${modData.name ?? ''}" />
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Rank')}</label>
+              <input type="text" name="rank" value="${modData.rank ?? ''}" />
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Effect')}</label>
+              <textarea name="effect" class="rich-editor">${modData.effect ?? ''}</textarea>
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Cost')}</label>
+              <input type="number" name="cost" value="${modData.cost ?? ''}" />
+            </div>
+          </form>
+        `,
+        buttons: {},
+        close: (htmlDialog) => {
+          tinymce.triggerSave();
+          const formEl = htmlDialog.find('form')[0];
+          const fd = new FormData(formEl);
+          let formData = {};
+          for (let [k, v] of fd.entries()) {
+            formData[k] = v;
+          }
+          mods[index] = {
+            name: formData.name ?? '',
+            rank: formData.rank ?? '',
+            effect: formData.effect ?? '',
+            cost: formData.cost ?? ''
+          };
+          this.actor.update({ 'system.modsList': mods });
+          this._editDialog = null;
+        },
+        render: (html) => {
+          html.find('textarea.rich-editor').each((i, element) => {
+            this.initializeRichEditor(element);
+          });
+
+          const form = html.find('form');
+          form.on('input', 'input, textarea', () => {
+            tinymce.triggerSave();
+            const formEl = form[0];
+            const fd = new FormData(formEl);
+            let formData = {};
+            for (let [k, v] of fd.entries()) {
+              formData[k] = v;
+            }
+            mods[index] = {
+              name: formData.name ?? '',
+              rank: formData.rank ?? '',
+              effect: formData.effect ?? '',
+              cost: formData.cost ?? ''
+            };
+            this.actor.update(
+              { 'system.modsList': mods },
+              { render: false }
+            );
+
+            const row = this.element.find(
+              `.mods-table tr.mod-row[data-index="${index}"]`
+            );
+            row.find('.col-name').html(formData.name ?? '');
+            row.find('.col-rank').text(formData.rank ?? '');
+            row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
+            row.find('.col-cost').text(formData.cost ?? '');
+          });
+        }
+      });
+      diag.render(true);
       this._editDialog = diag;
     });
 

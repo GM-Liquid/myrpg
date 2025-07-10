@@ -555,6 +555,15 @@ form textarea {
   resize: vertical;
 }
 
+/* armor bonuses layout */
+.armor-values {
+  gap: 8px;
+  margin-top: 8px;
+}
+.armor-values .flexcol input {
+  width: 80%;
+}
+
 /*                                             */
 .myrpg.sheet.actor form input[type='text'],
 .myrpg.sheet.actor form input[type='number'],
