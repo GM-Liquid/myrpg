@@ -288,7 +288,7 @@ form textarea {
 }
 
 .myrpg .abilities-table tr:nth-child(even) {
-  background-color: #a79086 !important;
+  background-color: #c1b1aa !important;
 }
 
 .myrpg .abilities-table tr:hover td {
@@ -304,6 +304,16 @@ form textarea {
 }
 
 .abilities-table tr.ability-row.expanded .col-effect .effect-wrapper {
+  max-height: none;
+}
+
+.abilities-table tr.mod-row .col-effect .effect-wrapper {
+  overflow: hidden;
+  max-height: 3em;
+  white-space: pre-wrap;
+}
+
+.abilities-table tr.mod-row.expanded .col-effect .effect-wrapper {
   max-height: none;
 }
 
@@ -340,6 +350,10 @@ form textarea {
 
 .tab.abilities table.abilities-table th.col-delete {
   width: 9% !important;
+}
+
+.mods-section {
+  margin-top: 50px;
 }
 
 .abilities-table td.col-delete a {
