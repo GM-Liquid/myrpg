@@ -283,8 +283,13 @@ form textarea {
 
 .myrpg .abilities-table thead th {
   background-color: #673e37 !important;
-  color: #d2d2c9 !important; 
+  color: #d2d2c9 !important;
   text-shadow: none !important;
+}
+
+.myrpg .abilities-table th.primary-header {
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .myrpg .abilities-table tr:nth-child(even) {

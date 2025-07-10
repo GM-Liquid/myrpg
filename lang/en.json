@@ -49,6 +49,7 @@
     "Inventory": {
       "TableHeading": "Inventory",
       "Name": "Name",
+      "EquipmentHeader": "Equipment",
       "Description": "Description",
       "Quantity": "Quantity",
       "AddRow": "Add Item",
@@ -192,6 +193,7 @@
     },
     "AbilitiesTable": {
       "TableHeading": "Abilities",
+      "PrimaryHeader": "Abilities",
       "Name": "Name",
       "Effect": "Effect",
       "Cost": "Cost",
@@ -200,6 +202,7 @@
     },
     "ModsTable": {
       "TableHeading": "Skills and Mods",
+      "PrimaryHeader": "Skills",
       "Name": "Name",
       "Effect": "Effect",
       "Cost": "Cost",

@@ -84,6 +84,7 @@
     "Inventory": {
       "TableHeading": "Инвентарь",
       "Name": "Название",
+      "EquipmentHeader": "Снаряжение",
       "Description": "Описание",
       "Quantity": "Количество",
       "AddRow": "Добавить предмет",
@@ -192,6 +193,7 @@
     },
     "AbilitiesTable": {
       "TableHeading": "Способности",
+      "PrimaryHeader": "Способности",
       "Name": "Название",
       "Effect": "Эффект",
       "Cost": "Стоимость",
@@ -200,6 +202,7 @@
     },
     "ModsTable": {
       "TableHeading": "Умения и модификации",
+      "PrimaryHeader": "Умения",
       "Name": "Название",
       "Effect": "Эффект",
       "Cost": "Стоимость",
