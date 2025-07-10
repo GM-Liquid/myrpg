@@ -74,6 +74,10 @@
             >{{system.biography.appearance}}</textarea>
           </div>
           <div class='form-group'>
+            <label>{{localize 'MY_RPG.Biography.Story'}}</label>
+            <textarea class='rich-editor' name='system.biography.story' rows='6'>{{system.biography.story}}</textarea>
+          </div>
+          <div class='form-group'>
             <label>{{localize 'MY_RPG.Biography.Notes'}}</label>
             <textarea class='rich-editor' name='system.biography.notes' rows='8'>{{system.biography.notes}}</textarea>
           </div>
@@ -403,7 +407,6 @@
 
       <div class='tab abilities' data-group='primary' data-tab='abilities'>
         <section class='flux-section'>
-          <h1>{{localize 'MY_RPG.SheetLabels.Abilities'}}</h1>
           <div class='resource flex-group-center'>
             <label for='system.flux.value' class='resource-label'>
               {{localize 'MY_RPG.Flux.Label'}}
@@ -457,6 +460,46 @@
                 <td colspan='5'>
                   <i class='fa-solid fa-plus'></i>
                   {{localize 'MY_RPG.AbilitiesTable.AddRow'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section class='mods-section'>
+          <h2>{{localize 'MY_RPG.ModsTable.TableHeading'}}</h2>
+          <table class='abilities-table mods-table'>
+            <thead>
+              <tr>
+                <th class='col-name'>{{localize 'MY_RPG.ModsTable.Name'}}</th>
+                <th class='col-rank'>{{localize 'MY_RPG.ModsTable.Rank'}}</th>
+                <th class='col-effect'>{{localize 'MY_RPG.ModsTable.Effect'}}</th>
+                <th class='col-cost'>{{localize 'MY_RPG.ModsTable.Cost'}}</th>
+                <th class='col-delete'></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each system.modsList as |row i|}}
+                <tr class='mod-row' data-index='{{i}}'>
+                  <td class='col-name'>{{{row.name}}}</td>
+                  <td class='col-rank'>{{row.rank}}</td>
+                  <td class='col-effect'>
+                    <div class='effect-wrapper'>{{{row.effect}}}</div>
+                  </td>
+                  <td class='col-cost'>{{row.cost}}</td>
+                  <td class='col-delete'>
+                    <a class='mods-edit-row' data-index='{{i}}'>
+                      <i class='fa-solid fa-pen'></i>
+                    </a>
+                    <a class='mods-remove-row' data-index='{{i}}'>
+                      <i class='fa-solid fa-trash'></i>
+                    </a>
+                  </td>
+                </tr>
+              {{/each}}
+              <tr class='add-row'>
+                <td colspan='5'>
+                  <i class='fa-solid fa-plus'></i>
+                  {{localize 'MY_RPG.ModsTable.AddRow'}}
                 </td>
               </tr>
             </tbody>

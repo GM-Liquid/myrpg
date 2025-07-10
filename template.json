@@ -20,6 +20,7 @@
           }
         },
         "abilitiesList": [],
+        "modsList": [],
         "inventoryList": [],
         "health": {
           "value": 20,
@@ -168,6 +169,7 @@
         "eyeColor": "",
         "hairColor": "",
         "appearance": "",
+        "story": "",
         "notes": ""
       },
       "attributes": {}

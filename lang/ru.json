@@ -187,10 +187,19 @@
       "EyeColor": "Цвет глаз",
       "HairColor": "Цвет волос",
       "Appearance": "Внешность",
+      "Story": "Биография",
       "Notes": "Заметки"
     },
     "AbilitiesTable": {
-      "TableHeading": "Таблица способностей",
+      "TableHeading": "Способности",
+      "Name": "Название",
+      "Effect": "Эффект",
+      "Cost": "Стоимость",
+      "AddRow": "Добавить строку",
+      "Rank": "Ранг"
+    },
+    "ModsTable": {
+      "TableHeading": "Умения и модификации",
       "Name": "Название",
       "Effect": "Эффект",
       "Cost": "Стоимость",

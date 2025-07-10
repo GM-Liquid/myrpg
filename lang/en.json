@@ -187,10 +187,19 @@
       "EyeColor": "Eye Color",
       "HairColor": "Hair Color",
       "Appearance": "Appearance",
+      "Story": "Biography",
       "Notes": "Notes"
     },
     "AbilitiesTable": {
-      "TableHeading": "Abilities Table",
+      "TableHeading": "Abilities",
+      "Name": "Name",
+      "Effect": "Effect",
+      "Cost": "Cost",
+      "AddRow": "Add Row",
+      "Rank": "Rank"
+    },
+    "ModsTable": {
+      "TableHeading": "Skills and Mods",
       "Name": "Name",
       "Effect": "Effect",
       "Cost": "Cost",
