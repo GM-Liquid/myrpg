@@ -719,6 +719,10 @@ table {
   margin: 0em 0 !important;
 }
 
+section.abilities-section {
+  margin-top: 20px;
+}
+
 /* Rank coloring -------------------------------------------------- */
 .rank1 {
   --rank-bg: var(--rank1-bg);
