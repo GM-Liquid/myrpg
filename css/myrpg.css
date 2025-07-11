@@ -219,8 +219,19 @@ form input[type='number'] {
   margin-bottom: 5px;
 }
 
+
 .myrpg .skills .skill {
   margin-bottom: 5px;
+}
+
+/* layout skills into two columns */
+.skills-grid {
+  column-count: 2;
+  column-gap: 10px;
+}
+
+.skills-grid .skill-row {
+  break-inside: avoid;
 }
 
 /*         resizable   textarea */
@@ -249,6 +260,12 @@ form textarea {
 
 .rollable:hover,
 .rollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
+td.col-name:hover {
   color: #000;
   text-shadow: 0 0 10px red;
   cursor: pointer;

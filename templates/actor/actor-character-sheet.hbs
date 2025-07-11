@@ -304,11 +304,10 @@
         </div>
         <!--                sheet-box Key Info -->
 
-        <section class='flexrow'>
-          <!--       : 50% -->
-          <div class='flexcol col-50'>
-            <div class='sheet-box'>
-              <h2>{{localize 'MY_RPG.SheetLabels.Skills'}}</h2>
+        <section class='flexcol'>
+          <div class='sheet-box'>
+            <h2>{{localize 'MY_RPG.SheetLabels.Skills'}}</h2>
+            <div class='skills-grid'>
               {{#each system.skills as |skill key|}}
                 <div class='skill skill-row'>
                   <!--                                 -->
@@ -341,11 +340,9 @@
             </div>
           </div>
 
-
-          <div class='flexcol col-25'>
-            <div class='sheet-box limited-height'>
-              <h2>{{localize 'MY_RPG.TempBonus.Label'}}</h2>
-              <table>
+          <div class='sheet-box limited-height'>
+            <h2>{{localize 'MY_RPG.TempBonus.Label'}}</h2>
+            <table>
                 <tr>
                   <td>{{localize 'MY_RPG.TempHealth.Label'}}</td>
                   <td><input
@@ -396,9 +393,6 @@
                 </tr>
               </table>
             </div>
-          </div>
-
-
 
         </section>
 
