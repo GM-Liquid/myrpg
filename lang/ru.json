@@ -130,6 +130,7 @@
     "TempSpeed": {
       "Label": "Врем. скорость"
     },
+    "SendToChat": "Отправить в чат",
     "MinimalBonus": "минимальный бонус",
     "abilityAbbreviations": {
       "spi": "Дух",
