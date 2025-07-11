@@ -400,25 +400,6 @@
       <!--               Features -->
 
       <div class='tab abilities' data-group='primary' data-tab='abilities'>
-        <section class='flux-section'>
-          <div class='resource flex-group-center'>
-            <label for='system.flux.value' class='resource-label'>
-              {{localize 'MY_RPG.Flux.Label'}}
-            </label>
-            <div class='resource-content flexcol'>
-              <input
-                type='number'
-                class='key-info-input'
-                name='system.flux.value'
-                value='{{system.flux.value}}'
-                step='1'
-                inputmode='numeric'
-                readonly
-                tabindex='-1'
-              />
-            </div>
-          </div>
-        </section>
         <section class='abilities-section'>
           <table class='abilities-table'>
             <thead>
@@ -528,64 +509,69 @@
       </div>
 
       <div class='tab inventory' data-group='primary' data-tab='inventory'>
-        <div class='sheet-box limited-height'>
+        <div class='sheet-box'>
           <h2>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</h2>
-          <div class='armor-description'>
-            <label>{{localize 'MY_RPG.ArmorItem.DescriptionLabel'}}</label>
-            <textarea class='rich-editor' name='system.armor.itemDesc' rows='3'>{{system.armor.itemDesc}}</textarea>
-          </div>
-          <div class='armor-values flexrow'>
-            <div class='flexcol'>
-              <label>{{localize 'MY_RPG.ArmorItem.BonusSpeedLabel'}}</label>
-              <input
-                type='number'
-                name='system.armor.itemSpeed'
-                value='{{system.armor.itemSpeed}}'
-                step='1'
-                inputmode='numeric'
-              />
-            </div>
-            <div class='flexcol'>
-              <label>{{localize 'MY_RPG.ArmorItem.BonusPhysicalLabel'}}</label>
-              <input
-                type='number'
-                name='system.armor.itemPhys'
-                value='{{system.armor.itemPhys}}'
-                step='1'
-                inputmode='numeric'
-              />
-            </div>
-            <div class='flexcol'>
-              <label>{{localize 'MY_RPG.ArmorItem.BonusMagicalLabel'}}</label>
-              <input
-                type='number'
-                name='system.armor.itemAzure'
-                value='{{system.armor.itemAzure}}'
-                step='1'
-                inputmode='numeric'
-              />
-            </div>
-            <div class='flexcol'>
-              <label>{{localize 'MY_RPG.ArmorItem.BonusPsychicLabel'}}</label>
-              <input
-                type='number'
-                name='system.armor.itemMental'
-                value='{{system.armor.itemMental}}'
-                step='1'
-                inputmode='numeric'
-              />
-            </div>
-            <div class='flexcol'>
-              <label>{{localize 'MY_RPG.ArmorItem.ShieldLabel'}}</label>
-              <input
-                type='number'
-                name='system.armor.itemShield'
-                value='{{system.armor.itemShield}}'
-                step='1'
-                inputmode='numeric'
-              />
-            </div>
-          </div>
+          <table class='abilities-table armor-table'>
+            <thead>
+              <tr>
+                <th class='col-name primary-header'>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</th>
+                <th class='col-equip'>{{localize 'MY_RPG.ArmorTable.EquippedLabel'}}</th>
+                <th class='col-cost'>{{localize 'MY_RPG.Inventory.Quantity'}}</th>
+                <th class='col-delete'>
+                  <a class='armor-add-row' title='{{localize "MY_RPG.ArmorTable.AddRow"}}'>
+                    <i class='fa-solid fa-plus'></i>
+                  </a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each system.armorList as |item i|}}
+                <tr class='armor-row' data-index='{{i}}'>
+                  <td class='col-name'>{{{item.name}}}</td>
+                  <td class='col-equip'>
+                    <input type='checkbox' class='armor-equip-checkbox' data-index='{{i}}' {{#if item.equipped}}checked{{/if}} />
+                  </td>
+                  <td class='col-cost'>
+                    <a class='armor-quantity-minus' data-index='{{i}}'>
+                      <i class='fa-solid fa-minus'></i>
+                    </a>
+                    <span class='quantity-value'>{{item.quantity}}</span>
+                    <a class='armor-quantity-plus' data-index='{{i}}'>
+                      <i class='fa-solid fa-plus'></i>
+                    </a>
+                  </td>
+                  <td class='col-delete'>
+                    <a
+                      class='armor-chat-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.SendToChat"}}'
+                    >
+                      <i class='fa-solid fa-comment-dots'></i>
+                    </a>
+                    <a
+                      class='armor-edit-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.ArmorTable.EditTitle"}}'
+                    >
+                      <i class='fa-solid fa-pen'></i>
+                    </a>
+                    <a
+                      class='armor-remove-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.ArmorTable.ConfirmDeleteTitle"}}'
+                    >
+                      <i class='fa-solid fa-trash'></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr class='armor-effect-row'>
+                  <td class='col-effect' colspan='4'>
+                    <div class='effect-wrapper'>{{{item.desc}}}</div>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
         </div>
         <div class='sheet-box'>
           <table class='abilities-table'>
