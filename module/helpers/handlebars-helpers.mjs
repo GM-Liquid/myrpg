@@ -43,3 +43,35 @@ Handlebars.registerHelper('rankLabel', function (rankNum) {
   const base = mode === 'stellar' ? 'MY_RPG.RankNumeric' : 'MY_RPG.RankGradient';
   return game.i18n.localize(`${base}.Rank${rankNum}`);
 });
+
+// Create HTML block for armor item details without the item name
+Handlebars.registerHelper('armorEffect', function (item) {
+  const lines = [];
+  if (item.quantity)
+    lines.push(
+      `${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${item.quantity}`
+    );
+  if (item.itemPhys)
+    lines.push(
+      `${game.i18n.localize('MY_RPG.ArmorItem.BonusPhysicalLabel')}: ${item.itemPhys}`
+    );
+  if (item.itemAzure)
+    lines.push(
+      `${game.i18n.localize('MY_RPG.ArmorItem.BonusMagicalLabel')}: ${item.itemAzure}`
+    );
+  if (item.itemMental)
+    lines.push(
+      `${game.i18n.localize('MY_RPG.ArmorItem.BonusPsychicLabel')}: ${item.itemMental}`
+    );
+  if (item.itemShield)
+    lines.push(
+      `${game.i18n.localize('MY_RPG.ArmorItem.ShieldLabel')}: ${item.itemShield}`
+    );
+  if (item.itemSpeed)
+    lines.push(
+      `${game.i18n.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}: ${item.itemSpeed}`
+    );
+  let html = lines.join('<br>');
+  if (item.desc) html += `<br><br>${item.desc}`;
+  return new Handlebars.SafeString(html);
+});

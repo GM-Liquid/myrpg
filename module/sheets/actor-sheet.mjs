@@ -544,7 +544,10 @@ export class myrpgActorSheet extends ActorSheet {
             quantity: formData.quantity ?? 1,
             equipped: itemData.equipped ?? false
           };
-          this.actor.update({ 'system.armorList': list });
+          this.actor.update({ 'system.armorList': list }).then(() => {
+            // force refresh of derived stats in case values didn't change
+            this.render(false);
+          });
           this._editDialog = null;
         },
         render: (html) => {
@@ -574,7 +577,9 @@ export class myrpgActorSheet extends ActorSheet {
 
             const row = this.element.find(`.abilities-table tr.armor-row[data-index="${index}"]`);
             row.find('.col-name').html(formData.name ?? '');
-            row.find('.col-effect .effect-wrapper').html(formData.desc ?? '');
+            row
+              .find('.col-effect .effect-wrapper')
+              .html(this._armorEffectHtml(list[index]));
             row.find('.col-cost .quantity-value').text(formData.quantity ?? '');
           });
         }
@@ -976,5 +981,36 @@ export class myrpgActorSheet extends ActorSheet {
       flavor,
       rollMode: game.settings.get('core', 'rollMode')
     });
+  }
+
+  _armorEffectHtml(item) {
+    const lines = [];
+    if (item.quantity)
+      lines.push(
+        `${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${item.quantity}`
+      );
+    if (item.itemPhys)
+      lines.push(
+        `${game.i18n.localize('MY_RPG.ArmorItem.BonusPhysicalLabel')}: ${item.itemPhys}`
+      );
+    if (item.itemAzure)
+      lines.push(
+        `${game.i18n.localize('MY_RPG.ArmorItem.BonusMagicalLabel')}: ${item.itemAzure}`
+      );
+    if (item.itemMental)
+      lines.push(
+        `${game.i18n.localize('MY_RPG.ArmorItem.BonusPsychicLabel')}: ${item.itemMental}`
+      );
+    if (item.itemShield)
+      lines.push(
+        `${game.i18n.localize('MY_RPG.ArmorItem.ShieldLabel')}: ${item.itemShield}`
+      );
+    if (item.itemSpeed)
+      lines.push(
+        `${game.i18n.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}: ${item.itemSpeed}`
+      );
+    let html = lines.join('<br>');
+    if (item.desc) html += `<br><br>${item.desc}`;
+    return html;
   }
 }
