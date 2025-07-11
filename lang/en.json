@@ -104,6 +104,14 @@
       "ShieldLabel": "Power Shield",
       "BonusSpeedLabel": "Speed Bonus"
     },
+    "ArmorTable": {
+      "AddRow": "Add Armor",
+      "EditTitle": "Edit Armor Item",
+      "ConfirmDeleteTitle": "Delete Armor Item",
+      "ConfirmDeleteMessage": "Are you sure you want to delete this armor item? This action cannot be undone.",
+      "Yes": "Yes",
+      "No": "No"
+    },
     "Resources": {
       "Title": "Resources",
       "SuppliesLabel": "Supplies",

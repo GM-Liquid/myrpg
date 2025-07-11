@@ -37,10 +37,15 @@ export class myrpgActor extends Actor {
   }
 
   /* ------------------------ Формулы ------------------------------ */
+  _sumArmor(list, prop) {
+    if (!Array.isArray(list)) list = Object.values(list || {});
+    return list.reduce((t, a) => t + (Number(a[prop]) || 0) * (Number(a.quantity) || 1), 0);
+  }
+
   _calcHealthMax(s) {
     return (
       20 +
-      (Number(s.armor?.itemShield) || 0) +
+      this._sumArmor(s.armorList, 'itemShield') +
       (Number(s.temphealth) || 0)
     );
   }
@@ -60,7 +65,7 @@ export class myrpgActor extends Actor {
     return (
       5 +
       (s.abilities.con?.value ?? 0) +
-      (Number(s.armor?.itemSpeed) || 0) +
+      this._sumArmor(s.armorList, 'itemSpeed') +
       (Number(s.tempspeed) || 0)
     );
   }
@@ -69,7 +74,7 @@ export class myrpgActor extends Actor {
     return (
       1 +
       (s.abilities.con?.value ?? 0) +
-      (Number(s.armor?.itemPhys) || 0) +
+      this._sumArmor(s.armorList, 'itemPhys') +
       (Number(s.tempphys) || 0)
     );
   }
@@ -77,7 +82,7 @@ export class myrpgActor extends Actor {
     return (
       1 +
       (s.abilities.spi?.value ?? 0) +
-      (Number(s.armor?.itemAzure) || 0) +
+      this._sumArmor(s.armorList, 'itemAzure') +
       (Number(s.tempazure) || 0)
     );
   }
@@ -85,7 +90,7 @@ export class myrpgActor extends Actor {
     return (
       1 +
       (s.abilities.int?.value ?? 0) +
-      (Number(s.armor?.itemMental) || 0) +
+      this._sumArmor(s.armorList, 'itemMental') +
       (Number(s.tempmental) || 0)
     );
   }
