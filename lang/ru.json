@@ -52,6 +52,14 @@
       "ShieldLabel": "Силовой щит",
       "BonusSpeedLabel": "Бонус к скорости"
     },
+    "ArmorTable": {
+      "AddRow": "Добавить доспех",
+      "EditTitle": "Редактирование доспеха",
+      "ConfirmDeleteTitle": "Удаление доспеха",
+      "ConfirmDeleteMessage": "Вы действительно хотите удалить этот доспех? Это действие необратимо.",
+      "Yes": "Да",
+      "No": "Нет"
+    },
     "Resources": {
       "Title": "Ресурсы",
       "SuppliesLabel": "Припасы",
