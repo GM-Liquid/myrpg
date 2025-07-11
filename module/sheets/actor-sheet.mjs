@@ -541,7 +541,8 @@ export class myrpgActorSheet extends ActorSheet {
             itemMental: formData.itemMental ?? 0,
             itemShield: formData.itemShield ?? 0,
             itemSpeed: formData.itemSpeed ?? 0,
-            quantity: formData.quantity ?? 1
+            quantity: formData.quantity ?? 1,
+            equipped: itemData.equipped ?? false
           };
           this.actor.update({ 'system.armorList': list });
           this._editDialog = null;
@@ -558,16 +559,17 @@ export class myrpgActorSheet extends ActorSheet {
             for (let [k, v] of fd.entries()) {
               formData[k] = v;
             }
-            list[index] = {
-              name: formData.name ?? '',
-              desc: formData.desc ?? '',
-              itemPhys: formData.itemPhys ?? 0,
-              itemAzure: formData.itemAzure ?? 0,
-              itemMental: formData.itemMental ?? 0,
-              itemShield: formData.itemShield ?? 0,
-              itemSpeed: formData.itemSpeed ?? 0,
-              quantity: formData.quantity ?? 1
-            };
+              list[index] = {
+                name: formData.name ?? '',
+                desc: formData.desc ?? '',
+                itemPhys: formData.itemPhys ?? 0,
+                itemAzure: formData.itemAzure ?? 0,
+                itemMental: formData.itemMental ?? 0,
+                itemShield: formData.itemShield ?? 0,
+                itemSpeed: formData.itemSpeed ?? 0,
+                quantity: formData.quantity ?? 1,
+                equipped: list[index].equipped ?? false
+              };
             this.actor.update({ 'system.armorList': list }, { render: false });
 
             const row = this.element.find(`.abilities-table tr.armor-row[data-index="${index}"]`);
