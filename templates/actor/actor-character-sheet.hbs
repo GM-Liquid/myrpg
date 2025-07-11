@@ -566,39 +566,7 @@
                 </tr>
                 <tr class='armor-effect-row'>
                   <td class='col-effect' colspan='4'>
-                    <div class='effect-wrapper'>
-                      {{#if item.itemPhys}}
-                        <div>
-                          {{localize 'MY_RPG.ArmorItem.BonusPhysicalLabel'}}:
-                          {{item.itemPhys}}
-                        </div>
-                      {{/if}}
-                      {{#if item.itemAzure}}
-                        <div>
-                          {{localize 'MY_RPG.ArmorItem.BonusMagicalLabel'}}:
-                          {{item.itemAzure}}
-                        </div>
-                      {{/if}}
-                      {{#if item.itemMental}}
-                        <div>
-                          {{localize 'MY_RPG.ArmorItem.BonusPsychicLabel'}}:
-                          {{item.itemMental}}
-                        </div>
-                      {{/if}}
-                      {{#if item.itemShield}}
-                        <div>
-                          {{localize 'MY_RPG.ArmorItem.ShieldLabel'}}:
-                          {{item.itemShield}}
-                        </div>
-                      {{/if}}
-                      {{#if item.itemSpeed}}
-                        <div>
-                          {{localize 'MY_RPG.ArmorItem.BonusSpeedLabel'}}:
-                          {{item.itemSpeed}}
-                        </div>
-                      {{/if}}
-                      {{{item.desc}}}
-                    </div>
+                    <div class='effect-wrapper'>{{{armorEffect item}}}</div>
                   </td>
                 </tr>
               {{/each}}
