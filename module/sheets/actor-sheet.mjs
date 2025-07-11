@@ -481,7 +481,9 @@ export class myrpgActorSheet extends ActorSheet {
             row
               .find('.col-effect .effect-wrapper')
               .html(formData.desc ?? '');
-            row.find('.col-cost').text(formData.quantity ?? '');
+            row
+              .find('.col-cost .quantity-value')
+              .text(formData.quantity ?? '');
           });
         }
       });
@@ -512,6 +514,34 @@ export class myrpgActorSheet extends ActorSheet {
         },
         default: 'no'
       }).render(true);
+    });
+
+    html.find('.inventory-quantity-plus').click((ev) => {
+      ev.preventDefault();
+      const index = Number(ev.currentTarget.dataset.index);
+      let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
+      if (!Array.isArray(inventory)) inventory = Object.values(inventory);
+      const current = parseInt(inventory[index]?.quantity) || 0;
+      inventory[index].quantity = current + 1;
+      this.actor.update({ 'system.inventoryList': inventory }, { render: false });
+      const row = this.element.find(
+        `.abilities-table tr.inventory-row[data-index="${index}"]`
+      );
+      row.find('.col-cost .quantity-value').text(inventory[index].quantity);
+    });
+
+    html.find('.inventory-quantity-minus').click((ev) => {
+      ev.preventDefault();
+      const index = Number(ev.currentTarget.dataset.index);
+      let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
+      if (!Array.isArray(inventory)) inventory = Object.values(inventory);
+      const current = parseInt(inventory[index]?.quantity) || 0;
+      inventory[index].quantity = Math.max(0, current - 1);
+      this.actor.update({ 'system.inventoryList': inventory }, { render: false });
+      const row = this.element.find(
+        `.abilities-table tr.inventory-row[data-index="${index}"]`
+      );
+      row.find('.col-cost .quantity-value').text(inventory[index].quantity);
     });
 
     html
