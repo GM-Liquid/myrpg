@@ -47,10 +47,6 @@ Handlebars.registerHelper('rankLabel', function (rankNum) {
 // Create HTML block for armor item details without the item name
 Handlebars.registerHelper('armorEffect', function (item) {
   const lines = [];
-  if (item.quantity)
-    lines.push(
-      `${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${item.quantity}`
-    );
   if (item.itemPhys)
     lines.push(
       `${game.i18n.localize('MY_RPG.ArmorItem.BonusPhysicalLabel')}: ${item.itemPhys}`
