@@ -379,10 +379,7 @@ td.col-name:hover {
   width: 15%;
 }
 
-td.quantity,         
-td.abilities-qty,             
-td.mods-qty                
-{
+.tab.inventory table.abilities-table td.col-cost  {
   display: grid;
   grid-template-columns: 1.6em auto 1.6em;  
   align-items: center;              
@@ -390,11 +387,8 @@ td.mods-qty
   text-align: center;                
 }
 
-td.quantity  a,
-td.abilities-qty a,
-td.mods-qty a {
+.tab.inventory table.abilities-table td.col-cost  {
   display: block;
-  width: 100%;
 }
 
 .myrpg.sheet.actor form {
