@@ -367,6 +367,17 @@ form textarea {
   white-space: nowrap;
 }
 
+.abilities-table td.col-cost {
+  white-space: nowrap;
+  text-align: center;
+}
+
+.abilities-table td.col-cost a {
+  display: inline-block;
+  margin: 0 4px;
+  white-space: nowrap;
+}
+
 /* CSS                                                             */
 .tab.inventory table.abilities-table {
   width: 100%;

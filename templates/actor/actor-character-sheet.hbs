@@ -582,7 +582,15 @@
                   <td class='col-effect'>
                     <div class='effect-wrapper'>{{{item.desc}}}</div>
                   </td>
-                  <td class='col-cost'>{{item.quantity}}</td>
+                  <td class='col-cost'>
+                    <a class='inventory-quantity-minus' data-index='{{i}}'>
+                      <i class='fa-solid fa-minus'></i>
+                    </a>
+                    <span class='quantity-value'>{{item.quantity}}</span>
+                    <a class='inventory-quantity-plus' data-index='{{i}}'>
+                      <i class='fa-solid fa-plus'></i>
+                    </a>
+                  </td>
                   <td class='col-delete'>
                     <a class='inventory-edit-row' data-index='{{i}}'>
                       <i class='fa-solid fa-pen'></i>
