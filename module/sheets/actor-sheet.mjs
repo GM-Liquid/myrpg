@@ -388,6 +388,66 @@ export class myrpgActorSheet extends ActorSheet {
       this._editDialog = diag;
     });
 
+    html.find('.inventory-chat-row').click((ev) => {
+      ev.preventDefault();
+      const index = Number(ev.currentTarget.dataset.index);
+      const item = this.actor.system.inventoryList[index] || {};
+      const lines = [`<strong>${item.name ?? ''}</strong>`];
+      if (item.quantity)
+        lines.push(
+          `${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${item.quantity}`
+        );
+      let content = lines.join('<br>');
+      if (item.desc) content += `<br><br>${item.desc}`;
+      ChatMessage.create({
+        content,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor })
+      });
+    });
+
+    html.find('.mods-chat-row').click((ev) => {
+      ev.preventDefault();
+      const index = Number(ev.currentTarget.dataset.index);
+      const mod = this.actor.system.modsList[index] || {};
+      const lines = [`<strong>${mod.name ?? ''}</strong>`];
+      if (mod.rank)
+        lines.push(
+          `${game.i18n.localize('MY_RPG.ModsTable.Rank')}: ${mod.rank}`
+        );
+      if (mod.cost)
+        lines.push(
+          `${game.i18n.localize('MY_RPG.ModsTable.Cost')}: ${mod.cost}`
+        );
+      let content = lines.join('<br>');
+      if (mod.effect) content += `<br><br>${mod.effect}`;
+      ChatMessage.create({
+        content,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor })
+      });
+    });
+
+    html.find('.abilities-chat-row').click((ev) => {
+      ev.preventDefault();
+      const index = Number(ev.currentTarget.dataset.index);
+      const ability = this.actor.system.abilitiesList[index] || {};
+      const lines = [`<strong>${ability.name ?? ''}</strong>`];
+      if (ability.rank)
+        lines.push(
+          `${game.i18n.localize('MY_RPG.ModsTable.Rank')}: ${ability.rank}`
+        );
+      if (ability.cost)
+        lines.push(
+          `${game.i18n.localize('MY_RPG.AbilitiesTable.Cost')}: ${ability.cost}`
+        );
+      let content = lines.join('<br>');
+      if (ability.effect)
+        content += `<br><br>${ability.effect}`;
+      ChatMessage.create({
+        content,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor })
+      });
+    });
+
     // ----------------------------------------------------------------------
     // ������� ���������
     // ----------------------------------------------------------------------

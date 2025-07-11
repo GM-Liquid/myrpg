@@ -130,6 +130,7 @@
     "TempSpeed": {
       "Label": "Temp. Speed"
     },
+    "SendToChat": "Send to Chat",
     "MinimalBonus": "minimal bonus",
     "abilityAbbreviations": {
       "spi": "Spi",

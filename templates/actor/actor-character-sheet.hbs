@@ -440,11 +440,26 @@
                   <td class='col-rank'>{{row.rank}}</td>
                   <td class='col-cost'>{{row.cost}}</td>
                   <td class='col-delete'>
-                    <a class='abilities-edit-row' data-index='{{i}}'>
+                    <a
+                      class='abilities-edit-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.AbilityConfig.Title"}}'
+                    >
                       <i class='fa-solid fa-pen'></i>
                     </a>
-                    <a class='abilities-remove-row' data-index='{{i}}'>
+                    <a
+                      class='abilities-remove-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.Dialog.ConfirmDeleteTitle"}}'
+                    >
                       <i class='fa-solid fa-trash'></i>
+                    </a>
+                    <a
+                      class='abilities-chat-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.SendToChat"}}'
+                    >
+                      <i class='fa-solid fa-comment-dots'></i>
                     </a>
                   </td>
                 </tr>
@@ -478,11 +493,26 @@
                   <td class='col-rank'>{{row.rank}}</td>
                   <td class='col-cost'>{{row.cost}}</td>
                   <td class='col-delete'>
-                    <a class='mods-edit-row' data-index='{{i}}'>
+                    <a
+                      class='mods-edit-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.AbilityConfig.Title"}}'
+                    >
                       <i class='fa-solid fa-pen'></i>
                     </a>
-                    <a class='mods-remove-row' data-index='{{i}}'>
+                    <a
+                      class='mods-remove-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.Dialog.ConfirmDeleteTitle"}}'
+                    >
                       <i class='fa-solid fa-trash'></i>
+                    </a>
+                    <a
+                      class='mods-chat-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.SendToChat"}}'
+                    >
+                      <i class='fa-solid fa-comment-dots'></i>
                     </a>
                   </td>
                 </tr>
@@ -584,11 +614,26 @@
                     </a>
                   </td>
                   <td class='col-delete'>
-                    <a class='inventory-edit-row' data-index='{{i}}'>
+                    <a
+                      class='inventory-edit-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.Inventory.EditTitle"}}'
+                    >
                       <i class='fa-solid fa-pen'></i>
                     </a>
-                    <a class='inventory-remove-row' data-index='{{i}}'>
+                    <a
+                      class='inventory-remove-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.Inventory.ConfirmDeleteTitle"}}'
+                    >
                       <i class='fa-solid fa-trash'></i>
+                    </a>
+                    <a
+                      class='inventory-chat-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.SendToChat"}}'
+                    >
+                      <i class='fa-solid fa-comment-dots'></i>
                     </a>
                   </td>
                 </tr>

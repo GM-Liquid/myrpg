@@ -362,6 +362,18 @@ td.col-name:hover {
   text-align: center;
 }
 
+/* Bold text for table cells except effect rows */
+.abilities-table th,
+.abilities-table td:not(.col-effect) {
+  font-weight: 700;
+}
+
+/* Align first column to the left */
+.abilities-table th.col-name,
+.abilities-table td.col-name {
+  text-align: left;
+}
+
 .abilities-table td.col-cost a {
   display: inline-block;
   margin: 0 4px;
