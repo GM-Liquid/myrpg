@@ -29,7 +29,14 @@
         "flux": {
           "value": 0
         },
-        "armorList": [],
+        "armor": {
+          "result": 0,
+          "itemDesc": "",
+          "itemPhys": 0,
+          "itemAzure": 0,
+          "itemMental": 0,
+          "itemShield": 0
+        },
         "supplies": 0,
         "money": 0,
         "steadfast": {
