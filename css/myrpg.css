@@ -273,7 +273,6 @@ td.col-name:hover {
   border: 1px solid #1b1210 !important;
   padding: 5px;
   text-align: center;
-  color: #1b1210; 
 }
 
 .myrpg .abilities-table thead th {
@@ -339,11 +338,6 @@ td.col-name:hover {
   white-space: nowrap;
 }
 
-.abilities-table td.col-cost {
-  white-space: nowrap;
-  text-align: center;
-}
-
 /* Bold text for table cells except effect rows */
 .abilities-table th,
 .abilities-table td:not(.col-effect) {
@@ -381,14 +375,7 @@ td.col-name:hover {
 
 .tab.inventory table.abilities-table td.col-cost  {
   display: grid;
-  grid-template-columns: 1.6em auto 1.6em;  
-  align-items: center;              
-  gap: 0.2em;              
-  text-align: center;                
-}
-
-.tab.inventory table.abilities-table td.col-cost  {
-  display: block;
+  grid-template-columns: 1.6em auto 1.6em;              
 }
 
 .myrpg.sheet.actor form {
@@ -492,20 +479,13 @@ td.col-name:hover {
   font-weight: 700; /*                     */
 }
 
-/* --- 2.                                 (label)                                 --- */
-/*               ,                .sheet-box .form-group label, .resource-label    . . */
 .sheet-box .form-group label,
 .sheet-box .resource-label,
 .sheet-box .armor-description label,
 .sheet-box .armor-values label {
   text-align: center; /*                  */
-  /* font-weight: 600;  //                                   ,                  */
 }
 
-/*******************************************************
-  1)                           (  ,      ,          ,
-             ,             )                  
- *******************************************************/
 .resource,
 .resource .resource-label,
 .resource .sub-label,
@@ -513,7 +493,6 @@ td.col-name:hover {
   text-align: center;
 }
 
-/*               input                     */
 .resource input {
   text-align: center;
 }
