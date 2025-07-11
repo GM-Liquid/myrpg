@@ -518,10 +518,6 @@ export class myrpgActorSheet extends ActorSheet {
               <label>${game.i18n.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}</label>
               <input type="number" name="itemSpeed" value="${itemData.itemSpeed ?? 0}" />
             </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.Inventory.Quantity')}</label>
-              <input type="number" name="quantity" value="${itemData.quantity ?? 1}" />
-            </div>
           </form>
         `,
         buttons: {},
@@ -541,7 +537,7 @@ export class myrpgActorSheet extends ActorSheet {
             itemMental: formData.itemMental ?? 0,
             itemShield: formData.itemShield ?? 0,
             itemSpeed: formData.itemSpeed ?? 0,
-            quantity: formData.quantity ?? 1,
+            quantity: itemData.quantity ?? 1,
             equipped: itemData.equipped ?? false
           };
           this.actor.update({ 'system.armorList': list }).then(() => {
@@ -570,7 +566,7 @@ export class myrpgActorSheet extends ActorSheet {
                 itemMental: formData.itemMental ?? 0,
                 itemShield: formData.itemShield ?? 0,
                 itemSpeed: formData.itemSpeed ?? 0,
-                quantity: formData.quantity ?? 1,
+                quantity: list[index].quantity ?? 1,
                 equipped: list[index].equipped ?? false
               };
             this.actor.update({ 'system.armorList': list }, { render: false });
@@ -580,7 +576,7 @@ export class myrpgActorSheet extends ActorSheet {
             row
               .find('.col-effect .effect-wrapper')
               .html(this._armorEffectHtml(list[index]));
-            row.find('.col-cost .quantity-value').text(formData.quantity ?? '');
+            row.find('.col-cost .quantity-value').text(list[index].quantity ?? '');
           });
         }
       });
@@ -723,10 +719,6 @@ export class myrpgActorSheet extends ActorSheet {
               <label>${game.i18n.localize('MY_RPG.Inventory.Description')}</label>
               <textarea name="desc" class="rich-editor">${itemData.desc ?? ''}</textarea>
             </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.Inventory.Quantity')}</label>
-              <input type="number" name="quantity" value="${itemData.quantity ?? ''}" />
-            </div>
           </form>
         `,
         buttons: {},
@@ -741,7 +733,7 @@ export class myrpgActorSheet extends ActorSheet {
           inventory[index] = {
             name: formData.name ?? '',
             desc: formData.desc ?? '',
-            quantity: formData.quantity ?? ''
+            quantity: itemData.quantity ?? ''
           };
           this.actor.update({ 'system.inventoryList': inventory });
           this._editDialog = null;
@@ -763,7 +755,7 @@ export class myrpgActorSheet extends ActorSheet {
             inventory[index] = {
               name: formData.name ?? '',
               desc: formData.desc ?? '',
-              quantity: formData.quantity ?? ''
+              quantity: itemData.quantity ?? ''
             };
             // update actor data without re-render
             this.actor.update(
@@ -781,7 +773,7 @@ export class myrpgActorSheet extends ActorSheet {
               .html(formData.desc ?? '');
             row
               .find('.col-cost .quantity-value')
-              .text(formData.quantity ?? '');
+              .text(inventory[index].quantity ?? '');
           });
         }
       });
