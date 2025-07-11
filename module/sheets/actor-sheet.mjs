@@ -100,9 +100,12 @@ export class myrpgActorSheet extends ActorSheet {
     const $table = html.find('.abilities-table');
 
     // toggle expanded ability description
-    html.find('tr.ability-row').click((ev) => {
-      if ($(ev.target).closest('.abilities-remove-row, .abilities-edit-row').length) return;
-      $(ev.currentTarget).toggleClass('expanded');
+    html.find('tr.ability-row .col-name').click((ev) => {
+      if (
+        $(ev.target).closest('.abilities-remove-row, .abilities-edit-row').length
+      )
+        return;
+      $(ev.currentTarget).closest('tr.ability-row').toggleClass('expanded');
     });
 
     // ������ "������" (���� ���-�� ������������)
@@ -253,9 +256,12 @@ export class myrpgActorSheet extends ActorSheet {
     // ----------------------------------------------------------------------
     // Mods table actions
     // ----------------------------------------------------------------------
-    html.find('.mods-section tr.mod-row').click((ev) => {
-      if ($(ev.target).closest('.mods-remove-row, .mods-edit-row').length) return;
-      $(ev.currentTarget).toggleClass('expanded');
+    html.find('.mods-section tr.mod-row .col-name').click((ev) => {
+      if (
+        $(ev.target).closest('.mods-remove-row, .mods-edit-row').length
+      )
+        return;
+      $(ev.currentTarget).closest('tr.mod-row').toggleClass('expanded');
     });
 
     html.find('.mods-add-row').click((ev) => {
@@ -397,9 +403,12 @@ export class myrpgActorSheet extends ActorSheet {
       this.actor.update({ 'system.inventoryList': inventory });
     });
 
-    html.find('.inventory tr.inventory-row').click((ev) => {
-      if ($(ev.target).closest('.inventory-remove-row, .inventory-edit-row').length) return;
-      $(ev.currentTarget).toggleClass('expanded');
+    html.find('.inventory tr.inventory-row .col-name').click((ev) => {
+      if (
+        $(ev.target).closest('.inventory-remove-row, .inventory-edit-row').length
+      )
+        return;
+      $(ev.currentTarget).closest('tr.inventory-row').toggleClass('expanded');
     });
 
     html.find('.inventory-edit-row').click((ev) => {

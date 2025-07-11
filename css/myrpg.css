@@ -142,19 +142,15 @@ textarea[disabled] {
 
 /*                                          */
 .myrpg .abilities-table th.col-name {
-  width: 30%;
-}
-
-.myrpg .abilities-table th.col-effect {
-  width: 55%;
+  width: 70%;
 }
 
 .myrpg .abilities-table th.col-cost {
-  width: 10%;
+  width: 20%;
 }
 
 .myrpg .abilities-table th.col-delete {
-  width: 5%;
+  width: 10%;
 }
 
 /*                        :
@@ -292,44 +288,25 @@ form textarea {
   font-weight: bold;
 }
 
-.myrpg .abilities-table tr:nth-child(even) {
+.myrpg .abilities-table tr:nth-child(even):not(.ability-effect-row):not(.mod-effect-row):not(.inventory-effect-row) {
   background-color: #c1b1aa !important;
 }
 
-.myrpg .abilities-table tr:hover td {
-  background-color: #673e37 !important; 
-  color: #d2d2c9 !important;
-  transition: background-color 0.2s;
-}
 
-.abilities-table tr.ability-row .col-effect .effect-wrapper {
-  overflow: hidden;
-  max-height: 3em;
+.abilities-table .effect-wrapper {
   white-space: pre-wrap;
 }
 
-.abilities-table tr.ability-row.expanded .col-effect .effect-wrapper {
-  max-height: none;
+.abilities-table .ability-effect-row,
+.abilities-table .mod-effect-row,
+.abilities-table .inventory-effect-row {
+  display: none;
 }
 
-.abilities-table tr.mod-row .col-effect .effect-wrapper {
-  overflow: hidden;
-  max-height: 3em;
-  white-space: pre-wrap;
-}
-
-.abilities-table tr.mod-row.expanded .col-effect .effect-wrapper {
-  max-height: none;
-}
-
-.abilities-table tr.inventory-row .col-effect .effect-wrapper {
-  overflow: hidden;
-  max-height: 3em;
-  white-space: pre-wrap;
-}
-
-.abilities-table tr.inventory-row.expanded .col-effect .effect-wrapper {
-  max-height: none;
+.abilities-table tr.expanded + .ability-effect-row,
+.abilities-table tr.expanded + .mod-effect-row,
+.abilities-table tr.expanded + .inventory-effect-row {
+  display: table-row;
 }
 
 .tab.abilities table.abilities-table {
@@ -338,15 +315,11 @@ form textarea {
 }
 
 .tab.abilities table.abilities-table th.col-name {
-  width: 25% !important;
+  width: 70% !important;
 }
 
 .tab.abilities table.abilities-table th.col-rank {
   width: 10% !important;
-}
-
-.tab.abilities table.abilities-table th.col-effect {
-  width: 45% !important;
 }
 
 .tab.abilities table.abilities-table th.col-cost {
@@ -385,15 +358,11 @@ form textarea {
 }
 
 .tab.inventory table.abilities-table th.col-name {
-  width: 25%;
-}
-
-.tab.inventory table.abilities-table th.col-effect {
-  width: 50%;
+  width: 70%;
 }
 
 .tab.inventory table.abilities-table th.col-cost {
-  width: 20%;
+  width: 21%;
 }
 
 .tab.inventory table.abilities-table th.col-delete {
