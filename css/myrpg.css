@@ -129,7 +129,6 @@ textarea[disabled] {
   justify-content: center;
 }
 
-/*      -       .         float                flex: 0 0 XX% */
 .col-50,
 .col-50-last,
 .col-33,
@@ -137,24 +136,8 @@ textarea[disabled] {
 .col-25,
 .col-25-last {
   box-sizing: border-box;
-  /*                          auto,                     */
 }
 
-/*                                          */
-.myrpg .abilities-table th.col-name {
-  width: 70%;
-}
-
-.myrpg .abilities-table th.col-cost {
-  width: 20%;
-}
-
-.myrpg .abilities-table th.col-delete {
-  width: 10%;
-}
-
-/*                        :
-       50%        */
 .col-50 {
   flex: 0 0 calc(50% - 10px);
   padding-right: 10px;
@@ -165,7 +148,6 @@ textarea[disabled] {
   padding-right: 0;
 }
 
-/*     33.33% */
 .col-33 {
   flex: 0 0 33.33%;
   padding-right: 10px;
@@ -332,7 +314,7 @@ td.col-name:hover {
 }
 
 .tab.abilities table.abilities-table th.col-name {
-  width: 70% !important;
+  width: 64% !important;
 }
 
 .tab.abilities table.abilities-table th.col-rank {
@@ -344,7 +326,7 @@ td.col-name:hover {
 }
 
 .tab.abilities table.abilities-table th.col-delete {
-  width: 9% !important;
+  width: 15% !important;
 }
 
 .mods-section {
@@ -380,25 +362,41 @@ td.col-name:hover {
   white-space: nowrap;
 }
 
-/* CSS                                                             */
 .tab.inventory table.abilities-table {
   width: 100%;
-  table-layout: fixed; /*                                                        */
+  table-layout: fixed; 
 }
 
 .tab.inventory table.abilities-table th.col-name {
-  width: 70%;
+  width: 73%;
 }
 
 .tab.inventory table.abilities-table th.col-cost {
-  width: 21%;
+  width: 12%;
 }
 
 .tab.inventory table.abilities-table th.col-delete {
-  width: 9%;
+  width: 15%;
 }
 
-/*                                                   */
+td.quantity,         
+td.abilities-qty,             
+td.mods-qty                
+{
+  display: grid;
+  grid-template-columns: 1.6em auto 1.6em;  
+  align-items: center;              
+  gap: 0.2em;              
+  text-align: center;                
+}
+
+td.quantity  a,
+td.abilities-qty a,
+td.mods-qty a {
+  display: block;
+  width: 100%;
+}
+
 .myrpg.sheet.actor form {
   position: relative;
   width: 100%;
@@ -407,7 +405,6 @@ td.col-name:hover {
   box-sizing: border-box;
 }
 
-/*                              */
 .sheet-scrollable {
   position: absolute;
   top: 0;
@@ -418,7 +415,6 @@ td.col-name:hover {
   box-sizing: border-box;
 }
 
-/*                  (                    ) */
 .sheet-tabs-hex {
   position: absolute;
   right: -240px;
@@ -430,11 +426,10 @@ td.col-name:hover {
   gap: 20px;
 }
 
-/*                       */
 .hex-button {
-  background: #d2d2c9; /*                     */
-  color: #1b1210; /*             */
-  border: 2px solid #1b1210; /*              */
+  background: #d2d2c9; 
+  color: #1b1210; 
+  border: 2px solid #1b1210; 
   font-weight: bold;
   cursor: pointer;
   border-radius: 6px;
@@ -448,17 +443,15 @@ td.col-name:hover {
 }
 
 .hex-button.active {
-  background: #673e37; /*                      */
-  color: #d2d2c9; /*                          */
+  background: #673e37; 
+  color: #d2d2c9; 
 }
 
-/*                            overflow: visible */
 .window-app.myrpg-hex-tabs,
 .window-app.myrpg-hex-tabs .window-content {
   overflow: visible !important;
 }
 
-/* Grid Layout (                                  ,           ) */
 .grid,
 .grid-2col {
   display: grid;
@@ -474,15 +467,13 @@ td.col-name:hover {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* 6-колоночная сетка для Биографии */
 .grid-6col {
   grid-column: span 6 / span 6;
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .flexrow {
-  align-items: flex-start; /*                                 */
-  /* justify-content: flex-start;     space-between; -             */
+  align-items: flex-start; 
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar {
@@ -494,12 +485,11 @@ td.col-name:hover {
 }
 
 .myrpg.sheet.actor::-webkit-scrollbar-thumb {
-  background-color: #6d031c; /*                       */
-  border: 2px solid #d2d2c9; /*        ,                         */
+  background-color: #6d031c; 
+  border: 2px solid #d2d2c9; 
   border-radius: 6px;
 }
 
-/* --- 1.                              h2/h3                                     --- */
 .tab.biography h1,
 .tab.biography h2,
 .tab.abilities h1,
