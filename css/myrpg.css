@@ -358,6 +358,12 @@ td.col-name:hover {
   white-space: nowrap;
 }
 
+.abilities-table td.col-cost .quantity-value {
+  display: inline-block;
+  width: 2ch;
+  text-align: center;
+}
+
 .tab.inventory table.abilities-table {
   width: 100%;
   table-layout: fixed; 
