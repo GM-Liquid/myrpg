@@ -125,8 +125,8 @@ export class myrpgActorSheet extends ActorSheet {
         rank: '',
         effect: '',
         cost: '',
-        upgrade1: '',
-        upgrade2: ''
+        upgrade1: 'None',
+        upgrade2: 'None'
       });
 
       this.actor.update({ 'system.abilitiesList': abilities });
@@ -173,6 +173,7 @@ export class myrpgActorSheet extends ActorSheet {
       if (!Array.isArray(abilities)) abilities = Object.values(abilities);
       const abilityData = abilities[index] || {};
       const upgradeValues = [
+        'None',
         'Damage',
         'Area',
         'Cost',
@@ -184,7 +185,7 @@ export class myrpgActorSheet extends ActorSheet {
       const options1 = upgradeValues
         .map(
           (u) =>
-            `<option value="${u}" ${abilityData.upgrade1 === u ? 'selected' : ''}>${game.i18n.localize(
+            `<option value="${u}" ${(abilityData.upgrade1 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
               'MY_RPG.AbilityUpgrades.' + u
             )}</option>`
         )
@@ -192,7 +193,7 @@ export class myrpgActorSheet extends ActorSheet {
       const options2 = upgradeValues
         .map(
           (u) =>
-            `<option value="${u}" ${abilityData.upgrade2 === u ? 'selected' : ''}>${game.i18n.localize(
+            `<option value="${u}" ${(abilityData.upgrade2 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
               'MY_RPG.AbilityUpgrades.' + u
             )}</option>`
         )
@@ -285,8 +286,20 @@ export class myrpgActorSheet extends ActorSheet {
             row.find('.col-rank').text(formData.rank ?? '');
             row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
             row.find('.col-cost').text(formData.cost ?? '');
-            row.find('.col-upg1').text(formData.upgrade1 ?? '');
-            row.find('.col-upg2').text(formData.upgrade2 ?? '');
+            row
+              .find('.col-upg1')
+              .text(
+                game.i18n.localize(
+                  'MY_RPG.AbilityUpgrades.' + (formData.upgrade1 || 'None')
+                )
+              );
+            row
+              .find('.col-upg2')
+              .text(
+                game.i18n.localize(
+                  'MY_RPG.AbilityUpgrades.' + (formData.upgrade2 || 'None')
+                )
+              );
           });
         }
       });
@@ -314,8 +327,8 @@ export class myrpgActorSheet extends ActorSheet {
         rank: '',
         effect: '',
         cost: '',
-        upgrade1: '',
-        upgrade2: ''
+        upgrade1: 'None',
+        upgrade2: 'None'
       });
       this.actor.update({ 'system.modsList': mods });
     });
@@ -356,11 +369,20 @@ export class myrpgActorSheet extends ActorSheet {
       let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
       if (!Array.isArray(mods)) mods = Object.values(mods);
       const modData = mods[index] || {};
-      const modOptions = ['Damage', 'Area', 'Cost', 'Range', 'Duration', 'Activations', 'Link'];
+      const modOptions = [
+        'None',
+        'Damage',
+        'Area',
+        'Cost',
+        'Range',
+        'Duration',
+        'Activations',
+        'Link'
+      ];
       const modOpts1 = modOptions
         .map(
           (u) =>
-            `<option value="${u}" ${modData.upgrade1 === u ? 'selected' : ''}>${game.i18n.localize(
+            `<option value="${u}" ${(modData.upgrade1 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
               'MY_RPG.AbilityUpgrades.' + u
             )}</option>`
         )
@@ -368,7 +390,7 @@ export class myrpgActorSheet extends ActorSheet {
       const modOpts2 = modOptions
         .map(
           (u) =>
-            `<option value="${u}" ${modData.upgrade2 === u ? 'selected' : ''}>${game.i18n.localize(
+            `<option value="${u}" ${(modData.upgrade2 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
               'MY_RPG.AbilityUpgrades.' + u
             )}</option>`
         )
@@ -458,8 +480,20 @@ export class myrpgActorSheet extends ActorSheet {
             row.find('.col-rank').text(formData.rank ?? '');
             row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
             row.find('.col-cost').text(formData.cost ?? '');
-            row.find('.col-upg1').text(formData.upgrade1 ?? '');
-            row.find('.col-upg2').text(formData.upgrade2 ?? '');
+            row
+              .find('.col-upg1')
+              .text(
+                game.i18n.localize(
+                  'MY_RPG.AbilityUpgrades.' + (formData.upgrade1 || 'None')
+                )
+              );
+            row
+              .find('.col-upg2')
+              .text(
+                game.i18n.localize(
+                  'MY_RPG.AbilityUpgrades.' + (formData.upgrade2 || 'None')
+                )
+              );
           });
         }
       });
@@ -497,6 +531,18 @@ export class myrpgActorSheet extends ActorSheet {
         lines.push(
           `${game.i18n.localize('MY_RPG.ModsTable.Cost')}: ${mod.cost}`
         );
+      if (mod.upgrade1 && mod.upgrade1 !== 'None')
+        lines.push(
+          `${game.i18n.localize('MY_RPG.ModsTable.Upgrade1')}: ${game.i18n.localize(
+            'MY_RPG.AbilityUpgrades.' + mod.upgrade1
+          )}`
+        );
+      if (mod.upgrade2 && mod.upgrade2 !== 'None')
+        lines.push(
+          `${game.i18n.localize('MY_RPG.ModsTable.Upgrade2')}: ${game.i18n.localize(
+            'MY_RPG.AbilityUpgrades.' + mod.upgrade2
+          )}`
+        );
       let content = lines.join('<br>');
       if (mod.effect) content += `<br><br>${mod.effect}`;
       ChatMessage.create({
@@ -517,6 +563,18 @@ export class myrpgActorSheet extends ActorSheet {
       if (ability.cost)
         lines.push(
           `${game.i18n.localize('MY_RPG.AbilitiesTable.Cost')}: ${ability.cost}`
+        );
+      if (ability.upgrade1 && ability.upgrade1 !== 'None')
+        lines.push(
+          `${game.i18n.localize('MY_RPG.AbilitiesTable.Upgrade1')}: ${game.i18n.localize(
+            'MY_RPG.AbilityUpgrades.' + ability.upgrade1
+          )}`
+        );
+      if (ability.upgrade2 && ability.upgrade2 !== 'None')
+        lines.push(
+          `${game.i18n.localize('MY_RPG.AbilitiesTable.Upgrade2')}: ${game.i18n.localize(
+            'MY_RPG.AbilityUpgrades.' + ability.upgrade2
+          )}`
         );
       let content = lines.join('<br>');
       if (ability.effect)

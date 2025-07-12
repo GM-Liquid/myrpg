@@ -327,15 +327,15 @@ td.col-name:hover {
 }
 
 .tab.abilities table.abilities-table th.col-upg1 {
-  width: 15% !important;
+  width: 12% !important;
 }
 
 .tab.abilities table.abilities-table th.col-upg2 {
-  width: 15% !important;
+  width: 12% !important;
 }
 
 .tab.abilities table.abilities-table th.col-delete {
-  width: 10% !important;
+  width: 16% !important;
 }
 
 .mods-section {
@@ -378,31 +378,31 @@ td.col-name:hover {
 }
 
 .tab.inventory table.abilities-table th.col-name {
-  width: 73%;
+  width: 64%;
 }
 
 .tab.inventory table.abilities-table th.col-cost {
-  width: 12%;
+  width: 20%;
 }
 
 .tab.inventory table.abilities-table th.col-delete {
-  width: 15%;
+  width: 16%;
 }
 
 .tab.inventory table.armor-table th.col-name {
-  width: 55%;
+  width: 60%;
 }
 
 .tab.inventory table.armor-table th.col-equip {
-  width: 15%;
+  width: 12%;
 }
 
 .tab.inventory table.armor-table th.col-cost {
-  width: 15%;
+  width: 12%;
 }
 
 .tab.inventory table.armor-table th.col-delete {
-  width: 15%;
+  width: 16%;
 }
 
 .myrpg.sheet.actor form {
