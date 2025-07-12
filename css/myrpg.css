@@ -788,6 +788,11 @@ input.rank5 {
 }
 
 .rune-size input {
-  width: 3em;
+  width: 2.5em;
   text-align: center;
+}
+
+.rune-size .divider {
+  font-weight: bold;
+  margin: 0 0.2em;
 }
