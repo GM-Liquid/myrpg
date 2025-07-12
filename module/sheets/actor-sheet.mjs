@@ -120,14 +120,16 @@ export class myrpgActorSheet extends ActorSheet {
       let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
       if (!Array.isArray(abilities)) abilities = Object.values(abilities);
 
-      abilities.push({
+      const abilityObj = {
         name: '',
         rank: '',
         effect: '',
         cost: '',
         upgrade1: 'None',
         upgrade2: 'None'
-      });
+      };
+      if (game.settings.get('myrpg', 'worldType') === 'unity') abilityObj.runeType = 'Spell';
+      abilities.push(abilityObj);
 
       this.actor.update({ 'system.abilitiesList': abilities });
     });
@@ -172,6 +174,7 @@ export class myrpgActorSheet extends ActorSheet {
       let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
       if (!Array.isArray(abilities)) abilities = Object.values(abilities);
       const abilityData = abilities[index] || {};
+      const isUnity = game.settings.get('myrpg', 'worldType') === 'unity';
       const upgradeValues = [
         'None',
         'Damage',
@@ -182,6 +185,7 @@ export class myrpgActorSheet extends ActorSheet {
         'Activations',
         'Link'
       ];
+      const runeTypes = ['Spell', 'Creature', 'Item', 'Portal', 'Domain', 'Saga'];
       const options1 = upgradeValues
         .map(
           (u) =>
@@ -195,6 +199,14 @@ export class myrpgActorSheet extends ActorSheet {
           (u) =>
             `<option value="${u}" ${(abilityData.upgrade2 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
               'MY_RPG.AbilityUpgrades.' + u
+            )}</option>`
+        )
+        .join('');
+      const optionsType = runeTypes
+        .map(
+          (t) =>
+            `<option value="${t}" ${(abilityData.runeType || 'Spell') === t ? 'selected' : ''}>${game.i18n.localize(
+              'MY_RPG.RuneTypes.' + t
             )}</option>`
         )
         .join('');
@@ -219,6 +231,10 @@ export class myrpgActorSheet extends ActorSheet {
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Cost')}</label>
               <input type="number" name="cost" value="${abilityData.cost ?? ''}" />
             </div>
+            ${isUnity ? `<div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.RuneType')}</label>
+              <select name="runeType">${optionsType}</select>
+            </div>` : ''}
             <div class="form-group">
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade1')}</label>
               <select name="upgrade1">${options1}</select>
@@ -246,6 +262,7 @@ export class myrpgActorSheet extends ActorSheet {
             upgrade1: formData.upgrade1 ?? '',
             upgrade2: formData.upgrade2 ?? ''
           };
+          if (isUnity) abilities[index].runeType = formData.runeType ?? 'Spell';
           this.actor.update({ 'system.abilitiesList': abilities });
           this._editDialog = null;
         },
@@ -272,6 +289,7 @@ export class myrpgActorSheet extends ActorSheet {
               upgrade1: formData.upgrade1 ?? '',
               upgrade2: formData.upgrade2 ?? ''
             };
+            if (isUnity) abilities[index].runeType = formData.runeType ?? 'Spell';
             // update actor data without re-render to prevent flicker
             this.actor.update(
               { 'system.abilitiesList': abilities },
@@ -286,6 +304,14 @@ export class myrpgActorSheet extends ActorSheet {
             row.find('.col-rank').text(formData.rank ?? '');
             row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
             row.find('.col-cost').text(formData.cost ?? '');
+            if (isUnity)
+              row
+                .find('.col-type')
+                .text(
+                  game.i18n.localize(
+                    'MY_RPG.RuneTypes.' + (formData.runeType || 'Spell')
+                  )
+                );
             row
               .find('.col-upg1')
               .text(
@@ -563,6 +589,15 @@ export class myrpgActorSheet extends ActorSheet {
       if (ability.cost)
         lines.push(
           `${game.i18n.localize('MY_RPG.AbilitiesTable.Cost')}: ${ability.cost}`
+        );
+      if (
+        game.settings.get('myrpg', 'worldType') === 'unity' &&
+        ability.runeType
+      )
+        lines.push(
+          `${game.i18n.localize('MY_RPG.RunesTable.RuneType')}: ${game.i18n.localize(
+            'MY_RPG.RuneTypes.' + ability.runeType
+          )}`
         );
       if (ability.upgrade1 && ability.upgrade1 !== 'None')
         lines.push(
@@ -1016,6 +1051,11 @@ export class myrpgActorSheet extends ActorSheet {
 
     if (actorData.type === 'character' || actorData.type === 'npc') {
       this._prepareCharacterData(context);
+    }
+
+    if (game.settings.get('myrpg', 'worldType') === 'unity') {
+      context.runeMax =
+        (Number(context.system.abilities.int?.value || 0) * 2) + 5;
     }
 
     context.rollData = context.actor.getRollData();

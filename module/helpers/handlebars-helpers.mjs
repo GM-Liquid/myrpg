@@ -71,3 +71,21 @@ Handlebars.registerHelper('armorEffect', function (item) {
   if (item.desc) html += `<br><br>${item.desc}`;
   return new Handlebars.SafeString(html);
 });
+
+// Conditionally render content only for the Unity world
+Handlebars.registerHelper('ifUnity', function (options) {
+  const mode = game.settings.get('myrpg', 'worldType');
+  return mode === 'unity' ? options.fn(this) : options.inverse(this);
+});
+
+// Choose localisation key based on world mode
+Handlebars.registerHelper('worldChoice', function (unityKey, stellarKey) {
+  const mode = game.settings.get('myrpg', 'worldType');
+  return mode === 'unity' ? unityKey : stellarKey;
+});
+
+// Calculate rune tablet maximum size
+Handlebars.registerHelper('calcRuneMax', function (system) {
+  const mind = Number(system.abilities?.int?.value || 0);
+  return mind * 2 + 5;
+});
