@@ -777,3 +777,8 @@ input.rank5 {
   background-color: var(--rank-bg);
   color: #1b1210;
 }
+
+.rune-size input {
+    margin-left: 5px;
+    margin-right: 5px;
+}
