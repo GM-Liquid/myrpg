@@ -4,9 +4,7 @@
   <div class='sheet-tabs-hex-container'>
     <nav class='sheet-tabs-hex' data-group='primary'>
       <a class='hex-button' data-tab='features'>{{localize 'MY_RPG.SheetLabels.Features'}}</a>
-      <a class='hex-button' data-tab='abilities'>{{localize
-          'MY_RPG.SheetLabels.AbilitiesAndMods'
-        }}</a>
+      <a class='hex-button' data-tab='abilities'>{{localize (worldChoice 'MY_RPG.SheetLabels.Tablet' 'MY_RPG.SheetLabels.AbilitiesAndMods')}}</a>
       <a class='hex-button' data-tab='inventory'>{{localize 'MY_RPG.SheetLabels.Inventory'}}</a>
       <a class='hex-button' data-tab='biography'>{{localize 'MY_RPG.SheetLabels.Biography'}}</a>
     </nav>
@@ -400,13 +398,23 @@
       <!--               Features -->
 
       <div class='tab abilities' data-group='primary' data-tab='abilities'>
+        {{#ifUnity}}
+        <div class='rune-size'>
+          <label>{{localize 'MY_RPG.RunesTable.SizeLabel'}}</label>
+          <input type='number' value='{{system.abilitiesList.length}}' disabled /> /
+          <input type='number' value='{{runeMax}}' disabled />
+        </div>
+        {{/ifUnity}}
         <section class='abilities-section'>
           <table class='abilities-table'>
             <thead>
               <tr>
-                <th class='col-name primary-header'>{{localize 'MY_RPG.AbilitiesTable.PrimaryHeader'}}</th>
+                <th class='col-name primary-header'>{{localize (worldChoice 'MY_RPG.RunesTable.PrimaryHeader' 'MY_RPG.AbilitiesTable.PrimaryHeader')}}</th>
                 <th class='col-rank'>{{localize 'MY_RPG.AbilitiesTable.Rank'}}</th>
                 <th class='col-cost'>{{localize 'MY_RPG.AbilitiesTable.Cost'}}</th>
+                {{#ifUnity}}
+                <th class='col-type'>{{localize 'MY_RPG.RunesTable.RuneType'}}</th>
+                {{/ifUnity}}
                 <th class='col-upg1'>{{localize 'MY_RPG.AbilitiesTable.Upgrade1'}}</th>
                 <th class='col-upg2'>{{localize 'MY_RPG.AbilitiesTable.Upgrade2'}}</th>
                 <th class='col-delete'>
@@ -422,6 +430,9 @@
                   <td class='col-name'>{{{row.name}}}</td>
                   <td class='col-rank'>{{row.rank}}</td>
                   <td class='col-cost'>{{row.cost}}</td>
+                  {{#ifUnity}}
+                  <td class='col-type'>{{localize (concat 'MY_RPG.RuneTypes.' row.runeType)}}</td>
+                  {{/ifUnity}}
                   <td class='col-upg1'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade1)}}</td>
                   <td class='col-upg2'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade2)}}</td>
                   <td class='col-delete'>
@@ -449,7 +460,7 @@
                   </td>
                 </tr>
                 <tr class='ability-effect-row'>
-                  <td class='col-effect' colspan='6'>
+                  <td class='col-effect' colspan='{{#ifUnity}}7{{else}}6{{/ifUnity}}'>
                     <div class='effect-wrapper'>{{{row.effect}}}</div>
                   </td>
                 </tr>

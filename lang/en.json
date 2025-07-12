@@ -69,6 +69,7 @@
     },
     "SheetLabels": {
       "AbilitiesAndMods": "Abilities and Mods",
+      "Tablet": "Tablet",
       "Features": "Main Sheet",
       "Abilities": "Abilities",
       "Parameters": "Parameters",
@@ -86,6 +87,7 @@
       "Rank": "Rank",
       "Effect": "Effect",
       "Cost": "Cost",
+      "RuneType": "Rune Type",
       "Upgrade1": "Upgrade 1",
       "Upgrade2": "Upgrade 2",
       "AlreadyEditing": "An edit dialog is already open. Please close it before opening another."
@@ -99,6 +101,14 @@
       "Duration": "Duration",
       "Activations": "Activations",
       "Link": "Link"
+    },
+    "RuneTypes": {
+      "Spell": "Spell",
+      "Creature": "Creature",
+      "Item": "Item",
+      "Portal": "Portal",
+      "Domain": "Domain",
+      "Saga": "Saga"
     },
     "Health": {
       "Label": "Health Points (HP)",
@@ -223,6 +233,19 @@
       "Upgrade2": "Upgrade 2",
       "AddRow": "Add Row",
       "Rank": "Rank"
+    },
+    "RunesTable": {
+      "TableHeading": "Runes",
+      "PrimaryHeader": "Runes",
+      "Name": "Name",
+      "Effect": "Effect",
+      "Cost": "Cost",
+      "RuneType": "Rune Type",
+      "Upgrade1": "Upgrade 1",
+      "Upgrade2": "Upgrade 2",
+      "AddRow": "Add Rune",
+      "Rank": "Rank",
+      "SizeLabel": "Tablet Size"
     },
     "ModsTable": {
       "TableHeading": "Skills and Mods",
