@@ -76,7 +76,7 @@ export class myrpgActor extends Actor {
 
   _calcDefPhys(s) {
     return (
-      1 +
+      3 +
       (s.abilities.con?.value ?? 0) +
       this._sumArmor(s.armorList, 'itemPhys') +
       (Number(s.tempphys) || 0)
@@ -84,7 +84,7 @@ export class myrpgActor extends Actor {
   }
   _calcDefAzure(s) {
     return (
-      1 +
+      3 +
       (s.abilities.spi?.value ?? 0) +
       this._sumArmor(s.armorList, 'itemAzure') +
       (Number(s.tempazure) || 0)
@@ -92,7 +92,7 @@ export class myrpgActor extends Actor {
   }
   _calcDefMent(s) {
     return (
-      1 +
+      3 +
       (s.abilities.int?.value ?? 0) +
       this._sumArmor(s.armorList, 'itemMental') +
       (Number(s.tempmental) || 0)
