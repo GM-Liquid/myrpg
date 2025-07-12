@@ -784,11 +784,16 @@ input.rank5 {
 
 .rune-size {
   margin-bottom: 10px;
-  text-align: right;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.1em;
 }
 
 .rune-size input {
-  width: 2.5em;
+  width: 2.5em !important;
   text-align: center;
 }
 
