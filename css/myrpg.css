@@ -315,7 +315,7 @@ td.col-name:hover {
 }
 
 .tab.abilities table.abilities-table th.col-name {
-  width: 40% !important;
+  width: 37% !important;
 }
 
 .tab.abilities table.abilities-table th.col-rank {
@@ -323,15 +323,15 @@ td.col-name:hover {
 }
 
 .tab.abilities table.abilities-table th.col-cost {
-  width: 10% !important;
+  width: 11% !important;
 }
 
 .tab.abilities table.abilities-table th.col-upg1 {
-  width: 12% !important;
+  width: 13% !important;
 }
 
 .tab.abilities table.abilities-table th.col-upg2 {
-  width: 12% !important;
+  width: 13% !important;
 }
 
 .tab.abilities table.abilities-table th.col-delete {
@@ -378,11 +378,11 @@ td.col-name:hover {
 }
 
 .tab.inventory table.abilities-table th.col-name {
-  width: 64%;
+  width: 72%;
 }
 
 .tab.inventory table.abilities-table th.col-cost {
-  width: 20%;
+  width: 12%;
 }
 
 .tab.inventory table.abilities-table th.col-delete {
