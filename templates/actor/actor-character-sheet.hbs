@@ -407,6 +407,8 @@
                 <th class='col-name primary-header'>{{localize 'MY_RPG.AbilitiesTable.PrimaryHeader'}}</th>
                 <th class='col-rank'>{{localize 'MY_RPG.AbilitiesTable.Rank'}}</th>
                 <th class='col-cost'>{{localize 'MY_RPG.AbilitiesTable.Cost'}}</th>
+                <th class='col-upg1'>{{localize 'MY_RPG.AbilitiesTable.Upgrade1'}}</th>
+                <th class='col-upg2'>{{localize 'MY_RPG.AbilitiesTable.Upgrade2'}}</th>
                 <th class='col-delete'>
                   <a class='abilities-add-row' title='{{localize "MY_RPG.AbilitiesTable.AddRow"}}'>
                     <i class='fa-solid fa-plus'></i>
@@ -420,6 +422,8 @@
                   <td class='col-name'>{{{row.name}}}</td>
                   <td class='col-rank'>{{row.rank}}</td>
                   <td class='col-cost'>{{row.cost}}</td>
+                  <td class='col-upg1'>{{row.upgrade1}}</td>
+                  <td class='col-upg2'>{{row.upgrade2}}</td>
                   <td class='col-delete'>
                     <a
                       class='abilities-chat-row'
@@ -445,7 +449,7 @@
                   </td>
                 </tr>
                 <tr class='ability-effect-row'>
-                  <td class='col-effect' colspan='4'>
+                  <td class='col-effect' colspan='6'>
                     <div class='effect-wrapper'>{{{row.effect}}}</div>
                   </td>
                 </tr>
@@ -460,6 +464,8 @@
                 <th class='col-name primary-header'>{{localize 'MY_RPG.ModsTable.PrimaryHeader'}}</th>
                 <th class='col-rank'>{{localize 'MY_RPG.ModsTable.Rank'}}</th>
                 <th class='col-cost'>{{localize 'MY_RPG.ModsTable.Cost'}}</th>
+                <th class='col-upg1'>{{localize 'MY_RPG.ModsTable.Upgrade1'}}</th>
+                <th class='col-upg2'>{{localize 'MY_RPG.ModsTable.Upgrade2'}}</th>
                 <th class='col-delete'>
                   <a class='mods-add-row' title='{{localize "MY_RPG.ModsTable.AddRow"}}'>
                     <i class='fa-solid fa-plus'></i>
@@ -473,6 +479,8 @@
                   <td class='col-name'>{{{row.name}}}</td>
                   <td class='col-rank'>{{row.rank}}</td>
                   <td class='col-cost'>{{row.cost}}</td>
+                  <td class='col-upg1'>{{row.upgrade1}}</td>
+                  <td class='col-upg2'>{{row.upgrade2}}</td>
                   <td class='col-delete'>
                     <a
                       class='mods-chat-row'
@@ -498,7 +506,7 @@
                   </td>
                 </tr>
                 <tr class='mod-effect-row'>
-                  <td class='col-effect' colspan='4'>
+                  <td class='col-effect' colspan='6'>
                     <div class='effect-wrapper'>{{{row.effect}}}</div>
                   </td>
                 </tr>

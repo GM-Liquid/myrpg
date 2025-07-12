@@ -86,7 +86,18 @@
       "Rank": "Rank",
       "Effect": "Effect",
       "Cost": "Cost",
+      "Upgrade1": "Upgrade 1",
+      "Upgrade2": "Upgrade 2",
       "AlreadyEditing": "An edit dialog is already open. Please close it before opening another."
+    },
+    "AbilityUpgrades": {
+      "Damage": "Damage",
+      "Area": "Area of Effect",
+      "Cost": "Cost",
+      "Range": "Range",
+      "Duration": "Duration",
+      "Activations": "Activations",
+      "Link": "Link"
     },
     "Health": {
       "Label": "Health Points (HP)",
@@ -207,6 +218,8 @@
       "Name": "Name",
       "Effect": "Effect",
       "Cost": "Cost",
+      "Upgrade1": "Upgrade 1",
+      "Upgrade2": "Upgrade 2",
       "AddRow": "Add Row",
       "Rank": "Rank"
     },
@@ -216,6 +229,8 @@
       "Name": "Name",
       "Effect": "Effect",
       "Cost": "Cost",
+      "Upgrade1": "Upgrade 1",
+      "Upgrade2": "Upgrade 2",
       "AddRow": "Add Row",
       "Rank": "Rank"
     }

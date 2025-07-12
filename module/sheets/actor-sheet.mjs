@@ -124,7 +124,9 @@ export class myrpgActorSheet extends ActorSheet {
         name: '',
         rank: '',
         effect: '',
-        cost: ''
+        cost: '',
+        upgrade1: '',
+        upgrade2: ''
       });
 
       this.actor.update({ 'system.abilitiesList': abilities });
@@ -170,6 +172,31 @@ export class myrpgActorSheet extends ActorSheet {
       let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
       if (!Array.isArray(abilities)) abilities = Object.values(abilities);
       const abilityData = abilities[index] || {};
+      const upgradeValues = [
+        'Damage',
+        'Area',
+        'Cost',
+        'Range',
+        'Duration',
+        'Activations',
+        'Link'
+      ];
+      const options1 = upgradeValues
+        .map(
+          (u) =>
+            `<option value="${u}" ${abilityData.upgrade1 === u ? 'selected' : ''}>${game.i18n.localize(
+              'MY_RPG.AbilityUpgrades.' + u
+            )}</option>`
+        )
+        .join('');
+      const options2 = upgradeValues
+        .map(
+          (u) =>
+            `<option value="${u}" ${abilityData.upgrade2 === u ? 'selected' : ''}>${game.i18n.localize(
+              'MY_RPG.AbilityUpgrades.' + u
+            )}</option>`
+        )
+        .join('');
 
       let diag = new Dialog({
         title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
@@ -191,6 +218,14 @@ export class myrpgActorSheet extends ActorSheet {
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Cost')}</label>
               <input type="number" name="cost" value="${abilityData.cost ?? ''}" />
             </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade1')}</label>
+              <select name="upgrade1">${options1}</select>
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade2')}</label>
+              <select name="upgrade2">${options2}</select>
+            </div>
           </form>
         `,
         buttons: {},
@@ -206,7 +241,9 @@ export class myrpgActorSheet extends ActorSheet {
             name: formData.name ?? '',
             rank: formData.rank ?? '',
             effect: formData.effect ?? '',
-            cost: formData.cost ?? ''
+            cost: formData.cost ?? '',
+            upgrade1: formData.upgrade1 ?? '',
+            upgrade2: formData.upgrade2 ?? ''
           };
           this.actor.update({ 'system.abilitiesList': abilities });
           this._editDialog = null;
@@ -230,7 +267,9 @@ export class myrpgActorSheet extends ActorSheet {
               name: formData.name ?? '',
               rank: formData.rank ?? '',
               effect: formData.effect ?? '',
-              cost: formData.cost ?? ''
+              cost: formData.cost ?? '',
+              upgrade1: formData.upgrade1 ?? '',
+              upgrade2: formData.upgrade2 ?? ''
             };
             // update actor data without re-render to prevent flicker
             this.actor.update(
@@ -246,6 +285,8 @@ export class myrpgActorSheet extends ActorSheet {
             row.find('.col-rank').text(formData.rank ?? '');
             row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
             row.find('.col-cost').text(formData.cost ?? '');
+            row.find('.col-upg1').text(formData.upgrade1 ?? '');
+            row.find('.col-upg2').text(formData.upgrade2 ?? '');
           });
         }
       });
@@ -268,7 +309,14 @@ export class myrpgActorSheet extends ActorSheet {
       ev.preventDefault();
       let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
       if (!Array.isArray(mods)) mods = Object.values(mods);
-      mods.push({ name: '', rank: '', effect: '', cost: '' });
+      mods.push({
+        name: '',
+        rank: '',
+        effect: '',
+        cost: '',
+        upgrade1: '',
+        upgrade2: ''
+      });
       this.actor.update({ 'system.modsList': mods });
     });
 
@@ -308,6 +356,23 @@ export class myrpgActorSheet extends ActorSheet {
       let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
       if (!Array.isArray(mods)) mods = Object.values(mods);
       const modData = mods[index] || {};
+      const modOptions = ['Damage', 'Area', 'Cost', 'Range', 'Duration', 'Activations', 'Link'];
+      const modOpts1 = modOptions
+        .map(
+          (u) =>
+            `<option value="${u}" ${modData.upgrade1 === u ? 'selected' : ''}>${game.i18n.localize(
+              'MY_RPG.AbilityUpgrades.' + u
+            )}</option>`
+        )
+        .join('');
+      const modOpts2 = modOptions
+        .map(
+          (u) =>
+            `<option value="${u}" ${modData.upgrade2 === u ? 'selected' : ''}>${game.i18n.localize(
+              'MY_RPG.AbilityUpgrades.' + u
+            )}</option>`
+        )
+        .join('');
 
       let diag = new Dialog({
         title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
@@ -329,6 +394,14 @@ export class myrpgActorSheet extends ActorSheet {
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Cost')}</label>
               <input type="number" name="cost" value="${modData.cost ?? ''}" />
             </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade1')}</label>
+              <select name="upgrade1">${modOpts1}</select>
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade2')}</label>
+              <select name="upgrade2">${modOpts2}</select>
+            </div>
           </form>
         `,
         buttons: {},
@@ -344,7 +417,9 @@ export class myrpgActorSheet extends ActorSheet {
             name: formData.name ?? '',
             rank: formData.rank ?? '',
             effect: formData.effect ?? '',
-            cost: formData.cost ?? ''
+            cost: formData.cost ?? '',
+            upgrade1: formData.upgrade1 ?? '',
+            upgrade2: formData.upgrade2 ?? ''
           };
           this.actor.update({ 'system.modsList': mods });
           this._editDialog = null;
@@ -367,7 +442,9 @@ export class myrpgActorSheet extends ActorSheet {
               name: formData.name ?? '',
               rank: formData.rank ?? '',
               effect: formData.effect ?? '',
-              cost: formData.cost ?? ''
+              cost: formData.cost ?? '',
+              upgrade1: formData.upgrade1 ?? '',
+              upgrade2: formData.upgrade2 ?? ''
             };
             this.actor.update(
               { 'system.modsList': mods },
@@ -381,6 +458,8 @@ export class myrpgActorSheet extends ActorSheet {
             row.find('.col-rank').text(formData.rank ?? '');
             row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
             row.find('.col-cost').text(formData.cost ?? '');
+            row.find('.col-upg1').text(formData.upgrade1 ?? '');
+            row.find('.col-upg2').text(formData.upgrade2 ?? '');
           });
         }
       });

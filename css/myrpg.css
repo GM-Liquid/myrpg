@@ -315,7 +315,7 @@ td.col-name:hover {
 }
 
 .tab.abilities table.abilities-table th.col-name {
-  width: 64% !important;
+  width: 40% !important;
 }
 
 .tab.abilities table.abilities-table th.col-rank {
@@ -323,11 +323,19 @@ td.col-name:hover {
 }
 
 .tab.abilities table.abilities-table th.col-cost {
-  width: 11% !important;
+  width: 10% !important;
+}
+
+.tab.abilities table.abilities-table th.col-upg1 {
+  width: 15% !important;
+}
+
+.tab.abilities table.abilities-table th.col-upg2 {
+  width: 15% !important;
 }
 
 .tab.abilities table.abilities-table th.col-delete {
-  width: 15% !important;
+  width: 10% !important;
 }
 
 .mods-section {
