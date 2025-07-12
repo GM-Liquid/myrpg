@@ -326,6 +326,10 @@ td.col-name:hover {
   width: 11% !important;
 }
 
+.tab.abilities table.abilities-table th.col-type {
+  width: 13% !important;
+}
+
 .tab.abilities table.abilities-table th.col-upg1 {
   width: 13% !important;
 }
@@ -776,4 +780,14 @@ input.rank5 {
 .rank-hint-table td.rank5 {
   background-color: var(--rank-bg);
   color: #1b1210;
+}
+
+.rune-size {
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.rune-size input {
+  width: 3em;
+  text-align: center;
 }

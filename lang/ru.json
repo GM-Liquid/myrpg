@@ -81,6 +81,7 @@
     },
     "SheetLabels": {
       "AbilitiesAndMods": "Способности и модификации",
+      "Tablet": "Скрижаль",
       "Features": "Основной лист",
       "Abilities": "Способности",
       "Parameters": "Параметры",
@@ -114,6 +115,7 @@
       "Rank": "Ранг",
       "Effect": "Эффект",
       "Cost": "Стоимость",
+      "RuneType": "Тип руны",
       "Upgrade1": "Улучшение 1",
       "Upgrade2": "Улучшение 2",
       "AlreadyEditing": "Диалог редактирования уже открыт. Сначала закройте его."
@@ -127,6 +129,14 @@
       "Duration": "Длительность",
       "Activations": "Активации",
       "Link": "Связь"
+    },
+    "RuneTypes": {
+      "Spell": "Заклинание",
+      "Creature": "Существо",
+      "Item": "Предмет",
+      "Portal": "Портал",
+      "Domain": "Домен",
+      "Saga": "Сага"
     },
     "Initiative": "Инициатива",
     "Health": {
@@ -223,6 +233,19 @@
       "Upgrade2": "Улучшение 2",
       "AddRow": "Добавить строку",
       "Rank": "Ранг"
+    },
+    "RunesTable": {
+      "TableHeading": "Руны",
+      "PrimaryHeader": "Руны",
+      "Name": "Название",
+      "Effect": "Эффект",
+      "Cost": "Стоимость",
+      "RuneType": "Тип руны",
+      "Upgrade1": "Улучшение 1",
+      "Upgrade2": "Улучшение 2",
+      "AddRow": "Добавить руну",
+      "Rank": "Ранг",
+      "SizeLabel": "Размер Скрижали"
     },
     "ModsTable": {
       "TableHeading": "Умения и модификации",
