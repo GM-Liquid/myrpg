@@ -793,6 +793,8 @@ input.rank5 {
 .rune-size input {
   width: 2.5em !important;
   text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .rune-size .divider {
