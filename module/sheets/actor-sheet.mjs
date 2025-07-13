@@ -5,6 +5,12 @@
 
 import { getColorRank } from '../helpers/utils.mjs';
 
+function getRankLabel(rank) {
+  const mode = game.settings.get('myrpg', 'worldType');
+  const base = mode === 'stellar' ? 'MY_RPG.RankNumeric' : 'MY_RPG.RankGradient';
+  return game.i18n.localize(`${base}.Rank${rank}`);
+}
+
 export class myrpgActorSheet extends ActorSheet {
   _editDialog = null;
   /** @override */
@@ -211,6 +217,19 @@ export class myrpgActorSheet extends ActorSheet {
         )
         .join('');
 
+      const baseRank =
+        game.settings.get('myrpg', 'worldType') === 'stellar'
+          ? 'MY_RPG.RankNumeric'
+          : 'MY_RPG.RankGradient';
+      const optionsRank = [1, 2, 3, 4, 5]
+        .map(
+          (r) =>
+            `<option value="${r}" ${Number(abilityData.rank || 0) === r ? 'selected' : ''}>${game.i18n.localize(
+              baseRank + '.Rank' + r
+            )}</option>`
+        )
+        .join('');
+
       let diag = new Dialog({
         title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
         content: `
@@ -221,7 +240,7 @@ export class myrpgActorSheet extends ActorSheet {
             </div>
             <div class="form-group">
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Rank')}</label>
-              <input type="text" name="rank" value="${abilityData.rank ?? ''}" />
+              <select name="rank">${optionsRank}</select>
             </div>
             <div class="form-group">
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Effect')}</label>
@@ -301,7 +320,11 @@ export class myrpgActorSheet extends ActorSheet {
               `.abilities-table tr.ability-row[data-index="${index}"]`
             );
             row.find('.col-name').html(formData.name ?? '');
-            row.find('.col-rank').text(formData.rank ?? '');
+            row
+              .find('.col-rank')
+              .text(
+                formData.rank ? getRankLabel(Number(formData.rank)) : ''
+              );
             row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
             row.find('.col-cost').text(formData.cost ?? '');
             if (isUnity)
@@ -352,7 +375,6 @@ export class myrpgActorSheet extends ActorSheet {
         name: '',
         rank: '',
         effect: '',
-        cost: '',
         upgrade1: 'None',
         upgrade2: 'None'
       });
@@ -422,6 +444,19 @@ export class myrpgActorSheet extends ActorSheet {
         )
         .join('');
 
+      const baseRank =
+        game.settings.get('myrpg', 'worldType') === 'stellar'
+          ? 'MY_RPG.RankNumeric'
+          : 'MY_RPG.RankGradient';
+      const optionsRank = [1, 2, 3, 4, 5]
+        .map(
+          (r) =>
+            `<option value="${r}" ${Number(modData.rank || 0) === r ? 'selected' : ''}>${game.i18n.localize(
+              baseRank + '.Rank' + r
+            )}</option>`
+        )
+        .join('');
+
       let diag = new Dialog({
         title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
         content: `
@@ -432,15 +467,11 @@ export class myrpgActorSheet extends ActorSheet {
             </div>
             <div class="form-group">
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Rank')}</label>
-              <input type="text" name="rank" value="${modData.rank ?? ''}" />
+              <select name="rank">${optionsRank}</select>
             </div>
             <div class="form-group">
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Effect')}</label>
               <textarea name="effect" class="rich-editor">${modData.effect ?? ''}</textarea>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Cost')}</label>
-              <input type="number" name="cost" value="${modData.cost ?? ''}" />
             </div>
             <div class="form-group">
               <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade1')}</label>
@@ -465,7 +496,6 @@ export class myrpgActorSheet extends ActorSheet {
             name: formData.name ?? '',
             rank: formData.rank ?? '',
             effect: formData.effect ?? '',
-            cost: formData.cost ?? '',
             upgrade1: formData.upgrade1 ?? '',
             upgrade2: formData.upgrade2 ?? ''
           };
@@ -490,7 +520,6 @@ export class myrpgActorSheet extends ActorSheet {
               name: formData.name ?? '',
               rank: formData.rank ?? '',
               effect: formData.effect ?? '',
-              cost: formData.cost ?? '',
               upgrade1: formData.upgrade1 ?? '',
               upgrade2: formData.upgrade2 ?? ''
             };
@@ -503,9 +532,12 @@ export class myrpgActorSheet extends ActorSheet {
               `.mods-table tr.mod-row[data-index="${index}"]`
             );
             row.find('.col-name').html(formData.name ?? '');
-            row.find('.col-rank').text(formData.rank ?? '');
+            row
+              .find('.col-rank')
+              .text(
+                formData.rank ? getRankLabel(Number(formData.rank)) : ''
+              );
             row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
-            row.find('.col-cost').text(formData.cost ?? '');
             row
               .find('.col-upg1')
               .text(
@@ -551,11 +583,7 @@ export class myrpgActorSheet extends ActorSheet {
       const lines = [`<strong>${mod.name ?? ''}</strong>`];
       if (mod.rank)
         lines.push(
-          `${game.i18n.localize('MY_RPG.ModsTable.Rank')}: ${mod.rank}`
-        );
-      if (mod.cost)
-        lines.push(
-          `${game.i18n.localize('MY_RPG.ModsTable.Cost')}: ${mod.cost}`
+          `${game.i18n.localize('MY_RPG.ModsTable.Rank')}: ${getRankLabel(mod.rank)}`
         );
       if (mod.upgrade1 && mod.upgrade1 !== 'None')
         lines.push(
@@ -584,7 +612,9 @@ export class myrpgActorSheet extends ActorSheet {
       const lines = [`<strong>${ability.name ?? ''}</strong>`];
       if (ability.rank)
         lines.push(
-          `${game.i18n.localize('MY_RPG.ModsTable.Rank')}: ${ability.rank}`
+          `${game.i18n.localize('MY_RPG.ModsTable.Rank')}: ${getRankLabel(
+            ability.rank
+          )}`
         );
       if (ability.cost)
         lines.push(

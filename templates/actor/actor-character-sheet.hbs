@@ -429,7 +429,7 @@
               {{#each system.abilitiesList as |row i|}}
                 <tr class='ability-row' data-index='{{i}}'>
                   <td class='col-name'>{{{row.name}}}</td>
-                  <td class='col-rank'>{{row.rank}}</td>
+                  <td class='col-rank'>{{rankLabel row.rank}}</td>
                   <td class='col-cost'>{{row.cost}}</td>
                   {{#ifUnity}}
                   <td class='col-type'>{{localize (concat 'MY_RPG.RuneTypes.' row.runeType)}}</td>
@@ -475,7 +475,6 @@
               <tr>
                 <th class='col-name primary-header'>{{localize 'MY_RPG.ModsTable.PrimaryHeader'}}</th>
                 <th class='col-rank'>{{localize 'MY_RPG.ModsTable.Rank'}}</th>
-                <th class='col-cost'>{{localize 'MY_RPG.ModsTable.Cost'}}</th>
                 <th class='col-upg1'>{{localize 'MY_RPG.ModsTable.Upgrade1'}}</th>
                 <th class='col-upg2'>{{localize 'MY_RPG.ModsTable.Upgrade2'}}</th>
                 <th class='col-delete'>
@@ -489,11 +488,10 @@
               {{#each system.modsList as |row i|}}
                 <tr class='mod-row' data-index='{{i}}'>
                   <td class='col-name'>{{{row.name}}}</td>
-                  <td class='col-rank'>{{row.rank}}</td>
-                  <td class='col-cost'>{{row.cost}}</td>
-                  <td class='col-upg1'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade1)}}</td>
-                  <td class='col-upg2'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade2)}}</td>
-                  <td class='col-delete'>
+                  <td class='col-rank'>{{rankLabel row.rank}}</td>
+                <td class='col-upg1'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade1)}}</td>
+                <td class='col-upg2'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade2)}}</td>
+                <td class='col-delete'>
                     <a
                       class='mods-chat-row'
                       data-index='{{i}}'
@@ -518,7 +516,7 @@
                   </td>
                 </tr>
                 <tr class='mod-effect-row'>
-                  <td class='col-effect' colspan='6'>
+                  <td class='col-effect' colspan='5'>
                     <div class='effect-wrapper'>{{{row.effect}}}</div>
                   </td>
                 </tr>
