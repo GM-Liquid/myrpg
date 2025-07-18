@@ -94,6 +94,8 @@ export class myrpgActorSheet extends ActorSheet {
       .find('textarea.rich-editor')
       .each((i, el) => this.initializeRichEditor(el));
     html.find('.wound-box').click(this._onToggleWound.bind(this));
+    html.find('.hp-circle').click(this._onToggleHp.bind(this));
+    html.find('.scene-end').click(this._onSceneEnd.bind(this));
 
     // ----------------------------------------------------------------------
     // Rollable �������� (������)
@@ -1135,6 +1137,23 @@ export class myrpgActorSheet extends ActorSheet {
       }
     }
     context.system.skills = sorted;
+
+    // подготовить состояния кругов здоровья
+    const hpStates = [];
+    let lost =
+      context.system.health.max - (context.system.health.value ?? context.system.health.max);
+    for (let i = 0; i < 10; i++) {
+      if (lost >= 2) {
+        hpStates[i] = 'black';
+        lost -= 2;
+      } else if (lost === 1) {
+        hpStates[i] = 'grey';
+        lost -= 1;
+      } else {
+        hpStates[i] = '';
+      }
+    }
+    context.hpStates = hpStates;
   }
 
   /**
@@ -1146,6 +1165,67 @@ export class myrpgActorSheet extends ActorSheet {
     // ���� ������� ���������� ������� ������ �������, ���������, ����� �����������
     wounds = wounds > idx ? idx : idx + 1;
     await this.actor.update({ 'system.wounds': wounds });
+  }
+
+  /**
+   * Переключить состояние круга здоровья
+   */
+  async _onToggleHp(event) {
+    const idx = parseInt(event.currentTarget.dataset.idx);
+    const max = this.actor.system.health.max || 20;
+    let lost = max - (this.actor.system.health.value ?? max);
+    const states = [];
+    for (let i = 0; i < 10; i++) {
+      if (lost >= 2) {
+        states[i] = 2;
+        lost -= 2;
+      } else if (lost === 1) {
+        states[i] = 1;
+        lost -= 1;
+      } else {
+        states[i] = 0;
+      }
+    }
+
+    const state = states[idx];
+    if (state === 0) states[idx] = 1;
+    else if (state === 1) states[idx] = 2;
+    else states[idx] = 0;
+
+    const newLost = states.reduce(
+      (t, s) => t + (s === 2 ? 2 : s === 1 ? 1 : 0),
+      0
+    );
+    const newValue = Math.min(Math.max(max - newLost, 0), max);
+    await this.actor.update({ 'system.health.value': newValue });
+  }
+
+  /**
+   * Снять все серые кружки (конец сцены)
+   */
+  async _onSceneEnd() {
+    const max = this.actor.system.health.max || 20;
+    let lost = max - (this.actor.system.health.value ?? max);
+    const states = [];
+    for (let i = 0; i < 10; i++) {
+      if (lost >= 2) {
+        states[i] = 2;
+        lost -= 2;
+      } else if (lost === 1) {
+        states[i] = 1;
+        lost -= 1;
+      } else {
+        states[i] = 0;
+      }
+    }
+
+    const cleared = states.map((s) => (s === 1 ? 0 : s));
+    const newLost = cleared.reduce(
+      (t, s) => t + (s === 2 ? 2 : s === 1 ? 1 : 0),
+      0
+    );
+    const newValue = Math.min(Math.max(max - newLost, 0), max);
+    await this.actor.update({ 'system.health.value': newValue });
   }
 
   async _onRoll(event) {
