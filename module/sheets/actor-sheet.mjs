@@ -94,8 +94,6 @@ export class myrpgActorSheet extends ActorSheet {
       .find('textarea.rich-editor')
       .each((i, el) => this.initializeRichEditor(el));
     html.find('.wound-box').click(this._onToggleWound.bind(this));
-    html.find('.hp-circle').click(this._onToggleHp.bind(this));
-    html.find('.scene-end').click(this._onSceneEnd.bind(this));
 
     // ----------------------------------------------------------------------
     // Rollable �������� (������)
@@ -1137,39 +1135,6 @@ export class myrpgActorSheet extends ActorSheet {
       }
     }
     context.system.skills = sorted;
-
-    // подготовить состояния кругов здоровья
-    context.hpStates = this._getHpStates();
-  }
-
-  _getHpStates() {
-    const stored = this.actor.getFlag('myrpg', 'hpTrack');
-    if (Array.isArray(stored) && stored.length === 10) return stored.slice();
-    const states = [];
-    const max = this.actor.system.health.max || 20;
-    let lost = max - (this.actor.system.health.value ?? max);
-    for (let i = 0; i < 10; i++) {
-      if (lost >= 2) {
-        states[i] = 2;
-        lost -= 2;
-      } else if (lost === 1) {
-        states[i] = 1;
-        lost -= 1;
-      } else {
-        states[i] = 0;
-      }
-    }
-    return states;
-  }
-
-  async _saveHpStates(states) {
-    const max = this.actor.system.health.max || 20;
-    const lost = states.reduce((t, s) => t + (s === 2 ? 2 : s === 1 ? 1 : 0), 0);
-    const value = Math.min(Math.max(max - lost, 0), max);
-    await this.actor.update({
-      'system.health.value': value,
-      'flags.myrpg.hpTrack': states
-    });
   }
 
   /**
@@ -1181,25 +1146,6 @@ export class myrpgActorSheet extends ActorSheet {
     // ���� ������� ���������� ������� ������ �������, ���������, ����� �����������
     wounds = wounds > idx ? idx : idx + 1;
     await this.actor.update({ 'system.wounds': wounds });
-  }
-
-  /**
-   * Переключить состояние круга здоровья
-   */
-  async _onToggleHp(event) {
-    const idx = parseInt(event.currentTarget.dataset.idx);
-    const states = this._getHpStates();
-    const current = states[idx] ?? 0;
-    states[idx] = (current + 1) % 3;
-    await this._saveHpStates(states);
-  }
-
-  /**
-   * Снять все серые кружки (конец сцены)
-   */
-  async _onSceneEnd() {
-    const states = this._getHpStates().map((s) => (s === 1 ? 0 : s));
-    await this._saveHpStates(states);
   }
 
   async _onRoll(event) {
