@@ -27,23 +27,12 @@
         and it will add a small amount of padding, a border, and will
         center all of its child elements content and text. }}
         <div class='resource flex-group-center'>
-          <label for='system.health.value' class='resource-label'>Health</label>
-          <div class='resource-content flexrow flex-center flex-between'>
-            <input
-              type='text'
-              name='system.health.value'
-              value='{{system.health.value}}'
-              data-dtype='Number'
-            />
-            <span> / </span>
-            <input
-              type='text'
-              name='system.health.max'
-              value='{{system.health.max}}'
-              data-dtype='Number'
-              readonly
-              tabindex='-1'
-            />
+          <label class='resource-label'>{{localize 'MY_RPG.Health.Label'}}</label>
+          <div class='resource-content flexrow hp-track'>
+            {{#times 10}}
+              <span class='hp-circle {{lookup ../hpStates @index}}' data-idx='{{@index}}'></span>
+            {{/times}}
+            <button type='button' class='scene-end'>{{localize 'MY_RPG.SceneEnd'}}</button>
           </div>
         </div>
 
