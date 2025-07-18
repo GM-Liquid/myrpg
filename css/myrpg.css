@@ -801,3 +801,31 @@ input.rank5 {
   font-weight: bold;
   margin: 0 0.2em;
 }
+
+/* Health circles -------------------------------------------- */
+.hp-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hp-circle {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1b1210;
+  border-radius: 50%;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.hp-circle.grey {
+  background-color: #888;
+}
+
+.hp-circle.black {
+  background-color: #000;
+}
+
+.scene-end {
+  margin-left: 8px;
+}
