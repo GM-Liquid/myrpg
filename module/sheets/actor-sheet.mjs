@@ -1139,21 +1139,37 @@ export class myrpgActorSheet extends ActorSheet {
     context.system.skills = sorted;
 
     // подготовить состояния кругов здоровья
-    const hpStates = [];
-    let lost =
-      context.system.health.max - (context.system.health.value ?? context.system.health.max);
+    context.hpStates = this._getHpStates();
+  }
+
+  _getHpStates() {
+    const stored = this.actor.getFlag('myrpg', 'hpTrack');
+    if (Array.isArray(stored) && stored.length === 10) return stored.slice();
+    const states = [];
+    const max = this.actor.system.health.max || 20;
+    let lost = max - (this.actor.system.health.value ?? max);
     for (let i = 0; i < 10; i++) {
       if (lost >= 2) {
-        hpStates[i] = 'black';
+        states[i] = 2;
         lost -= 2;
       } else if (lost === 1) {
-        hpStates[i] = 'grey';
+        states[i] = 1;
         lost -= 1;
       } else {
-        hpStates[i] = '';
+        states[i] = 0;
       }
     }
-    context.hpStates = hpStates;
+    return states;
+  }
+
+  async _saveHpStates(states) {
+    const max = this.actor.system.health.max || 20;
+    const lost = states.reduce((t, s) => t + (s === 2 ? 2 : s === 1 ? 1 : 0), 0);
+    const value = Math.min(Math.max(max - lost, 0), max);
+    await this.actor.update({
+      'system.health.value': value,
+      'flags.myrpg.hpTrack': states
+    });
   }
 
   /**
@@ -1172,60 +1188,18 @@ export class myrpgActorSheet extends ActorSheet {
    */
   async _onToggleHp(event) {
     const idx = parseInt(event.currentTarget.dataset.idx);
-    const max = this.actor.system.health.max || 20;
-    let lost = max - (this.actor.system.health.value ?? max);
-    const states = [];
-    for (let i = 0; i < 10; i++) {
-      if (lost >= 2) {
-        states[i] = 2;
-        lost -= 2;
-      } else if (lost === 1) {
-        states[i] = 1;
-        lost -= 1;
-      } else {
-        states[i] = 0;
-      }
-    }
-
-    const state = states[idx];
-    if (state === 0) states[idx] = 1;
-    else if (state === 1) states[idx] = 2;
-    else states[idx] = 0;
-
-    const newLost = states.reduce(
-      (t, s) => t + (s === 2 ? 2 : s === 1 ? 1 : 0),
-      0
-    );
-    const newValue = Math.min(Math.max(max - newLost, 0), max);
-    await this.actor.update({ 'system.health.value': newValue });
+    const states = this._getHpStates();
+    const current = states[idx] ?? 0;
+    states[idx] = (current + 1) % 3;
+    await this._saveHpStates(states);
   }
 
   /**
    * Снять все серые кружки (конец сцены)
    */
   async _onSceneEnd() {
-    const max = this.actor.system.health.max || 20;
-    let lost = max - (this.actor.system.health.value ?? max);
-    const states = [];
-    for (let i = 0; i < 10; i++) {
-      if (lost >= 2) {
-        states[i] = 2;
-        lost -= 2;
-      } else if (lost === 1) {
-        states[i] = 1;
-        lost -= 1;
-      } else {
-        states[i] = 0;
-      }
-    }
-
-    const cleared = states.map((s) => (s === 1 ? 0 : s));
-    const newLost = cleared.reduce(
-      (t, s) => t + (s === 2 ? 2 : s === 1 ? 1 : 0),
-      0
-    );
-    const newValue = Math.min(Math.max(max - newLost, 0), max);
-    await this.actor.update({ 'system.health.value': newValue });
+    const states = this._getHpStates().map((s) => (s === 1 ? 0 : s));
+    await this._saveHpStates(states);
   }
 
   async _onRoll(event) {

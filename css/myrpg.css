@@ -806,15 +806,16 @@ input.rank5 {
 .hp-track {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .hp-circle {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border: 2px solid #1b1210;
   border-radius: 50%;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .hp-circle.grey {
