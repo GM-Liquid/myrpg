@@ -1162,11 +1162,7 @@ export class myrpgActorSheet extends ActorSheet {
       const abKey = this.actor.system.skills[skill].ability;
       abVal = parseInt(this.actor.system.abilities[abKey]?.value) || 0;
 
-      const minBonus = Math.ceil(abVal / 2);
-      if (bonus < minBonus) {
-        bonus = minBonus;
-        minimal = true;
-      }
+      // Minimum skill bonus from ability removed
     } else if (ability) {
       abVal = parseInt(this.actor.system.abilities[ability]?.value) || 0;
       bonus = abVal; // ��� ������ ����� ��������������
@@ -1174,7 +1170,6 @@ export class myrpgActorSheet extends ActorSheet {
 
     const roll = await new Roll(`1d10 + ${bonus}`).roll({ async: true });
     let flavor = label;
-    if (minimal) flavor += `: ${game.i18n.localize('MY_RPG.MinimalBonus')}`;
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor,

@@ -56,7 +56,7 @@ export class myrpgActor extends Actor {
 
   _calcFlux(s) {
     return (
-      (s.abilities.spi?.value ?? 0) * 10 +
+      (Number(s.currentRank) || 0) * 5 +
       (Number(s.tempflux) || 0)
     );
   }
