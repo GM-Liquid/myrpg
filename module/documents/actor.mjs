@@ -47,11 +47,7 @@ export class myrpgActor extends Actor {
   }
 
   _calcHealthMax(s) {
-    return (
-      15 +
-      this._sumArmor(s.armorList, 'itemShield') +
-      (Number(s.temphealth) || 0)
-    );
+    return 30 + this._sumArmor(s.armorList, 'itemShield') + (Number(s.temphealth) || 0);
   }
 
   _calcFlux(s) {
