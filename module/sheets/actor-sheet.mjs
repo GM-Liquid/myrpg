@@ -81,9 +81,10 @@ export class myrpgActorSheet extends ActorSheet {
         menubar: false,
         branding: false,
         statusbar: false,
-        plugins: 'autoresize contextmenu paste',
+        // Remove deprecated/absent plugins for TinyMCE 6 in Foundry v12
+        plugins: 'autoresize',
         toolbar: false,
-        contextmenu: 'bold italic strikethrough',
+        // contextmenu plugin removed in TinyMCE 6
         valid_elements: 'p,strong/b,em/i,strike/s,br',
         content_style:
           'body { margin: 0; padding: 5px; font-family: inherit; font-size: inherit; color: #1b1210; } p { margin: 0; }',
@@ -96,11 +97,19 @@ export class myrpgActorSheet extends ActorSheet {
             element.dispatchEvent(new Event('input', { bubbles: true }));
           };
 
-          editor.on('Paste', (e) => {
-            e.preventDefault();
-            const text = (e.clipboardData || window.clipboardData).getData('text/plain');
-            editor.insertContent(text.replace(/\n/g, '<br>'));
-            dispatch();
+          // Keep plain-text paste without relying on removed paste plugin
+          editor.on('paste', (e) => {
+            try {
+              const cd = e.clipboardData || window.clipboardData;
+              if (!cd) return;
+              const text = cd.getData('text/plain');
+              if (!text) return;
+              e.preventDefault();
+              editor.insertContent(text.replace(/\n/g, '<br>'));
+              dispatch();
+            } catch (_) {
+              // Fall back to default paste if anything goes wrong
+            }
           });
 
           editor.on('KeyUp', dispatch);
