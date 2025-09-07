@@ -111,7 +111,21 @@ export class myrpgActorSheet extends ActorSheet {
         $(ev.target).closest('.abilities-remove-row, .abilities-edit-row').length
       )
         return;
-      $(ev.currentTarget).closest('tr.ability-row').toggleClass('expanded');
+      const $row = $(ev.currentTarget).closest('tr.ability-row');
+      const expanding = !$row.hasClass('expanded');
+      $row.toggleClass('expanded');
+      if (expanding) {
+        const $effect = $row.next('.ability-effect-row');
+        if ($effect.length) {
+          // Ensure the newly revealed content is visible (helps for last row)
+          const el = $effect.get(0);
+          try {
+            el.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+          } catch (e) {
+            // noop: scrollIntoView not critical
+          }
+        }
+      }
     });
 
     // ������ "������" (���� ���-�� ������������)
@@ -364,7 +378,18 @@ export class myrpgActorSheet extends ActorSheet {
         $(ev.target).closest('.mods-remove-row, .mods-edit-row').length
       )
         return;
-      $(ev.currentTarget).closest('tr.mod-row').toggleClass('expanded');
+      const $row = $(ev.currentTarget).closest('tr.mod-row');
+      const expanding = !$row.hasClass('expanded');
+      $row.toggleClass('expanded');
+      if (expanding) {
+        const $effect = $row.next('.mod-effect-row');
+        if ($effect.length) {
+          const el = $effect.get(0);
+          try {
+            el.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+          } catch (e) {}
+        }
+      }
     });
 
     html.find('.mods-add-row').click((ev) => {
@@ -676,7 +701,18 @@ export class myrpgActorSheet extends ActorSheet {
         $(ev.target).closest('.armor-remove-row, .armor-edit-row, .armor-equip-checkbox, .armor-chat-row').length
       )
         return;
-      $(ev.currentTarget).toggleClass('expanded');
+      const $row = $(ev.currentTarget);
+      const expanding = !$row.hasClass('expanded');
+      $row.toggleClass('expanded');
+      if (expanding) {
+        const $effect = $row.next('.armor-effect-row');
+        if ($effect.length) {
+          const el = $effect.get(0);
+          try {
+            el.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+          } catch (e) {}
+        }
+      }
     });
 
     html.find('.armor-edit-row').click((ev) => {
@@ -915,7 +951,18 @@ export class myrpgActorSheet extends ActorSheet {
         $(ev.target).closest('.inventory-remove-row, .inventory-edit-row').length
       )
         return;
-      $(ev.currentTarget).closest('tr.inventory-row').toggleClass('expanded');
+      const $row = $(ev.currentTarget).closest('tr.inventory-row');
+      const expanding = !$row.hasClass('expanded');
+      $row.toggleClass('expanded');
+      if (expanding) {
+        const $effect = $row.next('.inventory-effect-row');
+        if ($effect.length) {
+          const el = $effect.get(0);
+          try {
+            el.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+          } catch (e) {}
+        }
+      }
     });
 
     html.find('.inventory-edit-row').click((ev) => {
