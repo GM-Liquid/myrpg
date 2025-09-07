@@ -138,6 +138,9 @@ export class myrpgActorSheet extends ActorSheet {
       const $row = $(ev.currentTarget).closest('tr.ability-row');
       const expanding = !$row.hasClass('expanded');
       $row.toggleClass('expanded');
+      // Explicitly toggle the effect row to avoid any edge-cases with CSS sibling rules
+      const $effect = $row.next('.ability-effect-row');
+      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
       if (expanding) this._scrollEffectRowIntoView($row, '.ability-effect-row');
     });
 
@@ -394,6 +397,8 @@ export class myrpgActorSheet extends ActorSheet {
       const $row = $(ev.currentTarget).closest('tr.mod-row');
       const expanding = !$row.hasClass('expanded');
       $row.toggleClass('expanded');
+      const $effect = $row.next('.mod-effect-row');
+      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
       if (expanding) this._scrollEffectRowIntoView($row, '.mod-effect-row');
     });
 
@@ -709,6 +714,8 @@ export class myrpgActorSheet extends ActorSheet {
       const $row = $(ev.currentTarget);
       const expanding = !$row.hasClass('expanded');
       $row.toggleClass('expanded');
+      const $effect = $row.next('.armor-effect-row');
+      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
       if (expanding) this._scrollEffectRowIntoView($row, '.armor-effect-row');
     });
 
@@ -951,6 +958,8 @@ export class myrpgActorSheet extends ActorSheet {
       const $row = $(ev.currentTarget).closest('tr.inventory-row');
       const expanding = !$row.hasClass('expanded');
       $row.toggleClass('expanded');
+      const $effect = $row.next('.inventory-effect-row');
+      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
       if (expanding) this._scrollEffectRowIntoView($row, '.inventory-effect-row');
     });
 

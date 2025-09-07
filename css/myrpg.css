@@ -308,6 +308,14 @@ td.col-name:hover {
   display: table-row;
 }
 
+/* Also support explicit open state to avoid edge-cases for the last row */
+.abilities-table .ability-effect-row.open,
+.abilities-table .mod-effect-row.open,
+.abilities-table .inventory-effect-row.open,
+.abilities-table .armor-effect-row.open {
+  display: table-row;
+}
+
 .tab.abilities table.abilities-table {
   table-layout: fixed;
   width: 100%;
