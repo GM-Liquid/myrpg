@@ -39,6 +39,7 @@ Handlebars.registerHelper('lte', function (a, b, options) {
 
 // Return the rank label based on current world mode
 Handlebars.registerHelper('rankLabel', function (rankNum) {
+  if (!rankNum) return game.i18n.localize('MY_RPG.Rank.Unspecified');
   const mode = game.settings.get('myrpg', 'worldType');
   const base = mode === 'stellar' ? 'MY_RPG.RankNumeric' : 'MY_RPG.RankGradient';
   return game.i18n.localize(`${base}.Rank${rankNum}`);

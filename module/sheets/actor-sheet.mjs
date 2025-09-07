@@ -251,14 +251,17 @@ export class myrpgActorSheet extends ActorSheet {
         game.settings.get('myrpg', 'worldType') === 'stellar'
           ? 'MY_RPG.RankNumeric'
           : 'MY_RPG.RankGradient';
-      const optionsRank = [1, 2, 3, 4, 5]
-        .map(
-          (r) =>
-            `<option value="${r}" ${Number(abilityData.rank || 0) === r ? 'selected' : ''}>${game.i18n.localize(
-              baseRank + '.Rank' + r
-            )}</option>`
-        )
-        .join('');
+      const optionsRank = [
+        `<option value="" ${!abilityData.rank ? 'selected' : ''}>${game.i18n.localize('MY_RPG.Rank.Unspecified')}</option>`,
+        [1, 2, 3, 4, 5]
+          .map(
+            (r) =>
+              `<option value="${r}" ${Number(abilityData.rank || 0) === r ? 'selected' : ''}>${game.i18n.localize(
+                baseRank + '.Rank' + r
+              )}</option>`
+          )
+          .join('')
+      ].join('');
 
       let diag = new Dialog({
         title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
@@ -353,7 +356,9 @@ export class myrpgActorSheet extends ActorSheet {
             row
               .find('.col-rank')
               .text(
-                formData.rank ? getRankLabel(Number(formData.rank)) : ''
+                formData.rank
+                  ? getRankLabel(Number(formData.rank))
+                  : game.i18n.localize('MY_RPG.Rank.Unspecified')
               );
             // update corresponding effect row (adjacent sibling)
             row
@@ -487,14 +492,17 @@ export class myrpgActorSheet extends ActorSheet {
         game.settings.get('myrpg', 'worldType') === 'stellar'
           ? 'MY_RPG.RankNumeric'
           : 'MY_RPG.RankGradient';
-      const optionsRank = [1, 2, 3, 4, 5]
-        .map(
-          (r) =>
-            `<option value="${r}" ${Number(modData.rank || 0) === r ? 'selected' : ''}>${game.i18n.localize(
-              baseRank + '.Rank' + r
-            )}</option>`
-        )
-        .join('');
+      const optionsRank = [
+        `<option value="" ${!modData.rank ? 'selected' : ''}>${game.i18n.localize('MY_RPG.Rank.Unspecified')}</option>`,
+        [1, 2, 3, 4, 5]
+          .map(
+            (r) =>
+              `<option value="${r}" ${Number(modData.rank || 0) === r ? 'selected' : ''}>${game.i18n.localize(
+                baseRank + '.Rank' + r
+              )}</option>`
+          )
+          .join('')
+      ].join('');
 
       let diag = new Dialog({
         title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
@@ -574,7 +582,9 @@ export class myrpgActorSheet extends ActorSheet {
             row
               .find('.col-rank')
               .text(
-                formData.rank ? getRankLabel(Number(formData.rank)) : ''
+                formData.rank
+                  ? getRankLabel(Number(formData.rank))
+                  : game.i18n.localize('MY_RPG.Rank.Unspecified')
               );
             row
               .next('.mod-effect-row')

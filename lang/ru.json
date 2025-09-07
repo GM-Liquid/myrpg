@@ -1,5 +1,8 @@
 {
   "MY_RPG": {
+    "Rank": {
+      "Unspecified": "не указан"
+    },
     "NumericWarning": {
       "Attribute": "Характеристика",
       "Skill": "Навык",
