@@ -355,7 +355,11 @@ export class myrpgActorSheet extends ActorSheet {
               .text(
                 formData.rank ? getRankLabel(Number(formData.rank)) : ''
               );
-            row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
+            // update corresponding effect row (adjacent sibling)
+            row
+              .next('.ability-effect-row')
+              .find('.col-effect .effect-wrapper')
+              .html(formData.effect ?? '');
             row.find('.col-cost').text(formData.cost ?? '');
             if (isUnity)
               row
@@ -572,7 +576,10 @@ export class myrpgActorSheet extends ActorSheet {
               .text(
                 formData.rank ? getRankLabel(Number(formData.rank)) : ''
               );
-            row.find('.col-effect .effect-wrapper').html(formData.effect ?? '');
+            row
+              .next('.mod-effect-row')
+              .find('.col-effect .effect-wrapper')
+              .html(formData.effect ?? '');
             row
               .find('.col-upg1')
               .text(
@@ -816,6 +823,7 @@ export class myrpgActorSheet extends ActorSheet {
             const row = this.element.find(`.abilities-table tr.armor-row[data-index="${index}"]`);
             row.find('.col-name').html(formData.name ?? '');
             row
+              .next('.armor-effect-row')
               .find('.col-effect .effect-wrapper')
               .html(this._armorEffectHtml(list[index]));
             row.find('.col-cost .quantity-value').text(list[index].quantity ?? '');
@@ -1036,6 +1044,7 @@ export class myrpgActorSheet extends ActorSheet {
             );
             row.find('.col-name').html(formData.name ?? '');
             row
+              .next('.inventory-effect-row')
               .find('.col-effect .effect-wrapper')
               .html(formData.desc ?? '');
             row
