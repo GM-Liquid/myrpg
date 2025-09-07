@@ -844,9 +844,16 @@ export class myrpgActorSheet extends ActorSheet {
       if (!Array.isArray(list)) list = Object.values(list);
       const cur = parseInt(list[index]?.quantity) || 0;
       list[index].quantity = cur + 1;
-      this.actor.update({ 'system.armorList': list }, { render: false });
-      const row = this.element.find(`.abilities-table tr.armor-row[data-index="${index}"]`);
-      row.find('.col-cost .quantity-value').text(list[index].quantity);
+      this.actor
+        .update({ 'system.armorList': list }, { render: false })
+        .then(() => {
+          const row = this.element.find(
+            `.abilities-table tr.armor-row[data-index="${index}"]`
+          );
+          row.find('.col-cost .quantity-value').text(list[index].quantity);
+          // Refresh derived fields affected by armor changes
+          this._refreshDerived(html);
+        });
     });
 
     html.find('.armor-quantity-minus').click((ev) => {
@@ -856,9 +863,16 @@ export class myrpgActorSheet extends ActorSheet {
       if (!Array.isArray(list)) list = Object.values(list);
       const cur = parseInt(list[index]?.quantity) || 0;
       list[index].quantity = Math.max(0, cur - 1);
-      this.actor.update({ 'system.armorList': list }, { render: false });
-      const row = this.element.find(`.abilities-table tr.armor-row[data-index="${index}"]`);
-      row.find('.col-cost .quantity-value').text(list[index].quantity);
+      this.actor
+        .update({ 'system.armorList': list }, { render: false })
+        .then(() => {
+          const row = this.element.find(
+            `.abilities-table tr.armor-row[data-index="${index}"]`
+          );
+          row.find('.col-cost .quantity-value').text(list[index].quantity);
+          // Refresh derived fields affected by armor changes
+          this._refreshDerived(html);
+        });
     });
 
     html.find('.armor-equip-checkbox').change((ev) => {
@@ -869,10 +883,16 @@ export class myrpgActorSheet extends ActorSheet {
       list.forEach((item, i) => {
         item.equipped = checked && i === index;
       });
-      this.actor.update({ 'system.armorList': list }, { render: false });
-      html.find('.armor-equip-checkbox').each((i, el) => {
-        $(el).prop('checked', list[i]?.equipped);
-      });
+      this.actor
+        .update({ 'system.armorList': list }, { render: false })
+        .then(() => {
+          // Sync checkboxes to reflect exclusivity
+          html.find('.armor-equip-checkbox').each((i, el) => {
+            $(el).prop('checked', list[i]?.equipped);
+          });
+          // Refresh derived fields affected by armor changes
+          this._refreshDerived(html);
+        });
     });
 
     // ----------------------------------------------------------------------
@@ -1175,6 +1195,31 @@ export class myrpgActorSheet extends ActorSheet {
       flavor,
       rollMode: game.settings.get('core', 'rollMode')
     });
+  }
+
+  /**
+   * Update derived fields on the sheet (speed, defenses, health)
+   * after an in-place armor change without re-rendering the sheet.
+   */
+  _refreshDerived(html) {
+    const s = this.actor.system || {};
+    const setVal = (name, val) => {
+      html.find(`input[name="${name}"]`).val(val ?? 0);
+    };
+
+    // Speed
+    setVal('system.speed.value', s?.speed?.value);
+    // Defenses
+    setVal('system.defenses.physical', s?.defenses?.physical);
+    setVal('system.defenses.azure', s?.defenses?.azure);
+    setVal('system.defenses.mental', s?.defenses?.mental);
+    // Health
+    setVal('system.health.max', s?.health?.max);
+    setVal('system.health.value', s?.health?.value);
+    // Flux (not armor-dependent, but safe to keep in sync if needed)
+    if (s?.flux?.value !== undefined) {
+      setVal('system.flux.value', s.flux.value);
+    }
   }
 
   _armorEffectHtml(item) {
