@@ -88,7 +88,7 @@ Derived stats and in‑game effects are computed in `actor.mjs` from these three
 
 ---
 
-## 6 · Code & Localisation Conventions
+## 6 · Code & Localisation Conventions
 
 - **Copy‑paste‑ready code** — avoid line numbers or decorations that break direct copy.
 
@@ -106,9 +106,11 @@ Derived stats and in‑game effects are computed in `actor.mjs` from these three
 
 - **Sheets**: built with plain HTML+Handlebars; keep markup semantic for accessibility.
 
+- **No full re-render on edits**: Any change made through the character sheet (PC or NPC) should update the UI and derived values without triggering a full sheet re-render, unless a structural reflow is required. Prefer in-place DOM updates tied to `actor.update(..., { render: false })`, and refresh only the affected inputs/labels and computed fields (speed, defenses, health, etc.).
+
 ---
 
-## 7 · Codex‑Specific Guidelines
+## 7 · Codex‑Specific Guidelines
 
 > The maintainer is a **junior game‑designer** and **beginner programmer**.
 
@@ -118,6 +120,8 @@ Derived stats and in‑game effects are computed in `actor.mjs` from these three
 4. **Ensure RU + EN localisation** for any code that introduces UI text.
 5. **Automatically bump version** (`system.json → version +0.001`) whenever code is updated.
 6. If adding or renaming a field that affects characteristics or skills, confirm the 1‑10 range rule and absence of DEX.
+
+7. When implementing sheet interactions, prioritize incremental updates: submit data with `render: false`, then update only the impacted parts of the DOM to reflect changes immediately. This applies equally to PCs and NPCs.
 
 ---
 

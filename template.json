@@ -169,6 +169,15 @@
     },
     "npc": {
       "templates": ["base"],
+      "biography": {
+        "weight": "",
+        "height": "",
+        "eyeColor": "",
+        "hairColor": "",
+        "appearance": "",
+        "story": "",
+        "notes": ""
+      },
       "attributes": {}
     }
   }

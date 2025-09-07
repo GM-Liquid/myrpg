@@ -7,7 +7,8 @@
 export class myrpgActor extends Actor {
   prepareDerivedData() {
     super.prepareDerivedData();
-    if (this.type === 'character') this._prepareCharacterData();
+    // Ensure NPCs have identical derived behavior to PCs
+    if (this.type === 'character' || this.type === 'npc') this._prepareCharacterData();
   }
 
   _prepareCharacterData() {
