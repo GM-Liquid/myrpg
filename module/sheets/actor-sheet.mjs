@@ -13,6 +13,30 @@ function getRankLabel(rank) {
 
 export class myrpgActorSheet extends ActorSheet {
   _editDialog = null;
+  _scrollEffectRowIntoView($row, effectSelector) {
+    const $container = this.element.find('.sheet-scrollable');
+    if (!$container.length) return;
+    const $effect = $row.next(effectSelector);
+    if (!$effect.length) return;
+
+    // Run after layout so the effect row has display: table-row
+    const container = $container.get(0);
+    const el = $effect.get(0);
+    const doScroll = () => {
+      try {
+        const cRect = container.getBoundingClientRect();
+        const eRect = el.getBoundingClientRect();
+        // If bottom overflows container, scroll down; if top is above, scroll up
+        if (eRect.bottom > cRect.bottom) {
+          container.scrollTop += eRect.bottom - cRect.bottom + 4;
+        } else if (eRect.top < cRect.top) {
+          container.scrollTop -= cRect.top - eRect.top + 4;
+        }
+      } catch (e) {}
+    };
+    if (window.requestAnimationFrame) requestAnimationFrame(doScroll);
+    else setTimeout(doScroll, 0);
+  }
   /** @override */
   async _render(force = false, options = {}) {
     const scrollContainer = this.element.find('.sheet-scrollable');
@@ -114,18 +138,7 @@ export class myrpgActorSheet extends ActorSheet {
       const $row = $(ev.currentTarget).closest('tr.ability-row');
       const expanding = !$row.hasClass('expanded');
       $row.toggleClass('expanded');
-      if (expanding) {
-        const $effect = $row.next('.ability-effect-row');
-        if ($effect.length) {
-          // Ensure the newly revealed content is visible (helps for last row)
-          const el = $effect.get(0);
-          try {
-            el.scrollIntoView({ block: 'nearest', behavior: 'auto' });
-          } catch (e) {
-            // noop: scrollIntoView not critical
-          }
-        }
-      }
+      if (expanding) this._scrollEffectRowIntoView($row, '.ability-effect-row');
     });
 
     // ������ "������" (���� ���-�� ������������)
@@ -381,15 +394,7 @@ export class myrpgActorSheet extends ActorSheet {
       const $row = $(ev.currentTarget).closest('tr.mod-row');
       const expanding = !$row.hasClass('expanded');
       $row.toggleClass('expanded');
-      if (expanding) {
-        const $effect = $row.next('.mod-effect-row');
-        if ($effect.length) {
-          const el = $effect.get(0);
-          try {
-            el.scrollIntoView({ block: 'nearest', behavior: 'auto' });
-          } catch (e) {}
-        }
-      }
+      if (expanding) this._scrollEffectRowIntoView($row, '.mod-effect-row');
     });
 
     html.find('.mods-add-row').click((ev) => {
@@ -704,15 +709,7 @@ export class myrpgActorSheet extends ActorSheet {
       const $row = $(ev.currentTarget);
       const expanding = !$row.hasClass('expanded');
       $row.toggleClass('expanded');
-      if (expanding) {
-        const $effect = $row.next('.armor-effect-row');
-        if ($effect.length) {
-          const el = $effect.get(0);
-          try {
-            el.scrollIntoView({ block: 'nearest', behavior: 'auto' });
-          } catch (e) {}
-        }
-      }
+      if (expanding) this._scrollEffectRowIntoView($row, '.armor-effect-row');
     });
 
     html.find('.armor-edit-row').click((ev) => {
@@ -954,15 +951,7 @@ export class myrpgActorSheet extends ActorSheet {
       const $row = $(ev.currentTarget).closest('tr.inventory-row');
       const expanding = !$row.hasClass('expanded');
       $row.toggleClass('expanded');
-      if (expanding) {
-        const $effect = $row.next('.inventory-effect-row');
-        if ($effect.length) {
-          const el = $effect.get(0);
-          try {
-            el.scrollIntoView({ block: 'nearest', behavior: 'auto' });
-          } catch (e) {}
-        }
-      }
+      if (expanding) this._scrollEffectRowIntoView($row, '.inventory-effect-row');
     });
 
     html.find('.inventory-edit-row').click((ev) => {
