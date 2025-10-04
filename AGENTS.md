@@ -11,16 +11,14 @@
 | ----------------------------- | --------------------------------------------------------------- |
 | **System name**               | **MyRPG**                                                       |
 | **Foundry VTT compatibility** | v12 (tested on 12.324)                                          |
-| **Current version (**``**)**  | `2.207` -> **auto-bumped to** `2.208` on next commit             |
-| **Languages**                 | 🇬🇧 English, 🇷🇺 Русский (full parity required)               |
+| **Current version (**``**)**  | `2.282` -> **auto-bumped to** `2.283` on next commit            |
+| **Languages**                 | English, Русский (full parity required)                         |
 | **Main tech**                 | ES‑module JavaScript (`*.mjs`), Handlebars (`*.hbs`), JSON, CSS |
 | **Licence**                   | MIT (source) / CC BY‑SA 4.0 (game rules)                        |
 
----
 
 ## 2 · Repository Map
 
-```
 myrpg/
 │  README.md
 │  AGENTS.md          ← you are here
@@ -35,8 +33,9 @@ myrpg/
 │   templates.mjs
 │
 ├─ templates/
-│   actor-character-sheet.hbs
-│   … other .hbs templates …
+│   └─ actor/
+│       ├─ actor-character-sheet.hbs
+│       └─ actor-npc-sheet.hbs
 │
 ├─ lang/
 │   en.json   ← English strings
@@ -110,7 +109,7 @@ Derived stats and in‑game effects are computed in `actor.mjs` from these three
 
 ---
 
-## 7 · Codex‑Specific Guidelines
+## 7 · AI Assistant-Specific Guidelines
 
 > The maintainer is a **junior game‑designer** and **beginner programmer**.
 
@@ -122,6 +121,7 @@ Derived stats and in‑game effects are computed in `actor.mjs` from these three
 6. If adding or renaming a field that affects characteristics or skills, confirm the 1‑10 range rule and absence of DEX.
 
 7. When implementing sheet interactions, prioritize incremental updates: submit data with `render: false`, then update only the impacted parts of the DOM to reflect changes immediately. This applies equally to PCs and NPCs.
+8. **Adhere to code style**: All generated or modified code must strictly follow the formatting rules defined in `.prettierrc.json` and the linting rules in `eslint.config.mjs`.
 
 ---
 
