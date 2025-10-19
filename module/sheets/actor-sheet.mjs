@@ -1160,7 +1160,7 @@ export class myrpgActorSheet extends ActorSheet {
   /** @override */
   get template() {
     if (this.actor.type === 'npc') {
-      return `systems/myrpg/templates/actor/actor-character-sheet.hbs`;
+      return `systems/myrpg/templates/actor/actor-npc-sheet.hbs`;
     }
     return `systems/myrpg/templates/actor/actor-${this.actor.type}-sheet.hbs`;
   }
@@ -1172,8 +1172,10 @@ export class myrpgActorSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
 
-    if (actorData.type === 'character' || actorData.type === 'npc') {
+    if (actorData.type === 'character') {
       this._prepareCharacterData(context);
+    } else if (actorData.type === 'npc') {
+      this._prepareNpcData(context);
     }
 
     if (game.settings.get('myrpg', 'worldType') === 'unity') {
@@ -1185,7 +1187,7 @@ export class myrpgActorSheet extends ActorSheet {
     return context;
   }
 
-  _prepareCharacterData(context) {
+  _prepareSharedActorContext(context) {
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
       v.rankClass = 'rank' + getColorRank(v.value);
@@ -1229,6 +1231,19 @@ export class myrpgActorSheet extends ActorSheet {
     }
     context.system.skills = sorted;
 
+    this._buildStressTrack(context);
+  }
+
+  _prepareCharacterData(context) {
+    this._prepareSharedActorContext(context);
+    this._buildWoundTrack(context);
+  }
+
+  _prepareNpcData(context) {
+    this._prepareSharedActorContext(context);
+  }
+
+  _buildStressTrack(context) {
     const stress = context.system.stress ?? { value: 0, max: 0 };
     const stressValue = Number(stress.value) || 0;
     const stressMax = Number(stress.max) || 0;
@@ -1237,7 +1252,9 @@ export class myrpgActorSheet extends ActorSheet {
       filled: index < stressValue,
       ariaLabel: game.i18n.format('MY_RPG.Stress.CellAria', { index: index + 1 })
     }));
+  }
 
+  _buildWoundTrack(context) {
     const woundState = context.system.wounds ?? { minor: false, severe: false };
     const woundDefs = [
       {
