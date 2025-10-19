@@ -382,12 +382,11 @@
         </div>
         {{/ifUnity}}
         <section class='abilities-section'>
-          <table class='abilities-table'>
+          <table class='abilities-table{{#ifUnity}} abilities-table--unity{{/ifUnity}}'>
             <thead>
               <tr>
                 <th class='col-name primary-header'>{{localize (worldChoice 'MY_RPG.RunesTable.PrimaryHeader' 'MY_RPG.AbilitiesTable.PrimaryHeader')}}</th>
                 <th class='col-rank'>{{localize 'MY_RPG.AbilitiesTable.Rank'}}</th>
-                <th class='col-cost'>{{localize 'MY_RPG.AbilitiesTable.Cost'}}</th>
                 {{#ifUnity}}
                 <th class='col-type'>{{localize 'MY_RPG.RunesTable.RuneType'}}</th>
                 {{/ifUnity}}
@@ -405,7 +404,6 @@
                 <tr class='ability-row' data-index='{{i}}'>
                   <td class='col-name'>{{{row.name}}}</td>
                   <td class='col-rank'>{{rankLabel row.rank}}</td>
-                  <td class='col-cost'>{{row.cost}}</td>
                   {{#ifUnity}}
                   <td class='col-type'>{{localize (concat 'MY_RPG.RuneTypes.' row.runeType)}}</td>
                   {{/ifUnity}}
@@ -436,7 +434,7 @@
                   </td>
                 </tr>
                 <tr class='ability-effect-row'>
-                  <td class='col-effect' colspan='{{#ifUnity}}7{{else}}6{{/ifUnity}}'>
+                  <td class='col-effect' colspan='{{#ifUnity}}6{{else}}5{{/ifUnity}}'>
                     <div class='effect-wrapper'>{{{row.effect}}}</div>
                   </td>
                 </tr>

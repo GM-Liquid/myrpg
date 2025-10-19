@@ -374,7 +374,6 @@ export class myrpgActorSheet extends ActorSheet {
               .next('.ability-effect-row')
               .find('.col-effect .effect-wrapper')
               .html(formData.effect ?? '');
-            row.find('.col-cost').text(formData.cost ?? '');
             if (isUnity)
               row
                 .find('.col-type')

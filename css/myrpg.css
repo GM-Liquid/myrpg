@@ -321,32 +321,42 @@ td.col-name:hover {
   width: 100%;
 }
 
-.tab.abilities table.abilities-table th.col-name {
-  width: 24% !important;
+.tab.abilities table.abilities-table:not(.abilities-table--unity) th.col-name {
+  width: 34% !important;
 }
 
-.tab.abilities table.abilities-table th.col-rank {
+.tab.abilities table.abilities-table:not(.abilities-table--unity) th.col-rank {
+  width: 14% !important;
+}
+
+.tab.abilities table.abilities-table:not(.abilities-table--unity) th.col-upg1,
+.tab.abilities table.abilities-table:not(.abilities-table--unity) th.col-upg2 {
+  width: 21% !important;
+}
+
+.tab.abilities table.abilities-table:not(.abilities-table--unity) th.col-delete {
   width: 10% !important;
 }
 
-.tab.abilities table.abilities-table th.col-cost {
-  width: 11% !important;
+.tab.abilities table.abilities-table.abilities-table--unity th.col-name {
+  width: 28% !important;
 }
 
-.tab.abilities table.abilities-table th.col-type {
-  width: 13% !important;
+.tab.abilities table.abilities-table.abilities-table--unity th.col-rank {
+  width: 12% !important;
 }
 
-.tab.abilities table.abilities-table th.col-upg1 {
-  width: 13% !important;
-}
-
-.tab.abilities table.abilities-table th.col-upg2 {
-  width: 13% !important;
-}
-
-.tab.abilities table.abilities-table th.col-delete {
+.tab.abilities table.abilities-table.abilities-table--unity th.col-type {
   width: 16% !important;
+}
+
+.tab.abilities table.abilities-table.abilities-table--unity th.col-upg1,
+.tab.abilities table.abilities-table.abilities-table--unity th.col-upg2 {
+  width: 18% !important;
+}
+
+.tab.abilities table.abilities-table.abilities-table--unity th.col-delete {
+  width: 8% !important;
 }
 
 .mods-section {
