@@ -43,6 +43,53 @@
   color: #1b1210;
 }
 
+.key-info-health .resource-content {
+  gap: 8px;
+}
+
+.stress-track,
+.wound-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.stress-cell,
+.wound-cell {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #1b1210;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: #1b1210;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.wound-cell {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.stress-cell.filled,
+.wound-cell.filled {
+  background-color: #673e37;
+  color: #d2d2c9;
+}
+
+.stress-cell:focus-visible,
+.wound-cell:focus-visible {
+  outline: 2px solid #0896e9;
+  outline-offset: 2px;
+}
+
 .key-info-divider {
   border: 0;
   border-top: 2px solid #1b1210;

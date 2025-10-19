@@ -16,7 +16,7 @@
       "thumbnail": "systems/myrpg/assets/anvil-impact.png"
     }
   ],
-  "version": "2.284",
+  "version": "2.285",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
@@ -46,9 +46,9 @@
     "units": "м"
   },
   "primaryTokenAttribute": {
-    "attribute": "system.health.value",
-    "value": "system.health.value",
-    "max": "system.health.max"
+    "attribute": "system.stress.value",
+    "value": "system.stress.value",
+    "max": "system.stress.max"
   },
   "secondaryTokenAttribute": {
     "attribute": "system.flux.value"

@@ -126,7 +126,8 @@ export class myrpgActorSheet extends ActorSheet {
     html
       .find('textarea.rich-editor')
       .each((i, el) => this.initializeRichEditor(el));
-    html.find('.wound-box').click(this._onToggleWound.bind(this));
+    html.find('.stress-cell').click(this._onStressCellClick.bind(this));
+    html.find('.wound-cell').click(this._onWoundCellClick.bind(this));
 
     // ----------------------------------------------------------------------
     // Rollable �������� (������)
@@ -1227,17 +1228,66 @@ export class myrpgActorSheet extends ActorSheet {
       }
     }
     context.system.skills = sorted;
+
+    const stress = context.system.stress ?? { value: 0, max: 0 };
+    const stressValue = Number(stress.value) || 0;
+    const stressMax = Number(stress.max) || 0;
+    context.system.stressTrack = Array.from({ length: Math.max(stressMax, 0) }, (_, index) => ({
+      index,
+      filled: index < stressValue,
+      ariaLabel: game.i18n.format('MY_RPG.Stress.CellAria', { index: index + 1 })
+    }));
+
+    const woundState = context.system.wounds ?? { minor: false, severe: false };
+    const woundDefs = [
+      {
+        type: 'minor',
+        labelKey: 'MY_RPG.Wounds.Minor',
+        abbrKey: 'MY_RPG.Wounds.MinorAbbrev',
+        ariaKey: 'MY_RPG.Wounds.MinorAria'
+      },
+      {
+        type: 'severe',
+        labelKey: 'MY_RPG.Wounds.Severe',
+        abbrKey: 'MY_RPG.Wounds.SevereAbbrev',
+        ariaKey: 'MY_RPG.Wounds.SevereAria'
+      }
+    ];
+    context.system.woundTrack = woundDefs.map((def) => ({
+      type: def.type,
+      labelKey: def.labelKey,
+      abbr: game.i18n.localize(def.abbrKey),
+      ariaLabel: game.i18n.localize(def.ariaKey),
+      filled: Boolean(woundState?.[def.type])
+    }));
   }
 
   /**
-   * ��������� ����� �� rollable-���������
+   * Toggle stress and wound cells without forcing a full sheet re-render.
    */
-  async _onToggleWound(event) {
-    const idx = parseInt(event.currentTarget.dataset.idx);
-    let wounds = this.actor.system.wounds || 0;
-    // ���� ������� ���������� ������� ������ �������, ���������, ����� �����������
-    wounds = wounds > idx ? idx : idx + 1;
-    await this.actor.update({ 'system.wounds': wounds });
+  async _onStressCellClick(event) {
+    event.preventDefault();
+    const index = Number(event.currentTarget.dataset.index) || 0;
+    const stress = this.actor.system.stress || { value: 0, max: 0 };
+    const max = Number(stress.max) || 0;
+    const current = Number(stress.value) || 0;
+    const next =
+      index < current
+        ? index
+        : Math.min(index + 1, max);
+    await this.actor.update({ 'system.stress.value': next }, { render: false });
+    this._updateStressTrack(this.element, next);
+  }
+
+  async _onWoundCellClick(event) {
+    event.preventDefault();
+    const type = event.currentTarget.dataset.type;
+    if (!type) return;
+    const current = Boolean(this.actor.system.wounds?.[type]);
+    const update = {};
+    update['system.wounds.' + type] = !current;
+    await this.actor.update(update, { render: false });
+    this._updateWoundTrack(this.element);
   }
 
   async _onRoll(event) {
@@ -1270,13 +1320,14 @@ export class myrpgActorSheet extends ActorSheet {
   }
 
   /**
-   * Update derived fields on the sheet (speed, defenses, health)
-   * after an in-place armor change without re-rendering the sheet.
+   * Update derived fields on the sheet (speed, defenses, stress and wounds)
+   * after an in-place change without re-rendering the sheet.
    */
   _refreshDerived(html) {
     const s = this.actor.system || {};
+    const $root = html instanceof jQuery ? html : $(html ?? this.element);
     const setVal = (name, val) => {
-      html.find(`input[name="${name}"]`).val(val ?? 0);
+      $root.find(`input[name="${name}"]`).val(val ?? 0);
     };
 
     // Speed
@@ -1285,9 +1336,36 @@ export class myrpgActorSheet extends ActorSheet {
     setVal('system.defenses.physical', s?.defenses?.physical);
     setVal('system.defenses.azure', s?.defenses?.azure);
     setVal('system.defenses.mental', s?.defenses?.mental);
-    // Health
-    setVal('system.health.max', s?.health?.max);
-    setVal('system.health.value', s?.health?.value);
+
+    this._updateStressTrack($root);
+    this._updateWoundTrack($root);
+  }
+
+  _updateStressTrack(root, explicitValue) {
+    const $root = root instanceof jQuery ? root : $(root ?? this.element);
+    const stress = this.actor.system.stress || { value: 0, max: 0 };
+    const value =
+      typeof explicitValue === 'number' ? explicitValue : Number(stress.value) || 0;
+    const $track = $root.find('.stress-track');
+    if (!$track.length) return;
+    $track.find('.stress-cell').each((i, el) => {
+      const filled = i < value;
+      el.classList.toggle('filled', filled);
+      el.setAttribute('aria-pressed', filled ? 'true' : 'false');
+    });
+  }
+
+  _updateWoundTrack(root) {
+    const $root = root instanceof jQuery ? root : $(root ?? this.element);
+    const wounds = this.actor.system.wounds || { minor: false, severe: false };
+    const $track = $root.find('.wound-track');
+    if (!$track.length) return;
+    $track.find('.wound-cell').each((_, el) => {
+      const type = el.dataset.type;
+      const filled = Boolean(wounds?.[type]);
+      el.classList.toggle('filled', filled);
+      el.setAttribute('aria-pressed', filled ? 'true' : 'false');
+    });
   }
 
   _armorEffectHtml(item) {

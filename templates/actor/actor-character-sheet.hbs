@@ -141,33 +141,40 @@
           </section>
 
 
-          <section class='resources grid grid-2col key-info-grid'>
+          <section class='resources grid grid-2col key-info-grid key-info-health'>
             <div class='resource flex-group-center'>
-              <label class='resource-label'>{{localize 'MY_RPG.Health.SubCurrent'}}</label>
+              <label class='resource-label'>{{localize 'MY_RPG.Stress.Label'}}</label>
               <div class='resource-content flexcol'>
-                <input
-                  type='number'
-                  class='key-info-input'
-                  name='system.health.value'
-                  value='{{system.health.value}}'
-                  step='1'
-                  inputmode='numeric'
-                />
+                <div class='stress-track' data-total='{{system.stress.max}}'>
+                  {{#each system.stressTrack as |cell|}}
+                    <button
+                      type='button'
+                      class='stress-cell {{#if cell.filled}}filled{{/if}}'
+                      data-index='{{cell.index}}'
+                      aria-label='{{cell.ariaLabel}}'
+                      aria-pressed='{{#if cell.filled}}true{{else}}false{{/if}}'
+                    ></button>
+                  {{/each}}
+                </div>
               </div>
             </div>
             <div class='resource flex-group-center'>
-              <label class='resource-label'>{{localize 'MY_RPG.Health.SubMax'}}</label>
+              <label class='resource-label'>{{localize 'MY_RPG.Wounds.Label'}}</label>
               <div class='resource-content flexcol'>
-                <input
-                  type='number'
-                  class='key-info-input'
-                  name='system.health.max'
-                  value='{{system.health.max}}'
-                  step='1'
-                  inputmode='numeric'
-                  readonly
-                  tabindex='-1'
-                />
+                <div class='wound-track'>
+                  {{#each system.woundTrack as |cell|}}
+                    <button
+                      type='button'
+                      class='wound-cell {{cell.type}} {{#if cell.filled}}filled{{/if}}'
+                      data-type='{{cell.type}}'
+                      aria-label='{{cell.ariaLabel}}'
+                      title='{{localize cell.labelKey}}'
+                      aria-pressed='{{#if cell.filled}}true{{else}}false{{/if}}'
+                    >
+                      {{cell.abbr}}
+                    </button>
+                  {{/each}}
+                </div>
               </div>
             </div>
           </section>

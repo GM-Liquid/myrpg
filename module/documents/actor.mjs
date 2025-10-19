@@ -26,9 +26,18 @@ export class myrpgActor extends Actor {
 
     /* 3. Производные параметры ------------------------------------ */
     s.speed.value = this._calcSpeed(s);
-    // health max derives from base 20 plus bonuses
-    s.health.max = this._calcHealthMax(s);
-    s.health.value = Math.min(s.health.value ?? s.health.max, s.health.max);
+
+    const stress = s.stress ?? (s.stress = {});
+    stress.max = this._calcStressMax(s);
+    const currentStress = Number(stress.value) || 0;
+    stress.value = Math.clamp
+      ? Math.clamp(currentStress, 0, stress.max)
+      : Math.min(Math.max(currentStress, 0), stress.max);
+
+    const wounds = s.wounds ?? (s.wounds = {});
+    wounds.minor = Boolean(wounds.minor);
+    wounds.severe = Boolean(wounds.severe);
+
     s.flux.value = this._calcFlux(s);
     s.defenses = {
       physical: this._calcDefPhys(s),
@@ -47,8 +56,10 @@ export class myrpgActor extends Actor {
     );
   }
 
-  _calcHealthMax(s) {
-    return 30 + this._sumArmor(s.armorList, 'itemShield') + (Number(s.temphealth) || 0);
+  _calcStressMax(s) {
+    const rank = Math.max(Number(s.currentRank) || 0, 0);
+    const bonus = Number(s.temphealth) || 0;
+    return Math.max(0, rank + 4 + bonus);
   }
 
   _calcFlux(s) {

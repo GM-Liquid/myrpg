@@ -22,9 +22,13 @@
         "abilitiesList": [],
         "modsList": [],
         "inventoryList": [],
-        "health": {
-          "value": 20,
-          "max": 20
+        "stress": {
+          "value": 0,
+          "max": 4
+        },
+        "wounds": {
+          "minor": false,
+          "severe": false
         },
         "flux": {
           "value": 0

@@ -110,12 +110,18 @@
       "Domain": "Domain",
       "Saga": "Saga"
     },
-    "Health": {
-      "Label": "Health Points (HP)",
-      "Temp": "Temp HP",
-      "SubCurrent": "Current Health Points",
-      "SubDamage": "Damage",
-      "SubMax": "Maximum Health Points"
+    "Stress": {
+      "Label": "Stress",
+      "CellAria": "Stress point {index}"
+    },
+    "Wounds": {
+      "Label": "Wounds",
+      "Minor": "Minor Wound",
+      "MinorAbbrev": "M",
+      "MinorAria": "Toggle minor wound",
+      "Severe": "Severe Wound",
+      "SevereAbbrev": "S",
+      "SevereAria": "Toggle severe wound"
     },
     "ArmorItem": {
       "BonusPhysicalLabel": "Bonus to Physical Protection",
