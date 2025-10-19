@@ -7,44 +7,28 @@
 export class myrpgActor extends Actor {
   prepareDerivedData() {
     super.prepareDerivedData();
-    if (this.type === 'character') this._prepareCharacterData();
-    else if (this.type === 'npc') this._prepareNpcData();
+    // Ensure NPCs have identical derived behavior to PCs
+    if (this.type === 'character' || this.type === 'npc') this._prepareCharacterData();
   }
 
-  _prepareSharedActorData() {
+  _prepareCharacterData() {
     const s = this.system;
 
-    /* 1. Способности ---------------------------------------------- */
+    /* 1. РЎРїРѕСЃРѕР±РЅРѕСЃС‚Рё ---------------------------------------------- */
     for (const a of Object.values(s.abilities)) {
-      a.mod = a.value; // «бонус» = само значение
+      a.mod = a.value; // В«Р±РѕРЅСѓСЃВ» = СЃР°РјРѕ Р·РЅР°С‡РµРЅРёРµ
     }
 
-    /* 2. Навыки ---------------------------------------------------- */
+    /* 2. РќР°РІС‹РєРё ---------------------------------------------------- */
     for (const sk of Object.values(s.skills)) {
       sk.mod = sk.value;
     }
 
-    /* 3. Производные параметры ------------------------------------ */
+    /* 3. РџСЂРѕРёР·РІРѕРґРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ ------------------------------------ */
     s.speed.value = this._calcSpeed(s);
 
-    return s;
-  }
-
-  _prepareCharacterData() {
-    const s = this._prepareSharedActorData();
-    this._applyCharacterDurability(s);
-    this._finalizeCombatStats(s);
-  }
-
-  _prepareNpcData() {
-    const s = this._prepareSharedActorData();
-    this._applyNpcDurability(s);
-    this._finalizeCombatStats(s);
-  }
-
-  _applyCharacterDurability(s) {
     const stress = s.stress ?? (s.stress = {});
-    stress.max = this._calcCharacterStressMax(s);
+    stress.max = this._calcStressMax(s);
     const currentStress = Number(stress.value) || 0;
     stress.value = Math.clamp
       ? Math.clamp(currentStress, 0, stress.max)
@@ -53,19 +37,7 @@ export class myrpgActor extends Actor {
     const wounds = s.wounds ?? (s.wounds = {});
     wounds.minor = Boolean(wounds.minor);
     wounds.severe = Boolean(wounds.severe);
-  }
 
-  _applyNpcDurability(s) {
-    const stress = s.stress ?? (s.stress = {});
-    stress.max = this._calcNpcStressMax(s);
-    const currentStress = Number(stress.value) || 0;
-    stress.value = Math.clamp
-      ? Math.clamp(currentStress, 0, stress.max)
-      : Math.min(Math.max(currentStress, 0), stress.max);
-    if ('wounds' in s) delete s.wounds;
-  }
-
-  _finalizeCombatStats(s) {
     s.flux.value = this._calcFlux(s);
     s.defenses = {
       physical: this._calcDefPhys(s),
@@ -85,20 +57,9 @@ export class myrpgActor extends Actor {
   }
 
   _calcStressMax(s) {
-    return this.type === 'npc'
-      ? this._calcNpcStressMax(s)
-      : this._calcCharacterStressMax(s);
-  }
-
-  _calcCharacterStressMax(s) {
     const rank = Math.max(Number(s.currentRank) || 0, 0);
     const bonus = Number(s.temphealth) || 0;
     return Math.max(0, rank + 4 + bonus);
-  }
-
-  _calcNpcStressMax(s) {
-    const rank = Math.max(Number(s.currentRank) || 0, 0);
-    return Math.max(0, 6 + rank);
   }
 
   _calcFlux(s) {
