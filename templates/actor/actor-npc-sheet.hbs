@@ -40,20 +40,6 @@
                 ></button>
               {{/each}}
             </div>
-            <div class='wound-track'>
-              {{#each system.woundTrack as |cell|}}
-                <button
-                  type='button'
-                  class='wound-cell {{cell.type}} {{#if cell.filled}}filled{{/if}}'
-                  data-type='{{cell.type}}'
-                  aria-label='{{cell.ariaLabel}}'
-                  title='{{localize cell.labelKey}}'
-                  aria-pressed='{{#if cell.filled}}true{{else}}false{{/if}}'
-                >
-                  {{cell.abbr}}
-                </button>
-              {{/each}}
-            </div>
           </div>
         </div>
 

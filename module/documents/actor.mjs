@@ -7,12 +7,13 @@
 export class myrpgActor extends Actor {
   prepareDerivedData() {
     super.prepareDerivedData();
-    // Ensure NPCs have identical derived behavior to PCs
     if (this.type === 'character' || this.type === 'npc') this._prepareCharacterData();
   }
 
   _prepareCharacterData() {
     const s = this.system;
+    const isCharacter = this.type === 'character';
+    const isNpc = this.type === 'npc';
 
     /* 1. Способности ---------------------------------------------- */
     for (const a of Object.values(s.abilities)) {
@@ -28,15 +29,20 @@ export class myrpgActor extends Actor {
     s.speed.value = this._calcSpeed(s);
 
     const stress = s.stress ?? (s.stress = {});
-    stress.max = this._calcStressMax(s);
+    const calcStressMax = isNpc ? this._calcNpcStressMax : this._calcStressMax;
+    stress.max = calcStressMax.call(this, s);
     const currentStress = Number(stress.value) || 0;
     stress.value = Math.clamp
       ? Math.clamp(currentStress, 0, stress.max)
       : Math.min(Math.max(currentStress, 0), stress.max);
 
-    const wounds = s.wounds ?? (s.wounds = {});
-    wounds.minor = Boolean(wounds.minor);
-    wounds.severe = Boolean(wounds.severe);
+    if (isCharacter) {
+      const wounds = s.wounds ?? (s.wounds = {});
+      wounds.minor = Boolean(wounds.minor);
+      wounds.severe = Boolean(wounds.severe);
+    } else if (isNpc && s.wounds !== undefined) {
+      delete s.wounds;
+    }
 
     s.flux.value = this._calcFlux(s);
     s.defenses = {
@@ -60,6 +66,11 @@ export class myrpgActor extends Actor {
     const rank = Math.max(Number(s.currentRank) || 0, 0);
     const bonus = Number(s.temphealth) || 0;
     return Math.max(0, rank + 4 + bonus);
+  }
+
+  _calcNpcStressMax(s) {
+    const rank = Math.max(Number(s.currentRank) || 0, 0);
+    return Math.max(0, 6 + rank);
   }
 
   _calcFlux(s) {

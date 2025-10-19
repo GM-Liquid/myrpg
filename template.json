@@ -26,10 +26,6 @@
           "value": 0,
           "max": 4
         },
-        "wounds": {
-          "minor": false,
-          "severe": false
-        },
         "flux": {
           "value": 0
         },
@@ -160,6 +156,10 @@
     },
     "character": {
       "templates": ["base"],
+      "wounds": {
+        "minor": false,
+        "severe": false
+      },
       "biography": {
         "weight": "",
         "height": "",

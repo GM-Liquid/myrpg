@@ -1171,8 +1171,10 @@ export class myrpgActorSheet extends ActorSheet {
     const actorData = context.data;
     context.system = actorData.system;
     context.flags = actorData.flags;
+    context.isCharacter = actorData.type === 'character';
+    context.isNpc = actorData.type === 'npc';
 
-    if (actorData.type === 'character' || actorData.type === 'npc') {
+    if (context.isCharacter || context.isNpc) {
       this._prepareCharacterData(context);
     }
 
@@ -1186,6 +1188,8 @@ export class myrpgActorSheet extends ActorSheet {
   }
 
   _prepareCharacterData(context) {
+    const isCharacter = Boolean(context.isCharacter);
+    const isNpc = Boolean(context.isNpc);
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.MY_RPG.abilities[k]) ?? k;
       v.rankClass = 'rank' + getColorRank(v.value);
@@ -1238,28 +1242,32 @@ export class myrpgActorSheet extends ActorSheet {
       ariaLabel: game.i18n.format('MY_RPG.Stress.CellAria', { index: index + 1 })
     }));
 
-    const woundState = context.system.wounds ?? { minor: false, severe: false };
-    const woundDefs = [
-      {
-        type: 'minor',
-        labelKey: 'MY_RPG.Wounds.Minor',
-        abbrKey: 'MY_RPG.Wounds.MinorAbbrev',
-        ariaKey: 'MY_RPG.Wounds.MinorAria'
-      },
-      {
-        type: 'severe',
-        labelKey: 'MY_RPG.Wounds.Severe',
-        abbrKey: 'MY_RPG.Wounds.SevereAbbrev',
-        ariaKey: 'MY_RPG.Wounds.SevereAria'
-      }
-    ];
-    context.system.woundTrack = woundDefs.map((def) => ({
-      type: def.type,
-      labelKey: def.labelKey,
-      abbr: game.i18n.localize(def.abbrKey),
-      ariaLabel: game.i18n.localize(def.ariaKey),
-      filled: Boolean(woundState?.[def.type])
-    }));
+    if (isCharacter) {
+      const woundState = context.system.wounds ?? { minor: false, severe: false };
+      const woundDefs = [
+        {
+          type: 'minor',
+          labelKey: 'MY_RPG.Wounds.Minor',
+          abbrKey: 'MY_RPG.Wounds.MinorAbbrev',
+          ariaKey: 'MY_RPG.Wounds.MinorAria'
+        },
+        {
+          type: 'severe',
+          labelKey: 'MY_RPG.Wounds.Severe',
+          abbrKey: 'MY_RPG.Wounds.SevereAbbrev',
+          ariaKey: 'MY_RPG.Wounds.SevereAria'
+        }
+      ];
+      context.system.woundTrack = woundDefs.map((def) => ({
+        type: def.type,
+        labelKey: def.labelKey,
+        abbr: game.i18n.localize(def.abbrKey),
+        ariaLabel: game.i18n.localize(def.ariaKey),
+        filled: Boolean(woundState?.[def.type])
+      }));
+    } else if (isNpc) {
+      context.system.woundTrack = [];
+    }
   }
 
   /**
@@ -1290,6 +1298,14 @@ export class myrpgActorSheet extends ActorSheet {
     this._updateWoundTrack(this.element);
   }
 
+  _getWoundPenalty() {
+    const wounds = this.actor.system.wounds || {};
+    let penalty = 0;
+    if (wounds.minor) penalty += 1;
+    if (wounds.severe) penalty += 2;
+    return penalty;
+  }
+
   async _onRoll(event) {
     event.preventDefault();
     const el = event.currentTarget;
@@ -1310,7 +1326,9 @@ export class myrpgActorSheet extends ActorSheet {
       bonus = abVal; // ��� ������ ����� ��������������
     }
 
-    const roll = await new Roll(`1d10 + ${bonus}`).roll({ async: true });
+    const woundPenalty = this._getWoundPenalty();
+    if (woundPenalty) bonus -= woundPenalty;
+    const roll = await new Roll('1d10 + @mod', { mod: bonus }).roll({ async: true });
     let flavor = label;
     roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
