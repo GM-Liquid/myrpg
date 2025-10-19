@@ -9,9 +9,6 @@
       "Min": "{label} не может быть меньше {min}",
       "RankLimit": "На {rank}-м ранге значения ваших характеристик и навыков не могут превышать {limit}"
     },
-    "Flux": {
-      "Label": "Поток"
-    },
     "Dialog": {
       "ConfirmDeleteTitle": "Удаление способности",
       "ConfirmDeleteMessage": "Вы действительно хотите удалить эту способность? Это действие необратимо.",
@@ -158,9 +155,6 @@
     "TempHealth": {
       "Label": "Врем. ОЗ"
     },
-    "TempFlux": {
-      "Label": "Врем. поток"
-    },
     "TempSpeed": {
       "Label": "Врем. скорость"
     },
@@ -188,17 +182,14 @@
     "Skill": {
       "Liderstvo": "Лидерство",
       "Obman": "Обман",
-
       "Akrobatika": "Акробатика",
       "Skrytost": "Скрытность",
       "Strelba": "Стрельба",
       "Upravlenie_transportom": "Управление Транспортом",
       "Lovkost_ruk": "Ловкость Рук",
       "Blizhniy_boy": "Ближний Бой",
-
       "Atletika": "Атлетика",
       "Zapugivanie": "Устрашение",
-
       "Analiz": "Анализ",
       "Tekhnika": "Техника",
       "Priroda": "Природа",
@@ -209,7 +200,6 @@
       "Znanie_azura": "Знание магии",
       "Manipulatsiya": "Манипуляция",
       "Diplomatiya": "Дипломатия",
-
       "Artefaktorika": "Артефакторика",
       "Biomantia": "Биомантия",
       "Stitiyannost": "Стихийность",

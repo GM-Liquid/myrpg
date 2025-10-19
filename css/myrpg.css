@@ -540,12 +540,6 @@ td.col-name:hover {
      (        .resource,                      (1)               )
  *******************************************************/
 /*                           ,      Foundry           : */
-.flux-section .resource,
-.flux-section .resource-label,
-.flux-section .resource-content {
-  text-align: center;
-}
-
 /*******************************************************
   3)                              (label)             
                  ,                         input/textarea

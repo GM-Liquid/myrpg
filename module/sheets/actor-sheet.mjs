@@ -1289,10 +1289,6 @@ export class myrpgActorSheet extends ActorSheet {
     // Health
     setVal('system.health.max', s?.health?.max);
     setVal('system.health.value', s?.health?.value);
-    // Flux (not armor-dependent, but safe to keep in sync if needed)
-    if (s?.flux?.value !== undefined) {
-      setVal('system.flux.value', s.flux.value);
-    }
   }
 
   _armorEffectHtml(item) {

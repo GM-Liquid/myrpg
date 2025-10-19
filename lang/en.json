@@ -9,9 +9,6 @@
       "Min": "{label} cannot be less than {min}",
       "RankLimit": "At rank {rank} your attributes and skills cannot exceed {limit}"
     },
-    "Flux": {
-      "Label": "Flux"
-    },
     "Dialog": {
       "ConfirmDeleteTitle": "Delete Ability",
       "ConfirmDeleteMessage": "Are you sure you want to delete this ability? This action cannot be undone.",
@@ -152,9 +149,6 @@
     },
     "TempHealth": {
       "Label": "Temp. HP"
-    },
-    "TempFlux": {
-      "Label": "Temp. Flux"
     },
     "Temp": {
       "BonusPhysicalLabel": "Temp. Phys. Protection",
