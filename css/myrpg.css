@@ -477,19 +477,27 @@ td.col-name:hover {
 }
 
 .tab.inventory table.weapon-table th.col-name {
-  width: 50%;
+  width: 46%;
 }
 
 .tab.inventory table.weapon-table th.col-skill {
-  width: 22%;
+  width: 20%;
 }
 
 .tab.inventory table.weapon-table th.col-bonus {
   width: 12%;
 }
 
+.tab.inventory table.weapon-table th.col-equip {
+  width: 10%;
+}
+
 .tab.inventory table.weapon-table th.col-delete {
-  width: 16%;
+  width: 12%;
+}
+
+.tab.inventory table.weapon-table td.col-equip {
+  text-align: center;
 }
 
 .myrpg.sheet.actor form {

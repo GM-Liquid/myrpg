@@ -976,14 +976,17 @@ export class myrpgActorSheet extends ActorSheet {
         name: '',
         desc: '',
         skill: '',
-        skillBonus: 0
+        skillBonus: 0,
+        equipped: false
       });
       this.actor.update({ 'system.weaponList': list });
     });
 
     html.find('tr.weapon-row').click((ev) => {
       if (
-        $(ev.target).closest('.weapon-remove-row, .weapon-edit-row, .weapon-chat-row').length
+        $(ev.target).closest(
+          '.weapon-remove-row, .weapon-edit-row, .weapon-chat-row, .weapon-equip-checkbox'
+        ).length
       )
         return;
       const $row = $(ev.currentTarget);
@@ -1045,7 +1048,9 @@ export class myrpgActorSheet extends ActorSheet {
           const formEl = htmlDialog.find('form')[0];
           const fd = new FormData(formEl);
           const formData = Object.fromEntries(fd.entries());
+          const previous = list[index] || {};
           list[index] = {
+            ...previous,
             name: formData.name ?? '',
             skill: formData.skill ?? '',
             skillBonus: this._normalizeWeaponBonus(formData.skillBonus),
@@ -1064,7 +1069,9 @@ export class myrpgActorSheet extends ActorSheet {
             tinymce.triggerSave();
             const fd = new FormData(form[0]);
             const formData = Object.fromEntries(fd.entries());
+            const previous = list[index] || {};
             list[index] = {
+              ...previous,
               name: formData.name ?? '',
               skill: formData.skill ?? '',
               skillBonus: this._normalizeWeaponBonus(formData.skillBonus),
@@ -1130,12 +1137,36 @@ export class myrpgActorSheet extends ActorSheet {
           weapon.skillBonus
         )}`
       );
+      if (weapon.equipped) {
+        lines.push(game.i18n.localize('MY_RPG.WeaponsTable.EquippedLabel'));
+      }
       let content = lines.join('<br>');
       if (weapon.desc) content += `<br><br>${weapon.desc}`;
       ChatMessage.create({
         content,
         speaker: ChatMessage.getSpeaker({ actor: this.actor })
       });
+    });
+
+    html.find('.weapon-equip-checkbox').change((ev) => {
+      const index = Number(ev.currentTarget.dataset.index);
+      if (Number.isNaN(index)) return;
+      let list = foundry.utils.deepClone(this.actor.system.weaponList) || [];
+      if (!Array.isArray(list)) list = Object.values(list);
+      if (!list[index]) return;
+
+      list[index].equipped = Boolean(ev.currentTarget.checked);
+      this.actor
+        .update({ 'system.weaponList': list }, { render: false })
+        .then(() => {
+          const row = this.element.find(
+            `.weapon-table tr.weapon-row[data-index="${index}"]`
+          );
+          row
+            .next('.weapon-effect-row')
+            .find('.effect-wrapper')
+            .html(this._weaponEffectHtml(list[index]));
+        });
     });
 
     // ----------------------------------------------------------------------
@@ -1492,9 +1523,13 @@ export class myrpgActorSheet extends ActorSheet {
     let minimal = false;
 
     if (skill) {
-      bonus = parseInt(this.actor.system.skills[skill]?.value) || 0;
-      const abKey = this.actor.system.skills[skill].ability;
-      abVal = parseInt(this.actor.system.abilities[abKey]?.value) || 0;
+      const skillData = this.actor.system.skills?.[skill] || {};
+      bonus = parseInt(skillData.value) || 0;
+      const abKey = skillData.ability;
+      if (abKey) {
+        abVal = parseInt(this.actor.system.abilities[abKey]?.value) || 0;
+      }
+      bonus += this._getEquippedWeaponBonus(skill);
 
       // Minimum skill bonus from ability removed
     } else if (ability) {
@@ -1573,6 +1608,17 @@ export class myrpgActorSheet extends ActorSheet {
     return `${bonus}`;
   }
 
+  _getEquippedWeaponBonus(skillKey) {
+    if (!skillKey) return 0;
+    const list = this.actor.system.weaponList;
+    const items = Array.isArray(list) ? list : Object.values(list || {});
+    return items.reduce((total, weapon) => {
+      if (!weapon || !weapon.equipped) return total;
+      if ((weapon.skill || '') !== skillKey) return total;
+      return total + this._normalizeWeaponBonus(weapon.skillBonus);
+    }, 0);
+  }
+
   _weaponSkillLabel(skillKey) {
     if (!skillKey) return game.i18n.localize('MY_RPG.WeaponsTable.SkillNone');
     const configKey = CONFIG.MY_RPG.skills?.[skillKey];
@@ -1589,6 +1635,9 @@ export class myrpgActorSheet extends ActorSheet {
         data.skillBonus
       )}`
     ];
+    if (data.equipped) {
+      lines.push(game.i18n.localize('MY_RPG.WeaponsTable.EquippedLabel'));
+    }
     let html = lines.join('<br>');
     if (data.desc) html += `<br><br>${data.desc}`;
     return html;
