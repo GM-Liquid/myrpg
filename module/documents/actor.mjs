@@ -64,8 +64,7 @@ export class myrpgActor extends Actor {
 
   _calcStressMax(s) {
     const rank = Math.max(Number(s.currentRank) || 0, 0);
-    const bonus = Number(s.temphealth) || 0;
-    return Math.max(0, rank + 4 + bonus);
+    return Math.max(0, rank + 4);
   }
 
   _calcNpcStressMax(s) {
