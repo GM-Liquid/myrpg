@@ -64,12 +64,16 @@ export class myrpgActor extends Actor {
 
   _calcStressMax(s) {
     const rank = Math.max(Number(s.currentRank) || 0, 0);
-    return Math.max(0, rank + 4);
+    const tempHealth = Math.max(Number(s.temphealth) || 0, 0);
+    const forceShield = Math.max(this._sumArmor(s.armorList, 'itemShield'), 0);
+    return Math.max(0, rank + 4 + tempHealth + forceShield);
   }
 
   _calcNpcStressMax(s) {
     const rank = Math.max(Number(s.currentRank) || 0, 0);
-    return Math.max(0, 6 + rank);
+    const tempHealth = Math.max(Number(s.temphealth) || 0, 0);
+    const forceShield = Math.max(this._sumArmor(s.armorList, 'itemShield'), 0);
+    return Math.max(0, 6 + rank + tempHealth + forceShield);
   }
 
   _calcFlux(s) {
