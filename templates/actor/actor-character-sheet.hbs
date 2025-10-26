@@ -515,8 +515,8 @@
             <thead>
               <tr>
                 <th class='col-name primary-header'>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</th>
-                <th class='col-equip'>{{localize 'MY_RPG.ArmorTable.EquippedLabel'}}</th>
                 <th class='col-cost'>{{localize 'MY_RPG.Inventory.Quantity'}}</th>
+                <th class='col-equip'>{{localize 'MY_RPG.ArmorTable.EquippedLabel'}}</th>
                 <th class='col-delete'>
                   <a class='armor-add-row' title='{{localize "MY_RPG.ArmorTable.AddRow"}}'>
                     <i class='fa-solid fa-plus'></i>
@@ -528,9 +528,6 @@
               {{#each system.armorList as |item i|}}
                 <tr class='armor-row' data-index='{{i}}'>
                   <td class='col-name'>{{{item.name}}}</td>
-                  <td class='col-equip'>
-                    <input type='checkbox' class='armor-equip-checkbox' data-index='{{i}}' {{#if item.equipped}}checked{{/if}} />
-                  </td>
                   <td class='col-cost'>
                     <a class='armor-quantity-minus' data-index='{{i}}'>
                       <i class='fa-solid fa-minus'></i>
@@ -539,6 +536,9 @@
                     <a class='armor-quantity-plus' data-index='{{i}}'>
                       <i class='fa-solid fa-plus'></i>
                     </a>
+                  </td>
+                  <td class='col-equip'>
+                    <input type='checkbox' class='armor-equip-checkbox' data-index='{{i}}' {{#if item.equipped}}checked{{/if}} />
                   </td>
                   <td class='col-delete'>
                     <a
