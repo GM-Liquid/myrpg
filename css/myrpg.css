@@ -466,11 +466,11 @@ td.col-name:hover {
 }
 
 .tab.inventory table.weapon-table th.col-skill {
-  width: 17%;
+  width: 15%;
 }
 
 .tab.inventory table.weapon-table th.col-bonus {
-  width: 15%;
+  width: 17%;
 }
 
 .tab.inventory table.weapon-table th.col-equip {
