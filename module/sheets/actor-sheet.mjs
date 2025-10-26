@@ -919,6 +919,7 @@ export class myrpgActorSheet extends ActorSheet {
           );
           row.find('.col-cost .quantity-value').text(list[index].quantity);
           // Refresh derived fields affected by armor changes
+          this.actor.prepareData();
           this._refreshDerived(html);
         });
     });
@@ -938,6 +939,7 @@ export class myrpgActorSheet extends ActorSheet {
           );
           row.find('.col-cost .quantity-value').text(list[index].quantity);
           // Refresh derived fields affected by armor changes
+          this.actor.prepareData();
           this._refreshDerived(html);
         });
     });
@@ -958,8 +960,182 @@ export class myrpgActorSheet extends ActorSheet {
             $(el).prop('checked', list[i]?.equipped);
           });
           // Refresh derived fields affected by armor changes
+          this.actor.prepareData();
           this._refreshDerived(html);
         });
+    });
+
+    // ----------------------------------------------------------------------
+    // Weapons table actions
+    // ----------------------------------------------------------------------
+    html.find('.weapon-add-row').click((ev) => {
+      ev.preventDefault();
+      let list = foundry.utils.deepClone(this.actor.system.weaponList) || [];
+      if (!Array.isArray(list)) list = Object.values(list);
+      list.push({
+        name: '',
+        desc: '',
+        skill: '',
+        skillBonus: 0
+      });
+      this.actor.update({ 'system.weaponList': list });
+    });
+
+    html.find('tr.weapon-row').click((ev) => {
+      if (
+        $(ev.target).closest('.weapon-remove-row, .weapon-edit-row, .weapon-chat-row').length
+      )
+        return;
+      const $row = $(ev.currentTarget);
+      const expanding = !$row.hasClass('expanded');
+      $row.toggleClass('expanded');
+      const $effect = $row.next('.weapon-effect-row');
+      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
+      if (expanding) this._scrollEffectRowIntoView($row, '.weapon-effect-row');
+    });
+
+    html.find('.weapon-edit-row').click((ev) => {
+      ev.preventDefault();
+      if (this._editDialog) this._editDialog.close();
+
+      const index = Number(ev.currentTarget.dataset.index);
+      let list = foundry.utils.deepClone(this.actor.system.weaponList) || [];
+      if (!Array.isArray(list)) list = Object.values(list);
+      const itemData = list[index] || {};
+
+      const skillOptions = [
+        `<option value="" ${itemData.skill ? '' : 'selected'}>${game.i18n.localize(
+          'MY_RPG.WeaponsTable.SkillNoneOption'
+        )}</option>`
+      ];
+      for (const [skillKey, labelKey] of Object.entries(CONFIG.MY_RPG.skills || {})) {
+        const selected = (itemData.skill || '') === skillKey ? 'selected' : '';
+        skillOptions.push(
+          `<option value="${skillKey}" ${selected}>${game.i18n.localize(labelKey)}</option>`
+        );
+      }
+
+      let diag = new Dialog({
+        title: game.i18n.localize('MY_RPG.WeaponsTable.EditTitle'),
+        content: `
+          <form>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.Inventory.Name')}</label>
+              <input type="text" name="name" value="${itemData.name ?? ''}" />
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}</label>
+              <select name="skill">
+                ${skillOptions.join('')}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}</label>
+              <input type="number" name="skillBonus" value="${Number(itemData.skillBonus ?? 0)}" />
+            </div>
+            <div class="form-group">
+              <label>${game.i18n.localize('MY_RPG.WeaponsTable.DescriptionLabel')}</label>
+              <textarea name="desc" class="rich-editor">${itemData.desc ?? ''}</textarea>
+            </div>
+          </form>
+        `,
+        buttons: {},
+        close: (htmlDialog) => {
+          tinymce.triggerSave();
+          const formEl = htmlDialog.find('form')[0];
+          const fd = new FormData(formEl);
+          const formData = Object.fromEntries(fd.entries());
+          list[index] = {
+            name: formData.name ?? '',
+            skill: formData.skill ?? '',
+            skillBonus: this._normalizeWeaponBonus(formData.skillBonus),
+            desc: formData.desc ?? ''
+          };
+          this.actor.update({ 'system.weaponList': list });
+          this._editDialog = null;
+        },
+        render: (htmlDialog) => {
+          htmlDialog
+            .find('textarea.rich-editor')
+            .each((i, el) => this.initializeRichEditor(el));
+
+          const form = htmlDialog.find('form');
+          form.on('input change', 'input, textarea, select', () => {
+            tinymce.triggerSave();
+            const fd = new FormData(form[0]);
+            const formData = Object.fromEntries(fd.entries());
+            list[index] = {
+              name: formData.name ?? '',
+              skill: formData.skill ?? '',
+              skillBonus: this._normalizeWeaponBonus(formData.skillBonus),
+              desc: formData.desc ?? ''
+            };
+            this.actor.update({ 'system.weaponList': list }, { render: false });
+
+            const row = this.element.find(
+              `.weapon-table tr.weapon-row[data-index="${index}"]`
+            );
+            row.find('.col-name').html(formData.name ?? '');
+            row.find('.col-skill').text(this._weaponSkillLabel(formData.skill));
+            row.find('.col-bonus').text(this._formatWeaponBonus(list[index].skillBonus));
+            row
+              .next('.weapon-effect-row')
+              .find('.effect-wrapper')
+              .html(this._weaponEffectHtml(list[index]));
+          });
+        }
+      });
+      diag.render(true);
+      this._editDialog = diag;
+    });
+
+    html.find('.weapon-remove-row').click((ev) => {
+      ev.preventDefault();
+      const index = Number(ev.currentTarget.dataset.index);
+      new Dialog({
+        title: game.i18n.localize('MY_RPG.WeaponsTable.ConfirmDeleteTitle'),
+        content: `<p>${game.i18n.localize('MY_RPG.WeaponsTable.ConfirmDeleteMessage')}</p>`,
+        buttons: {
+          yes: {
+            icon: '<i class="fas fa-check"></i>',
+            label: game.i18n.localize('MY_RPG.Dialog.Yes'),
+            callback: () => {
+              let list = foundry.utils.deepClone(this.actor.system.weaponList) || [];
+              if (!Array.isArray(list)) list = Object.values(list);
+              list.splice(index, 1);
+              this.actor.update({ 'system.weaponList': list });
+            }
+          },
+          no: {
+            icon: '<i class="fas fa-times"></i>',
+            label: game.i18n.localize('MY_RPG.Dialog.No')
+          }
+        },
+        default: 'no'
+      }).render(true);
+    });
+
+    html.find('.weapon-chat-row').click((ev) => {
+      ev.preventDefault();
+      const index = Number(ev.currentTarget.dataset.index);
+      const weapon = this.actor.system.weaponList?.[index] || {};
+      const lines = [`<strong>${weapon.name ?? ''}</strong>`];
+      lines.push(
+        `${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._weaponSkillLabel(
+          weapon.skill
+        )}`
+      );
+      lines.push(
+        `${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatWeaponBonus(
+          weapon.skillBonus
+        )}`
+      );
+      let content = lines.join('<br>');
+      if (weapon.desc) content += `<br><br>${weapon.desc}`;
+      ChatMessage.create({
+        content,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor })
+      });
     });
 
     // ----------------------------------------------------------------------
@@ -1384,6 +1560,38 @@ export class myrpgActorSheet extends ActorSheet {
       el.classList.toggle('filled', filled);
       el.setAttribute('aria-pressed', filled ? 'true' : 'false');
     });
+  }
+
+  _normalizeWeaponBonus(value) {
+    const num = Number(value);
+    return Number.isFinite(num) ? num : 0;
+  }
+
+  _formatWeaponBonus(value) {
+    const bonus = this._normalizeWeaponBonus(value);
+    if (bonus > 0) return `+${bonus}`;
+    return `${bonus}`;
+  }
+
+  _weaponSkillLabel(skillKey) {
+    if (!skillKey) return game.i18n.localize('MY_RPG.WeaponsTable.SkillNone');
+    const configKey = CONFIG.MY_RPG.skills?.[skillKey];
+    return configKey ? game.i18n.localize(configKey) : skillKey;
+  }
+
+  _weaponEffectHtml(item) {
+    const data = item || {};
+    const lines = [
+      `${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._weaponSkillLabel(
+        data.skill
+      )}`,
+      `${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatWeaponBonus(
+        data.skillBonus
+      )}`
+    ];
+    let html = lines.join('<br>');
+    if (data.desc) html += `<br><br>${data.desc}`;
+    return html;
   }
 
   _armorEffectHtml(item) {
