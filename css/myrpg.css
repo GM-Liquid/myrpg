@@ -477,23 +477,23 @@ td.col-name:hover {
 }
 
 .tab.inventory table.weapon-table th.col-name {
-  width: 46%;
-}
-
-.tab.inventory table.weapon-table th.col-skill {
-  width: 20%;
+  width: 44%;
 }
 
 .tab.inventory table.weapon-table th.col-bonus {
-  width: 12%;
+  width: 14%;
+}
+
+.tab.inventory table.weapon-table th.col-skill {
+  width: 14%;
 }
 
 .tab.inventory table.weapon-table th.col-equip {
-  width: 10%;
+  width: 12%;
 }
 
 .tab.inventory table.weapon-table th.col-delete {
-  width: 12%;
+  width: 16%;
 }
 
 .tab.inventory table.weapon-table td.col-equip {
