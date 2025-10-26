@@ -141,6 +141,18 @@
       "No": "No",
       "EquippedLabel": "Equipped"
     },
+    "WeaponsTable": {
+      "SectionTitle": "Weapons & Tools",
+      "AddRow": "Add Weapon or Tool",
+      "EditTitle": "Edit Weapon or Tool",
+      "ConfirmDeleteTitle": "Delete Weapon or Tool",
+      "ConfirmDeleteMessage": "Are you sure you want to delete this weapon or tool? This action cannot be undone.",
+      "SkillLabel": "Skill",
+      "SkillNone": "No skill selected",
+      "SkillNoneOption": "No skill selected",
+      "BonusLabel": "Skill Bonus",
+      "DescriptionLabel": "Description"
+    },
     "Resources": {
       "Title": "Resources",
       "SuppliesLabel": "Supplies",

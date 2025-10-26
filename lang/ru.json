@@ -61,6 +61,18 @@
       "No": "Нет",
       "EquippedLabel": "Экипирован"
     },
+    "WeaponsTable": {
+      "SectionTitle": "Оружие и инструменты",
+      "AddRow": "Добавить оружие или инструмент",
+      "EditTitle": "Редактирование оружия или инструмента",
+      "ConfirmDeleteTitle": "Удаление оружия или инструмента",
+      "ConfirmDeleteMessage": "Вы действительно хотите удалить это оружие или инструмент? Это действие необратимо.",
+      "SkillLabel": "Навык",
+      "SkillNone": "Навык не выбран",
+      "SkillNoneOption": "Навык не выбран",
+      "BonusLabel": "Бонус к навыку",
+      "DescriptionLabel": "Описание"
+    },
     "Resources": {
       "Title": "Ресурсы",
       "SuppliesLabel": "Припасы",

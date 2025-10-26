@@ -574,6 +574,60 @@
           </table>
         </div>
         <div class='sheet-box'>
+          <h2>{{localize 'MY_RPG.WeaponsTable.SectionTitle'}}</h2>
+          <table class='abilities-table weapon-table'>
+            <thead>
+              <tr>
+                <th class='col-name primary-header'>{{localize 'MY_RPG.WeaponsTable.SectionTitle'}}</th>
+                <th class='col-skill'>{{localize 'MY_RPG.WeaponsTable.SkillLabel'}}</th>
+                <th class='col-bonus'>{{localize 'MY_RPG.WeaponsTable.BonusLabel'}}</th>
+                <th class='col-delete'>
+                  <a class='weapon-add-row' title='{{localize "MY_RPG.WeaponsTable.AddRow"}}'>
+                    <i class='fa-solid fa-plus'></i>
+                  </a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each system.weaponList as |weapon i|}}
+                <tr class='weapon-row' data-index='{{i}}'>
+                  <td class='col-name'>{{{weapon.name}}}</td>
+                  <td class='col-skill'>{{skillLabel weapon.skill}}</td>
+                  <td class='col-bonus'>{{formatWeaponBonus weapon.skillBonus}}</td>
+                  <td class='col-delete'>
+                    <a
+                      class='weapon-chat-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.SendToChat"}}'
+                    >
+                      <i class='fa-solid fa-comment-dots'></i>
+                    </a>
+                    <a
+                      class='weapon-edit-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.WeaponsTable.EditTitle"}}'
+                    >
+                      <i class='fa-solid fa-pen'></i>
+                    </a>
+                    <a
+                      class='weapon-remove-row'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.WeaponsTable.ConfirmDeleteTitle"}}'
+                    >
+                      <i class='fa-solid fa-trash'></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr class='weapon-effect-row'>
+                  <td class='col-effect' colspan='4'>
+                    <div class='effect-wrapper'>{{{weaponEffect weapon}}}</div>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        <div class='sheet-box'>
           <table class='abilities-table'>
             <thead>
               <tr>

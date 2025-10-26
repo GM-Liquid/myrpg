@@ -73,6 +73,36 @@ Handlebars.registerHelper('armorEffect', function (item) {
   return new Handlebars.SafeString(html);
 });
 
+Handlebars.registerHelper('skillLabel', function (skillKey) {
+  if (!skillKey) return game.i18n.localize('MY_RPG.WeaponsTable.SkillNone');
+  const configKey = CONFIG.MY_RPG.skills?.[skillKey];
+  if (!configKey) return skillKey;
+  return game.i18n.localize(configKey);
+});
+
+Handlebars.registerHelper('formatWeaponBonus', function (bonus) {
+  const value = Number(bonus) || 0;
+  if (value > 0) return `+${value}`;
+  return `${value}`;
+});
+
+Handlebars.registerHelper('weaponEffect', function (item) {
+  const parts = [];
+  const skillLabel = item.skill
+    ? Handlebars.helpers.skillLabel(item.skill)
+    : game.i18n.localize('MY_RPG.WeaponsTable.SkillNone');
+  parts.push(
+    `${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${skillLabel}`
+  );
+  const bonus = Handlebars.helpers.formatWeaponBonus(item.skillBonus);
+  parts.push(
+    `${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${bonus}`
+  );
+  let html = parts.join('<br>');
+  if (item.desc) html += `<br><br>${item.desc}`;
+  return new Handlebars.SafeString(html);
+});
+
 // Conditionally render content only for the Unity world
 Handlebars.registerHelper('ifUnity', function (options) {
   const mode = game.settings.get('myrpg', 'worldType');

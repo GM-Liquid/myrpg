@@ -333,7 +333,7 @@ td.col-name:hover {
   .abilities-table
   tr:nth-child(even):not(.ability-effect-row):not(.mod-effect-row):not(.inventory-effect-row):not(
     .armor-effect-row
-  ) {
+  ):not(.weapon-effect-row) {
   background-color: #c1b1aa !important;
 }
 
@@ -344,14 +344,16 @@ td.col-name:hover {
 .abilities-table .ability-effect-row,
 .abilities-table .mod-effect-row,
 .abilities-table .inventory-effect-row,
-.abilities-table .armor-effect-row {
+.abilities-table .armor-effect-row,
+.abilities-table .weapon-effect-row {
   display: none;
 }
 
 .abilities-table tr.expanded + .ability-effect-row,
 .abilities-table tr.expanded + .mod-effect-row,
 .abilities-table tr.expanded + .inventory-effect-row,
-.abilities-table tr.expanded + .armor-effect-row {
+.abilities-table tr.expanded + .armor-effect-row,
+.abilities-table tr.expanded + .weapon-effect-row {
   display: table-row;
 }
 
@@ -359,7 +361,8 @@ td.col-name:hover {
 .abilities-table .ability-effect-row.open,
 .abilities-table .mod-effect-row.open,
 .abilities-table .inventory-effect-row.open,
-.abilities-table .armor-effect-row.open {
+.abilities-table .armor-effect-row.open,
+.abilities-table .weapon-effect-row.open {
   display: table-row;
 }
 
@@ -470,6 +473,22 @@ td.col-name:hover {
 }
 
 .tab.inventory table.armor-table th.col-delete {
+  width: 16%;
+}
+
+.tab.inventory table.weapon-table th.col-name {
+  width: 50%;
+}
+
+.tab.inventory table.weapon-table th.col-skill {
+  width: 22%;
+}
+
+.tab.inventory table.weapon-table th.col-bonus {
+  width: 12%;
+}
+
+.tab.inventory table.weapon-table th.col-delete {
   width: 16%;
 }
 
