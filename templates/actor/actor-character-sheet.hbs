@@ -581,6 +581,7 @@
                 <th class='col-name primary-header'>{{localize 'MY_RPG.WeaponsTable.SectionTitle'}}</th>
                 <th class='col-skill'>{{localize 'MY_RPG.WeaponsTable.SkillLabel'}}</th>
                 <th class='col-bonus'>{{localize 'MY_RPG.WeaponsTable.BonusLabel'}}</th>
+                <th class='col-equip'>{{localize 'MY_RPG.WeaponsTable.EquippedLabel'}}</th>
                 <th class='col-delete'>
                   <a class='weapon-add-row' title='{{localize "MY_RPG.WeaponsTable.AddRow"}}'>
                     <i class='fa-solid fa-plus'></i>
@@ -594,6 +595,16 @@
                   <td class='col-name'>{{{weapon.name}}}</td>
                   <td class='col-skill'>{{skillLabel weapon.skill}}</td>
                   <td class='col-bonus'>{{formatWeaponBonus weapon.skillBonus}}</td>
+                  <td class='col-equip'>
+                    <input
+                      type='checkbox'
+                      class='weapon-equip-checkbox'
+                      data-index='{{i}}'
+                      title='{{localize "MY_RPG.WeaponsTable.EquippedLabel"}}'
+                      aria-label='{{localize "MY_RPG.WeaponsTable.EquippedLabel"}}'
+                      {{#if weapon.equipped}}checked{{/if}}
+                    />
+                  </td>
                   <td class='col-delete'>
                     <a
                       class='weapon-chat-row'
@@ -619,7 +630,7 @@
                   </td>
                 </tr>
                 <tr class='weapon-effect-row'>
-                  <td class='col-effect' colspan='4'>
+                  <td class='col-effect' colspan='5'>
                     <div class='effect-wrapper'>{{{weaponEffect weapon}}}</div>
                   </td>
                 </tr>

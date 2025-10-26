@@ -98,6 +98,9 @@ Handlebars.registerHelper('weaponEffect', function (item) {
   parts.push(
     `${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${bonus}`
   );
+  if (item.equipped) {
+    parts.push(game.i18n.localize('MY_RPG.WeaponsTable.EquippedLabel'));
+  }
   let html = parts.join('<br>');
   if (item.desc) html += `<br><br>${item.desc}`;
   return new Handlebars.SafeString(html);

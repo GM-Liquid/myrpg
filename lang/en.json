@@ -151,7 +151,8 @@
       "SkillNone": "No skill selected",
       "SkillNoneOption": "No skill selected",
       "BonusLabel": "Skill Bonus",
-      "DescriptionLabel": "Description"
+      "DescriptionLabel": "Description",
+      "EquippedLabel": "Equipped"
     },
     "Resources": {
       "Title": "Resources",

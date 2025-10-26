@@ -71,7 +71,8 @@
       "SkillNone": "Навык не выбран",
       "SkillNoneOption": "Навык не выбран",
       "BonusLabel": "Бонус к навыку",
-      "DescriptionLabel": "Описание"
+      "DescriptionLabel": "Описание",
+      "EquippedLabel": "Экипировано"
     },
     "Resources": {
       "Title": "Ресурсы",
