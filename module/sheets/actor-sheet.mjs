@@ -3,8 +3,82 @@
  * @extends {ActorSheet}
  */
 
+import { debugLog } from '../config.mjs';
 import { getColorRank } from '../helpers/utils.mjs';
 
+
+const ITEM_GROUP_CONFIG = [
+  {
+    key: 'abilities',
+    type: 'ability',
+    tab: 'abilities',
+    icon: 'fas fa-magic',
+    labelKey: 'MY_RPG.ItemGroups.Abilities',
+    emptyKey: 'MY_RPG.ItemGroups.EmptyAbilities',
+    createKey: 'MY_RPG.ItemGroups.CreateAbility',
+    newNameKey: 'MY_RPG.ItemGroups.NewAbility',
+    showQuantity: false,
+    allowEquip: false,
+    exclusive: false
+  },
+  {
+    key: 'mods',
+    type: 'mod',
+    tab: 'abilities',
+    icon: 'fas fa-cogs',
+    labelKey: 'MY_RPG.ItemGroups.Mods',
+    emptyKey: 'MY_RPG.ItemGroups.EmptyMods',
+    createKey: 'MY_RPG.ItemGroups.CreateMod',
+    newNameKey: 'MY_RPG.ItemGroups.NewMod',
+    showQuantity: false,
+    allowEquip: false,
+    exclusive: false
+  },
+  {
+    key: 'weapons',
+    type: 'weapon',
+    tab: 'inventory',
+    icon: 'fas fa-crosshairs',
+    labelKey: 'MY_RPG.ItemGroups.Weapons',
+    emptyKey: 'MY_RPG.ItemGroups.EmptyWeapons',
+    createKey: 'MY_RPG.ItemGroups.CreateWeapon',
+    newNameKey: 'MY_RPG.ItemGroups.NewWeapon',
+    showQuantity: true,
+    allowEquip: true,
+    exclusive: false
+  },
+  {
+    key: 'armor',
+    type: 'armor',
+    tab: 'inventory',
+    icon: 'fas fa-shield-alt',
+    labelKey: 'MY_RPG.ItemGroups.Armor',
+    emptyKey: 'MY_RPG.ItemGroups.EmptyArmor',
+    createKey: 'MY_RPG.ItemGroups.CreateArmor',
+    newNameKey: 'MY_RPG.ItemGroups.NewArmor',
+    showQuantity: true,
+    allowEquip: true,
+    exclusive: true
+  },
+  {
+    key: 'gear',
+    type: 'gear',
+    tab: 'inventory',
+    icon: 'fas fa-toolbox',
+    labelKey: 'MY_RPG.ItemGroups.Gear',
+    emptyKey: 'MY_RPG.ItemGroups.EmptyGear',
+    createKey: 'MY_RPG.ItemGroups.CreateGear',
+    newNameKey: 'MY_RPG.ItemGroups.NewGear',
+    showQuantity: true,
+    allowEquip: false,
+    exclusive: false
+  }
+];
+
+const ITEM_GROUP_CONFIG_BY_KEY = ITEM_GROUP_CONFIG.reduce((acc, config) => {
+  acc[config.key] = config;
+  return acc;
+}, {});
 function getRankLabel(rank) {
   const mode = game.settings.get('myrpg', 'worldType');
   const base = mode === 'stellar' ? 'MY_RPG.RankNumeric' : 'MY_RPG.RankGradient';
@@ -12,31 +86,6 @@ function getRankLabel(rank) {
 }
 
 export class myrpgActorSheet extends ActorSheet {
-  _editDialog = null;
-  _scrollEffectRowIntoView($row, effectSelector) {
-    const $container = this.element.find('.sheet-scrollable');
-    if (!$container.length) return;
-    const $effect = $row.next(effectSelector);
-    if (!$effect.length) return;
-
-    // Run after layout so the effect row has display: table-row
-    const container = $container.get(0);
-    const el = $effect.get(0);
-    const doScroll = () => {
-      try {
-        const cRect = container.getBoundingClientRect();
-        const eRect = el.getBoundingClientRect();
-        // If bottom overflows container, scroll down; if top is above, scroll up
-        if (eRect.bottom > cRect.bottom) {
-          container.scrollTop += eRect.bottom - cRect.bottom + 4;
-        } else if (eRect.top < cRect.top) {
-          container.scrollTop -= cRect.top - eRect.top + 4;
-        }
-      } catch (e) {}
-    };
-    if (window.requestAnimationFrame) requestAnimationFrame(doScroll);
-    else setTimeout(doScroll, 0);
-  }
   /** @override */
   async _render(force = false, options = {}) {
     const scrollContainer = this.element.find('.sheet-scrollable');
@@ -123,1220 +172,20 @@ export class myrpgActorSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
-    html
-      .find('textarea.rich-editor')
-      .each((i, el) => this.initializeRichEditor(el));
-    html.find('.stress-cell').click(this._onStressCellClick.bind(this));
-    html.find('.wound-cell').click(this._onWoundCellClick.bind(this));
+    const $html = html instanceof jQuery ? html : $(html);
+    $html.find('textarea.rich-editor').each((i, el) => this.initializeRichEditor(el));
+    $html.find('.stress-cell').on('click', this._onStressCellClick.bind(this));
+    $html.find('.wound-cell').on('click', this._onWoundCellClick.bind(this));
+    $html.find('.rollable').on('click', this._onRoll.bind(this));
 
-    // ----------------------------------------------------------------------
-    // Rollable �������� (������)
-    // ----------------------------------------------------------------------
-    html.find('.rollable').click(this._onRoll.bind(this));
+    $html.on('click', '.item-create', this._onItemCreate.bind(this));
+    $html.on('click', '.item-edit', this._onItemEdit.bind(this));
+    $html.on('click', '.item-delete', this._onItemDelete.bind(this));
+    $html.on('click', '.item-chat', this._onItemChat.bind(this));
+    $html.on('click', '.item-quantity-step', this._onItemQuantityStep.bind(this));
+    $html.on('change', '.item-equip-checkbox', this._onItemEquipChange.bind(this));
 
-    // ----------------------------------------------------------------------
-    // ������� ������������
-    // ----------------------------------------------------------------------
-    const $table = html.find('.abilities-table');
-
-    // toggle expanded ability description
-    html.find('tr.ability-row .col-name').click((ev) => {
-      if (
-        $(ev.target).closest('.abilities-remove-row, .abilities-edit-row').length
-      )
-        return;
-      const $row = $(ev.currentTarget).closest('tr.ability-row');
-      const expanding = !$row.hasClass('expanded');
-      $row.toggleClass('expanded');
-      // Explicitly toggle the effect row to avoid any edge-cases with CSS sibling rules
-      const $effect = $row.next('.ability-effect-row');
-      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
-      if (expanding) this._scrollEffectRowIntoView($row, '.ability-effect-row');
-    });
-
-    // ������ "������" (���� ���-�� ������������)
-    html.find('.ability-cancel').click((ev) => {
-      ev.preventDefault();
-      this.close();
-    });
-
-    // �������� ����� ����������� (������)
-    html.find('.abilities-section .abilities-add-row').click((ev) => {
-      ev.preventDefault();
-      let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-      if (!Array.isArray(abilities)) abilities = Object.values(abilities);
-
-      const abilityObj = {
-        name: '',
-        rank: '',
-        effect: '',
-        cost: '',
-        upgrade1: 'None',
-        upgrade2: 'None'
-      };
-      if (game.settings.get('myrpg', 'worldType') === 'unity') abilityObj.runeType = 'Spell';
-      abilities.push(abilityObj);
-
-      this.actor.update({ 'system.abilitiesList': abilities });
-    });
-
-    // ������� �����������
-    html.find('.abilities-remove-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      new Dialog({
-        title: game.i18n.localize('MY_RPG.Dialog.ConfirmDeleteTitle'),
-        content: `<p>${game.i18n.localize('MY_RPG.Dialog.ConfirmDeleteMessage')}</p>`,
-        buttons: {
-          yes: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('MY_RPG.Dialog.Yes'),
-            callback: () => {
-              let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-              if (!Array.isArray(abilities)) {
-                abilities = Object.values(abilities);
-              }
-              abilities.splice(index, 1);
-              this.actor.update({ 'system.abilitiesList': abilities });
-            }
-          },
-          no: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('MY_RPG.Dialog.No')
-          }
-        },
-        default: 'no'
-      }).render(true);
-    });
-
-    // open ability edit dialog
-    html.find('.abilities-edit-row').click((ev) => {
-      ev.preventDefault();
-      if (this._editDialog) {
-        this._editDialog.close();
-      }
-
-      const index = Number(ev.currentTarget.dataset.index);
-      let abilities = foundry.utils.deepClone(this.actor.system.abilitiesList) || [];
-      if (!Array.isArray(abilities)) abilities = Object.values(abilities);
-      const abilityData = abilities[index] || {};
-      const isUnity = game.settings.get('myrpg', 'worldType') === 'unity';
-      const upgradeValues = [
-        'None',
-        'Damage',
-        'Area',
-        'Cost',
-        'Range',
-        'Duration',
-        'Activations',
-        'Link'
-      ];
-      const runeTypes = ['Spell', 'Creature', 'Item', 'Portal', 'Domain', 'Saga'];
-      const options1 = upgradeValues
-        .map(
-          (u) =>
-            `<option value="${u}" ${(abilityData.upgrade1 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
-              'MY_RPG.AbilityUpgrades.' + u
-            )}</option>`
-        )
-        .join('');
-      const options2 = upgradeValues
-        .map(
-          (u) =>
-            `<option value="${u}" ${(abilityData.upgrade2 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
-              'MY_RPG.AbilityUpgrades.' + u
-            )}</option>`
-        )
-        .join('');
-      const optionsType = runeTypes
-        .map(
-          (t) =>
-            `<option value="${t}" ${(abilityData.runeType || 'Spell') === t ? 'selected' : ''}>${game.i18n.localize(
-              'MY_RPG.RuneTypes.' + t
-            )}</option>`
-        )
-        .join('');
-
-      const baseRank =
-        game.settings.get('myrpg', 'worldType') === 'stellar'
-          ? 'MY_RPG.RankNumeric'
-          : 'MY_RPG.RankGradient';
-      const optionsRank = [
-        `<option value="" ${!abilityData.rank ? 'selected' : ''}>${game.i18n.localize('MY_RPG.Rank.Unspecified')}</option>`,
-        [1, 2, 3, 4, 5]
-          .map(
-            (r) =>
-              `<option value="${r}" ${Number(abilityData.rank || 0) === r ? 'selected' : ''}>${game.i18n.localize(
-                baseRank + '.Rank' + r
-              )}</option>`
-          )
-          .join('')
-      ].join('');
-
-      let diag = new Dialog({
-        title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
-        content: `
-          <form>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Name')}</label>
-              <input type="text" name="name" value="${abilityData.name ?? ''}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Rank')}</label>
-              <select name="rank">${optionsRank}</select>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Effect')}</label>
-              <textarea name="effect" class="rich-editor">${abilityData.effect ?? ''}</textarea>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Cost')}</label>
-              <input type="number" name="cost" value="${abilityData.cost ?? ''}" />
-            </div>
-            ${isUnity ? `<div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.RuneType')}</label>
-              <select name="runeType">${optionsType}</select>
-            </div>` : ''}
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade1')}</label>
-              <select name="upgrade1">${options1}</select>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade2')}</label>
-              <select name="upgrade2">${options2}</select>
-            </div>
-          </form>
-        `,
-        buttons: {},
-        close: (htmlDialog) => {
-          tinymce.triggerSave();
-          const formEl = htmlDialog.find('form')[0];
-          const fd = new FormData(formEl);
-          let formData = {};
-          for (let [k, v] of fd.entries()) {
-            formData[k] = v;
-          }
-          abilities[index] = {
-            name: formData.name ?? '',
-            rank: formData.rank ?? '',
-            effect: formData.effect ?? '',
-            cost: formData.cost ?? '',
-            upgrade1: formData.upgrade1 ?? '',
-            upgrade2: formData.upgrade2 ?? ''
-          };
-          if (isUnity) abilities[index].runeType = formData.runeType ?? 'Spell';
-          this.actor.update({ 'system.abilitiesList': abilities });
-          this._editDialog = null;
-        },
-        render: (html) => {
-          html.find('textarea.rich-editor').each((i, element) => {
-            // ensure TinyMCE editors are created
-            this.initializeRichEditor(element);
-          });
-
-          const form = html.find('form');
-          form.on('input', 'input, textarea', () => {
-            tinymce.triggerSave();
-            const formEl = form[0];
-            const fd = new FormData(formEl);
-            let formData = {};
-            for (let [k, v] of fd.entries()) {
-              formData[k] = v;
-            }
-            abilities[index] = {
-              name: formData.name ?? '',
-              rank: formData.rank ?? '',
-              effect: formData.effect ?? '',
-              cost: formData.cost ?? '',
-              upgrade1: formData.upgrade1 ?? '',
-              upgrade2: formData.upgrade2 ?? ''
-            };
-            if (isUnity) abilities[index].runeType = formData.runeType ?? 'Spell';
-            // update actor data without re-render to prevent flicker
-            this.actor.update(
-              { 'system.abilitiesList': abilities },
-              { render: false }
-            );
-
-            // update the table row manually
-            const row = this.element.find(
-              `.abilities-table tr.ability-row[data-index="${index}"]`
-            );
-            row.find('.col-name').html(formData.name ?? '');
-            row
-              .find('.col-rank')
-              .text(
-                formData.rank
-                  ? getRankLabel(Number(formData.rank))
-                  : game.i18n.localize('MY_RPG.Rank.Unspecified')
-              );
-            // update corresponding effect row (adjacent sibling)
-            row
-              .next('.ability-effect-row')
-              .find('.col-effect .effect-wrapper')
-              .html(formData.effect ?? '');
-            if (isUnity)
-              row
-                .find('.col-type')
-                .text(
-                  game.i18n.localize(
-                    'MY_RPG.RuneTypes.' + (formData.runeType || 'Spell')
-                  )
-                );
-            row
-              .find('.col-upg1')
-              .text(
-                game.i18n.localize(
-                  'MY_RPG.AbilityUpgrades.' + (formData.upgrade1 || 'None')
-                )
-              );
-            row
-              .find('.col-upg2')
-              .text(
-                game.i18n.localize(
-                  'MY_RPG.AbilityUpgrades.' + (formData.upgrade2 || 'None')
-                )
-              );
-          });
-        }
-      });
-      diag.render(true);
-    this._editDialog = diag;
-  });
-
-    // ----------------------------------------------------------------------
-    // Mods table actions
-    // ----------------------------------------------------------------------
-    html.find('.mods-section tr.mod-row .col-name').click((ev) => {
-      if (
-        $(ev.target).closest('.mods-remove-row, .mods-edit-row').length
-      )
-        return;
-      const $row = $(ev.currentTarget).closest('tr.mod-row');
-      const expanding = !$row.hasClass('expanded');
-      $row.toggleClass('expanded');
-      const $effect = $row.next('.mod-effect-row');
-      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
-      if (expanding) this._scrollEffectRowIntoView($row, '.mod-effect-row');
-    });
-
-    html.find('.mods-add-row').click((ev) => {
-      ev.preventDefault();
-      let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
-      if (!Array.isArray(mods)) mods = Object.values(mods);
-      mods.push({
-        name: '',
-        rank: '',
-        effect: '',
-        upgrade1: 'None',
-        upgrade2: 'None'
-      });
-      this.actor.update({ 'system.modsList': mods });
-    });
-
-    html.find('.mods-remove-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      new Dialog({
-        title: game.i18n.localize('MY_RPG.Dialog.ConfirmDeleteTitle'),
-        content: `<p>${game.i18n.localize('MY_RPG.Dialog.ConfirmDeleteMessage')}</p>`,
-        buttons: {
-          yes: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('MY_RPG.Dialog.Yes'),
-            callback: () => {
-              let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
-              if (!Array.isArray(mods)) mods = Object.values(mods);
-              mods.splice(index, 1);
-              this.actor.update({ 'system.modsList': mods });
-            }
-          },
-          no: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('MY_RPG.Dialog.No')
-          }
-        },
-        default: 'no'
-      }).render(true);
-    });
-
-    html.find('.mods-edit-row').click((ev) => {
-      ev.preventDefault();
-      if (this._editDialog) {
-        this._editDialog.close();
-      }
-
-      const index = Number(ev.currentTarget.dataset.index);
-      let mods = foundry.utils.deepClone(this.actor.system.modsList) || [];
-      if (!Array.isArray(mods)) mods = Object.values(mods);
-      const modData = mods[index] || {};
-      const modOptions = [
-        'None',
-        'Damage',
-        'Area',
-        'Cost',
-        'Range',
-        'Duration',
-        'Activations',
-        'Link'
-      ];
-      const modOpts1 = modOptions
-        .map(
-          (u) =>
-            `<option value="${u}" ${(modData.upgrade1 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
-              'MY_RPG.AbilityUpgrades.' + u
-            )}</option>`
-        )
-        .join('');
-      const modOpts2 = modOptions
-        .map(
-          (u) =>
-            `<option value="${u}" ${(modData.upgrade2 || 'None') === u ? 'selected' : ''}>${game.i18n.localize(
-              'MY_RPG.AbilityUpgrades.' + u
-            )}</option>`
-        )
-        .join('');
-
-      const baseRank =
-        game.settings.get('myrpg', 'worldType') === 'stellar'
-          ? 'MY_RPG.RankNumeric'
-          : 'MY_RPG.RankGradient';
-      const optionsRank = [
-        `<option value="" ${!modData.rank ? 'selected' : ''}>${game.i18n.localize('MY_RPG.Rank.Unspecified')}</option>`,
-        [1, 2, 3, 4, 5]
-          .map(
-            (r) =>
-              `<option value="${r}" ${Number(modData.rank || 0) === r ? 'selected' : ''}>${game.i18n.localize(
-                baseRank + '.Rank' + r
-              )}</option>`
-          )
-          .join('')
-      ].join('');
-
-      let diag = new Dialog({
-        title: game.i18n.localize('MY_RPG.AbilityConfig.Title'),
-        content: `
-          <form>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Name')}</label>
-              <input type="text" name="name" value="${modData.name ?? ''}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Rank')}</label>
-              <select name="rank">${optionsRank}</select>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Effect')}</label>
-              <textarea name="effect" class="rich-editor">${modData.effect ?? ''}</textarea>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade1')}</label>
-              <select name="upgrade1">${modOpts1}</select>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.AbilityConfig.Upgrade2')}</label>
-              <select name="upgrade2">${modOpts2}</select>
-            </div>
-          </form>
-        `,
-        buttons: {},
-        close: (htmlDialog) => {
-          tinymce.triggerSave();
-          const formEl = htmlDialog.find('form')[0];
-          const fd = new FormData(formEl);
-          let formData = {};
-          for (let [k, v] of fd.entries()) {
-            formData[k] = v;
-          }
-          mods[index] = {
-            name: formData.name ?? '',
-            rank: formData.rank ?? '',
-            effect: formData.effect ?? '',
-            upgrade1: formData.upgrade1 ?? '',
-            upgrade2: formData.upgrade2 ?? ''
-          };
-          this.actor.update({ 'system.modsList': mods });
-          this._editDialog = null;
-        },
-        render: (html) => {
-          html.find('textarea.rich-editor').each((i, element) => {
-            this.initializeRichEditor(element);
-          });
-
-          const form = html.find('form');
-          form.on('input', 'input, textarea', () => {
-            tinymce.triggerSave();
-            const formEl = form[0];
-            const fd = new FormData(formEl);
-            let formData = {};
-            for (let [k, v] of fd.entries()) {
-              formData[k] = v;
-            }
-            mods[index] = {
-              name: formData.name ?? '',
-              rank: formData.rank ?? '',
-              effect: formData.effect ?? '',
-              upgrade1: formData.upgrade1 ?? '',
-              upgrade2: formData.upgrade2 ?? ''
-            };
-            this.actor.update(
-              { 'system.modsList': mods },
-              { render: false }
-            );
-
-            const row = this.element.find(
-              `.mods-table tr.mod-row[data-index="${index}"]`
-            );
-            row.find('.col-name').html(formData.name ?? '');
-            row
-              .find('.col-rank')
-              .text(
-                formData.rank
-                  ? getRankLabel(Number(formData.rank))
-                  : game.i18n.localize('MY_RPG.Rank.Unspecified')
-              );
-            row
-              .next('.mod-effect-row')
-              .find('.col-effect .effect-wrapper')
-              .html(formData.effect ?? '');
-            row
-              .find('.col-upg1')
-              .text(
-                game.i18n.localize(
-                  'MY_RPG.AbilityUpgrades.' + (formData.upgrade1 || 'None')
-                )
-              );
-            row
-              .find('.col-upg2')
-              .text(
-                game.i18n.localize(
-                  'MY_RPG.AbilityUpgrades.' + (formData.upgrade2 || 'None')
-                )
-              );
-          });
-        }
-      });
-      diag.render(true);
-      this._editDialog = diag;
-    });
-
-    html.find('.inventory-chat-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      const item = this.actor.system.inventoryList[index] || {};
-      const lines = [`<strong>${item.name ?? ''}</strong>`];
-      if (item.quantity)
-        lines.push(
-          `${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${item.quantity}`
-        );
-      let content = lines.join('<br>');
-      if (item.desc) content += `<br><br>${item.desc}`;
-      ChatMessage.create({
-        content,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
-      });
-    });
-
-    html.find('.mods-chat-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      const mod = this.actor.system.modsList[index] || {};
-      const lines = [`<strong>${mod.name ?? ''}</strong>`];
-      if (mod.rank)
-        lines.push(
-          `${game.i18n.localize('MY_RPG.ModsTable.Rank')}: ${getRankLabel(mod.rank)}`
-        );
-      if (mod.upgrade1 && mod.upgrade1 !== 'None')
-        lines.push(
-          `${game.i18n.localize('MY_RPG.ModsTable.Upgrade1')}: ${game.i18n.localize(
-            'MY_RPG.AbilityUpgrades.' + mod.upgrade1
-          )}`
-        );
-      if (mod.upgrade2 && mod.upgrade2 !== 'None')
-        lines.push(
-          `${game.i18n.localize('MY_RPG.ModsTable.Upgrade2')}: ${game.i18n.localize(
-            'MY_RPG.AbilityUpgrades.' + mod.upgrade2
-          )}`
-        );
-      let content = lines.join('<br>');
-      if (mod.effect) content += `<br><br>${mod.effect}`;
-      ChatMessage.create({
-        content,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
-      });
-    });
-
-    html.find('.abilities-chat-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      const ability = this.actor.system.abilitiesList[index] || {};
-      const lines = [`<strong>${ability.name ?? ''}</strong>`];
-      if (ability.rank)
-        lines.push(
-          `${game.i18n.localize('MY_RPG.ModsTable.Rank')}: ${getRankLabel(
-            ability.rank
-          )}`
-        );
-      if (ability.cost)
-        lines.push(
-          `${game.i18n.localize('MY_RPG.AbilitiesTable.Cost')}: ${ability.cost}`
-        );
-      if (
-        game.settings.get('myrpg', 'worldType') === 'unity' &&
-        ability.runeType
-      )
-        lines.push(
-          `${game.i18n.localize('MY_RPG.RunesTable.RuneType')}: ${game.i18n.localize(
-            'MY_RPG.RuneTypes.' + ability.runeType
-          )}`
-        );
-      if (ability.upgrade1 && ability.upgrade1 !== 'None')
-        lines.push(
-          `${game.i18n.localize('MY_RPG.AbilitiesTable.Upgrade1')}: ${game.i18n.localize(
-            'MY_RPG.AbilityUpgrades.' + ability.upgrade1
-          )}`
-        );
-      if (ability.upgrade2 && ability.upgrade2 !== 'None')
-        lines.push(
-          `${game.i18n.localize('MY_RPG.AbilitiesTable.Upgrade2')}: ${game.i18n.localize(
-            'MY_RPG.AbilityUpgrades.' + ability.upgrade2
-          )}`
-        );
-      let content = lines.join('<br>');
-      if (ability.effect)
-        content += `<br><br>${ability.effect}`;
-      ChatMessage.create({
-        content,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
-      });
-    });
-
-    // ----------------------------------------------------------------------
-    // Armor table actions
-    // ----------------------------------------------------------------------
-    html.find('.armor-add-row').click((ev) => {
-      ev.preventDefault();
-      let list = foundry.utils.deepClone(this.actor.system.armorList) || [];
-      if (!Array.isArray(list)) list = Object.values(list);
-      list.push({
-        name: '',
-        desc: '',
-        itemPhys: 0,
-        itemAzure: 0,
-        itemMental: 0,
-        itemShield: 0,
-        itemSpeed: 0,
-        quantity: 1,
-        equipped: false
-      });
-      this.actor.update({ 'system.armorList': list });
-    });
-
-    html.find('tr.armor-row').click((ev) => {
-      if (
-        $(ev.target).closest('.armor-remove-row, .armor-edit-row, .armor-equip-checkbox, .armor-chat-row').length
-      )
-        return;
-      const $row = $(ev.currentTarget);
-      const expanding = !$row.hasClass('expanded');
-      $row.toggleClass('expanded');
-      const $effect = $row.next('.armor-effect-row');
-      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
-      if (expanding) this._scrollEffectRowIntoView($row, '.armor-effect-row');
-    });
-
-    html.find('.armor-edit-row').click((ev) => {
-      ev.preventDefault();
-      if (this._editDialog) this._editDialog.close();
-
-      const index = Number(ev.currentTarget.dataset.index);
-      let list = foundry.utils.deepClone(this.actor.system.armorList) || [];
-      if (!Array.isArray(list)) list = Object.values(list);
-      const itemData = list[index] || {};
-
-      let diag = new Dialog({
-        title: game.i18n.localize('MY_RPG.ArmorTable.EditTitle'),
-        content: `
-          <form>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.Inventory.Name')}</label>
-              <input type="text" name="name" value="${itemData.name ?? ''}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.ArmorItem.DescriptionLabel')}</label>
-              <textarea name="desc" class="rich-editor">${itemData.desc ?? ''}</textarea>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.ArmorItem.BonusPhysicalLabel')}</label>
-              <input type="number" name="itemPhys" value="${itemData.itemPhys ?? 0}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.ArmorItem.BonusMagicalLabel')}</label>
-              <input type="number" name="itemAzure" value="${itemData.itemAzure ?? 0}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.ArmorItem.BonusPsychicLabel')}</label>
-              <input type="number" name="itemMental" value="${itemData.itemMental ?? 0}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.ArmorItem.ShieldLabel')}</label>
-              <input type="number" name="itemShield" value="${itemData.itemShield ?? 0}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}</label>
-              <input type="number" name="itemSpeed" value="${itemData.itemSpeed ?? 0}" />
-            </div>
-          </form>
-        `,
-        buttons: {},
-        close: (htmlDialog) => {
-          tinymce.triggerSave();
-          const formEl = htmlDialog.find('form')[0];
-          const fd = new FormData(formEl);
-          let formData = {};
-          for (let [k, v] of fd.entries()) {
-            formData[k] = v;
-          }
-          list[index] = {
-            name: formData.name ?? '',
-            desc: formData.desc ?? '',
-            itemPhys: formData.itemPhys ?? 0,
-            itemAzure: formData.itemAzure ?? 0,
-            itemMental: formData.itemMental ?? 0,
-            itemShield: formData.itemShield ?? 0,
-            itemSpeed: formData.itemSpeed ?? 0,
-            quantity: itemData.quantity ?? 1,
-            equipped: itemData.equipped ?? false
-          };
-          this.actor.update({ 'system.armorList': list }).then(() => {
-            // force refresh of derived stats in case values didn't change
-            this.render(false);
-          });
-          this._editDialog = null;
-        },
-        render: (html) => {
-          html.find('textarea.rich-editor').each((i, el) => this.initializeRichEditor(el));
-
-          const form = html.find('form');
-          form.on('input', 'input, textarea', () => {
-            tinymce.triggerSave();
-            const formEl = form[0];
-            const fd = new FormData(formEl);
-            let formData = {};
-            for (let [k, v] of fd.entries()) {
-              formData[k] = v;
-            }
-              list[index] = {
-                name: formData.name ?? '',
-                desc: formData.desc ?? '',
-                itemPhys: formData.itemPhys ?? 0,
-                itemAzure: formData.itemAzure ?? 0,
-                itemMental: formData.itemMental ?? 0,
-                itemShield: formData.itemShield ?? 0,
-                itemSpeed: formData.itemSpeed ?? 0,
-                quantity: list[index].quantity ?? 1,
-                equipped: list[index].equipped ?? false
-              };
-            this.actor.update({ 'system.armorList': list }, { render: false });
-
-            const row = this.element.find(`.abilities-table tr.armor-row[data-index="${index}"]`);
-            row.find('.col-name').html(formData.name ?? '');
-            row
-              .next('.armor-effect-row')
-              .find('.col-effect .effect-wrapper')
-              .html(this._armorEffectHtml(list[index]));
-            row.find('.col-cost .quantity-value').text(list[index].quantity ?? '');
-          });
-        }
-      });
-      diag.render(true);
-      this._editDialog = diag;
-    });
-
-    html.find('.armor-remove-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      new Dialog({
-        title: game.i18n.localize('MY_RPG.ArmorTable.ConfirmDeleteTitle'),
-        content: `<p>${game.i18n.localize('MY_RPG.ArmorTable.ConfirmDeleteMessage')}</p>`,
-        buttons: {
-          yes: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('MY_RPG.ArmorTable.Yes'),
-            callback: () => {
-              let list = foundry.utils.deepClone(this.actor.system.armorList) || [];
-              if (!Array.isArray(list)) list = Object.values(list);
-              list.splice(index, 1);
-              this.actor.update({ 'system.armorList': list });
-            }
-          },
-          no: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('MY_RPG.ArmorTable.No')
-          }
-        },
-        default: 'no'
-      }).render(true);
-    });
-
-    html.find('.armor-chat-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      const item = this.actor.system.armorList[index] || {};
-      const lines = [`<strong>${item.name ?? ''}</strong>`];
-      if (item.quantity)
-        lines.push(`${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${item.quantity}`);
-      if (item.itemPhys)
-        lines.push(`${game.i18n.localize('MY_RPG.ArmorItem.BonusPhysicalLabel')}: ${item.itemPhys}`);
-      if (item.itemAzure)
-        lines.push(`${game.i18n.localize('MY_RPG.ArmorItem.BonusMagicalLabel')}: ${item.itemAzure}`);
-      if (item.itemMental)
-        lines.push(`${game.i18n.localize('MY_RPG.ArmorItem.BonusPsychicLabel')}: ${item.itemMental}`);
-      if (item.itemShield)
-        lines.push(`${game.i18n.localize('MY_RPG.ArmorItem.ShieldLabel')}: ${item.itemShield}`);
-      if (item.itemSpeed)
-        lines.push(`${game.i18n.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}: ${item.itemSpeed}`);
-      let content = lines.join('<br>');
-      if (item.desc) content += `<br><br>${item.desc}`;
-      ChatMessage.create({
-        content,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
-      });
-    });
-
-    html.find('.armor-quantity-plus').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      let list = foundry.utils.deepClone(this.actor.system.armorList) || [];
-      if (!Array.isArray(list)) list = Object.values(list);
-      const cur = parseInt(list[index]?.quantity) || 0;
-      list[index].quantity = cur + 1;
-      this.actor
-        .update({ 'system.armorList': list }, { render: false })
-        .then(() => {
-          const row = this.element.find(
-            `.abilities-table tr.armor-row[data-index="${index}"]`
-          );
-          row.find('.col-cost .quantity-value').text(list[index].quantity);
-          // Refresh derived fields affected by armor changes
-          this.actor.prepareData();
-          this._refreshDerived(html);
-        });
-    });
-
-    html.find('.armor-quantity-minus').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      let list = foundry.utils.deepClone(this.actor.system.armorList) || [];
-      if (!Array.isArray(list)) list = Object.values(list);
-      const cur = parseInt(list[index]?.quantity) || 0;
-      list[index].quantity = Math.max(0, cur - 1);
-      this.actor
-        .update({ 'system.armorList': list }, { render: false })
-        .then(() => {
-          const row = this.element.find(
-            `.abilities-table tr.armor-row[data-index="${index}"]`
-          );
-          row.find('.col-cost .quantity-value').text(list[index].quantity);
-          // Refresh derived fields affected by armor changes
-          this.actor.prepareData();
-          this._refreshDerived(html);
-        });
-    });
-
-    html.find('.armor-equip-checkbox').change((ev) => {
-      const index = Number(ev.currentTarget.dataset.index);
-      const checked = ev.currentTarget.checked;
-      let list = foundry.utils.deepClone(this.actor.system.armorList) || [];
-      if (!Array.isArray(list)) list = Object.values(list);
-      list.forEach((item, i) => {
-        item.equipped = checked && i === index;
-      });
-      this.actor
-        .update({ 'system.armorList': list }, { render: false })
-        .then(() => {
-          // Sync checkboxes to reflect exclusivity
-          html.find('.armor-equip-checkbox').each((i, el) => {
-            $(el).prop('checked', list[i]?.equipped);
-          });
-          // Refresh derived fields affected by armor changes
-          this.actor.prepareData();
-          this._refreshDerived(html);
-        });
-    });
-
-    // ----------------------------------------------------------------------
-    // Weapons table actions
-    // ----------------------------------------------------------------------
-    html.find('.weapon-add-row').click((ev) => {
-      ev.preventDefault();
-      let list = foundry.utils.deepClone(this.actor.system.weaponList) || [];
-      if (!Array.isArray(list)) list = Object.values(list);
-      list.push({
-        name: '',
-        desc: '',
-        skill: '',
-        skillBonus: 0,
-        equipped: false
-      });
-      this.actor.update({ 'system.weaponList': list });
-    });
-
-    html.find('tr.weapon-row').click((ev) => {
-      if (
-        $(ev.target).closest(
-          '.weapon-remove-row, .weapon-edit-row, .weapon-chat-row, .weapon-equip-checkbox'
-        ).length
-      )
-        return;
-      const $row = $(ev.currentTarget);
-      const expanding = !$row.hasClass('expanded');
-      $row.toggleClass('expanded');
-      const $effect = $row.next('.weapon-effect-row');
-      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
-      if (expanding) this._scrollEffectRowIntoView($row, '.weapon-effect-row');
-    });
-
-    html.find('.weapon-edit-row').click((ev) => {
-      ev.preventDefault();
-      if (this._editDialog) this._editDialog.close();
-
-      const index = Number(ev.currentTarget.dataset.index);
-      let list = foundry.utils.deepClone(this.actor.system.weaponList) || [];
-      if (!Array.isArray(list)) list = Object.values(list);
-      const itemData = list[index] || {};
-
-      const skillOptions = [
-        `<option value="" ${itemData.skill ? '' : 'selected'}>${game.i18n.localize(
-          'MY_RPG.WeaponsTable.SkillNoneOption'
-        )}</option>`
-      ];
-      for (const [skillKey, labelKey] of Object.entries(CONFIG.MY_RPG.skills || {})) {
-        const selected = (itemData.skill || '') === skillKey ? 'selected' : '';
-        skillOptions.push(
-          `<option value="${skillKey}" ${selected}>${game.i18n.localize(labelKey)}</option>`
-        );
-      }
-
-      let diag = new Dialog({
-        title: game.i18n.localize('MY_RPG.WeaponsTable.EditTitle'),
-        content: `
-          <form>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.Inventory.Name')}</label>
-              <input type="text" name="name" value="${itemData.name ?? ''}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}</label>
-              <select name="skill">
-                ${skillOptions.join('')}
-              </select>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}</label>
-              <input type="number" name="skillBonus" value="${Number(itemData.skillBonus ?? 0)}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.WeaponsTable.DescriptionLabel')}</label>
-              <textarea name="desc" class="rich-editor">${itemData.desc ?? ''}</textarea>
-            </div>
-          </form>
-        `,
-        buttons: {},
-        close: (htmlDialog) => {
-          tinymce.triggerSave();
-          const formEl = htmlDialog.find('form')[0];
-          const fd = new FormData(formEl);
-          const formData = Object.fromEntries(fd.entries());
-          const previous = list[index] || {};
-          list[index] = {
-            ...previous,
-            name: formData.name ?? '',
-            skill: formData.skill ?? '',
-            skillBonus: this._normalizeWeaponBonus(formData.skillBonus),
-            desc: formData.desc ?? ''
-          };
-          this.actor.update({ 'system.weaponList': list });
-          this._editDialog = null;
-        },
-        render: (htmlDialog) => {
-          htmlDialog
-            .find('textarea.rich-editor')
-            .each((i, el) => this.initializeRichEditor(el));
-
-          const form = htmlDialog.find('form');
-          form.on('input change', 'input, textarea, select', () => {
-            tinymce.triggerSave();
-            const fd = new FormData(form[0]);
-            const formData = Object.fromEntries(fd.entries());
-            const previous = list[index] || {};
-            list[index] = {
-              ...previous,
-              name: formData.name ?? '',
-              skill: formData.skill ?? '',
-              skillBonus: this._normalizeWeaponBonus(formData.skillBonus),
-              desc: formData.desc ?? ''
-            };
-            this.actor.update({ 'system.weaponList': list }, { render: false });
-
-            const row = this.element.find(
-              `.weapon-table tr.weapon-row[data-index="${index}"]`
-            );
-            row.find('.col-name').html(formData.name ?? '');
-            row.find('.col-skill').text(this._weaponSkillLabel(formData.skill));
-            row.find('.col-bonus').text(this._formatWeaponBonus(list[index].skillBonus));
-            row
-              .next('.weapon-effect-row')
-              .find('.effect-wrapper')
-              .html(this._weaponEffectHtml(list[index]));
-          });
-        }
-      });
-      diag.render(true);
-      this._editDialog = diag;
-    });
-
-    html.find('.weapon-remove-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      new Dialog({
-        title: game.i18n.localize('MY_RPG.WeaponsTable.ConfirmDeleteTitle'),
-        content: `<p>${game.i18n.localize('MY_RPG.WeaponsTable.ConfirmDeleteMessage')}</p>`,
-        buttons: {
-          yes: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('MY_RPG.Dialog.Yes'),
-            callback: () => {
-              let list = foundry.utils.deepClone(this.actor.system.weaponList) || [];
-              if (!Array.isArray(list)) list = Object.values(list);
-              list.splice(index, 1);
-              this.actor.update({ 'system.weaponList': list });
-            }
-          },
-          no: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('MY_RPG.Dialog.No')
-          }
-        },
-        default: 'no'
-      }).render(true);
-    });
-
-    html.find('.weapon-chat-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      const weapon = this.actor.system.weaponList?.[index] || {};
-      const lines = [`<strong>${weapon.name ?? ''}</strong>`];
-      lines.push(
-        `${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._weaponSkillLabel(
-          weapon.skill
-        )}`
-      );
-      lines.push(
-        `${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatWeaponBonus(
-          weapon.skillBonus
-        )}`
-      );
-      if (weapon.equipped) {
-        lines.push(game.i18n.localize('MY_RPG.WeaponsTable.EquippedLabel'));
-      }
-      let content = lines.join('<br>');
-      if (weapon.desc) content += `<br><br>${weapon.desc}`;
-      ChatMessage.create({
-        content,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
-      });
-    });
-
-    html.find('.weapon-equip-checkbox').change((ev) => {
-      const index = Number(ev.currentTarget.dataset.index);
-      if (Number.isNaN(index)) return;
-      let list = foundry.utils.deepClone(this.actor.system.weaponList) || [];
-      if (!Array.isArray(list)) list = Object.values(list);
-      if (!list[index]) return;
-
-      list[index].equipped = Boolean(ev.currentTarget.checked);
-      this.actor
-        .update({ 'system.weaponList': list }, { render: false })
-        .then(() => {
-          const row = this.element.find(
-            `.weapon-table tr.weapon-row[data-index="${index}"]`
-          );
-          row
-            .next('.weapon-effect-row')
-            .find('.effect-wrapper')
-            .html(this._weaponEffectHtml(list[index]));
-        });
-    });
-
-    // ----------------------------------------------------------------------
-    // ������� ���������
-    // ----------------------------------------------------------------------
-    html.find('.inventory-add-row').click((ev) => {
-      ev.preventDefault();
-      let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
-      if (!Array.isArray(inventory)) inventory = Object.values(inventory);
-      inventory.push({
-        name: '',
-        desc: '',
-        quantity: ''
-      });
-      this.actor.update({ 'system.inventoryList': inventory });
-    });
-
-    html.find('.inventory tr.inventory-row .col-name').click((ev) => {
-      if (
-        $(ev.target).closest('.inventory-remove-row, .inventory-edit-row').length
-      )
-        return;
-      const $row = $(ev.currentTarget).closest('tr.inventory-row');
-      const expanding = !$row.hasClass('expanded');
-      $row.toggleClass('expanded');
-      const $effect = $row.next('.inventory-effect-row');
-      if ($effect.length) $effect.toggleClass('open', expanding ? true : false);
-      if (expanding) this._scrollEffectRowIntoView($row, '.inventory-effect-row');
-    });
-
-    html.find('.inventory-edit-row').click((ev) => {
-      ev.preventDefault();
-      if (this._editDialog) {
-        this._editDialog.close();
-      }
-
-      const index = Number(ev.currentTarget.dataset.index);
-      let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
-      if (!Array.isArray(inventory)) inventory = Object.values(inventory);
-      const itemData = inventory[index] || {};
-
-      let diag = new Dialog({
-        title: game.i18n.localize('MY_RPG.Inventory.EditTitle'),
-        content: `
-          <form>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.Inventory.Name')}</label>
-              <input type="text" name="name" value="${itemData.name ?? ''}" />
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('MY_RPG.Inventory.Description')}</label>
-              <textarea name="desc" class="rich-editor">${itemData.desc ?? ''}</textarea>
-            </div>
-          </form>
-        `,
-        buttons: {},
-        close: (htmlDialog) => {
-          tinymce.triggerSave();
-          const formEl = htmlDialog.find('form')[0];
-          const fd = new FormData(formEl);
-          let formData = {};
-          for (let [k, v] of fd.entries()) {
-            formData[k] = v;
-          }
-          inventory[index] = {
-            name: formData.name ?? '',
-            desc: formData.desc ?? '',
-            quantity: itemData.quantity ?? ''
-          };
-          this.actor.update({ 'system.inventoryList': inventory });
-          this._editDialog = null;
-        },
-        render: (html) => {
-          html
-            .find('textarea.rich-editor')
-            .each((i, el) => this.initializeRichEditor(el));
-
-          const form = html.find('form');
-          form.on('input', 'input, textarea', () => {
-            tinymce.triggerSave();
-            const formEl = form[0];
-            const fd = new FormData(formEl);
-            let formData = {};
-            for (let [k, v] of fd.entries()) {
-              formData[k] = v;
-            }
-            inventory[index] = {
-              name: formData.name ?? '',
-              desc: formData.desc ?? '',
-              quantity: itemData.quantity ?? ''
-            };
-            // update actor data without re-render
-            this.actor.update(
-              { 'system.inventoryList': inventory },
-              { render: false }
-            );
-
-            // update the table row manually
-            const row = this.element.find(
-              `.abilities-table tr.inventory-row[data-index="${index}"]`
-            );
-            row.find('.col-name').html(formData.name ?? '');
-            row
-              .next('.inventory-effect-row')
-              .find('.col-effect .effect-wrapper')
-              .html(formData.desc ?? '');
-            row
-              .find('.col-cost .quantity-value')
-              .text(inventory[index].quantity ?? '');
-          });
-        }
-      });
-      diag.render(true);
-      this._editDialog = diag;
-    });
-    html.find('.inventory-remove-row').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      new Dialog({
-        title: game.i18n.localize('MY_RPG.Inventory.ConfirmDeleteTitle'),
-        content: `<p>${game.i18n.localize('MY_RPG.Inventory.ConfirmDeleteMessage')}</p>`,
-        buttons: {
-          yes: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('MY_RPG.Inventory.Yes'),
-            callback: () => {
-              let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
-              if (!Array.isArray(inventory)) inventory = Object.values(inventory);
-              inventory.splice(index, 1);
-              this.actor.update({ 'system.inventoryList': inventory });
-            }
-          },
-          no: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('MY_RPG.Inventory.No')
-          }
-        },
-        default: 'no'
-      }).render(true);
-    });
-
-    html.find('.inventory-quantity-plus').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
-      if (!Array.isArray(inventory)) inventory = Object.values(inventory);
-      const current = parseInt(inventory[index]?.quantity) || 0;
-      inventory[index].quantity = current + 1;
-      this.actor.update({ 'system.inventoryList': inventory }, { render: false });
-      const row = this.element.find(
-        `.abilities-table tr.inventory-row[data-index="${index}"]`
-      );
-      row.find('.col-cost .quantity-value').text(inventory[index].quantity);
-    });
-
-    html.find('.inventory-quantity-minus').click((ev) => {
-      ev.preventDefault();
-      const index = Number(ev.currentTarget.dataset.index);
-      let inventory = foundry.utils.deepClone(this.actor.system.inventoryList) || [];
-      if (!Array.isArray(inventory)) inventory = Object.values(inventory);
-      const current = parseInt(inventory[index]?.quantity) || 0;
-      inventory[index].quantity = Math.max(0, current - 1);
-      this.actor.update({ 'system.inventoryList': inventory }, { render: false });
-      const row = this.element.find(
-        `.abilities-table tr.inventory-row[data-index="${index}"]`
-      );
-      row.find('.col-cost .quantity-value').text(inventory[index].quantity);
-    });
-
-    html
+    $html
       .find('input[name^="system.abilities."], input[name^="system.skills."]')
       .on('change', (ev) => {
         const input = ev.currentTarget;
@@ -1346,6 +195,7 @@ export class myrpgActorSheet extends ActorSheet {
         });
       });
   }
+
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -1385,14 +235,33 @@ export class myrpgActorSheet extends ActorSheet {
       this._prepareCharacterData(context);
     }
 
-    if (game.settings.get('myrpg', 'worldType') === 'unity') {
-      context.runeMax =
-        (Number(context.system.abilities.int?.value || 0) * 2) + 5;
+    const worldType = game.settings.get('myrpg', 'worldType');
+    if (worldType === 'unity') {
+      context.runeMax = (Number(context.system.abilities.int?.value || 0) * 2) + 5;
     }
 
     context.rollData = context.actor.getRollData();
+
+    const itemGroups = this._buildItemGroups();
+    const abilityGroup = itemGroups.find((group) => group.key === 'abilities');
+    if (abilityGroup) {
+      abilityGroup.capacity = worldType === 'unity'
+        ? { value: abilityGroup.count, max: context.runeMax ?? 0 }
+        : null;
+      context.abilityCount = abilityGroup.count;
+    } else {
+      context.abilityCount = 0;
+    }
+
+    context.itemGroups = itemGroups.reduce((acc, group) => {
+      (acc[group.tab] ??= []).push(group);
+      return acc;
+    }, {});
+    context.itemControls = this._getItemControlLabels();
+
     return context;
   }
+
 
   _prepareCharacterData(context) {
     const isCharacter = Boolean(context.isCharacter);
@@ -1597,6 +466,313 @@ export class myrpgActorSheet extends ActorSheet {
     });
   }
 
+  _getItemControlLabels() {
+    return {
+      edit: game.i18n.localize('MY_RPG.ItemControls.Edit'),
+      delete: game.i18n.localize('MY_RPG.ItemControls.Delete'),
+      chat: game.i18n.localize('MY_RPG.ItemControls.Chat'),
+      equip: game.i18n.localize('MY_RPG.ItemControls.Equip'),
+      equipAria: game.i18n.localize('MY_RPG.ItemControls.EquipAria'),
+      quantity: game.i18n.localize('MY_RPG.ItemControls.Quantity'),
+      quantityIncrease: game.i18n.localize('MY_RPG.ItemControls.QuantityIncrease'),
+      quantityDecrease: game.i18n.localize('MY_RPG.ItemControls.QuantityDecrease')
+    };
+  }
+
+  _buildItemGroups() {
+    return ITEM_GROUP_CONFIG.map((config) => {
+      const items = this.actor.itemTypes?.[config.type] ?? [];
+      const preparedItems = items.map((item) => this._prepareItemForDisplay(item, config));
+      return {
+        key: config.key,
+        type: config.type,
+        tab: config.tab,
+        icon: config.icon,
+        label: game.i18n.localize(config.labelKey),
+        empty: game.i18n.localize(config.emptyKey),
+        createLabel: game.i18n.localize(config.createKey),
+        newNameKey: config.newNameKey,
+        showQuantity: Boolean(config.showQuantity),
+        allowEquip: Boolean(config.allowEquip),
+        exclusive: Boolean(config.exclusive),
+        items: preparedItems,
+        count: preparedItems.length
+      };
+    });
+  }
+
+  _prepareItemForDisplay(item, config) {
+    const system = item.system ?? {};
+    const quantity = Math.max(Number(system.quantity) || 0, 0);
+    const badges = this._getItemBadges(item, config);
+    const summary = this._getItemSummary(item, config);
+    return {
+      id: item.id,
+      uuid: item.uuid,
+      name: item.name || game.i18n.localize('MY_RPG.ItemGroups.Unnamed'),
+      img: item.img || 'icons/svg/item-bag.svg',
+      groupKey: config.key,
+      showQuantity: Boolean(config.showQuantity),
+      quantity,
+      showEquip: Boolean(config.allowEquip),
+      exclusive: Boolean(config.exclusive),
+      equipped: Boolean(system.equipped),
+      badges,
+      summary,
+      hasBadges: badges.length > 0,
+      hasSummary: Boolean(summary)
+    };
+  }
+
+  _getItemBadges(item, config) {
+    const system = item.system ?? {};
+    const badges = [];
+    const t = game.i18n;
+    switch (config.key) {
+      case 'abilities': {
+        const rank = Number(system.rank) || 0;
+        if (rank) {
+          badges.push(`${t.localize('MY_RPG.AbilitiesTable.Rank')}: ${getRankLabel(rank)}`);
+        }
+        if (game.settings.get('myrpg', 'worldType') === 'unity' && system.runeType) {
+          const runeKey = `MY_RPG.RuneTypes.${system.runeType}`;
+          badges.push(`${t.localize('MY_RPG.RunesTable.RuneType')}: ${t.localize(runeKey)}`);
+        }
+        if (system.cost) {
+          badges.push(`${t.localize('MY_RPG.AbilitiesTable.Cost')}: ${system.cost}`);
+        }
+        if (system.upgrade1 && system.upgrade1 !== 'None') {
+          badges.push(`${t.localize('MY_RPG.AbilitiesTable.Upgrade1')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade1)}`);
+        }
+        if (system.upgrade2 && system.upgrade2 !== 'None') {
+          badges.push(`${t.localize('MY_RPG.AbilitiesTable.Upgrade2')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade2)}`);
+        }
+        break;
+      }
+      case 'mods': {
+        const rank = Number(system.rank) || 0;
+        if (rank) {
+          badges.push(`${t.localize('MY_RPG.ModsTable.Rank')}: ${getRankLabel(rank)}`);
+        }
+        if (system.cost) {
+          badges.push(`${t.localize('MY_RPG.ModsTable.Cost')}: ${system.cost}`);
+        }
+        if (system.upgrade1 && system.upgrade1 !== 'None') {
+          badges.push(`${t.localize('MY_RPG.ModsTable.Upgrade1')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade1)}`);
+        }
+        if (system.upgrade2 && system.upgrade2 !== 'None') {
+          badges.push(`${t.localize('MY_RPG.ModsTable.Upgrade2')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade2)}`);
+        }
+        break;
+      }
+      case 'weapons': {
+        badges.push(`${t.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._weaponSkillLabel(system.skill)}`);
+        badges.push(`${t.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatWeaponBonus(system.skillBonus)}`);
+        break;
+      }
+      case 'armor': {
+        const phys = Number(system.itemPhys) || 0;
+        const azure = Number(system.itemAzure) || 0;
+        const mental = Number(system.itemMental) || 0;
+        const shield = Number(system.itemShield) || 0;
+        const speed = Number(system.itemSpeed) || 0;
+        if (phys) badges.push(`${t.localize('MY_RPG.ArmorItem.BonusPhysicalLabel')}: ${phys}`);
+        if (azure) badges.push(`${t.localize('MY_RPG.ArmorItem.BonusMagicalLabel')}: ${azure}`);
+        if (mental) badges.push(`${t.localize('MY_RPG.ArmorItem.BonusPsychicLabel')}: ${mental}`);
+        if (shield) badges.push(`${t.localize('MY_RPG.ArmorItem.ShieldLabel')}: ${shield}`);
+        if (speed) badges.push(`${t.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}: ${speed}`);
+        break;
+      }
+      case 'gear': {
+        if (system.source) {
+          badges.push(`${t.localize('MY_RPG.ItemSheet.Fields.Source')}: ${system.source}`);
+        }
+        break;
+      }
+      default:
+        break;
+    }
+    return badges;
+  }
+
+  _getItemSummary(item, config) {
+    const system = item.system ?? {};
+    switch (config.key) {
+      case 'abilities':
+        return system.effect || system.description || '';
+      case 'mods':
+        return system.effect || '';
+      case 'weapons':
+        return system.description || '';
+      case 'armor':
+        return system.description || '';
+      case 'gear': {
+        const parts = [];
+        if (system.description) parts.push(system.description);
+        if (system.notes) parts.push(system.notes);
+        return parts.join('<br><br>');
+      }
+      default:
+        return system.description || '';
+    }
+  }
+
+  _getDefaultItemName(config) {
+    if (config?.newNameKey) {
+      return game.i18n.localize(config.newNameKey);
+    }
+    const typeLabel = config ? game.i18n.localize(`TYPES.Item.${config.type}`) : game.i18n.localize('MY_RPG.Inventory.Name');
+    return game.i18n.format('MY_RPG.ItemControls.NewItemFallback', { type: typeLabel });
+  }
+
+  _getGroupConfig(groupKey) {
+    if (!groupKey) return null;
+    return ITEM_GROUP_CONFIG_BY_KEY[groupKey] ?? null;
+  }
+
+  _getItemContextFromEvent(event) {
+    const $target = $(event.currentTarget);
+    const $row = $target.closest('[data-item-id]');
+    if (!$row.length) return {};
+    const itemId = $row.data('itemId');
+    const groupKey = $row.data('groupKey');
+    const item = this.actor.items.get(itemId);
+    const config = this._getGroupConfig(groupKey);
+    return { item, $row, groupKey, config };
+  }
+
+  async _onItemCreate(event) {
+    event.preventDefault();
+    const $target = $(event.currentTarget);
+    const groupKey = $target.data('groupKey') || $target.closest('[data-item-group]').data('itemGroup');
+    const type = $target.data('type');
+    let config = type ? ITEM_GROUP_CONFIG.find((c) => c.type === type) : null;
+    if (!config) config = this._getGroupConfig(groupKey);
+    if (!config) return;
+    const name = this._getDefaultItemName(config);
+    // DEBUG-LOG
+    debugLog('Actor sheet item create', { actor: this.actor.uuid, type: config.type });
+    await this.actor.createEmbeddedDocuments('Item', [
+      { name, type: config.type, system: {} }
+    ]);
+  }
+
+  async _onItemEdit(event) {
+    event.preventDefault();
+    const { item } = this._getItemContextFromEvent(event);
+    if (!item) return;
+    // DEBUG-LOG
+    debugLog('Actor sheet item edit', { actor: this.actor.uuid, itemId: item.id });
+    item.sheet?.render(true);
+  }
+
+  async _onItemDelete(event) {
+    event.preventDefault();
+    const { item } = this._getItemContextFromEvent(event);
+    if (!item) return;
+    const typeLabel = game.i18n.localize(`TYPES.Item.${item.type}`);
+    const title = game.i18n.format('MY_RPG.ItemDialogs.DeleteTitle', { type: typeLabel });
+    const safeName = TextEditor.encodeHTML(item.name || typeLabel);
+    const content = `<p>${game.i18n.format('MY_RPG.ItemDialogs.DeleteContent', { name: safeName })}</p>`;
+    const confirmed = await Dialog.confirm({ title, content });
+    if (!confirmed) return;
+    // DEBUG-LOG
+    debugLog('Actor sheet item delete', { actor: this.actor.uuid, itemId: item.id, type: item.type });
+    await item.delete();
+  }
+
+  async _onItemChat(event) {
+    event.preventDefault();
+    const { item, config } = this._getItemContextFromEvent(event);
+    if (!item || !config) return;
+    const content = this._buildItemChatContent(item, config);
+    if (!content) return;
+    // DEBUG-LOG
+    debugLog('Actor sheet item chat', { actor: this.actor.uuid, itemId: item.id, type: item.type });
+    await ChatMessage.create({
+      content,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor })
+    });
+  }
+
+  _buildItemChatContent(item, config) {
+    const system = item.system ?? {};
+    const lines = [];
+    const name = TextEditor.encodeHTML(item.name || game.i18n.localize(`TYPES.Item.${item.type}`));
+    lines.push(`<strong>${name}</strong>`);
+    const meta = [];
+    if (config.showQuantity) {
+      const quantity = Math.max(Number(system.quantity) || 0, 0);
+      meta.push(`${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${quantity}`);
+    }
+    meta.push(...this._getItemBadges(item, config));
+    if (config.allowEquip && system.equipped) {
+      const equipKey = config.key === 'armor'
+        ? 'MY_RPG.ArmorTable.EquippedLabel'
+        : 'MY_RPG.WeaponsTable.EquippedLabel';
+      meta.push(game.i18n.localize(equipKey));
+    }
+    if (meta.length) lines.push(meta.join('<br>'));
+    const summary = this._getItemSummary(item, config);
+    if (summary) lines.push(summary);
+    return lines.filter(Boolean).join('<br><br>');
+  }
+
+  async _onItemQuantityStep(event) {
+    event.preventDefault();
+    const step = Number(event.currentTarget.dataset.step) || 0;
+    if (!step) return;
+    const { item, $row, config } = this._getItemContextFromEvent(event);
+    if (!item || !$row) return;
+    const system = item.system ?? {};
+    const current = Math.max(Number(system.quantity) || 0, 0);
+    const next = Math.max(current + step, 0);
+    if (next === current) return;
+    await item.update({ 'system.quantity': next }, { diff: false });
+    // DEBUG-LOG
+    debugLog('Actor sheet item quantity', { actor: this.actor.uuid, itemId: item.id, quantity: next });
+    $row.find('.item-quantity-value').text(next);
+    if (config && (config.key === 'armor' || config.key === 'weapons')) {
+      this.actor.prepareData();
+      this._refreshDerived(this.element);
+    }
+  }
+
+  async _onItemEquipChange(event) {
+    const checkbox = event.currentTarget;
+    const { item, $row, groupKey, config } = this._getItemContextFromEvent(event);
+    if (!item || !$row || !config?.allowEquip) return;
+    const checked = Boolean(checkbox.checked);
+    const updates = [{ _id: item.id, 'system.equipped': checked }];
+    if (config.exclusive && checked) {
+      const others = this.actor.itemTypes?.[config.type] ?? [];
+      for (const other of others) {
+        if (other.id === item.id) continue;
+        if (other.system?.equipped) {
+          updates.push({ _id: other.id, 'system.equipped': false });
+        }
+      }
+    }
+    await this.actor.updateEmbeddedDocuments('Item', updates, { render: false });
+    // DEBUG-LOG
+    debugLog('Actor sheet item equip', { actor: this.actor.uuid, itemId: item.id, group: groupKey, equipped: checked });
+    this.actor.prepareData();
+    this._refreshDerived(this.element);
+    const $group = $row.closest('[data-item-group]');
+    if (config.exclusive && $group.length) {
+      $group.find('.item-row').each((_, el) => {
+        const id = el.dataset.itemId;
+        const doc = this.actor.items.get(id);
+        const isEquipped = Boolean(doc?.system?.equipped);
+        el.classList.toggle('item-row--equipped', isEquipped);
+        const input = el.querySelector('.item-equip-checkbox');
+        if (input) input.checked = isEquipped;
+      });
+    } else {
+      $row.toggleClass('item-row--equipped', checked);
+    }
+  }
+
   _normalizeWeaponBonus(value) {
     const num = Number(value);
     return Number.isFinite(num) ? num : 0;
@@ -1623,51 +799,62 @@ export class myrpgActorSheet extends ActorSheet {
   }
 
   _weaponEffectHtml(item) {
-    const data = item || {};
+    const source = item ?? {};
+    const system = source.system ?? source;
     const lines = [
       `${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._weaponSkillLabel(
-        data.skill
+        system.skill
       )}`,
       `${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatWeaponBonus(
-        data.skillBonus
+        system.skillBonus
       )}`
     ];
-    if (data.equipped) {
+    if (system.equipped) {
       lines.push(game.i18n.localize('MY_RPG.WeaponsTable.EquippedLabel'));
     }
     let html = lines.join('<br>');
-    if (data.desc) html += `<br><br>${data.desc}`;
+    const description = system.description ?? system.desc ?? '';
+    if (description) html += `<br><br>${description}`;
     return html;
   }
 
   _armorEffectHtml(item) {
+    const source = item ?? {};
+    const system = source.system ?? source;
     const lines = [];
-    if (item.quantity)
+    const quantity = Number(system.quantity ?? source.quantity ?? 0);
+    if (quantity)
       lines.push(
-        `${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${item.quantity}`
+        `${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${quantity}`
       );
-    if (item.itemPhys)
+    const phys = Number(system.itemPhys) || 0;
+    const azure = Number(system.itemAzure) || 0;
+    const mental = Number(system.itemMental) || 0;
+    const shield = Number(system.itemShield) || 0;
+    const speed = Number(system.itemSpeed) || 0;
+    if (phys)
       lines.push(
-        `${game.i18n.localize('MY_RPG.ArmorItem.BonusPhysicalLabel')}: ${item.itemPhys}`
+        `${game.i18n.localize('MY_RPG.ArmorItem.BonusPhysicalLabel')}: ${phys}`
       );
-    if (item.itemAzure)
+    if (azure)
       lines.push(
-        `${game.i18n.localize('MY_RPG.ArmorItem.BonusMagicalLabel')}: ${item.itemAzure}`
+        `${game.i18n.localize('MY_RPG.ArmorItem.BonusMagicalLabel')}: ${azure}`
       );
-    if (item.itemMental)
+    if (mental)
       lines.push(
-        `${game.i18n.localize('MY_RPG.ArmorItem.BonusPsychicLabel')}: ${item.itemMental}`
+        `${game.i18n.localize('MY_RPG.ArmorItem.BonusPsychicLabel')}: ${mental}`
       );
-    if (item.itemShield)
+    if (shield)
       lines.push(
-        `${game.i18n.localize('MY_RPG.ArmorItem.ShieldLabel')}: ${item.itemShield}`
+        `${game.i18n.localize('MY_RPG.ArmorItem.ShieldLabel')}: ${shield}`
       );
-    if (item.itemSpeed)
+    if (speed)
       lines.push(
-        `${game.i18n.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}: ${item.itemSpeed}`
+        `${game.i18n.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}: ${speed}`
       );
     let html = lines.join('<br>');
-    if (item.desc) html += `<br><br>${item.desc}`;
+    const description = system.description ?? system.desc ?? '';
+    if (description) html += `<br><br>${description}`;
     return html;
   }
 }
