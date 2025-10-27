@@ -1,0 +1,81 @@
+<form class="{{cssClass}} myrpg item-sheet armor-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <h1 class="sheet-title">
+      <input
+        name="name"
+        type="text"
+        value="{{item.name}}"
+        placeholder="{{localize 'MY_RPG.Inventory.Name'}}"
+        {{#unless editable}}disabled{{/unless}}
+      />
+    </h1>
+    <div class="item-meta flexrow">
+      <div class="flexcol">
+        <label>{{localize 'MY_RPG.Inventory.Quantity'}}</label>
+        <input
+          type="number"
+          name="system.quantity"
+          value="{{system.quantity}}"
+          min="0"
+          {{#unless editable}}disabled{{/unless}}
+        />
+      </div>
+      <div class="flexcol">
+        <label>{{localize 'MY_RPG.ItemSheet.Fields.Source'}}</label>
+        <input
+          type="text"
+          name="system.source"
+          value="{{system.source}}"
+          {{#unless editable}}disabled{{/unless}}
+        />
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="details">{{localize 'MY_RPG.ItemSheet.Tabs.Details'}}</a>
+    <a class="item" data-tab="description">{{localize 'MY_RPG.ItemSheet.Tabs.Description'}}</a>
+  </nav>
+
+  <section class="sheet-body">
+    <div class="tab" data-group="primary" data-tab="details">
+      <div class="form-group grid grid-2col">
+        <div class="form-field">
+          <label>{{localize 'MY_RPG.ArmorItem.BonusPhysicalLabel'}}</label>
+          <input type="number" name="system.itemPhys" value="{{system.itemPhys}}" {{#unless editable}}disabled{{/unless}} />
+        </div>
+        <div class="form-field">
+          <label>{{localize 'MY_RPG.ArmorItem.BonusMagicalLabel'}}</label>
+          <input type="number" name="system.itemAzure" value="{{system.itemAzure}}" {{#unless editable}}disabled{{/unless}} />
+        </div>
+        <div class="form-field">
+          <label>{{localize 'MY_RPG.ArmorItem.BonusPsychicLabel'}}</label>
+          <input type="number" name="system.itemMental" value="{{system.itemMental}}" {{#unless editable}}disabled{{/unless}} />
+        </div>
+        <div class="form-field">
+          <label>{{localize 'MY_RPG.ArmorItem.ShieldLabel'}}</label>
+          <input type="number" name="system.itemShield" value="{{system.itemShield}}" {{#unless editable}}disabled{{/unless}} />
+        </div>
+        <div class="form-field">
+          <label>{{localize 'MY_RPG.ArmorItem.BonusSpeedLabel'}}</label>
+          <input type="number" name="system.itemSpeed" value="{{system.itemSpeed}}" {{#unless editable}}disabled{{/unless}} />
+        </div>
+      </div>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="description">
+      <div class="form-group">
+        <label>{{localize 'MY_RPG.Inventory.Description'}}</label>
+        {{editor system.description target="system.description" button=true owner=owner editable=editable}}
+      </div>
+      <div class="form-group">
+        <label>{{localize 'MY_RPG.ItemSheet.Fields.Notes'}}</label>
+        <textarea
+          name="system.notes"
+          rows="4"
+          {{#unless editable}}disabled{{/unless}}
+        >{{system.notes}}</textarea>
+      </div>
+    </div>
+  </section>
+</form>

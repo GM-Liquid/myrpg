@@ -23,6 +23,12 @@
       "DialogTitle": "Select World Mode",
       "DialogContent": "Choose the rule set for this campaign."
     },
+    "Settings": {
+      "DebugMode": {
+        "Name": "Debug Mode",
+        "Hint": "Enable verbose MyRPG diagnostics in the browser console."
+      }
+    },
     "RankGradient": {
       "Title": "Rank Gradient",
       "Rank1": "Wood",
@@ -77,7 +83,22 @@
       "Skills": "Skills",
       "KeyInfo": "Key Information",
       "Biography": "Biography & Notes",
-      "Inventory": "Inventory"
+      "Inventory": "Inventory",
+      "ItemAbility": "Ability Sheet",
+      "ItemMod": "Modification Sheet",
+      "ItemArmor": "Armor Sheet",
+      "ItemWeapon": "Weapon Sheet",
+      "ItemGear": "Gear Sheet"
+    },
+    "ItemSheet": {
+      "Tabs": {
+        "Details": "Details",
+        "Description": "Description"
+      },
+      "Fields": {
+        "Source": "Source",
+        "Notes": "Notes"
+      }
     },
     "AbilityConfig": {
       "Title": "Edit Ability",
@@ -282,7 +303,12 @@
     },
     "Item": {
       "item": "Item",
-      "feature": "Feature"
+      "feature": "Feature",
+      "ability": "Ability",
+      "mod": "Modification",
+      "armor": "Armor",
+      "weapon": "Weapon",
+      "gear": "Gear"
     }
   }
 }
