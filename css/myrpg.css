@@ -160,6 +160,44 @@ textarea[disabled] {
   font-weight: 700;
 }
 
+/* Item sheets ---------------------------------------------------- */
+.myrpg.item-sheet .sheet-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.myrpg.item-sheet .sheet-title input {
+  width: 100%;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.myrpg.item-sheet .item-meta {
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.myrpg.item-sheet .item-meta .flexcol {
+  flex: 1;
+}
+
+.myrpg.item-sheet .form-group {
+  margin-bottom: 0.75rem;
+}
+
+.myrpg.item-sheet textarea,
+.myrpg.item-sheet input[type='text'],
+.myrpg.item-sheet input[type='number'],
+.myrpg.item-sheet select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.myrpg.item-sheet .sheet-body {
+  padding-top: 0.5rem;
+}
+
 .center-attributes {
   display: flex;
   flex-direction: column; /* Ставим вертикально */
