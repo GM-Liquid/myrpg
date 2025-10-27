@@ -617,6 +617,19 @@ export class myrpgActorSheet extends ActorSheet {
     }
   }
 
+  _escapeHTML(value) {
+    const text = value ?? '';
+    if (foundry?.utils?.escapeHTML) {
+      return foundry.utils.escapeHTML(text);
+    }
+    if (globalThis.TextEditor?.encodeHTML) {
+      return TextEditor.encodeHTML(text);
+    }
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   _getDefaultItemName(config) {
     if (config?.newNameKey) {
       return game.i18n.localize(config.newNameKey);
@@ -696,7 +709,7 @@ export class myrpgActorSheet extends ActorSheet {
     }
     const typeLabel = game.i18n.localize(`TYPES.Item.${item.type}`);
     const title = game.i18n.format('MY_RPG.ItemDialogs.DeleteTitle', { type: typeLabel });
-    const safeName = TextEditor.encodeHTML(item.name || typeLabel);
+    const safeName = this._escapeHTML(item.name || typeLabel);
     const content = `<p>${game.i18n.format('MY_RPG.ItemDialogs.DeleteContent', { name: safeName })}</p>`;
     const confirmed = await Dialog.confirm({ title, content });
     if (!confirmed) return;
@@ -733,7 +746,7 @@ export class myrpgActorSheet extends ActorSheet {
   _buildItemChatContent(item, config) {
     const system = item.system ?? {};
     const lines = [];
-    const name = TextEditor.encodeHTML(item.name || game.i18n.localize(`TYPES.Item.${item.type}`));
+    const name = this._escapeHTML(item.name || game.i18n.localize(`TYPES.Item.${item.type}`));
     lines.push(`<strong>${name}</strong>`);
     const meta = [];
     if (config.showQuantity) {
