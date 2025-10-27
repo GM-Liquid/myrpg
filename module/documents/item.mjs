@@ -1,0 +1,166 @@
+import { debugLog } from '../config.mjs';
+
+const BASE_DEFAULTS = {
+  description: '',
+  source: '',
+  quantity: 1,
+  equipped: false,
+  notes: ''
+};
+
+const TYPE_DEFAULTS = {
+  ability: {
+    rank: '',
+    effect: '',
+    cost: '',
+    runeType: 'Spell',
+    upgrade1: 'None',
+    upgrade2: 'None'
+  },
+  mod: {
+    rank: '',
+    effect: '',
+    cost: '',
+    upgrade1: 'None',
+    upgrade2: 'None'
+  },
+  armor: {
+    itemPhys: 0,
+    itemAzure: 0,
+    itemMental: 0,
+    itemShield: 0,
+    itemSpeed: 0
+  },
+  weapon: {
+    skill: '',
+    skillBonus: 0
+  },
+  gear: {
+    notes: ''
+  }
+};
+
+function cloneDefaults(data) {
+  return foundry.utils.deepClone(data);
+}
+
+export class MyRPGItem extends Item {
+  prepareBaseData() {
+    super.prepareBaseData();
+    this._applyTypeDefaults();
+  }
+
+  _applyTypeDefaults() {
+    const systemData = this.system ?? (this.system = {});
+    foundry.utils.mergeObject(systemData, cloneDefaults(BASE_DEFAULTS), {
+      insertKeys: true,
+      overwrite: false,
+      inplace: true
+    });
+
+    const typeDefaults = TYPE_DEFAULTS[this.type];
+    if (!typeDefaults) return;
+    foundry.utils.mergeObject(systemData, cloneDefaults(typeDefaults), {
+      insertKeys: true,
+      overwrite: false,
+      inplace: true
+    });
+  }
+
+  get isAbility() {
+    return this.type === 'ability';
+  }
+
+  get isMod() {
+    return this.type === 'mod';
+  }
+
+  get isArmor() {
+    return this.type === 'armor';
+  }
+
+  get isWeapon() {
+    return this.type === 'weapon';
+  }
+
+  get isGear() {
+    return this.type === 'gear';
+  }
+
+  get description() {
+    return String(this.system.description ?? '');
+  }
+
+  get source() {
+    return String(this.system.source ?? '');
+  }
+
+  get quantity() {
+    return Number(this.system.quantity ?? 1);
+  }
+
+  get isEquipped() {
+    return Boolean(this.system.equipped);
+  }
+
+  get abilityData() {
+    if (!this.isAbility) return undefined;
+    const { rank = '', effect = '', cost = '', runeType = 'Spell', upgrade1 = 'None', upgrade2 = 'None' } = this.system;
+    return {
+      rank: String(rank ?? ''),
+      effect: String(effect ?? ''),
+      cost: String(cost ?? ''),
+      runeType: String(runeType ?? 'Spell'),
+      upgrade1: String(upgrade1 ?? 'None'),
+      upgrade2: String(upgrade2 ?? 'None')
+    };
+  }
+
+  get modData() {
+    if (!this.isMod) return undefined;
+    const { rank = '', effect = '', cost = '', upgrade1 = 'None', upgrade2 = 'None' } = this.system;
+    return {
+      rank: String(rank ?? ''),
+      effect: String(effect ?? ''),
+      cost: String(cost ?? ''),
+      upgrade1: String(upgrade1 ?? 'None'),
+      upgrade2: String(upgrade2 ?? 'None')
+    };
+  }
+
+  get armorBonuses() {
+    if (!this.isArmor) return undefined;
+    const { itemPhys = 0, itemAzure = 0, itemMental = 0, itemShield = 0, itemSpeed = 0 } = this.system;
+    return {
+      physical: Number(itemPhys ?? 0) || 0,
+      azure: Number(itemAzure ?? 0) || 0,
+      mental: Number(itemMental ?? 0) || 0,
+      shield: Number(itemShield ?? 0) || 0,
+      speed: Number(itemSpeed ?? 0) || 0
+    };
+  }
+
+  get weaponProfile() {
+    if (!this.isWeapon) return undefined;
+    const { skill = '', skillBonus = 0 } = this.system;
+    return {
+      skill: String(skill ?? ''),
+      skillBonus: Number(skillBonus ?? 0) || 0
+    };
+  }
+
+  get gearNotes() {
+    if (!this.isGear) return undefined;
+    return String(this.system.notes ?? '');
+  }
+
+  logDebugState(context = 'MyRPGItem state') {
+    // DEBUG-LOG
+    debugLog(context, {
+      id: this.id,
+      name: this.name,
+      type: this.type,
+      system: foundry.utils.duplicate(this.system ?? {})
+    });
+  }
+}

@@ -1,0 +1,90 @@
+<form class="{{cssClass}} myrpg item-sheet ability-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <h1 class="sheet-title">
+      <input
+        name="name"
+        type="text"
+        value="{{item.name}}"
+        placeholder="{{localize 'MY_RPG.Inventory.Name'}}"
+        {{#unless editable}}disabled{{/unless}}
+      />
+    </h1>
+    <div class="item-meta flexrow">
+      <div class="flexcol">
+        <label>{{localize 'MY_RPG.AbilityConfig.Rank'}}</label>
+        <select name="system.rank" {{#unless editable}}disabled{{/unless}}>
+          {{#each rankOptions}}
+            <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="flexcol">
+        <label>{{localize 'MY_RPG.AbilityConfig.Cost'}}</label>
+        <input
+          type="number"
+          name="system.cost"
+          value="{{system.cost}}"
+          {{#unless editable}}disabled{{/unless}}
+        />
+      </div>
+      {{#if showRuneType}}
+        <div class="flexcol">
+          <label>{{localize 'MY_RPG.AbilityConfig.RuneType'}}</label>
+          <select name="system.runeType" {{#unless editable}}disabled{{/unless}}>
+            {{#each runeTypeOptions}}
+              <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      {{/if}}
+    </div>
+    <div class="form-group">
+      <label>{{localize 'MY_RPG.ItemSheet.Fields.Source'}}</label>
+      <input
+        type="text"
+        name="system.source"
+        value="{{system.source}}"
+        {{#unless editable}}disabled{{/unless}}
+      />
+    </div>
+  </header>
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="details">{{localize 'MY_RPG.ItemSheet.Tabs.Details'}}</a>
+    <a class="item" data-tab="description">{{localize 'MY_RPG.ItemSheet.Tabs.Description'}}</a>
+  </nav>
+
+  <section class="sheet-body">
+    <div class="tab" data-group="primary" data-tab="details">
+      <div class="form-group">
+        <label>{{localize 'MY_RPG.AbilityConfig.Effect'}}</label>
+        {{editor system.effect target="system.effect" button=true owner=owner editable=editable}}
+      </div>
+      <div class="form-group flexrow">
+        <div class="flexcol">
+          <label>{{localize 'MY_RPG.AbilityConfig.Upgrade1'}}</label>
+          <select name="system.upgrade1" {{#unless editable}}disabled{{/unless}}>
+            {{#each upgradeOptions}}
+              <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="flexcol">
+          <label>{{localize 'MY_RPG.AbilityConfig.Upgrade2'}}</label>
+          <select name="system.upgrade2" {{#unless editable}}disabled{{/unless}}>
+            {{#each upgradeOptionsSecondary}}
+              <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="description">
+      <div class="form-group">
+        <label>{{localize 'MY_RPG.Inventory.Description'}}</label>
+        {{editor system.description target="system.description" button=true owner=owner editable=editable}}
+      </div>
+    </div>
+  </section>
+</form>

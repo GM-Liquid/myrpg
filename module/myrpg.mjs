@@ -1,10 +1,18 @@
 // Import document classes.
 import { myrpgActor } from './documents/actor.mjs';
+import { MyRPGItem } from './documents/item.mjs';
 // Import sheet classes.
 import { myrpgActorSheet } from './sheets/actor-sheet.mjs';
+import {
+  MyRPGAbilitySheet,
+  MyRPGArmorSheet,
+  MyRPGGearSheet,
+  MyRPGModSheet,
+  MyRPGWeaponSheet
+} from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
-import { MY_RPG } from './helpers/config.mjs';
+import { MY_RPG, debugLog, registerSystemSettings } from './config.mjs';
 import './helpers/handlebars-helpers.mjs';
 
 /* -------------------------------------------- */
@@ -15,34 +23,19 @@ Hooks.once('init', function () {
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.myrpg = {
-    myrpgActor
+    myrpgActor,
+    MyRPGItem,
+    debugLog
   };
 
   // Add custom constants for configuration.
   CONFIG.MY_RPG = MY_RPG;
 
-  game.settings.register('myrpg', 'worldType', {
-    name: 'MY_RPG.WorldMode.SettingName',
-    hint: 'MY_RPG.WorldMode.SettingHint',
-    scope: 'world',
-    config: true,
-    type: String,
-    choices: {
-      unity: game.i18n.localize('MY_RPG.WorldMode.Unity'),
-      stellar: game.i18n.localize('MY_RPG.WorldMode.Stellar')
-    },
-    default: 'unity'
-  });
-
-  game.settings.register('myrpg', 'worldTypeChosen', {
-    scope: 'world',
-    config: false,
-    type: Boolean,
-    default: false
-  });
+  registerSystemSettings();
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = myrpgActor;
+  CONFIG.Item.documentClass = MyRPGItem;
 
   // systems/myrpg/myrpg.mjs  — в хуке init
   CONFIG.Combat.initiative = {
@@ -57,12 +50,45 @@ Hooks.once('init', function () {
     makeDefault: true,
     label: 'MY_RPG.SheetLabels.Actor'
   });
+  Items.unregisterSheet('core', ItemSheet);
+  Items.registerSheet('myrpg', MyRPGAbilitySheet, {
+    types: ['ability'],
+    makeDefault: true,
+    label: 'MY_RPG.SheetLabels.ItemAbility'
+  });
+  Items.registerSheet('myrpg', MyRPGModSheet, {
+    types: ['mod'],
+    makeDefault: true,
+    label: 'MY_RPG.SheetLabels.ItemMod'
+  });
+  Items.registerSheet('myrpg', MyRPGArmorSheet, {
+    types: ['armor'],
+    makeDefault: true,
+    label: 'MY_RPG.SheetLabels.ItemArmor'
+  });
+  Items.registerSheet('myrpg', MyRPGWeaponSheet, {
+    types: ['weapon'],
+    makeDefault: true,
+    label: 'MY_RPG.SheetLabels.ItemWeapon'
+  });
+  Items.registerSheet('myrpg', MyRPGGearSheet, {
+    types: ['gear'],
+    makeDefault: true,
+    label: 'MY_RPG.SheetLabels.ItemGear'
+  });
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
 
 Hooks.once('ready', function () {
+  // DEBUG-LOG
+  debugLog('MyRPG system ready', {
+    version: game.system.version,
+    userId: game.user?.id,
+    isGM: game.user?.isGM ?? false
+  });
+
   if (!game.user.isGM) return;
   if (game.settings.get('myrpg', 'worldTypeChosen')) return;
 

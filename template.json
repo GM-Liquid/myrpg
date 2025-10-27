@@ -185,5 +185,48 @@
       },
       "attributes": {}
     }
+  },
+  "Item": {
+    "types": ["ability", "mod", "armor", "weapon", "gear"],
+    "templates": {
+      "base": {
+        "description": "",
+        "source": "",
+        "quantity": 1,
+        "equipped": false,
+        "notes": ""
+      },
+      "rune": {
+        "rank": "",
+        "effect": "",
+        "cost": "",
+        "upgrade1": "None",
+        "upgrade2": "None"
+      }
+    },
+    "ability": {
+      "templates": ["base", "rune"],
+      "runeType": "Spell"
+    },
+    "mod": {
+      "templates": ["base", "rune"]
+    },
+    "armor": {
+      "templates": ["base"],
+      "itemPhys": 0,
+      "itemAzure": 0,
+      "itemMental": 0,
+      "itemShield": 0,
+      "itemSpeed": 0
+    },
+    "weapon": {
+      "templates": ["base"],
+      "skill": "",
+      "skillBonus": 0
+    },
+    "gear": {
+      "templates": ["base"],
+      "notes": ""
+    }
   }
 }
