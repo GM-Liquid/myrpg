@@ -43,56 +43,6 @@
       "Rank4": "Ранг 4",
       "Rank5": "Ранг 5"
     },
-    "Item": {
-      "General": {
-        "Quantity": "Количество",
-        "Equipped": "Экипировано",
-        "Description": "Описание",
-        "Notes": "Заметки",
-        "Slot": "Слот",
-        "NamePlaceholder": "Название предмета"
-      },
-      "Bonuses": {
-        "Section": "Бонусы",
-        "Physical": "Защита (физ.)",
-        "Arcane": "Защита (азур.)",
-        "Mental": "Защита (ментал.)",
-        "Shield": "Силовой щит",
-        "Speed": "Бонус к скорости",
-        "Attack": "Бонус к атаке"
-      },
-      "Ability": {
-        "Rank": "Ранг",
-        "Cost": "Стоимость",
-        "Effect": "Эффект"
-      },
-      "Mod": {
-        "Effect": "Эффект",
-        "Slot": "Слот"
-      },
-      "Armor": {
-        "Category": "Категория брони",
-        "Coverage": "Покрытие"
-      },
-      "Weapon": {
-        "Skill": "Связанный навык",
-        "Damage": "Урон",
-        "Range": "Дистанция",
-        "Properties": "Свойства"
-      },
-      "Gear": {
-        "Uses": "Применения",
-        "Weight": "Вес",
-        "Rarity": "Редкость"
-      },
-      "SheetTitle": {
-        "ability": "Способность",
-        "mod": "Модификация",
-        "armor": "Броня",
-        "weapon": "Оружие",
-        "gear": "Снаряжение"
-      }
-    },
     "ArmorItem": {
       "ArmorSectionTitle": "Доспех",
       "DescriptionLabel": "Описание",
@@ -152,8 +102,7 @@
       "Skills": "Навыки",
       "KeyInfo": "Ключевая информация",
       "Biography": "Биография и заметки",
-      "Inventory": "Инвентарь",
-      "Item": "Предмет"
+      "Inventory": "Инвентарь"
     },
     "Inventory": {
       "TableHeading": "Инвентарь",

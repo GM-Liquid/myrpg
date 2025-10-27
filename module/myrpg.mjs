@@ -1,9 +1,7 @@
 // Import document classes.
 import { myrpgActor } from './documents/actor.mjs';
-import { myrpgItem } from './documents/item.mjs';
 // Import sheet classes.
 import { myrpgActorSheet } from './sheets/actor-sheet.mjs';
-import { myrpgItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { MY_RPG } from './helpers/config.mjs';
@@ -17,8 +15,7 @@ Hooks.once('init', function () {
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.myrpg = {
-    myrpgActor,
-    myrpgItem
+    myrpgActor
   };
 
   // Add custom constants for configuration.
@@ -46,7 +43,6 @@ Hooks.once('init', function () {
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = myrpgActor;
-  CONFIG.Item.documentClass = myrpgItem;
 
   // systems/myrpg/myrpg.mjs  — в хуке init
   CONFIG.Combat.initiative = {
@@ -61,13 +57,6 @@ Hooks.once('init', function () {
     makeDefault: true,
     label: 'MY_RPG.SheetLabels.Actor'
   });
-  Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('myrpg', myrpgItemSheet, {
-    makeDefault: true,
-    label: 'MY_RPG.SheetLabels.Item',
-    types: ['ability', 'mod', 'armor', 'weapon', 'gear']
-  });
-  console.debug('[MyRPG] Item sheets ready');
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

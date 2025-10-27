@@ -195,7 +195,7 @@ textarea[disabled] {
   padding-right: 0;
 }
 
-.col-33 { 
+.col-33 {
   flex: 0 0 33.33%;
   padding-right: 10px;
 }
@@ -886,56 +886,4 @@ input.rank5 {
 .rune-size .divider {
   font-weight: bold;
   margin: 0 0.2em;
-}
-
-.myrpg-item-sheet {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.myrpg-item-header .item-meta-grid {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.myrpg-item-body {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.myrpg-item-body .item-section {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.myrpg-item-body .item-section .form-group,
-.myrpg-item-body .item-section > label {
-  flex: 1 1 200px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.myrpg-item-body textarea,
-.myrpg-item-body input[type='text'],
-.myrpg-item-body input[type='number'] {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.myrpg-item-bonuses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-}
-
-.myrpg-item-bonuses-grid label {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
 }
