@@ -185,5 +185,53 @@
       },
       "attributes": {}
     }
+  },
+  "Item": {
+    "types": ["ability", "mod", "armor", "weapon", "gear"],
+    "templates": {
+      "base": {
+        "description": "",
+        "notes": "",
+        "equipped": false,
+        "quantity": 1,
+        "bonuses": {
+          "physical": 0,
+          "arcane": 0,
+          "mental": 0,
+          "shield": 0,
+          "speed": 0,
+          "attack": 0
+        }
+      }
+    },
+    "ability": {
+      "templates": ["base"],
+      "rank": "",
+      "cost": "",
+      "effect": ""
+    },
+    "mod": {
+      "templates": ["base"],
+      "slot": "",
+      "effect": ""
+    },
+    "armor": {
+      "templates": ["base"],
+      "category": "",
+      "coverage": ""
+    },
+    "weapon": {
+      "templates": ["base"],
+      "skill": "",
+      "damage": "",
+      "range": "",
+      "properties": ""
+    },
+    "gear": {
+      "templates": ["base"],
+      "uses": "",
+      "weight": "",
+      "rarity": ""
+    }
   }
 }

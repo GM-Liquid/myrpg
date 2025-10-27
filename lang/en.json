@@ -77,7 +77,8 @@
       "Skills": "Skills",
       "KeyInfo": "Key Information",
       "Biography": "Biography & Notes",
-      "Inventory": "Inventory"
+      "Inventory": "Inventory",
+      "Item": "Item"
     },
     "AbilityConfig": {
       "Title": "Edit Ability",
@@ -122,6 +123,56 @@
       "Severe": "Severe Wound",
       "SevereAbbrev": "S",
       "SevereAria": "Toggle severe wound"
+    },
+    "Item": {
+      "General": {
+        "Quantity": "Quantity",
+        "Equipped": "Equipped",
+        "Description": "Description",
+        "Notes": "Notes",
+        "Slot": "Slot",
+        "NamePlaceholder": "Item Name"
+      },
+      "Bonuses": {
+        "Section": "Bonuses",
+        "Physical": "Physical Protection",
+        "Arcane": "Arcane Protection",
+        "Mental": "Mental Protection",
+        "Shield": "Force Shield",
+        "Speed": "Speed Bonus",
+        "Attack": "Attack Bonus"
+      },
+      "Ability": {
+        "Rank": "Rank",
+        "Cost": "Cost",
+        "Effect": "Effect"
+      },
+      "Mod": {
+        "Effect": "Effect",
+        "Slot": "Slot"
+      },
+      "Armor": {
+        "Category": "Armor Category",
+        "Coverage": "Coverage"
+      },
+      "Weapon": {
+        "Skill": "Associated Skill",
+        "Damage": "Damage",
+        "Range": "Range",
+        "Properties": "Properties"
+      },
+      "Gear": {
+        "Uses": "Uses",
+        "Weight": "Weight",
+        "Rarity": "Rarity"
+      },
+      "SheetTitle": {
+        "ability": "Ability",
+        "mod": "Modification",
+        "armor": "Armor",
+        "weapon": "Weapon",
+        "gear": "Gear"
+      }
     },
     "ArmorItem": {
       "BonusPhysicalLabel": "Bonus to Physical Protection",
