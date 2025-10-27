@@ -440,7 +440,7 @@
                             {{/each}}
                           </ul>
                         {{/if}}
-                        <div class='item-row__actions'>
+                        <div class='item-row__actions' data-item-id='{{item.id}}' data-group-key='{{item.groupKey}}'>
                           {{#if item.showQuantity}}
                             <div class='item-quantity-control' aria-label='{{../../itemControls.quantity}}'>
                               <button
@@ -474,15 +474,33 @@
                               />
                             </label>
                           {{/if}}
-                          <button type='button' class='item-chat item-control' title='{{../../itemControls.chat}}'>
+                          <button
+                            type='button'
+                            class='item-chat item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.chat}}'
+                          >
                             <i class='fa-solid fa-comment-dots'></i>
                             <span class='sr-only'>{{../../itemControls.chat}}</span>
                           </button>
-                          <button type='button' class='item-edit item-control' title='{{../../itemControls.edit}}'>
+                          <button
+                            type='button'
+                            class='item-edit item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.edit}}'
+                          >
                             <i class='fa-solid fa-pen'></i>
                             <span class='sr-only'>{{../../itemControls.edit}}</span>
                           </button>
-                          <button type='button' class='item-delete item-control' title='{{../../itemControls.delete}}'>
+                          <button
+                            type='button'
+                            class='item-delete item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.delete}}'
+                          >
                             <i class='fa-solid fa-trash'></i>
                             <span class='sr-only'>{{../../itemControls.delete}}</span>
                           </button>
@@ -543,7 +561,7 @@
                             {{/each}}
                           </ul>
                         {{/if}}
-                        <div class='item-row__actions'>
+                        <div class='item-row__actions' data-item-id='{{item.id}}' data-group-key='{{item.groupKey}}'>
                           {{#if item.showQuantity}}
                             <div class='item-quantity-control' aria-label='{{../../itemControls.quantity}}'>
                               <button
@@ -577,15 +595,33 @@
                               />
                             </label>
                           {{/if}}
-                          <button type='button' class='item-chat item-control' title='{{../../itemControls.chat}}'>
+                          <button
+                            type='button'
+                            class='item-chat item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.chat}}'
+                          >
                             <i class='fa-solid fa-comment-dots'></i>
                             <span class='sr-only'>{{../../itemControls.chat}}</span>
                           </button>
-                          <button type='button' class='item-edit item-control' title='{{../../itemControls.edit}}'>
+                          <button
+                            type='button'
+                            class='item-edit item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.edit}}'
+                          >
                             <i class='fa-solid fa-pen'></i>
                             <span class='sr-only'>{{../../itemControls.edit}}</span>
                           </button>
-                          <button type='button' class='item-delete item-control' title='{{../../itemControls.delete}}'>
+                          <button
+                            type='button'
+                            class='item-delete item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.delete}}'
+                          >
                             <i class='fa-solid fa-trash'></i>
                             <span class='sr-only'>{{../../itemControls.delete}}</span>
                           </button>

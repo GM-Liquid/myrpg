@@ -631,14 +631,24 @@ export class myrpgActorSheet extends ActorSheet {
   }
 
   _getItemContextFromEvent(event) {
-    const $target = $(event.currentTarget);
-    const $row = $target.closest('[data-item-id]');
-    if (!$row.length) return {};
-    const itemId = $row.data('itemId');
-    const groupKey = $row.data('groupKey');
+    const targetEl = event?.currentTarget;
+    const $target = $(targetEl);
+    const rowEl = targetEl?.closest ? targetEl.closest('[data-item-id]') : null;
+    const $row = rowEl ? $(rowEl) : $target.closest('[data-item-id]');
+    if (!$row?.length) return {};
+    const itemId =
+      $target.data('itemId') ??
+      $row.data('itemId') ??
+      rowEl?.dataset?.itemId ??
+      undefined;
+    const groupKey =
+      $target.data('groupKey') ??
+      $row.data('groupKey') ??
+      rowEl?.dataset?.groupKey ??
+      undefined;
     const item = this.actor.items.get(itemId);
     const config = this._getGroupConfig(groupKey);
-    return { item, $row, groupKey, config };
+    return { item, $row, groupKey, config, itemId };
   }
 
   async _onItemCreate(event) {
@@ -659,8 +669,15 @@ export class myrpgActorSheet extends ActorSheet {
 
   async _onItemEdit(event) {
     event.preventDefault();
-    const { item } = this._getItemContextFromEvent(event);
-    if (!item) return;
+    const { item, itemId } = this._getItemContextFromEvent(event);
+    if (!item) {
+      // DEBUG-LOG
+      debugLog('Actor sheet item edit failed - missing item', {
+        actor: this.actor.uuid,
+        itemId: itemId ?? null
+      });
+      return;
+    }
     // DEBUG-LOG
     debugLog('Actor sheet item edit', { actor: this.actor.uuid, itemId: item.id });
     item.sheet?.render(true);
@@ -668,8 +685,15 @@ export class myrpgActorSheet extends ActorSheet {
 
   async _onItemDelete(event) {
     event.preventDefault();
-    const { item } = this._getItemContextFromEvent(event);
-    if (!item) return;
+    const { item, itemId } = this._getItemContextFromEvent(event);
+    if (!item) {
+      // DEBUG-LOG
+      debugLog('Actor sheet item delete failed - missing item', {
+        actor: this.actor.uuid,
+        itemId: itemId ?? null
+      });
+      return;
+    }
     const typeLabel = game.i18n.localize(`TYPES.Item.${item.type}`);
     const title = game.i18n.format('MY_RPG.ItemDialogs.DeleteTitle', { type: typeLabel });
     const safeName = TextEditor.encodeHTML(item.name || typeLabel);
@@ -683,16 +707,27 @@ export class myrpgActorSheet extends ActorSheet {
 
   async _onItemChat(event) {
     event.preventDefault();
-    const { item, config } = this._getItemContextFromEvent(event);
-    if (!item || !config) return;
+    const { item, config, itemId } = this._getItemContextFromEvent(event);
+    if (!item || !config) {
+      // DEBUG-LOG
+      debugLog('Actor sheet item chat failed - missing context', {
+        actor: this.actor.uuid,
+        itemId: itemId ?? null,
+        hasConfig: Boolean(config)
+      });
+      return;
+    }
     const content = this._buildItemChatContent(item, config);
     if (!content) return;
     // DEBUG-LOG
     debugLog('Actor sheet item chat', { actor: this.actor.uuid, itemId: item.id, type: item.type });
-    await ChatMessage.create({
-      content,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor })
-    });
+    await ChatMessage.create(
+      {
+        content,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor })
+      },
+      {}
+    );
   }
 
   _buildItemChatContent(item, config) {
