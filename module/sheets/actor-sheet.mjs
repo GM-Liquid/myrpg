@@ -1610,13 +1610,10 @@ export class myrpgActorSheet extends ActorSheet {
 
   _getEquippedWeaponBonus(skillKey) {
     if (!skillKey) return 0;
-    const list = this.actor.system.weaponList;
-    const items = Array.isArray(list) ? list : Object.values(list || {});
-    return items.reduce((total, weapon) => {
-      if (!weapon || !weapon.equipped) return total;
-      if ((weapon.skill || '') !== skillKey) return total;
-      return total + this._normalizeWeaponBonus(weapon.skillBonus);
-    }, 0);
+    const bonuses =
+      this.actor.system?.cache?.itemTotals?.weapons?.skillBonuses ?? {};
+    const total = bonuses?.[skillKey];
+    return this._normalizeWeaponBonus(total);
   }
 
   _weaponSkillLabel(skillKey) {

@@ -1,9 +1,9 @@
-﻿/**
+import { debugLog } from '../config.mjs';
+
+/**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
  */
-
-
 export class myrpgActor extends Actor {
   prepareDerivedData() {
     super.prepareDerivedData();
@@ -11,26 +11,30 @@ export class myrpgActor extends Actor {
   }
 
   _prepareCharacterData() {
-    const s = this.system;
+    const s = this.system ?? (this.system = {});
+    const cache = (s.cache ??= {});
+    cache.itemTotals = this._computeItemTotals();
+    const itemTotals = cache.itemTotals;
     const isCharacter = this.type === 'character';
     const isNpc = this.type === 'npc';
 
     /* 1. Способности ---------------------------------------------- */
-    for (const a of Object.values(s.abilities)) {
+    for (const a of Object.values(s.abilities ?? {})) {
       a.mod = a.value; // «бонус» = само значение
     }
 
     /* 2. Навыки ---------------------------------------------------- */
-    for (const sk of Object.values(s.skills)) {
+    for (const sk of Object.values(s.skills ?? {})) {
       sk.mod = sk.value;
     }
 
     /* 3. Производные параметры ------------------------------------ */
-    s.speed.value = this._calcSpeed(s);
+    s.speed ??= {};
+    s.speed.value = this._calcSpeed(s, itemTotals);
 
     const stress = s.stress ?? (s.stress = {});
     const calcStressMax = isNpc ? this._calcNpcStressMax : this._calcStressMax;
-    stress.max = calcStressMax.call(this, s);
+    stress.max = calcStressMax.call(this, s, itemTotals);
     const currentStress = Number(stress.value) || 0;
     stress.value = Math.clamp
       ? Math.clamp(currentStress, 0, stress.max)
@@ -44,35 +48,35 @@ export class myrpgActor extends Actor {
       delete s.wounds;
     }
 
+    s.flux ??= {};
     s.flux.value = this._calcFlux(s);
     s.defenses = {
-      physical: this._calcDefPhys(s),
-      azure: this._calcDefAzure(s),
-      mental: this._calcDefMent(s)
+      physical: this._calcDefPhys(s, itemTotals),
+      azure: this._calcDefAzure(s, itemTotals),
+      mental: this._calcDefMent(s, itemTotals)
     };
+
+    // DEBUG-LOG
+    debugLog('prepareDerivedData', {
+      uuid: this.uuid,
+      totals: foundry.utils.duplicate(itemTotals)
+    });
   }
 
   /* ------------------------ Формулы ------------------------------ */
-  _sumArmor(list, prop) {
-    if (!Array.isArray(list)) list = Object.values(list || {});
-    return list.reduce(
-      (t, a) =>
-        t + (a.equipped ? (Number(a[prop]) || 0) * (Number(a.quantity) || 1) : 0),
-      0
-    );
-  }
-
-  _calcStressMax(s) {
+  _calcStressMax(s, itemTotals = {}) {
     const rank = Math.max(Number(s.currentRank) || 0, 0);
     const tempHealth = Math.max(Number(s.temphealth) || 0, 0);
-    const forceShield = Math.max(this._sumArmor(s.armorList, 'itemShield'), 0);
+    const shield = Number(itemTotals?.armor?.shield) || 0;
+    const forceShield = Math.max(shield, 0);
     return Math.max(0, rank + 4 + tempHealth + forceShield);
   }
 
-  _calcNpcStressMax(s) {
+  _calcNpcStressMax(s, itemTotals = {}) {
     const rank = Math.max(Number(s.currentRank) || 0, 0);
     const tempHealth = Math.max(Number(s.temphealth) || 0, 0);
-    const forceShield = Math.max(this._sumArmor(s.armorList, 'itemShield'), 0);
+    const shield = Number(itemTotals?.armor?.shield) || 0;
+    const forceShield = Math.max(shield, 0);
     return Math.max(0, 6 + rank + tempHealth + forceShield);
   }
 
@@ -87,37 +91,83 @@ export class myrpgActor extends Actor {
     return attrVal + 1;
   }
 
-  _calcSpeed(s) {
+  _calcSpeed(s, itemTotals = {}) {
+    const armorSpeed = Number(itemTotals?.armor?.speed) || 0;
     return (
       5 +
-      (s.abilities.con?.value ?? 0) +
-      this._sumArmor(s.armorList, 'itemSpeed') +
+      (s.abilities?.con?.value ?? 0) +
+      armorSpeed +
       (Number(s.tempspeed) || 0)
     );
   }
 
-  _calcDefPhys(s) {
+  _calcDefPhys(s, itemTotals = {}) {
+    const phys = Number(itemTotals?.armor?.physical) || 0;
     return (
       2 +
-      (s.abilities.con?.value ?? 0) +
-      this._sumArmor(s.armorList, 'itemPhys') +
+      (s.abilities?.con?.value ?? 0) +
+      phys +
       (Number(s.tempphys) || 0)
     );
   }
-  _calcDefAzure(s) {
+  _calcDefAzure(s, itemTotals = {}) {
+    const azure = Number(itemTotals?.armor?.azure) || 0;
     return (
       2 +
-      (s.abilities.spi?.value ?? 0) +
-      this._sumArmor(s.armorList, 'itemAzure') +
+      (s.abilities?.spi?.value ?? 0) +
+      azure +
       (Number(s.tempazure) || 0)
     );
   }
-  _calcDefMent(s) {
+  _calcDefMent(s, itemTotals = {}) {
+    const mental = Number(itemTotals?.armor?.mental) || 0;
     return (
       2 +
-      (s.abilities.int?.value ?? 0) +
-      this._sumArmor(s.armorList, 'itemMental') +
+      (s.abilities?.int?.value ?? 0) +
+      mental +
       (Number(s.tempmental) || 0)
     );
+  }
+
+  _computeItemTotals() {
+    const totals = {
+      armor: {
+        physical: 0,
+        azure: 0,
+        mental: 0,
+        shield: 0,
+        speed: 0
+      },
+      weapons: {
+        skillBonuses: {}
+      }
+    };
+
+    const armorItems = this.itemTypes?.armor ?? [];
+    for (const armor of armorItems) {
+      const system = armor.system ?? {};
+      if (!system.equipped) continue;
+      const quantity = Math.max(Number(system.quantity) || 1, 0);
+      totals.armor.physical += (Number(system.itemPhys) || 0) * quantity;
+      totals.armor.azure += (Number(system.itemAzure) || 0) * quantity;
+      totals.armor.mental += (Number(system.itemMental) || 0) * quantity;
+      totals.armor.shield += (Number(system.itemShield) || 0) * quantity;
+      totals.armor.speed += (Number(system.itemSpeed) || 0) * quantity;
+    }
+
+    const weaponItems = this.itemTypes?.weapon ?? [];
+    for (const weapon of weaponItems) {
+      const system = weapon.system ?? {};
+      if (!system.equipped) continue;
+      const skill = String(system.skill || '');
+      if (!skill) continue;
+      const quantity = Math.max(Number(system.quantity) || 1, 0);
+      const bonus = (Number(system.skillBonus) || 0) * quantity;
+      if (!bonus) continue;
+      const current = totals.weapons.skillBonuses[skill] || 0;
+      totals.weapons.skillBonuses[skill] = current + bonus;
+    }
+
+    return totals;
   }
 }
