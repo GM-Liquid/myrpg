@@ -222,17 +222,14 @@
     "Skill": {
       "Liderstvo": "Leadership",
       "Obman": "Deception",
-
       "Akrobatika": "Acrobatics",
       "Skrytost": "Stealth",
       "Strelba": "Shooting",
       "Upravlenie_transportom": "Vehicle Handling",
       "Lovkost_ruk": "Sleight of Hand",
       "Blizhniy_boy": "Melee",
-
       "Atletika": "Athletics",
       "Zapugivanie": "Intimidation",
-
       "Analiz": "Analysis",
       "Tekhnika": "Technology",
       "Priroda": "Nature",
@@ -243,7 +240,6 @@
       "Znanie_azura": "Azure Studies",
       "Manipulatsiya": "Manipulation",
       "Diplomatiya": "Diplomacy",
-
       "Artefaktorika": "Artificing",
       "Biomantia": "Biomancy",
       "Stitiyannost": "Elementalism",
@@ -294,6 +290,44 @@
       "Upgrade2": "Upgrade 2",
       "AddRow": "Add Row",
       "Rank": "Rank"
+    },
+    "ItemGroups": {
+      "Abilities": "Abilities",
+      "EmptyAbilities": "No abilities yet.",
+      "CreateAbility": "Add ability",
+      "NewAbility": "New Ability",
+      "Mods": "Mods",
+      "EmptyMods": "No mods yet.",
+      "CreateMod": "Add mod",
+      "NewMod": "New Mod",
+      "Weapons": "Weapons & Tools",
+      "EmptyWeapons": "No weapons yet.",
+      "CreateWeapon": "Add weapon or tool",
+      "NewWeapon": "New Weapon",
+      "Armor": "Armor",
+      "EmptyArmor": "No armor yet.",
+      "CreateArmor": "Add armor",
+      "NewArmor": "New Armor",
+      "Gear": "Gear",
+      "EmptyGear": "No gear yet.",
+      "CreateGear": "Add gear",
+      "NewGear": "New Gear",
+      "Unnamed": "Unnamed item"
+    },
+    "ItemControls": {
+      "Edit": "Edit",
+      "Delete": "Delete",
+      "Chat": "Send to chat",
+      "Equip": "Equipped",
+      "EquipAria": "Toggle equipped state",
+      "Quantity": "Quantity",
+      "QuantityIncrease": "Increase quantity",
+      "QuantityDecrease": "Decrease quantity",
+      "NewItemFallback": "New {type}"
+    },
+    "ItemDialogs": {
+      "DeleteTitle": "Delete {type}",
+      "DeleteContent": "Are you sure you want to delete {name}? This action cannot be undone."
     }
   },
   "TYPES": {

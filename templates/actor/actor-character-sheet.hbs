@@ -393,318 +393,254 @@
         {{#ifUnity}}
         <div class='rune-size'>
           <label>{{localize 'MY_RPG.RunesTable.SizeLabel'}}</label>
-          <input type='number' value='{{system.abilitiesList.length}}' disabled />
+          <input type='number' value='{{abilityCount}}' disabled />
           <span class='divider'>/</span>
           <input type='number' value='{{runeMax}}' disabled />
         </div>
         {{/ifUnity}}
-        <section class='abilities-section'>
-          <table class='abilities-table{{#ifUnity}} abilities-table--unity{{/ifUnity}}'>
-            <thead>
-              <tr>
-                <th class='col-name primary-header'>{{localize (worldChoice 'MY_RPG.RunesTable.PrimaryHeader' 'MY_RPG.AbilitiesTable.PrimaryHeader')}}</th>
-                <th class='col-rank'>{{localize 'MY_RPG.AbilitiesTable.Rank'}}</th>
-                {{#ifUnity}}
-                <th class='col-type'>{{localize 'MY_RPG.RunesTable.RuneType'}}</th>
-                {{/ifUnity}}
-                <th class='col-upg1'>{{localize 'MY_RPG.AbilitiesTable.Upgrade1'}}</th>
-                <th class='col-upg2'>{{localize 'MY_RPG.AbilitiesTable.Upgrade2'}}</th>
-                <th class='col-delete'>
-                  <a class='abilities-add-row' title='{{localize "MY_RPG.AbilitiesTable.AddRow"}}'>
-                    <i class='fa-solid fa-plus'></i>
-                  </a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each system.abilitiesList as |row i|}}
-                <tr class='ability-row' data-index='{{i}}'>
-                  <td class='col-name'>{{{row.name}}}</td>
-                  <td class='col-rank'>{{rankLabel row.rank}}</td>
-                  {{#ifUnity}}
-                  <td class='col-type'>{{localize (concat 'MY_RPG.RuneTypes.' row.runeType)}}</td>
-                  {{/ifUnity}}
-                  <td class='col-upg1'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade1)}}</td>
-                  <td class='col-upg2'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade2)}}</td>
-                  <td class='col-delete'>
-                    <a
-                      class='abilities-chat-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.SendToChat"}}'
+        <section class='item-groups' data-groups='abilities'>
+          {{#each (lookup itemGroups 'abilities') as |group|}}
+            <section class='item-group' data-item-group='{{group.key}}'>
+              <header class='item-group__header'>
+                <h3>
+                  {{#if group.icon}}<i class='{{group.icon}}'></i>{{/if}}
+                  <span class='item-group__title'>{{group.label}}</span>
+                  {{#if group.capacity}}
+                    <span class='item-group__capacity'>{{group.capacity.value}} / {{group.capacity.max}}</span>
+                  {{/if}}
+                </h3>
+                <button
+                  type='button'
+                  class='item-create item-control'
+                  data-type='{{group.type}}'
+                  data-group-key='{{group.key}}'
+                  title='{{group.createLabel}}'
+                >
+                  <i class='fa-solid fa-plus'></i>
+                  <span class='sr-only'>{{group.createLabel}}</span>
+                </button>
+              </header>
+              {{#if group.items.length}}
+                <ol class='item-list'>
+                  {{#each group.items as |item|}}
+                    <li
+                      class='item-row {{#if item.equipped}}item-row--equipped{{/if}}'
+                      data-item-id='{{item.id}}'
+                      data-group-key='{{item.groupKey}}'
                     >
-                      <i class='fa-solid fa-comment-dots'></i>
-                    </a>
-                    <a
-                      class='abilities-edit-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.AbilityConfig.Title"}}'
-                    >
-                      <i class='fa-solid fa-pen'></i>
-                    </a>
-                    <a
-                      class='abilities-remove-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.Dialog.ConfirmDeleteTitle"}}'
-                    >
-                      <i class='fa-solid fa-trash'></i>
-                    </a>
-                  </td>
-                </tr>
-                <tr class='ability-effect-row'>
-                  <td class='col-effect' colspan='{{#ifUnity}}6{{else}}5{{/ifUnity}}'>
-                    <div class='effect-wrapper'>{{{row.effect}}}</div>
-                  </td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </section>
-        <section class='mods-section'>
-          <table class='abilities-table mods-table'>
-            <thead>
-              <tr>
-                <th class='col-name primary-header'>{{localize 'MY_RPG.ModsTable.PrimaryHeader'}}</th>
-                <th class='col-rank'>{{localize 'MY_RPG.ModsTable.Rank'}}</th>
-                <th class='col-upg1'>{{localize 'MY_RPG.ModsTable.Upgrade1'}}</th>
-                <th class='col-upg2'>{{localize 'MY_RPG.ModsTable.Upgrade2'}}</th>
-                <th class='col-delete'>
-                  <a class='mods-add-row' title='{{localize "MY_RPG.ModsTable.AddRow"}}'>
-                    <i class='fa-solid fa-plus'></i>
-                  </a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each system.modsList as |row i|}}
-                <tr class='mod-row' data-index='{{i}}'>
-                  <td class='col-name'>{{{row.name}}}</td>
-                  <td class='col-rank'>{{rankLabel row.rank}}</td>
-                <td class='col-upg1'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade1)}}</td>
-                <td class='col-upg2'>{{localize (concat 'MY_RPG.AbilityUpgrades.' row.upgrade2)}}</td>
-                <td class='col-delete'>
-                    <a
-                      class='mods-chat-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.SendToChat"}}'
-                    >
-                      <i class='fa-solid fa-comment-dots'></i>
-                    </a>
-                    <a
-                      class='mods-edit-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.AbilityConfig.Title"}}'
-                    >
-                      <i class='fa-solid fa-pen'></i>
-                    </a>
-                    <a
-                      class='mods-remove-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.Dialog.ConfirmDeleteTitle"}}'
-                    >
-                      <i class='fa-solid fa-trash'></i>
-                    </a>
-                  </td>
-                </tr>
-                <tr class='mod-effect-row'>
-                  <td class='col-effect' colspan='5'>
-                    <div class='effect-wrapper'>{{{row.effect}}}</div>
-                  </td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
+                      <div class='item-row__header'>
+                        <div class='item-row__name'>
+                          <img src='{{item.img}}' alt='' />
+                          <span class='item-row__label'>{{item.name}}</span>
+                        </div>
+                        {{#if item.hasBadges}}
+                          <ul class='item-row__badges'>
+                            {{#each item.badges as |badge|}}
+                              <li class='item-badge'>{{badge}}</li>
+                            {{/each}}
+                          </ul>
+                        {{/if}}
+                        <div class='item-row__actions' data-item-id='{{item.id}}' data-group-key='{{item.groupKey}}'>
+                          {{#if item.showQuantity}}
+                            <div class='item-quantity-control' aria-label='{{../../itemControls.quantity}}'>
+                              <button
+                                type='button'
+                                class='item-quantity-step'
+                                data-step='-1'
+                                title='{{../../itemControls.quantityDecrease}}'
+                              >
+                                <i class='fa-solid fa-minus'></i>
+                                <span class='sr-only'>{{../../itemControls.quantityDecrease}}</span>
+                              </button>
+                              <span class='item-quantity-value'>{{item.quantity}}</span>
+                              <button
+                                type='button'
+                                class='item-quantity-step'
+                                data-step='1'
+                                title='{{../../itemControls.quantityIncrease}}'
+                              >
+                                <i class='fa-solid fa-plus'></i>
+                                <span class='sr-only'>{{../../itemControls.quantityIncrease}}</span>
+                              </button>
+                            </div>
+                          {{/if}}
+                          {{#if item.showEquip}}
+                            <label class='item-equip-toggle' title='{{../../itemControls.equip}}'>
+                              <input
+                                type='checkbox'
+                                class='item-equip-checkbox'
+                                {{#if item.equipped}}checked{{/if}}
+                                aria-label='{{../../itemControls.equipAria}}'
+                              />
+                            </label>
+                          {{/if}}
+                          <button
+                            type='button'
+                            class='item-chat item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.chat}}'
+                          >
+                            <i class='fa-solid fa-comment-dots'></i>
+                            <span class='sr-only'>{{../../itemControls.chat}}</span>
+                          </button>
+                          <button
+                            type='button'
+                            class='item-edit item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.edit}}'
+                          >
+                            <i class='fa-solid fa-pen'></i>
+                            <span class='sr-only'>{{../../itemControls.edit}}</span>
+                          </button>
+                          <button
+                            type='button'
+                            class='item-delete item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.delete}}'
+                          >
+                            <i class='fa-solid fa-trash'></i>
+                            <span class='sr-only'>{{../../itemControls.delete}}</span>
+                          </button>
+                        </div>
+                      </div>
+                      {{#if item.hasSummary}}
+                        <div class='item-row__summary'>
+                          {{{item.summary}}}
+                        </div>
+                      {{/if}}
+                    </li>
+                  {{/each}}
+                </ol>
+              {{else}}
+                <p class='item-group__empty'>{{group.empty}}</p>
+              {{/if}}
+            </section>
+          {{/each}}
         </section>
       </div>
-
       <div class='tab inventory' data-group='primary' data-tab='inventory'>
-        <div class='sheet-box'>
-          <h2>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</h2>
-          <table class='abilities-table armor-table'>
-            <thead>
-              <tr>
-                <th class='col-name primary-header'>{{localize 'MY_RPG.ArmorItem.ArmorSectionTitle'}}</th>
-                <th class='col-cost'>{{localize 'MY_RPG.Inventory.Quantity'}}</th>
-                <th class='col-equip'>{{localize 'MY_RPG.ArmorTable.EquippedLabel'}}</th>
-                <th class='col-delete'>
-                  <a class='armor-add-row' title='{{localize "MY_RPG.ArmorTable.AddRow"}}'>
-                    <i class='fa-solid fa-plus'></i>
-                  </a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each system.armorList as |item i|}}
-                <tr class='armor-row' data-index='{{i}}'>
-                  <td class='col-name'>{{{item.name}}}</td>
-                  <td class='col-cost'>
-                    <a class='armor-quantity-minus' data-index='{{i}}'>
-                      <i class='fa-solid fa-minus'></i>
-                    </a>
-                    <span class='quantity-value'>{{item.quantity}}</span>
-                    <a class='armor-quantity-plus' data-index='{{i}}'>
-                      <i class='fa-solid fa-plus'></i>
-                    </a>
-                  </td>
-                  <td class='col-equip'>
-                    <input type='checkbox' class='armor-equip-checkbox' data-index='{{i}}' {{#if item.equipped}}checked{{/if}} />
-                  </td>
-                  <td class='col-delete'>
-                    <a
-                      class='armor-chat-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.SendToChat"}}'
+        <section class='item-groups' data-groups='inventory'>
+          {{#each (lookup itemGroups 'inventory') as |group|}}
+            <section class='item-group' data-item-group='{{group.key}}'>
+              <header class='item-group__header'>
+                <h3>
+                  {{#if group.icon}}<i class='{{group.icon}}'></i>{{/if}}
+                  <span class='item-group__title'>{{group.label}}</span>
+                </h3>
+                <button
+                  type='button'
+                  class='item-create item-control'
+                  data-type='{{group.type}}'
+                  data-group-key='{{group.key}}'
+                  title='{{group.createLabel}}'
+                >
+                  <i class='fa-solid fa-plus'></i>
+                  <span class='sr-only'>{{group.createLabel}}</span>
+                </button>
+              </header>
+              {{#if group.items.length}}
+                <ol class='item-list'>
+                  {{#each group.items as |item|}}
+                    <li
+                      class='item-row {{#if item.equipped}}item-row--equipped{{/if}}'
+                      data-item-id='{{item.id}}'
+                      data-group-key='{{item.groupKey}}'
                     >
-                      <i class='fa-solid fa-comment-dots'></i>
-                    </a>
-                    <a
-                      class='armor-edit-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.ArmorTable.EditTitle"}}'
-                    >
-                      <i class='fa-solid fa-pen'></i>
-                    </a>
-                    <a
-                      class='armor-remove-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.ArmorTable.ConfirmDeleteTitle"}}'
-                    >
-                      <i class='fa-solid fa-trash'></i>
-                    </a>
-                  </td>
-                </tr>
-                <tr class='armor-effect-row'>
-                  <td class='col-effect' colspan='4'>
-                    <div class='effect-wrapper'>{{{armorEffect item}}}</div>
-                  </td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-        <div class='sheet-box'>
-          <h2>{{localize 'MY_RPG.WeaponsTable.SectionTitle'}}</h2>
-          <table class='abilities-table weapon-table'>
-            <thead>
-              <tr>
-                <th class='col-name primary-header'>{{localize 'MY_RPG.WeaponsTable.SectionTitle'}}</th>
-                <th class='col-bonus'>{{localize 'MY_RPG.WeaponsTable.BonusLabel'}}</th>
-                <th class='col-skill'>{{localize 'MY_RPG.WeaponsTable.SkillLabel'}}</th>
-                <th class='col-equip'>{{localize 'MY_RPG.WeaponsTable.EquippedLabel'}}</th>
-                <th class='col-delete'>
-                  <a class='weapon-add-row' title='{{localize "MY_RPG.WeaponsTable.AddRow"}}'>
-                    <i class='fa-solid fa-plus'></i>
-                  </a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each system.weaponList as |weapon i|}}
-                <tr class='weapon-row' data-index='{{i}}'>
-                  <td class='col-name'>{{{weapon.name}}}</td>
-                  <td class='col-bonus'>{{formatWeaponBonus weapon.skillBonus}}</td>
-                  <td class='col-skill'>{{skillLabel weapon.skill}}</td>
-                  <td class='col-equip'>
-                    <input
-                      type='checkbox'
-                      class='weapon-equip-checkbox'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.WeaponsTable.EquippedLabel"}}'
-                      aria-label='{{localize "MY_RPG.WeaponsTable.EquippedLabel"}}'
-                      {{#if weapon.equipped}}checked{{/if}}
-                    />
-                  </td>
-                  <td class='col-delete'>
-                    <a
-                      class='weapon-chat-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.SendToChat"}}'
-                    >
-                      <i class='fa-solid fa-comment-dots'></i>
-                    </a>
-                    <a
-                      class='weapon-edit-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.WeaponsTable.EditTitle"}}'
-                    >
-                      <i class='fa-solid fa-pen'></i>
-                    </a>
-                    <a
-                      class='weapon-remove-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.WeaponsTable.ConfirmDeleteTitle"}}'
-                    >
-                      <i class='fa-solid fa-trash'></i>
-                    </a>
-                  </td>
-                </tr>
-                <tr class='weapon-effect-row'>
-                  <td class='col-effect' colspan='5'>
-                    <div class='effect-wrapper'>{{{weaponEffect weapon}}}</div>
-                  </td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-        <div class='sheet-box'>
-          <table class='abilities-table'>
-            <thead>
-              <tr>
-                <th class='col-name primary-header'>{{localize 'MY_RPG.Inventory.EquipmentHeader'}}</th>
-                <th class='col-cost'>{{localize 'MY_RPG.Inventory.Quantity'}}</th>
-                <th class='col-delete'>
-                  <a class='inventory-add-row' title='{{localize "MY_RPG.Inventory.AddRow"}}'>
-                    <i class='fa-solid fa-plus'></i>
-                  </a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each system.inventoryList as |item i|}}
-                <tr class='inventory-row' data-index='{{i}}'>
-                  <td class='col-name'>{{{item.name}}}</td>
-                  <td class='col-cost'>
-                    <a class='inventory-quantity-minus' data-index='{{i}}'>
-                      <i class='fa-solid fa-minus'></i>
-                    </a>
-                    <span class='quantity-value'>{{item.quantity}}</span>
-                    <a class='inventory-quantity-plus' data-index='{{i}}'>
-                      <i class='fa-solid fa-plus'></i>
-                    </a>
-                  </td>
-                  <td class='col-delete'>
-                    <a
-                      class='inventory-chat-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.SendToChat"}}'
-                    >
-                      <i class='fa-solid fa-comment-dots'></i>
-                    </a>
-                    <a
-                      class='inventory-edit-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.Inventory.EditTitle"}}'
-                    >
-                      <i class='fa-solid fa-pen'></i>
-                    </a>
-                    <a
-                      class='inventory-remove-row'
-                      data-index='{{i}}'
-                      title='{{localize "MY_RPG.Inventory.ConfirmDeleteTitle"}}'
-                    >
-                      <i class='fa-solid fa-trash'></i>
-                    </a>
-                  </td>
-                </tr>
-                <tr class='inventory-effect-row'>
-                  <td class='col-effect' colspan='3'>
-                    <div class='effect-wrapper'>{{{item.desc}}}</div>
-                  </td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
+                      <div class='item-row__header'>
+                        <div class='item-row__name'>
+                          <img src='{{item.img}}' alt='' />
+                          <span class='item-row__label'>{{item.name}}</span>
+                        </div>
+                        {{#if item.hasBadges}}
+                          <ul class='item-row__badges'>
+                            {{#each item.badges as |badge|}}
+                              <li class='item-badge'>{{badge}}</li>
+                            {{/each}}
+                          </ul>
+                        {{/if}}
+                        <div class='item-row__actions' data-item-id='{{item.id}}' data-group-key='{{item.groupKey}}'>
+                          {{#if item.showQuantity}}
+                            <div class='item-quantity-control' aria-label='{{../../itemControls.quantity}}'>
+                              <button
+                                type='button'
+                                class='item-quantity-step'
+                                data-step='-1'
+                                title='{{../../itemControls.quantityDecrease}}'
+                              >
+                                <i class='fa-solid fa-minus'></i>
+                                <span class='sr-only'>{{../../itemControls.quantityDecrease}}</span>
+                              </button>
+                              <span class='item-quantity-value'>{{item.quantity}}</span>
+                              <button
+                                type='button'
+                                class='item-quantity-step'
+                                data-step='1'
+                                title='{{../../itemControls.quantityIncrease}}'
+                              >
+                                <i class='fa-solid fa-plus'></i>
+                                <span class='sr-only'>{{../../itemControls.quantityIncrease}}</span>
+                              </button>
+                            </div>
+                          {{/if}}
+                          {{#if item.showEquip}}
+                            <label class='item-equip-toggle' title='{{../../itemControls.equip}}'>
+                              <input
+                                type='checkbox'
+                                class='item-equip-checkbox'
+                                {{#if item.equipped}}checked{{/if}}
+                                aria-label='{{../../itemControls.equipAria}}'
+                              />
+                            </label>
+                          {{/if}}
+                          <button
+                            type='button'
+                            class='item-chat item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.chat}}'
+                          >
+                            <i class='fa-solid fa-comment-dots'></i>
+                            <span class='sr-only'>{{../../itemControls.chat}}</span>
+                          </button>
+                          <button
+                            type='button'
+                            class='item-edit item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.edit}}'
+                          >
+                            <i class='fa-solid fa-pen'></i>
+                            <span class='sr-only'>{{../../itemControls.edit}}</span>
+                          </button>
+                          <button
+                            type='button'
+                            class='item-delete item-control'
+                            data-item-id='{{item.id}}'
+                            data-group-key='{{item.groupKey}}'
+                            title='{{../../itemControls.delete}}'
+                          >
+                            <i class='fa-solid fa-trash'></i>
+                            <span class='sr-only'>{{../../itemControls.delete}}</span>
+                          </button>
+                        </div>
+                      </div>
+                      {{#if item.hasSummary}}
+                        <div class='item-row__summary'>
+                          {{{item.summary}}}
+                        </div>
+                      {{/if}}
+                    </li>
+                  {{/each}}
+                </ol>
+              {{else}}
+                <p class='item-group__empty'>{{group.empty}}</p>
+              {{/if}}
+            </section>
+          {{/each}}
+        </section>
         <div class='sheet-box'>
           <h2>{{localize 'MY_RPG.Resources.Title'}}</h2>
           <section class='resources grid grid-2col'>

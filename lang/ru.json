@@ -297,6 +297,44 @@
       "Upgrade2": "Улучшение 2",
       "AddRow": "Добавить строку",
       "Rank": "Ранг"
+    },
+    "ItemGroups": {
+      "Abilities": "Способности",
+      "EmptyAbilities": "Пока нет способностей.",
+      "CreateAbility": "Добавить способность",
+      "NewAbility": "Новая способность",
+      "Mods": "Модификации",
+      "EmptyMods": "Пока нет модификаций.",
+      "CreateMod": "Добавить модификацию",
+      "NewMod": "Новая модификация",
+      "Weapons": "Оружие и инструменты",
+      "EmptyWeapons": "Пока нет оружия.",
+      "CreateWeapon": "Добавить оружие или инструмент",
+      "NewWeapon": "Новое оружие",
+      "Armor": "Броня",
+      "EmptyArmor": "Пока нет брони.",
+      "CreateArmor": "Добавить броню",
+      "NewArmor": "Новая броня",
+      "Gear": "Снаряжение",
+      "EmptyGear": "Пока нет снаряжения.",
+      "CreateGear": "Добавить снаряжение",
+      "NewGear": "Новое снаряжение",
+      "Unnamed": "Безымянный предмет"
+    },
+    "ItemControls": {
+      "Edit": "Изменить",
+      "Delete": "Удалить",
+      "Chat": "Отправить в чат",
+      "Equip": "Снаряжено",
+      "EquipAria": "Переключить статус экипировки",
+      "Quantity": "Количество",
+      "QuantityIncrease": "Увеличить количество",
+      "QuantityDecrease": "Уменьшить количество",
+      "NewItemFallback": "Новый {type}"
+    },
+    "ItemDialogs": {
+      "DeleteTitle": "Удалить {type}",
+      "DeleteContent": "Вы уверены, что хотите удалить {name}? Это действие нельзя отменить."
     }
   },
   "TYPES": {

@@ -16,17 +16,21 @@
       "thumbnail": "systems/myrpg/assets/anvil-impact.png"
     }
   ],
-  "version": "2.298",
+  "version": "2.300",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
   },
-  "esmodules": ["module/myrpg.mjs"],
-  "styles": ["css/myrpg.css"],
+  "esmodules": [
+    "module/myrpg.mjs"
+  ],
+  "styles": [
+    "css/myrpg.css"
+  ],
   "languages": [
     {
       "lang": "ru",
-      "name": "Русский",
+      "name": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439",
       "path": "lang/ru.json"
     },
     {
@@ -43,7 +47,7 @@
   "background": "systems/myrpg/assets/anvil-impact.png",
   "grid": {
     "distance": 2,
-    "units": "м"
+    "units": "\u043c"
   },
   "primaryTokenAttribute": {
     "attribute": "system.stress.value",
