@@ -485,6 +485,21 @@ td.col-name:hover {
   text-align: center;
 }
 
+.tab.inventory table.abilities-table:not(.armor-table):not(.weapon-table) th.col-name,
+.tab.inventory table.abilities-table:not(.armor-table):not(.weapon-table) td.col-name {
+  width: 55%;
+}
+
+.tab.inventory table.abilities-table:not(.armor-table):not(.weapon-table) th.col-cost,
+.tab.inventory table.abilities-table:not(.armor-table):not(.weapon-table) td.col-cost {
+  width: 30%;
+}
+
+.tab.inventory table.abilities-table:not(.armor-table):not(.weapon-table) th.col-delete,
+.tab.inventory table.abilities-table:not(.armor-table):not(.weapon-table) td.col-delete {
+  width: 15%;
+}
+
 .myrpg.sheet.actor form {
   position: relative;
   width: 100%;
