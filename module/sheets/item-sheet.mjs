@@ -80,6 +80,8 @@ export class MyRPGItemSheet extends ItemSheet {
 
   async getData(options) {
     const sheetData = await super.getData(options);
+    const itemData = sheetData.item ?? sheetData.document ?? this.item;
+    sheetData.system = sheetData.system ?? itemData?.system ?? {};
     sheetData.config = CONFIG.MY_RPG ?? {};
     sheetData.worldType = game.settings.get(MODULE_ID, 'worldType');
 
