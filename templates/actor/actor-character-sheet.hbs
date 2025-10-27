@@ -6,14 +6,17 @@
       <a class='hex-button' data-tab='features'>{{localize 'MY_RPG.SheetLabels.Features'}}</a>
       <a class='hex-button' data-tab='abilities'>{{localize (worldChoice 'MY_RPG.SheetLabels.Tablet' 'MY_RPG.SheetLabels.AbilitiesAndMods')}}</a>
       <a class='hex-button' data-tab='inventory'>{{localize 'MY_RPG.SheetLabels.Inventory'}}</a>
-      <a class='hex-button' data-tab='biography'>{{localize 'MY_RPG.SheetLabels.Biography'}}</a>
+      {{#if isCharacter}}
+        <a class='hex-button' data-tab='biography'>{{localize 'MY_RPG.SheetLabels.Biography'}}</a>
+      {{/if}}
     </nav>
   </div>
 
   <div class='sheet-scrollable'>
     <section class='sheet-body'>
 
-      <div class='tab biography' data-group='primary' data-tab='biography'>
+      {{#if isCharacter}}
+        <div class='tab biography' data-group='primary' data-tab='biography'>
         <h1>{{localize 'MY_RPG.SheetLabels.Biography'}}</h1>
         <section class='resources grid grid-6col'>
           <div class='resource flex-group-center'>
@@ -80,7 +83,8 @@
             <textarea class='rich-editor' name='system.biography.notes' rows='8'>{{system.biography.notes}}</textarea>
           </div>
         </section>
-      </div>
+        </div>
+      {{/if}}
 
       <!--         "Features" -->
       <div class='tab features features-tab' data-group='primary' data-tab='features'>
@@ -192,12 +196,14 @@
             </div>
 
             <!-- Призвание -->
-            <div class='resource flex-group-center'>
-              <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.Calling'}}</label>
-              <div class='resource-content flexcol'>
-                <input type='text' class='key-info-input' name='system.calling' value='{{system.calling}}'/>
+            {{#unless isNpc}}
+              <div class='resource flex-group-center'>
+                <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.Calling'}}</label>
+                <div class='resource-content flexcol'>
+                  <input type='text' class='key-info-input' name='system.calling' value='{{system.calling}}'/>
+                </div>
               </div>
-            </div>
+            {{/unless}}
 
             <!-- Текущий ранг -->
             <div class='resource flex-group-center'>
@@ -207,19 +213,21 @@
               </div>
             </div>
 
-            <div class='resource flex-group-center'>
-              <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.MomentOfGlory'}}</label>
-              <div class='resource-content flexcol'>
-                <input
-                  type='number'
-                  class='key-info-input'
-                  name='system.momentOfGlory'
-                  value='{{system.momentOfGlory}}'
-                  step='1'
-                  inputmode='numeric'
-                />
+            {{#unless isNpc}}
+              <div class='resource flex-group-center'>
+                <label class='resource-label'>{{localize 'MY_RPG.KeyInfo.MomentOfGlory'}}</label>
+                <div class='resource-content flexcol'>
+                  <input
+                    type='number'
+                    class='key-info-input'
+                    name='system.momentOfGlory'
+                    value='{{system.momentOfGlory}}'
+                    step='1'
+                    inputmode='numeric'
+                  />
+                </div>
               </div>
-            </div>
+            {{/unless}}
             <!--          (Speed) -->
             <div class='resource flex-group-center'>
               <label class='resource-label'>{{localize 'MY_RPG.Speed.Label'}}</label>
