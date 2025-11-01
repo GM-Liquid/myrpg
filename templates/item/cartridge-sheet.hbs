@@ -1,60 +1,72 @@
 <form class="{{cssClass}} myrpg item-sheet cartridge-sheet" autocomplete="off">
-  <header class="sheet-header">
-    <h1 class="sheet-title">
-      <input
-        name="name"
-        type="text"
-        value="{{item.name}}"
-        placeholder="{{localize 'MY_RPG.Inventory.Name'}}"
-        {{#unless editable}}disabled{{/unless}}
+  <header class="sheet-header item-header">
+    <div class="item-image">
+      <img
+        src="{{item.img}}"
+        data-edit="img"
+        alt="{{item.name}}"
+        title="{{item.name}}"
       />
-    </h1>
-    <div class="item-meta flexrow">
-      <div class="flexcol">
-        <label>{{localize 'MY_RPG.AbilityConfig.Rank'}}</label>
-        <select name="system.rank" {{#unless editable}}disabled{{/unless}}>
-          {{#each rankOptions}}
-            <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
-          {{/each}}
-        </select>
-      </div>
-      {{#if showRuneType}}
-        <div class="flexcol">
-          <label>{{localize 'MY_RPG.AbilityConfig.RuneType'}}</label>
-          <select name="system.runeType" {{#unless editable}}disabled{{/unless}}>
-            {{#each runeTypeOptions}}
+    </div>
+    <div class="item-details">
+      <h1 class="sheet-title">
+        <input
+          name="name"
+          type="text"
+          value="{{item.name}}"
+          placeholder="{{localize 'MY_RPG.Inventory.Name'}}"
+          {{#unless editable}}disabled{{/unless}}
+        />
+      </h1>
+      <div class="item-meta-grid">
+        <div class="item-field">
+          <label>{{localize 'MY_RPG.AbilityConfig.Rank'}}</label>
+          <select name="system.rank" {{#unless editable}}disabled{{/unless}}>
+            {{#each rankOptions}}
               <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
             {{/each}}
           </select>
         </div>
-      {{/if}}
+        {{#if showRuneType}}
+          <div class="item-field">
+            <label>{{localize 'MY_RPG.AbilityConfig.RuneType'}}</label>
+            <select name="system.runeType" {{#unless editable}}disabled{{/unless}}>
+              {{#each runeTypeOptions}}
+                <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+              {{/each}}
+            </select>
+          </div>
+        {{/if}}
+      </div>
     </div>
   </header>
 
   <section class="sheet-body">
-    <div class="form-group rich-text-field">
+    <div class="item-section rich-text-field">
       <label>{{localize 'MY_RPG.AbilityConfig.Effect'}}</label>
       {{editor system.effect target="system.effect" button=false owner=owner editable=editable}}
     </div>
-    <div class="form-group flexrow">
-      <div class="flexcol">
-        <label>{{localize 'MY_RPG.AbilityConfig.Upgrade1'}}</label>
-        <select name="system.upgrade1" {{#unless editable}}disabled{{/unless}}>
-          {{#each upgradeOptions}}
-            <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
-          {{/each}}
-        </select>
-      </div>
-      <div class="flexcol">
-        <label>{{localize 'MY_RPG.AbilityConfig.Upgrade2'}}</label>
-        <select name="system.upgrade2" {{#unless editable}}disabled{{/unless}}>
-          {{#each upgradeOptionsSecondary}}
-            <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
-          {{/each}}
-        </select>
+    <div class="item-section">
+      <div class="item-fields-grid">
+        <div class="item-field">
+          <label>{{localize 'MY_RPG.AbilityConfig.Upgrade1'}}</label>
+          <select name="system.upgrade1" {{#unless editable}}disabled{{/unless}}>
+            {{#each upgradeOptions}}
+              <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="item-field">
+          <label>{{localize 'MY_RPG.AbilityConfig.Upgrade2'}}</label>
+          <select name="system.upgrade2" {{#unless editable}}disabled{{/unless}}>
+            {{#each upgradeOptionsSecondary}}
+              <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+          </select>
+        </div>
       </div>
     </div>
-    <div class="form-group rich-text-field">
+    <div class="item-section rich-text-field">
       <label>{{localize 'MY_RPG.Inventory.Description'}}</label>
       <textarea
         name="system.description"
