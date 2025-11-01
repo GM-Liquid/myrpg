@@ -108,19 +108,9 @@
       "Rank": "Rank",
       "Cost": "Cost",
       "RuneType": "Rune Type",
-      "Upgrade1": "Upgrade 1",
-      "Upgrade2": "Upgrade 2",
+      "Skill": "Linked Skill",
+      "SkillBonus": "Skill Bonus",
       "AlreadyEditing": "An edit dialog is already open. Please close it before opening another."
-    },
-    "AbilityUpgrades": {
-      "None": "None",
-      "Damage": "Damage",
-      "Area": "Area of Effect",
-      "Cost": "Cost",
-      "Range": "Range",
-      "Duration": "Duration",
-      "Activations": "Activations",
-      "Link": "Link"
     },
     "RuneTypes": {
       "Spell": "Spell",
@@ -260,8 +250,8 @@
       "PrimaryHeader": "Cartridges",
       "Name": "Name",
       "Cost": "Cost",
-      "Upgrade1": "Upgrade 1",
-      "Upgrade2": "Upgrade 2",
+      "Skill": "Skill",
+      "Bonus": "Bonus",
       "AddRow": "Add Row",
       "Rank": "Rank"
     },
@@ -271,8 +261,8 @@
       "Name": "Name",
       "Cost": "Cost",
       "RuneType": "Rune Type",
-      "Upgrade1": "Upgrade 1",
-      "Upgrade2": "Upgrade 2",
+      "Skill": "Skill",
+      "Bonus": "Bonus",
       "AddRow": "Add Rune",
       "Rank": "Rank",
       "SizeLabel": "Tablet Size"
@@ -282,8 +272,8 @@
       "PrimaryHeader": "Skills",
       "Name": "Name",
       "Cost": "Cost",
-      "Upgrade1": "Upgrade 1",
-      "Upgrade2": "Upgrade 2",
+      "Skill": "Skill",
+      "Bonus": "Bonus",
       "AddRow": "Add Row",
       "Rank": "Rank"
     },

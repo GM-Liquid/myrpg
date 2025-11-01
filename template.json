@@ -196,8 +196,8 @@
       },
       "rune": {
         "rank": "",
-        "upgrade1": "None",
-        "upgrade2": "None"
+        "skill": "",
+        "skillBonus": 0
       }
     },
     "cartridge": {

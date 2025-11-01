@@ -138,9 +138,7 @@ export class myrpgActor extends Actor {
         shield: 0,
         speed: 0
       },
-      weapons: {
-        skillBonuses: {}
-      }
+      skillBonuses: {}
     };
 
     const armorItems = this.itemTypes?.armor ?? [];
@@ -164,8 +162,32 @@ export class myrpgActor extends Actor {
       const quantity = Math.max(Number(system.quantity) || 1, 0);
       const bonus = (Number(system.skillBonus) || 0) * quantity;
       if (!bonus) continue;
-      const current = totals.weapons.skillBonuses[skill] || 0;
-      totals.weapons.skillBonuses[skill] = current + bonus;
+      const current = totals.skillBonuses[skill] || 0;
+      totals.skillBonuses[skill] = current + bonus;
+    }
+
+    const cartridgeItems = this.itemTypes?.cartridge ?? [];
+    for (const cartridge of cartridgeItems) {
+      const system = cartridge.system ?? {};
+      if (system.equipped === false) continue;
+      const skill = String(system.skill || '');
+      if (!skill) continue;
+      const bonus = Number(system.skillBonus) || 0;
+      if (!bonus) continue;
+      const current = totals.skillBonuses[skill] || 0;
+      totals.skillBonuses[skill] = current + bonus;
+    }
+
+    const implantItems = this.itemTypes?.implant ?? [];
+    for (const implant of implantItems) {
+      const system = implant.system ?? {};
+      if (system.equipped === false) continue;
+      const skill = String(system.skill || '');
+      if (!skill) continue;
+      const bonus = Number(system.skillBonus) || 0;
+      if (!bonus) continue;
+      const current = totals.skillBonuses[skill] || 0;
+      totals.skillBonuses[skill] = current + bonus;
     }
 
     return totals;

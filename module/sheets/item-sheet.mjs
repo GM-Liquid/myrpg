@@ -1,4 +1,4 @@
-import { MODULE_ID, RUNE_TYPE_KEYS, UPGRADE_KEYS, debugLog } from '../config.mjs';
+import { MODULE_ID, RUNE_TYPE_KEYS, debugLog } from '../config.mjs';
 
 function buildRankOptions(selected) {
   const worldType = game.settings.get(MODULE_ID, 'worldType');
@@ -21,15 +21,6 @@ function buildRankOptions(selected) {
   }
 
   return options;
-}
-
-function buildUpgradeOptions(selected) {
-  const normalized = selected || 'None';
-  return UPGRADE_KEYS.map((value) => ({
-    value,
-    label: game.i18n.localize(`MY_RPG.AbilityUpgrades.${value}`),
-    selected: normalized === value
-  }));
 }
 
 function buildRuneTypeOptions(selected) {
@@ -141,8 +132,7 @@ export class MyRPGCartridgeSheet extends MyRPGItemSheet {
   async getData(options) {
     const data = await super.getData(options);
     data.rankOptions = buildRankOptions(data.system.rank);
-    data.upgradeOptions = buildUpgradeOptions(data.system.upgrade1);
-    data.upgradeOptionsSecondary = buildUpgradeOptions(data.system.upgrade2);
+    data.skillOptions = buildSkillOptions(data.system.skill);
     data.runeTypeOptions = buildRuneTypeOptions(data.system.runeType);
     data.showRuneType = data.worldType === 'unity';
     return data;
@@ -157,8 +147,7 @@ export class MyRPGImplantSheet extends MyRPGItemSheet {
   async getData(options) {
     const data = await super.getData(options);
     data.rankOptions = buildRankOptions(data.system.rank);
-    data.upgradeOptions = buildUpgradeOptions(data.system.upgrade1);
-    data.upgradeOptionsSecondary = buildUpgradeOptions(data.system.upgrade2);
+    data.skillOptions = buildSkillOptions(data.system.skill);
     return data;
   }
 }
