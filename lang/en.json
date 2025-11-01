@@ -10,8 +10,8 @@
       "RankLimit": "At rank {rank} your attributes and skills cannot exceed {limit}"
     },
     "Dialog": {
-      "ConfirmDeleteTitle": "Delete Ability",
-      "ConfirmDeleteMessage": "Are you sure you want to delete this ability? This action cannot be undone.",
+      "ConfirmDeleteTitle": "Delete Cartridge",
+      "ConfirmDeleteMessage": "Are you sure you want to delete this cartridge? This action cannot be undone.",
       "Yes": "Yes",
       "No": "No"
     },
@@ -74,18 +74,18 @@
       "PsychicLabel": "Mental Protection"
     },
     "SheetLabels": {
-      "AbilitiesAndMods": "Abilities and Mods",
+      "AbilitiesAndMods": "Cartridges and Implants",
       "Tablet": "Tablet",
       "Features": "Main Sheet",
-      "Abilities": "Abilities",
+      "Abilities": "Cartridges",
       "Parameters": "Parameters",
       "Attributes": "Attributes",
       "Skills": "Skills",
       "KeyInfo": "Key Information",
       "Biography": "Biography & Notes",
       "Inventory": "Inventory",
-      "ItemAbility": "Ability Sheet",
-      "ItemMod": "Modification Sheet",
+      "ItemAbility": "Cartridge Sheet",
+      "ItemMod": "Implant Sheet",
       "ItemArmor": "Armor Sheet",
       "ItemWeapon": "Weapon Sheet",
       "ItemGear": "Gear Sheet"
@@ -101,7 +101,7 @@
       }
     },
     "AbilityConfig": {
-      "Title": "Edit Ability",
+      "Title": "Edit Cartridge",
       "Save": "Save",
       "Cancel": "Cancel",
       "Name": "Name",
@@ -257,8 +257,8 @@
       "Notes": "Notes"
     },
     "AbilitiesTable": {
-      "TableHeading": "Abilities",
-      "PrimaryHeader": "Abilities",
+      "TableHeading": "Cartridges",
+      "PrimaryHeader": "Cartridges",
       "Name": "Name",
       "Effect": "Effect",
       "Cost": "Cost",
@@ -281,7 +281,7 @@
       "SizeLabel": "Tablet Size"
     },
     "ModsTable": {
-      "TableHeading": "Skills and Mods",
+      "TableHeading": "Skills and Implants",
       "PrimaryHeader": "Skills",
       "Name": "Name",
       "Effect": "Effect",
@@ -292,14 +292,14 @@
       "Rank": "Rank"
     },
     "ItemGroups": {
-      "Abilities": "Abilities",
-      "EmptyAbilities": "No abilities yet.",
-      "CreateAbility": "Add ability",
-      "NewAbility": "New Ability",
-      "Mods": "Mods",
-      "EmptyMods": "No mods yet.",
-      "CreateMod": "Add mod",
-      "NewMod": "New Mod",
+      "Cartridges": "Cartridges",
+      "EmptyCartridges": "No cartridges yet.",
+      "CreateCartridge": "Add cartridge",
+      "NewCartridge": "New Cartridge",
+      "Implants": "Implants",
+      "EmptyImplants": "No implants yet.",
+      "CreateImplant": "Add implant",
+      "NewImplant": "New Implant",
       "Weapons": "Weapons & Tools",
       "EmptyWeapons": "No weapons yet.",
       "CreateWeapon": "Add weapon or tool",
@@ -338,8 +338,8 @@
     "Item": {
       "item": "Item",
       "feature": "Feature",
-      "ability": "Ability",
-      "mod": "Modification",
+      "cartridge": "Cartridge",
+      "implant": "Implant",
       "armor": "Armor",
       "weapon": "Weapon",
       "gear": "Gear"

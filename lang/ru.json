@@ -10,8 +10,8 @@
       "RankLimit": "На {rank}-м ранге значения ваших характеристик и навыков не могут превышать {limit}"
     },
     "Dialog": {
-      "ConfirmDeleteTitle": "Удаление способности",
-      "ConfirmDeleteMessage": "Вы действительно хотите удалить эту способность? Это действие необратимо.",
+      "ConfirmDeleteTitle": "Удаление картриджа",
+      "ConfirmDeleteMessage": "Вы действительно хотите удалить этот картридж? Это действие необратимо.",
       "Yes": "Да",
       "No": "Нет"
     },
@@ -99,18 +99,18 @@
       "MomentOfGlory": "Миг Славы"
     },
     "SheetLabels": {
-      "AbilitiesAndMods": "Способности и модификации",
+      "AbilitiesAndMods": "Картриджи и импланты",
       "Tablet": "Скрижаль",
       "Features": "Основной лист",
-      "Abilities": "Способности",
+      "Abilities": "Картриджи",
       "Parameters": "Параметры",
       "Attributes": "Характеристики",
       "Skills": "Навыки",
       "KeyInfo": "Ключевая информация",
       "Biography": "Биография и заметки",
       "Inventory": "Инвентарь",
-      "ItemAbility": "Лист способности",
-      "ItemMod": "Лист модификации",
+      "ItemAbility": "Лист картриджа",
+      "ItemMod": "Лист импланта",
       "ItemArmor": "Лист доспеха",
       "ItemWeapon": "Лист оружия",
       "ItemGear": "Лист снаряжения"
@@ -142,7 +142,7 @@
       "AlreadyEditing": "Диалог редактирования уже открыт. Сначала закройте его."
     },
     "AbilityConfig": {
-      "Title": "Редактирование способности",
+      "Title": "Редактирование картриджа",
       "Save": "Сохранить",
       "Cancel": "Отмена",
       "Name": "Название",
@@ -264,8 +264,8 @@
       "Notes": "Заметки"
     },
     "AbilitiesTable": {
-      "TableHeading": "Способности",
-      "PrimaryHeader": "Способности",
+      "TableHeading": "Картриджи",
+      "PrimaryHeader": "Картриджи",
       "Name": "Название",
       "Effect": "Эффект",
       "Cost": "Стоимость",
@@ -288,7 +288,7 @@
       "SizeLabel": "Размер Скрижали"
     },
     "ModsTable": {
-      "TableHeading": "Умения и модификации",
+      "TableHeading": "Умения и импланты",
       "PrimaryHeader": "Умения",
       "Name": "Название",
       "Effect": "Эффект",
@@ -299,14 +299,14 @@
       "Rank": "Ранг"
     },
     "ItemGroups": {
-      "Abilities": "Способности",
-      "EmptyAbilities": "Пока нет способностей.",
-      "CreateAbility": "Добавить способность",
-      "NewAbility": "Новая способность",
-      "Mods": "Модификации",
-      "EmptyMods": "Пока нет модификаций.",
-      "CreateMod": "Добавить модификацию",
-      "NewMod": "Новая модификация",
+      "Cartridges": "Картриджи",
+      "EmptyCartridges": "Пока нет картриджей.",
+      "CreateCartridge": "Добавить картридж",
+      "NewCartridge": "Новый картридж",
+      "Implants": "Импланты",
+      "EmptyImplants": "Пока нет имплантов.",
+      "CreateImplant": "Добавить имплант",
+      "NewImplant": "Новый имплант",
       "Weapons": "Оружие и инструменты",
       "EmptyWeapons": "Пока нет оружия.",
       "CreateWeapon": "Добавить оружие или инструмент",
@@ -345,8 +345,8 @@
     "Item": {
       "item": "Предмет",
       "feature": "Особенность",
-      "ability": "Способность",
-      "mod": "Модификация",
+      "cartridge": "Картридж",
+      "implant": "Имплант",
       "armor": "Доспех",
       "weapon": "Оружие",
       "gear": "Снаряжение"

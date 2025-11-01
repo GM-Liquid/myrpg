@@ -4,10 +4,10 @@ import { MyRPGItem } from './documents/item.mjs';
 // Import sheet classes.
 import { myrpgActorSheet } from './sheets/actor-sheet.mjs';
 import {
-  MyRPGAbilitySheet,
+  MyRPGCartridgeSheet,
   MyRPGArmorSheet,
   MyRPGGearSheet,
-  MyRPGModSheet,
+  MyRPGImplantSheet,
   MyRPGWeaponSheet
 } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
@@ -51,13 +51,13 @@ Hooks.once('init', function () {
     label: 'MY_RPG.SheetLabels.Actor'
   });
   Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('myrpg', MyRPGAbilitySheet, {
-    types: ['ability'],
+  Items.registerSheet('myrpg', MyRPGCartridgeSheet, {
+    types: ['cartridge'],
     makeDefault: true,
     label: 'MY_RPG.SheetLabels.ItemAbility'
   });
-  Items.registerSheet('myrpg', MyRPGModSheet, {
-    types: ['mod'],
+  Items.registerSheet('myrpg', MyRPGImplantSheet, {
+    types: ['implant'],
     makeDefault: true,
     label: 'MY_RPG.SheetLabels.ItemMod'
   });

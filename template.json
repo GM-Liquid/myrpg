@@ -19,8 +19,8 @@
             "value": 0
           }
         },
-        "abilitiesList": [],
-        "modsList": [],
+        "cartridgesList": [],
+        "implantsList": [],
         "inventoryList": [],
         "stress": {
           "value": 0,
@@ -187,7 +187,7 @@
     }
   },
   "Item": {
-    "types": ["ability", "mod", "armor", "weapon", "gear"],
+    "types": ["cartridge", "implant", "armor", "weapon", "gear"],
     "templates": {
       "base": {
         "description": "",
@@ -204,11 +204,11 @@
         "upgrade2": "None"
       }
     },
-    "ability": {
+    "cartridge": {
       "templates": ["base", "rune"],
       "runeType": "Spell"
     },
-    "mod": {
+    "implant": {
       "templates": ["base", "rune"]
     },
     "armor": {

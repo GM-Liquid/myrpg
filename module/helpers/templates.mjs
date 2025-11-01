@@ -7,8 +7,8 @@ export const preloadHandlebarsTemplates = async function () {
   const paths = [
     'systems/myrpg/templates/actor/actor-character-sheet.hbs',
     'systems/myrpg/templates/actor/actor-npc-sheet.hbs',
-    'systems/myrpg/templates/item/ability-sheet.hbs',
-    'systems/myrpg/templates/item/mod-sheet.hbs',
+    'systems/myrpg/templates/item/cartridge-sheet.hbs',
+    'systems/myrpg/templates/item/implant-sheet.hbs',
     'systems/myrpg/templates/item/armor-sheet.hbs',
     'systems/myrpg/templates/item/weapon-sheet.hbs',
     'systems/myrpg/templates/item/gear-sheet.hbs'
