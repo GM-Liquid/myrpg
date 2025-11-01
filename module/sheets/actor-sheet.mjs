@@ -589,9 +589,9 @@ export class myrpgActorSheet extends ActorSheet {
     const system = item.system ?? {};
     switch (config.key) {
       case 'cartridges':
-        return system.effect || system.description || '';
+        return system.description || '';
       case 'implants':
-        return system.effect || system.description || '';
+        return system.description || '';
       case 'weapons':
         return system.description || '';
       case 'armor':
