@@ -191,10 +191,8 @@
     "templates": {
       "base": {
         "description": "",
-        "source": "",
-        "quantity": 1,
         "equipped": false,
-        "notes": ""
+        "rank": ""
       },
       "rune": {
         "rank": "",
@@ -213,6 +211,8 @@
     },
     "armor": {
       "templates": ["base"],
+      "quantity": 1,
+      "rank": "",
       "itemPhys": 0,
       "itemAzure": 0,
       "itemMental": 0,
@@ -221,12 +221,15 @@
     },
     "weapon": {
       "templates": ["base"],
+      "quantity": 1,
+      "rank": "",
       "skill": "",
       "skillBonus": 0
     },
     "gear": {
       "templates": ["base"],
-      "notes": ""
+      "quantity": 1,
+      "rank": ""
     }
   }
 }

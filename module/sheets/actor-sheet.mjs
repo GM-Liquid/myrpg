@@ -583,12 +583,8 @@ export class myrpgActorSheet extends ActorSheet {
         if (speed) badges.push(`${t.localize('MY_RPG.ArmorItem.BonusSpeedLabel')}: ${speed}`);
         break;
       }
-      case 'gear': {
-        if (system.source) {
-          badges.push(`${t.localize('MY_RPG.ItemSheet.Fields.Source')}: ${system.source}`);
-        }
+      case 'gear':
         break;
-      }
       default:
         break;
     }
@@ -606,12 +602,8 @@ export class myrpgActorSheet extends ActorSheet {
         return system.description || '';
       case 'armor':
         return system.description || '';
-      case 'gear': {
-        const parts = [];
-        if (system.description) parts.push(system.description);
-        if (system.notes) parts.push(system.notes);
-        return parts.join('<br><br>');
-      }
+      case 'gear':
+        return system.description || '';
       default:
         return system.description || '';
     }

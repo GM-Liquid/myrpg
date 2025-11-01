@@ -125,6 +125,12 @@ export class MyRPGArmorSheet extends MyRPGItemSheet {
   get template() {
     return 'systems/myrpg/templates/item/armor-sheet.hbs';
   }
+
+  async getData(options) {
+    const data = await super.getData(options);
+    data.rankOptions = buildRankOptions(data.system.rank);
+    return data;
+  }
 }
 
 export class MyRPGWeaponSheet extends MyRPGItemSheet {
@@ -135,6 +141,7 @@ export class MyRPGWeaponSheet extends MyRPGItemSheet {
   async getData(options) {
     const data = await super.getData(options);
     data.skillOptions = buildSkillOptions(data.system.skill);
+    data.rankOptions = buildRankOptions(data.system.rank);
     return data;
   }
 }
@@ -142,5 +149,11 @@ export class MyRPGWeaponSheet extends MyRPGItemSheet {
 export class MyRPGGearSheet extends MyRPGItemSheet {
   get template() {
     return 'systems/myrpg/templates/item/gear-sheet.hbs';
+  }
+
+  async getData(options) {
+    const data = await super.getData(options);
+    data.rankOptions = buildRankOptions(data.system.rank);
+    return data;
   }
 }
