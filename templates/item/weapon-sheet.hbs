@@ -43,7 +43,13 @@
     </div>
     <div class="form-group rich-text-field">
       <label>{{localize 'MY_RPG.Inventory.Description'}}</label>
-      {{editor system.description target="system.description" button=false owner=owner editable=editable}}
+      <textarea
+        name="system.description"
+        class="description-input"
+        data-description-editor
+        rows="6"
+        {{#unless editable}}disabled{{/unless}}
+      >{{{system.description}}}</textarea>
     </div>
   </section>
 </form>

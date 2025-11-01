@@ -718,6 +718,13 @@ td.col-name:hover {
   resize: vertical;
 }
 
+.myrpg.sheet.item textarea.description-input {
+  width: 100%;
+  min-height: 160px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
 /* armor bonuses layout */
 .armor-values {
   gap: 8px;
