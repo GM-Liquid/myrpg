@@ -198,6 +198,24 @@ textarea[disabled] {
   padding-top: 0.5rem;
 }
 
+.myrpg.item-sheet .editor {
+  border: 1px solid #d4cbc0;
+  border-radius: 6px;
+  padding: 0.75rem;
+  background-color: #ffffff;
+  min-height: 120px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.myrpg.item-sheet .editor-content {
+  min-height: 96px;
+  width: 100%;
+}
+
 .center-attributes {
   display: flex;
   flex-direction: column; /* Ставим вертикально */
