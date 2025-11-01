@@ -43,7 +43,7 @@ const ITEM_GROUP_CONFIG = [
     emptyKey: 'MY_RPG.ItemGroups.EmptyWeapons',
     createKey: 'MY_RPG.ItemGroups.CreateWeapon',
     newNameKey: 'MY_RPG.ItemGroups.NewWeapon',
-    showQuantity: true,
+    showQuantity: false,
     allowEquip: true,
     exclusive: false
   },
@@ -56,7 +56,7 @@ const ITEM_GROUP_CONFIG = [
     emptyKey: 'MY_RPG.ItemGroups.EmptyArmor',
     createKey: 'MY_RPG.ItemGroups.CreateArmor',
     newNameKey: 'MY_RPG.ItemGroups.NewArmor',
-    showQuantity: true,
+    showQuantity: false,
     allowEquip: true,
     exclusive: true
   },
@@ -503,7 +503,7 @@ export class myrpgActorSheet extends ActorSheet {
 
   _prepareItemForDisplay(item, config) {
     const system = item.system ?? {};
-    const quantity = Math.max(Number(system.quantity) || 0, 0);
+    const quantity = config.showQuantity ? Math.max(Number(system.quantity) || 0, 0) : 1;
     const badges = this._getItemBadges(item, config);
     const summary = this._getItemSummary(item, config);
     return {
@@ -538,9 +538,6 @@ export class myrpgActorSheet extends ActorSheet {
           const runeKey = `MY_RPG.RuneTypes.${system.runeType}`;
           badges.push(`${t.localize('MY_RPG.RunesTable.RuneType')}: ${t.localize(runeKey)}`);
         }
-        if (system.cost) {
-          badges.push(`${t.localize('MY_RPG.AbilitiesTable.Cost')}: ${system.cost}`);
-        }
         if (system.upgrade1 && system.upgrade1 !== 'None') {
           badges.push(`${t.localize('MY_RPG.AbilitiesTable.Upgrade1')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade1)}`);
         }
@@ -553,9 +550,6 @@ export class myrpgActorSheet extends ActorSheet {
         const rank = Number(system.rank) || 0;
         if (rank) {
           badges.push(`${t.localize('MY_RPG.ModsTable.Rank')}: ${getRankLabel(rank)}`);
-        }
-        if (system.cost) {
-          badges.push(`${t.localize('MY_RPG.ModsTable.Cost')}: ${system.cost}`);
         }
         if (system.upgrade1 && system.upgrade1 !== 'None') {
           badges.push(`${t.localize('MY_RPG.ModsTable.Upgrade1')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade1)}`);
@@ -597,7 +591,7 @@ export class myrpgActorSheet extends ActorSheet {
       case 'cartridges':
         return system.effect || system.description || '';
       case 'implants':
-        return system.effect || '';
+        return system.effect || system.description || '';
       case 'weapons':
         return system.description || '';
       case 'armor':
@@ -763,7 +757,7 @@ export class myrpgActorSheet extends ActorSheet {
     const step = Number(event.currentTarget.dataset.step) || 0;
     if (!step) return;
     const { item, $row, config } = this._getItemContextFromEvent(event);
-    if (!item || !$row) return;
+    if (!item || !$row || !config?.showQuantity) return;
     const system = item.system ?? {};
     const current = Math.max(Number(system.quantity) || 0, 0);
     const next = Math.max(current + step, 0);
@@ -862,11 +856,6 @@ export class myrpgActorSheet extends ActorSheet {
     const source = item ?? {};
     const system = source.system ?? source;
     const lines = [];
-    const quantity = Number(system.quantity ?? source.quantity ?? 0);
-    if (quantity)
-      lines.push(
-        `${game.i18n.localize('MY_RPG.Inventory.Quantity')}: ${quantity}`
-      );
     const phys = Number(system.itemPhys) || 0;
     const azure = Number(system.itemAzure) || 0;
     const mental = Number(system.itemMental) || 0;

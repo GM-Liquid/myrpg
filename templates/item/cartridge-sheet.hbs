@@ -18,15 +18,6 @@
           {{/each}}
         </select>
       </div>
-      <div class="flexcol">
-        <label>{{localize 'MY_RPG.AbilityConfig.Cost'}}</label>
-        <input
-          type="number"
-          name="system.cost"
-          value="{{system.cost}}"
-          {{#unless editable}}disabled{{/unless}}
-        />
-      </div>
       {{#if showRuneType}}
         <div class="flexcol">
           <label>{{localize 'MY_RPG.AbilityConfig.RuneType'}}</label>

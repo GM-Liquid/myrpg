@@ -11,16 +11,6 @@
     </h1>
     <div class="item-meta flexrow">
       <div class="flexcol">
-        <label>{{localize 'MY_RPG.Inventory.Quantity'}}</label>
-        <input
-          type="number"
-          name="system.quantity"
-          value="{{system.quantity}}"
-          min="0"
-          {{#unless editable}}disabled{{/unless}}
-        />
-      </div>
-      <div class="flexcol">
         <label>{{localize 'MY_RPG.AbilityConfig.Rank'}}</label>
         <select name="system.rank" {{#unless editable}}disabled{{/unless}}>
           {{#each rankOptions}}
