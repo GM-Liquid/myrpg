@@ -67,14 +67,7 @@ export class MyRPGItemSheet extends ItemSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['myrpg', 'sheet', 'item'],
       width: 620,
-      height: 600,
-      tabs: [
-        {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'details'
-        }
-      ]
+      height: 600
     });
   }
 
@@ -98,9 +91,9 @@ export class MyRPGItemSheet extends ItemSheet {
   }
 }
 
-export class MyRPGAbilitySheet extends MyRPGItemSheet {
+export class MyRPGCartridgeSheet extends MyRPGItemSheet {
   get template() {
-    return 'systems/myrpg/templates/item/ability-sheet.hbs';
+    return 'systems/myrpg/templates/item/cartridge-sheet.hbs';
   }
 
   async getData(options) {
@@ -114,9 +107,9 @@ export class MyRPGAbilitySheet extends MyRPGItemSheet {
   }
 }
 
-export class MyRPGModSheet extends MyRPGItemSheet {
+export class MyRPGImplantSheet extends MyRPGItemSheet {
   get template() {
-    return 'systems/myrpg/templates/item/mod-sheet.hbs';
+    return 'systems/myrpg/templates/item/implant-sheet.hbs';
   }
 
   async getData(options) {

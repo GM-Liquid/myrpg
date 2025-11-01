@@ -9,27 +9,27 @@ import { getColorRank } from '../helpers/utils.mjs';
 
 const ITEM_GROUP_CONFIG = [
   {
-    key: 'abilities',
-    type: 'ability',
+    key: 'cartridges',
+    type: 'cartridge',
     tab: 'abilities',
     icon: 'fas fa-magic',
-    labelKey: 'MY_RPG.ItemGroups.Abilities',
-    emptyKey: 'MY_RPG.ItemGroups.EmptyAbilities',
-    createKey: 'MY_RPG.ItemGroups.CreateAbility',
-    newNameKey: 'MY_RPG.ItemGroups.NewAbility',
+    labelKey: 'MY_RPG.ItemGroups.Cartridges',
+    emptyKey: 'MY_RPG.ItemGroups.EmptyCartridges',
+    createKey: 'MY_RPG.ItemGroups.CreateCartridge',
+    newNameKey: 'MY_RPG.ItemGroups.NewCartridge',
     showQuantity: false,
     allowEquip: false,
     exclusive: false
   },
   {
-    key: 'mods',
-    type: 'mod',
+    key: 'implants',
+    type: 'implant',
     tab: 'abilities',
     icon: 'fas fa-cogs',
-    labelKey: 'MY_RPG.ItemGroups.Mods',
-    emptyKey: 'MY_RPG.ItemGroups.EmptyMods',
-    createKey: 'MY_RPG.ItemGroups.CreateMod',
-    newNameKey: 'MY_RPG.ItemGroups.NewMod',
+    labelKey: 'MY_RPG.ItemGroups.Implants',
+    emptyKey: 'MY_RPG.ItemGroups.EmptyImplants',
+    createKey: 'MY_RPG.ItemGroups.CreateImplant',
+    newNameKey: 'MY_RPG.ItemGroups.NewImplant',
     showQuantity: false,
     allowEquip: false,
     exclusive: false
@@ -243,14 +243,14 @@ export class myrpgActorSheet extends ActorSheet {
     context.rollData = context.actor.getRollData();
 
     const itemGroups = this._buildItemGroups();
-    const abilityGroup = itemGroups.find((group) => group.key === 'abilities');
-    if (abilityGroup) {
-      abilityGroup.capacity = worldType === 'unity'
-        ? { value: abilityGroup.count, max: context.runeMax ?? 0 }
+    const cartridgeGroup = itemGroups.find((group) => group.key === 'cartridges');
+    if (cartridgeGroup) {
+      cartridgeGroup.capacity = worldType === 'unity'
+        ? { value: cartridgeGroup.count, max: context.runeMax ?? 0 }
         : null;
-      context.abilityCount = abilityGroup.count;
+      context.cartridgeCount = cartridgeGroup.count;
     } else {
-      context.abilityCount = 0;
+      context.cartridgeCount = 0;
     }
 
     context.itemGroups = itemGroups.reduce((acc, group) => {
@@ -529,7 +529,7 @@ export class myrpgActorSheet extends ActorSheet {
     const badges = [];
     const t = game.i18n;
     switch (config.key) {
-      case 'abilities': {
+      case 'cartridges': {
         const rank = Number(system.rank) || 0;
         if (rank) {
           badges.push(`${t.localize('MY_RPG.AbilitiesTable.Rank')}: ${getRankLabel(rank)}`);
@@ -549,7 +549,7 @@ export class myrpgActorSheet extends ActorSheet {
         }
         break;
       }
-      case 'mods': {
+      case 'implants': {
         const rank = Number(system.rank) || 0;
         if (rank) {
           badges.push(`${t.localize('MY_RPG.ModsTable.Rank')}: ${getRankLabel(rank)}`);
@@ -598,9 +598,9 @@ export class myrpgActorSheet extends ActorSheet {
   _getItemSummary(item, config) {
     const system = item.system ?? {};
     switch (config.key) {
-      case 'abilities':
+      case 'cartridges':
         return system.effect || system.description || '';
-      case 'mods':
+      case 'implants':
         return system.effect || '';
       case 'weapons':
         return system.description || '';

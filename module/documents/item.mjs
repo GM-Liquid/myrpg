@@ -9,7 +9,7 @@ const BASE_DEFAULTS = {
 };
 
 const TYPE_DEFAULTS = {
-  ability: {
+  cartridge: {
     rank: '',
     effect: '',
     cost: '',
@@ -17,7 +17,7 @@ const TYPE_DEFAULTS = {
     upgrade1: 'None',
     upgrade2: 'None'
   },
-  mod: {
+  implant: {
     rank: '',
     effect: '',
     cost: '',
@@ -67,12 +67,20 @@ export class MyRPGItem extends Item {
     });
   }
 
+  get isCartridge() {
+    return this.type === 'cartridge';
+  }
+
+  get isImplant() {
+    return this.type === 'implant';
+  }
+
   get isAbility() {
-    return this.type === 'ability';
+    return this.isCartridge;
   }
 
   get isMod() {
-    return this.type === 'mod';
+    return this.isImplant;
   }
 
   get isArmor() {
@@ -103,8 +111,8 @@ export class MyRPGItem extends Item {
     return Boolean(this.system.equipped);
   }
 
-  get abilityData() {
-    if (!this.isAbility) return undefined;
+  get cartridgeData() {
+    if (!this.isCartridge) return undefined;
     const { rank = '', effect = '', cost = '', runeType = 'Spell', upgrade1 = 'None', upgrade2 = 'None' } = this.system;
     return {
       rank: String(rank ?? ''),
@@ -116,8 +124,8 @@ export class MyRPGItem extends Item {
     };
   }
 
-  get modData() {
-    if (!this.isMod) return undefined;
+  get implantData() {
+    if (!this.isImplant) return undefined;
     const { rank = '', effect = '', cost = '', upgrade1 = 'None', upgrade2 = 'None' } = this.system;
     return {
       rank: String(rank ?? ''),
@@ -126,6 +134,14 @@ export class MyRPGItem extends Item {
       upgrade1: String(upgrade1 ?? 'None'),
       upgrade2: String(upgrade2 ?? 'None')
     };
+  }
+
+  get abilityData() {
+    return this.cartridgeData;
+  }
+
+  get modData() {
+    return this.implantData;
   }
 
   get armorBonuses() {
