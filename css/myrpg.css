@@ -161,29 +161,89 @@ textarea[disabled] {
 }
 
 /* Item sheets ---------------------------------------------------- */
+.myrpg.item-sheet {
+  --item-sheet-border: #d4cbc0;
+  --item-sheet-shadow: rgba(27, 18, 16, 0.12);
+  --item-sheet-label: #3d312d;
+  --item-sheet-heading: #1b1210;
+  --item-sheet-background: #fdf8f2;
+}
+
 .myrpg.item-sheet .sheet-header {
+  display: grid;
+  grid-template-columns: minmax(100px, 132px) 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--item-sheet-border);
+}
+
+.myrpg.item-sheet .item-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--item-sheet-border);
+  box-shadow: 0 4px 12px var(--item-sheet-shadow);
+  background-color: #ffffff;
+}
+
+.myrpg.item-sheet .item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.myrpg.item-sheet .item-image img:hover {
+  transform: scale(1.02);
+  filter: brightness(0.95);
+}
+
+.myrpg.item-sheet .item-details {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+}
+
+.myrpg.item-sheet .sheet-title {
+  margin: 0;
 }
 
 .myrpg.item-sheet .sheet-title input {
   width: 100%;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 600;
+  padding: 0.45rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  box-shadow: inset 0 0 0 1px var(--item-sheet-border);
+  background-color: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
-.myrpg.item-sheet .item-meta {
+.myrpg.item-sheet .item-meta-grid {
+  display: grid;
   gap: 1rem;
-  align-items: flex-end;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
-.myrpg.item-sheet .item-meta .flexcol {
-  flex: 1;
+.myrpg.item-sheet .item-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
-.myrpg.item-sheet .form-group {
-  margin-bottom: 0.75rem;
+.myrpg.item-sheet .item-field label {
+  font-weight: 600;
+  color: var(--item-sheet-label);
 }
 
 .myrpg.item-sheet textarea,
@@ -192,15 +252,60 @@ textarea[disabled] {
 .myrpg.item-sheet select {
   width: 100%;
   box-sizing: border-box;
+  padding: 0.45rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid var(--item-sheet-border);
+  background-color: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.myrpg.item-sheet textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.myrpg.item-sheet input:focus,
+.myrpg.item-sheet select:focus,
+.myrpg.item-sheet textarea:focus {
+  outline: none;
+  border-color: #0896e9;
+  box-shadow: 0 0 0 2px rgba(8, 150, 233, 0.2);
+}
+
+.myrpg.item-sheet .sheet-title input:focus {
+  box-shadow: 0 0 0 2px rgba(8, 150, 233, 0.25);
 }
 
 .myrpg.item-sheet .sheet-body {
-  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 0.5rem;
+}
+
+.myrpg.item-sheet .item-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--item-sheet-border);
+  background: var(--item-sheet-background);
+  box-shadow: 0 2px 6px var(--item-sheet-shadow);
+}
+
+.myrpg.item-sheet .item-fields-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
 .myrpg.item-sheet .editor {
-  border: 1px solid #d4cbc0;
-  border-radius: 6px;
+  border: 1px solid var(--item-sheet-border);
+  border-radius: 10px;
   padding: 0.75rem;
   background-color: #ffffff;
   min-height: 120px;
@@ -208,12 +313,28 @@ textarea[disabled] {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  align-items: flex-start;
+  align-items: stretch;
+  width: 100%;
 }
 
 .myrpg.item-sheet .editor-content {
   min-height: 96px;
   width: 100%;
+}
+
+@media (max-width: 640px) {
+  .myrpg.item-sheet .sheet-header {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .myrpg.item-sheet .item-image {
+    margin: 0 auto;
+  }
+
+  .myrpg.item-sheet .item-details {
+    align-items: stretch;
+  }
 }
 
 .center-attributes {
