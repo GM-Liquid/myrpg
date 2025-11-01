@@ -1,16 +1,6 @@
 import { MY_RPG } from './helpers/config.mjs';
 
 export const MODULE_ID = 'myrpg';
-export const UPGRADE_KEYS = [
-  'None',
-  'Damage',
-  'Area',
-  'Cost',
-  'Range',
-  'Duration',
-  'Activations',
-  'Link'
-];
 export const RUNE_TYPE_KEYS = ['Spell', 'Creature', 'Item', 'Portal', 'Domain', 'Saga'];
 
 export function registerSystemSettings() {

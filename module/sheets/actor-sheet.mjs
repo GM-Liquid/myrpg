@@ -398,7 +398,7 @@ export class myrpgActorSheet extends ActorSheet {
       if (abKey) {
         abVal = parseInt(this.actor.system.abilities[abKey]?.value) || 0;
       }
-      bonus += this._getEquippedWeaponBonus(skill);
+      bonus += this._getTotalSkillBonus(skill);
 
       // Minimum skill bonus from ability removed
     } else if (ability) {
@@ -538,12 +538,8 @@ export class myrpgActorSheet extends ActorSheet {
           const runeKey = `MY_RPG.RuneTypes.${system.runeType}`;
           badges.push(`${t.localize('MY_RPG.RunesTable.RuneType')}: ${t.localize(runeKey)}`);
         }
-        if (system.upgrade1 && system.upgrade1 !== 'None') {
-          badges.push(`${t.localize('MY_RPG.AbilitiesTable.Upgrade1')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade1)}`);
-        }
-        if (system.upgrade2 && system.upgrade2 !== 'None') {
-          badges.push(`${t.localize('MY_RPG.AbilitiesTable.Upgrade2')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade2)}`);
-        }
+        badges.push(`${t.localize('MY_RPG.AbilitiesTable.Skill')}: ${this._skillLabel(system.skill)}`);
+        badges.push(`${t.localize('MY_RPG.AbilitiesTable.Bonus')}: ${this._formatSkillBonus(system.skillBonus)}`);
         break;
       }
       case 'implants': {
@@ -551,17 +547,13 @@ export class myrpgActorSheet extends ActorSheet {
         if (rank) {
           badges.push(`${t.localize('MY_RPG.ModsTable.Rank')}: ${getRankLabel(rank)}`);
         }
-        if (system.upgrade1 && system.upgrade1 !== 'None') {
-          badges.push(`${t.localize('MY_RPG.ModsTable.Upgrade1')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade1)}`);
-        }
-        if (system.upgrade2 && system.upgrade2 !== 'None') {
-          badges.push(`${t.localize('MY_RPG.ModsTable.Upgrade2')}: ${t.localize('MY_RPG.AbilityUpgrades.' + system.upgrade2)}`);
-        }
+        badges.push(`${t.localize('MY_RPG.ModsTable.Skill')}: ${this._skillLabel(system.skill)}`);
+        badges.push(`${t.localize('MY_RPG.ModsTable.Bonus')}: ${this._formatSkillBonus(system.skillBonus)}`);
         break;
       }
       case 'weapons': {
-        badges.push(`${t.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._weaponSkillLabel(system.skill)}`);
-        badges.push(`${t.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatWeaponBonus(system.skillBonus)}`);
+        badges.push(`${t.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._skillLabel(system.skill)}`);
+        badges.push(`${t.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatSkillBonus(system.skillBonus)}`);
         break;
       }
       case 'armor': {
@@ -807,26 +799,25 @@ export class myrpgActorSheet extends ActorSheet {
     }
   }
 
-  _normalizeWeaponBonus(value) {
+  _normalizeSkillBonus(value) {
     const num = Number(value);
     return Number.isFinite(num) ? num : 0;
   }
 
-  _formatWeaponBonus(value) {
-    const bonus = this._normalizeWeaponBonus(value);
+  _formatSkillBonus(value) {
+    const bonus = this._normalizeSkillBonus(value);
     if (bonus > 0) return `+${bonus}`;
     return `${bonus}`;
   }
 
-  _getEquippedWeaponBonus(skillKey) {
+  _getTotalSkillBonus(skillKey) {
     if (!skillKey) return 0;
-    const bonuses =
-      this.actor.system?.cache?.itemTotals?.weapons?.skillBonuses ?? {};
+    const bonuses = this.actor.system?.cache?.itemTotals?.skillBonuses ?? {};
     const total = bonuses?.[skillKey];
-    return this._normalizeWeaponBonus(total);
+    return this._normalizeSkillBonus(total);
   }
 
-  _weaponSkillLabel(skillKey) {
+  _skillLabel(skillKey) {
     if (!skillKey) return game.i18n.localize('MY_RPG.WeaponsTable.SkillNone');
     const configKey = CONFIG.MY_RPG.skills?.[skillKey];
     return configKey ? game.i18n.localize(configKey) : skillKey;
@@ -836,10 +827,10 @@ export class myrpgActorSheet extends ActorSheet {
     const source = item ?? {};
     const system = source.system ?? source;
     const lines = [
-      `${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._weaponSkillLabel(
+      `${game.i18n.localize('MY_RPG.WeaponsTable.SkillLabel')}: ${this._skillLabel(
         system.skill
       )}`,
-      `${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatWeaponBonus(
+      `${game.i18n.localize('MY_RPG.WeaponsTable.BonusLabel')}: ${this._formatSkillBonus(
         system.skillBonus
       )}`
     ];

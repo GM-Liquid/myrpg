@@ -10,13 +10,13 @@ const TYPE_DEFAULTS = {
   cartridge: {
     rank: '',
     runeType: 'Spell',
-    upgrade1: 'None',
-    upgrade2: 'None'
+    skill: '',
+    skillBonus: 0
   },
   implant: {
     rank: '',
-    upgrade1: 'None',
-    upgrade2: 'None'
+    skill: '',
+    skillBonus: 0
   },
   armor: {
     quantity: 1,
@@ -108,22 +108,22 @@ export class MyRPGItem extends Item {
 
   get cartridgeData() {
     if (!this.isCartridge) return undefined;
-    const { rank = '', runeType = 'Spell', upgrade1 = 'None', upgrade2 = 'None' } = this.system;
+    const { rank = '', runeType = 'Spell', skill = '', skillBonus = 0 } = this.system;
     return {
       rank: String(rank ?? ''),
       runeType: String(runeType ?? 'Spell'),
-      upgrade1: String(upgrade1 ?? 'None'),
-      upgrade2: String(upgrade2 ?? 'None')
+      skill: String(skill ?? ''),
+      skillBonus: Number(skillBonus ?? 0) || 0
     };
   }
 
   get implantData() {
     if (!this.isImplant) return undefined;
-    const { rank = '', upgrade1 = 'None', upgrade2 = 'None' } = this.system;
+    const { rank = '', skill = '', skillBonus = 0 } = this.system;
     return {
       rank: String(rank ?? ''),
-      upgrade1: String(upgrade1 ?? 'None'),
-      upgrade2: String(upgrade2 ?? 'None')
+      skill: String(skill ?? ''),
+      skillBonus: Number(skillBonus ?? 0) || 0
     };
   }
 

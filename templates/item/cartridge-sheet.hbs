@@ -45,20 +45,21 @@
     <div class="item-section">
       <div class="item-fields-grid">
         <div class="item-field">
-          <label>{{localize 'MY_RPG.AbilityConfig.Upgrade1'}}</label>
-          <select name="system.upgrade1" {{#unless editable}}disabled{{/unless}}>
-            {{#each upgradeOptions}}
+          <label>{{localize 'MY_RPG.AbilityConfig.Skill'}}</label>
+          <select name="system.skill" {{#unless editable}}disabled{{/unless}}>
+            {{#each skillOptions}}
               <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
             {{/each}}
           </select>
         </div>
         <div class="item-field">
-          <label>{{localize 'MY_RPG.AbilityConfig.Upgrade2'}}</label>
-          <select name="system.upgrade2" {{#unless editable}}disabled{{/unless}}>
-            {{#each upgradeOptionsSecondary}}
-              <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
-            {{/each}}
-          </select>
+          <label>{{localize 'MY_RPG.AbilityConfig.SkillBonus'}}</label>
+          <input
+            type="number"
+            name="system.skillBonus"
+            value="{{system.skillBonus}}"
+            {{#unless editable}}disabled{{/unless}}
+          />
         </div>
       </div>
     </div>
