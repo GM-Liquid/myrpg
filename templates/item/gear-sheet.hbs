@@ -21,26 +21,17 @@
         />
       </div>
       <div class="flexcol">
-        <label>{{localize 'MY_RPG.ItemSheet.Fields.Source'}}</label>
-        <input
-          type="text"
-          name="system.source"
-          value="{{system.source}}"
-          {{#unless editable}}disabled{{/unless}}
-        />
+        <label>{{localize 'MY_RPG.AbilityConfig.Rank'}}</label>
+        <select name="system.rank" {{#unless editable}}disabled{{/unless}}>
+          {{#each rankOptions}}
+            <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+          {{/each}}
+        </select>
       </div>
     </div>
   </header>
 
   <section class="sheet-body">
-    <div class="form-group">
-      <label>{{localize 'MY_RPG.ItemSheet.Fields.Notes'}}</label>
-      <textarea
-        name="system.notes"
-        rows="4"
-        {{#unless editable}}disabled{{/unless}}
-      >{{system.notes}}</textarea>
-    </div>
     <div class="form-group">
       <label>{{localize 'MY_RPG.Inventory.Description'}}</label>
       {{editor system.description target="system.description" button=true owner=owner editable=editable}}

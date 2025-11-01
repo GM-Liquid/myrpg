@@ -2,10 +2,8 @@ import { debugLog } from '../config.mjs';
 
 const BASE_DEFAULTS = {
   description: '',
-  source: '',
-  quantity: 1,
-  equipped: false,
-  notes: ''
+  rank: '',
+  equipped: false
 };
 
 const TYPE_DEFAULTS = {
@@ -25,6 +23,8 @@ const TYPE_DEFAULTS = {
     upgrade2: 'None'
   },
   armor: {
+    quantity: 1,
+    rank: '',
     itemPhys: 0,
     itemAzure: 0,
     itemMental: 0,
@@ -32,11 +32,14 @@ const TYPE_DEFAULTS = {
     itemSpeed: 0
   },
   weapon: {
+    quantity: 1,
+    rank: '',
     skill: '',
     skillBonus: 0
   },
   gear: {
-    notes: ''
+    quantity: 1,
+    rank: ''
   }
 };
 
@@ -99,10 +102,6 @@ export class MyRPGItem extends Item {
     return String(this.system.description ?? '');
   }
 
-  get source() {
-    return String(this.system.source ?? '');
-  }
-
   get quantity() {
     return Number(this.system.quantity ?? 1);
   }
@@ -163,11 +162,6 @@ export class MyRPGItem extends Item {
       skill: String(skill ?? ''),
       skillBonus: Number(skillBonus ?? 0) || 0
     };
-  }
-
-  get gearNotes() {
-    if (!this.isGear) return undefined;
-    return String(this.system.notes ?? '');
   }
 
   logDebugState(context = 'MyRPGItem state') {
