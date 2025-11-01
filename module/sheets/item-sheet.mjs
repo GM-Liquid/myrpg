@@ -71,6 +71,48 @@ export class MyRPGItemSheet extends ItemSheet {
     });
   }
 
+  activateListeners(html) {
+    super.activateListeners(html);
+
+    const root = html?.[0];
+    if (!root) return;
+
+    const descriptionAreas = root.querySelectorAll('[data-description-editor]');
+
+    for (const area of descriptionAreas) {
+      if (!(area instanceof HTMLTextAreaElement) || area.dataset.hasShortcutHandler) continue;
+
+      area.dataset.hasShortcutHandler = 'true';
+
+      area.addEventListener('keydown', (event) => {
+        if (event.altKey || (!event.ctrlKey && !event.metaKey)) return;
+
+        const key = event.key?.toLowerCase();
+        const tagName = key === 'b' ? 'strong' : key === 'i' ? 'em' : key === 'u' ? 'u' : null;
+        if (!tagName) return;
+
+        const { selectionStart, selectionEnd, value } = area;
+        if (selectionStart == null || selectionEnd == null || selectionStart === selectionEnd) return;
+
+        event.preventDefault();
+
+        const openingTag = `<${tagName}>`;
+        const closingTag = `</${tagName}>`;
+        const before = value.slice(0, selectionStart);
+        const selected = value.slice(selectionStart, selectionEnd);
+        const after = value.slice(selectionEnd);
+
+        area.value = `${before}${openingTag}${selected}${closingTag}${after}`;
+
+        const newSelectionStart = selectionStart + openingTag.length;
+        const newSelectionEnd = newSelectionStart + selected.length;
+        setTimeout(() => area.setSelectionRange(newSelectionStart, newSelectionEnd), 0);
+
+        area.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    }
+  }
+
   async getData(options) {
     const sheetData = await super.getData(options);
     const itemData = sheetData.item ?? sheetData.document ?? this.item;
