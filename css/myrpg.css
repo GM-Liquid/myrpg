@@ -252,7 +252,6 @@ textarea[disabled] {
 .myrpg.item-sheet select {
   width: 100%;
   box-sizing: border-box;
-  padding: 0.45rem 0.6rem;
   border-radius: 10px;
   border: 1px solid var(--item-sheet-border);
   background-color: #ffffff;
